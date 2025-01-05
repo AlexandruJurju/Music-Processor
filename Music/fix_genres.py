@@ -1,7 +1,6 @@
 import json
 import mutagen
-from mutagen.easyid3 import EasyID3
-from mutagen.mp3 import MP3
+from mutagen.id3 import ID3, TCON, TXXX
 from pathlib import Path
 import sys
 import os
@@ -67,6 +66,7 @@ def load_playlist_metadata(playlist_file):
 def fix_genres(song_path, song_metadata):
     """
     Fix genre metadata for a single song using the provided metadata.
+    Sets 'Rock' as the main genre and additional genres as styles.
     """
     # Get genres from metadata
     genres = song_metadata.get('genres', [])
@@ -74,24 +74,46 @@ def fix_genres(song_path, song_metadata):
         print(f"No genres found for: {song_path.name}")
         return
 
-    # Load the MP3 file
     try:
-        audio = MP3(song_path, ID3=EasyID3)
-    except Exception as e:
-        print(f"Error loading MP3 file {song_path}: {e}")
-        return
+        # Load or create ID3 tags
+        try:
+            tags = ID3(song_path)
+        except mutagen.id3.ID3NoHeaderError:
+            tags = ID3()
 
-    # Set all genres with capitalization
-    genre_string = '; '.join(genres)
-    audio['genre'] = genre_string
+        # Remove existing genre and style tags
+        tags.delall('TCON')
+        tags.delall('TXXX:Styles')
+        
+        # Filter out 'Rock' from styles
+        filtered_genres = [genre for genre in genres if genre.lower() != 'rock']
+        
+        if filtered_genres:
+            # Set main genre to Rock
+            tags.add(TCON(encoding=3, text=['Rock']))
+            
+            # Try storing each style as a separate text value
+            # Join with semicolons for display purposes only
+            display_styles = '; '.join(filtered_genres)
+            
+            # Add styles as separate text values
+            frame = TXXX(encoding=3, desc='Styles', text=filtered_genres)
+            tags.add(frame)
+            
+            print(f"Successfully updated genres for: {song_path.name}")
+            print(f"Main Genre: Rock")
+            print(f"Styles: {display_styles}")
+        else:
+            tags.add(TCON(encoding=3, text=['Rock']))
+            print(f"Only Rock genre found for: {song_path.name}")
+            print(f"Main Genre: Rock")
+            print(f"Styles: None")
 
-    # Save changes
-    try:
-        audio.save()
-        print(f"Successfully updated genres for: {song_path.name}")
-        print(f"New genres: {genre_string}")
+        # Save changes
+        tags.save(song_path)
+
     except Exception as e:
-        print(f"Error saving changes to {song_path}: {e}")
+        print(f"Error processing {song_path}: {e}")
 
 def process_folder(folder_path):
     """

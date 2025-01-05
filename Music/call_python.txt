@@ -1,0 +1,3 @@
+.\spotdl-env\Scripts\Activate.ps1
+
+py fix_genres.py "X:\Repos\Music\Music\Rock"
