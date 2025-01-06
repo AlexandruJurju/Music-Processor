@@ -65,8 +65,7 @@ def load_playlist_metadata(playlist_file):
 
 def fix_genres(song_path, song_metadata):
     """
-    Fix genre metadata for a single song using the provided metadata.
-    Sets 'Rock' as the main genre and additional genres as styles.
+    Remove genre metadata while preserving styles for a single song using the provided metadata.
     """
     # Get genres from metadata
     genres = song_metadata.get('genres', [])
@@ -81,32 +80,24 @@ def fix_genres(song_path, song_metadata):
         except mutagen.id3.ID3NoHeaderError:
             tags = ID3()
 
-        # Remove existing genre and style tags
+        # Remove existing genre tags but keep styles
         tags.delall('TCON')
-        tags.delall('TXXX:Styles')
         
-        # Filter out 'Rock' from styles
-        filtered_genres = [genre for genre in genres if genre.lower() != 'rock']
-        
-        if filtered_genres:
-            # Set main genre to Rock
-            tags.add(TCON(encoding=3, text=['Rock']))
-            
-            # Try storing each style as a separate text value
+        # Store all genres as styles
+        if genres:
             # Join with semicolons for display purposes only
-            display_styles = '; '.join(filtered_genres)
+            display_styles = '; '.join(genres)
             
             # Add styles as separate text values
-            frame = TXXX(encoding=3, desc='Styles', text=filtered_genres)
+            frame = TXXX(encoding=3, desc='Styles', text=genres)
             tags.add(frame)
             
-            print(f"Successfully updated genres for: {song_path.name}")
-            print(f"Main Genre: Rock")
+            print(f"Successfully updated metadata for: {song_path.name}")
+            print(f"Main Genre: None")
             print(f"Styles: {display_styles}")
         else:
-            tags.add(TCON(encoding=3, text=['Rock']))
-            print(f"Only Rock genre found for: {song_path.name}")
-            print(f"Main Genre: Rock")
+            print(f"No styles to set for: {song_path.name}")
+            print(f"Main Genre: None")
             print(f"Styles: None")
 
         # Save changes
@@ -114,7 +105,7 @@ def fix_genres(song_path, song_metadata):
 
     except Exception as e:
         print(f"Error processing {song_path}: {e}")
-
+        
 def process_folder(folder_path):
     """
     Process all MP3 files in the given folder using the playlist metadata.
