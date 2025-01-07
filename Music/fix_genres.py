@@ -34,10 +34,17 @@ def load_playlist_metadata(playlist_file):
             
         # Create a lookup dictionary mapping "artist - name" to metadata
         metadata_lookup = {}
+        album_urls = set()  # New set to store unique album URLs
+        
         for song in playlist_data['songs']:
             # Create keys in different formats to increase matching chances
             artist = song['artist']
             name = song['name']
+            
+            # Store album URL if it exists
+            if 'album_id' in song:
+                album_url = f"https://open.spotify.com/album/{song['album_id']}"
+                album_urls.add((song['album_name'], album_url))
             
             # Capitalize all genres
             if 'genres' in song:
@@ -51,17 +58,17 @@ def load_playlist_metadata(playlist_file):
             clean_key_no_remaster = clean_name(f"{artist} - {name}".lower().replace('remastered', '').replace('album version', ''))
             metadata_lookup[clean_key_no_remaster] = song
             
-        return metadata_lookup
+        return metadata_lookup, album_urls
             
     except FileNotFoundError:
         print(f"Error: Could not find playlist file: {playlist_file}")
-        return None
+        return None, set()
     except json.JSONDecodeError:
         print(f"Error: Invalid JSON in playlist file: {playlist_file}")
-        return None
+        return None, set()
     except KeyError as e:
         print(f"Error: Unexpected playlist file format - missing key: {e}")
-        return None
+        return None, set()
 
 def fix_genres(song_path, song_metadata):
     """
@@ -124,8 +131,8 @@ def process_folder(folder_path):
     print(f"\nProcessing folder: {folder_path}")
     print(f"Using playlist file: {spotdl_file.name}\n")
 
-    # Load the playlist metadata
-    metadata_lookup = load_playlist_metadata(spotdl_file)
+    # Load the playlist metadata and album URLs
+    metadata_lookup, album_urls = load_playlist_metadata(spotdl_file)
     if not metadata_lookup:
         return
 
@@ -168,6 +175,17 @@ def process_folder(folder_path):
         print("\nAvailable metadata keys:")
         for key in sorted(metadata_lookup.keys())[:10]:  # Show first 10 keys
             print(f"Have metadata for: '{key}'")
+    
+    # Write album URLs to a file
+    if album_urls:
+        output_file = folder_path / 'album_urls.txt'
+        with open(output_file, 'w', encoding='utf-8') as f:
+            print("\nAlbum URLs:")
+            for album_name, url in sorted(album_urls):
+                line = f"{album_name}: {url}"
+                print(line)
+                f.write(line + '\n')
+        print(f"\nAlbum URLs have been saved to: {output_file}")
 
 def clean_name(name):
     """
