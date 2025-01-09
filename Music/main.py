@@ -4,7 +4,19 @@ import sys
 from pathlib import Path
 
 import mutagen
-from mutagen.id3 import ID3, TXXX
+from mutagen.id3 import ID3, TXXX, TCON
+
+# Map genres to their associated styles
+GENRE_STYLES = {
+    'Rock': ['rock', 'hard rock', 'metal rock'],
+    'Synthwave': ['synthwave', 'darksynth', 'retrowave'],
+    'Pop': ['pop', 'dance pop', 'electropop']
+}
+
+# Track various issues
+unmapped_styles = set()
+songs_without_styles = set()
+songs_without_metadata = set()
 
 
 def get_base_dir():
@@ -62,10 +74,44 @@ def load_playlist_metadata(playlist_file):
         return None, set()
 
 
+def extract_genres_and_remaining_styles(styles):
+    """
+    For each style, check if it belongs to a genre group. Keep all original styles except those
+    that exactly match their genre name, and collect the mapped genres.
+    Returns (genres, filtered_styles)
+    """
+    genres = set()
+    remaining_styles = []
+
+    # Create a lookup from style to genre
+    style_to_genre = {style.lower(): genre
+                      for genre, style_list in GENRE_STYLES.items()
+                      for style in style_list}
+
+    # Check each style to see if it maps to a genre
+    for style in styles:
+        style_lower = style.lower()
+        mapped_genre = style_to_genre.get(style_lower)
+        if mapped_genre:
+            genres.add(mapped_genre)
+            # Only keep the style if it's not exactly the same as its genre
+            if style_lower != mapped_genre.lower():
+                remaining_styles.append(style)
+        else:
+            unmapped_styles.add(style)
+            remaining_styles.append(style)
+
+    return list(genres), remaining_styles
+
+
 def fix_genres(song_path, song_metadata):
-    genres = song_metadata.get('genres', [])
-    if not genres:
-        print(f"No genres found for: {song_path.name}")
+    styles = song_metadata.get('genres', [])
+    print(f"\nProcessing: {song_path.name}")
+    print(f"Original styles: {', '.join(styles)}")
+
+    if not styles:
+        print("No styles found")
+        songs_without_styles.add(song_path.name)
         return
 
     try:
@@ -74,16 +120,25 @@ def fix_genres(song_path, song_metadata):
         except mutagen.id3.ID3NoHeaderError:
             tags = ID3()
 
+        # Clear existing genre tags
         tags.delall('TCON')
 
-        if genres:
-            display_styles = '; '.join(genres)
-            frame = TXXX(encoding=3, desc='Styles', text=genres)
+        # Get genres and remaining styles
+        genres, remaining_styles = extract_genres_and_remaining_styles(styles)
+
+        # Set remaining styles
+        if remaining_styles:
+            frame = TXXX(encoding=3, desc='Styles', text=remaining_styles)
             tags.add(frame)
-            print(f"Updated metadata for: {song_path.name}")
-            print(f"Styles: {display_styles}")
+
+        # Set genres
+        if genres:
+            tags.add(TCON(encoding=3, text=genres))
+            print(f"Mapped Genres: {', '.join(genres)}")
+            print(f"Remaining Styles: {', '.join(remaining_styles)}")
         else:
-            print(f"No styles to set for: {song_path.name}")
+            print("No genres mapped")
+            print(f"Styles unchanged: {', '.join(styles)}")
 
         tags.save(song_path)
 
@@ -114,7 +169,32 @@ def process_folder(folder_path):
         if metadata:
             fix_genres(mp3_path, metadata)
         else:
-            print(f"No metadata found for: {mp3_path.name}")
+            print(f"\nNo metadata found for: {mp3_path.name}")
+            songs_without_metadata.add(mp3_path.name)
+
+    # Print summary of all issues
+    print("\n=== Processing Summary ===")
+
+    if unmapped_styles:
+        print("\nStyles without genre mappings:")
+        for style in sorted(unmapped_styles):
+            print(f"- {style}")
+        print("\nTo map these styles, add them to the STYLE_TO_GENRE dictionary at the top of the script.")
+    else:
+        print("\nAll styles were successfully mapped to genres!")
+
+    if songs_without_styles:
+        print("\nSongs without any styles:")
+        for song in sorted(songs_without_styles):
+            print(f"- {song}")
+
+    if songs_without_metadata:
+        print("\nSongs without metadata in the JSON:")
+        for song in sorted(songs_without_metadata):
+            print(f"- {song}")
+
+    if not (unmapped_styles or songs_without_styles or songs_without_metadata):
+        print("\nNo issues found! All songs were processed successfully.")
 
 
 def handle_new_sync(base_dir):
