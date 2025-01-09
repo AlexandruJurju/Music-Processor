@@ -1,10 +1,10 @@
-﻿import os
+﻿import json
+import subprocess
 import sys
 from pathlib import Path
-import subprocess
-import json
+
 import mutagen
-from mutagen.id3 import ID3, TCON, TXXX
+from mutagen.id3 import ID3, TXXX
 
 
 def get_base_dir():
@@ -97,15 +97,13 @@ def process_folder(folder_path):
         print(f"Error: No .spotdl file found in: {folder_path}")
         return
 
-    metadata_lookup, album_urls = load_playlist_metadata(spotdl_file)
+    metadata_lookup, _ = load_playlist_metadata(spotdl_file)
     if not metadata_lookup:
         return
 
-    mp3_files = list(folder_path.glob('*.mp3'))
-    if not mp3_files:
-        print("No MP3 files found in the folder.")
-        return
+    print(f"\nProcessing files in: {folder_path}")
 
+    mp3_files = list(Path(folder_path).rglob('*.mp3'))
     for mp3_path in mp3_files:
         filename = mp3_path.stem
         clean_filename = clean_name(filename)
@@ -116,7 +114,7 @@ def process_folder(folder_path):
         if metadata:
             fix_genres(mp3_path, metadata)
         else:
-            print(f"Skipped {mp3_path.name}: No matching metadata found")
+            print(f"No metadata found for: {mp3_path.name}")
 
 
 def handle_new_sync(base_dir):
