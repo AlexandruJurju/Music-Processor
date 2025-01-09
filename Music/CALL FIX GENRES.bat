@@ -6,7 +6,7 @@ setlocal enabledelayedexpansion
 echo Available folders to fix:
 echo -----------------------
 set i=1
-for /d %%D in ("X:\Repos\Music\Music\*") do (
+for /d %%D in (".\*") do (
     echo !i!. %%~nxD
     set "folder[!i!]=%%~nxD"
     set "path[!i!]=%%~fD"
