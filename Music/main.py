@@ -18,29 +18,48 @@ from mutagen.id3 import ID3, TXXX, TCON
 SongMetadata = namedtuple('SongMetadata', ['artist', 'name', 'album_name', 'album_id', 'genres'])
 ProcessingState = namedtuple('ProcessingState', ['unmapped_styles', 'songs_without_styles', 'songs_without_metadata'])
 
+# Default mappings
+DEFAULT_GENRES = {
+    'Rock': ['rock', 'alternative rock'],
+    'Synthwave': ['synthwave', 'darksynth'],
+    'Pop': ['pop', 'dance pop']
+}
+
+# Default styles to remove unconditionally (regardless of genre)
+DEFAULT_REMOVE_STYLES_ONLY = [
+    'britpop',
+    'madchester'
+]
+
 
 def get_base_dir() -> Path:
     """Get the base directory for the application"""
     return Path(sys.executable).parent if getattr(sys, 'frozen', False) else Path.cwd()
 
 
+def clean_name(name: str) -> str:
+    """Clean and normalize a name string by keeping only alphanumeric and spaces"""
+    cleaned = name.lower().replace('&', 'and')
+    cleaned = re.sub(r'[^a-z0-9\s]', '', cleaned)
+    return ' '.join(cleaned.split())
+
+
+def capitalize_genre(genre: str) -> str:
+    """Capitalize each word in a genre name"""
+    return ' '.join(word.capitalize() for word in genre.split())
+
+
 def load_genre_mappings(base_dir: Path) -> Dict[str, List[str]]:
     """Load genre mappings from JSON file or create default if not exists"""
-    default_mapping = {
-        'Rock': ['rock', 'alternative rock'],
-        'Synthwave': ['synthwave', 'darksynth'],
-        'Pop': ['pop', 'dance pop']
-    }
-
     mapping_file = base_dir / "genre_styles.json"
     print(f"\nSearching for genre mappings in: {mapping_file}")
 
     try:
         if not mapping_file.exists():
             with open(mapping_file, 'w', encoding='utf-8') as f:
-                json.dump(default_mapping, f, indent=4)
+                json.dump(DEFAULT_GENRES, f, indent=4)
             print(f"Created default genre mappings in: {mapping_file}")
-            return default_mapping
+            return DEFAULT_GENRES
 
         with open(mapping_file, 'r', encoding='utf-8') as f:
             return json.load(f)
@@ -48,7 +67,28 @@ def load_genre_mappings(base_dir: Path) -> Dict[str, List[str]]:
     except Exception as e:
         print(f"\nError loading genre mappings: {e}")
         print("Using default mappings")
-        return default_mapping
+        return DEFAULT_GENRES
+
+
+def load_remove_styles_only(base_dir: Path) -> List[str]:
+    """Load remove styles only list from JSON file or create default if not exists"""
+    mapping_file = base_dir / "remove_styles_only.json"
+    print(f"\nSearching for remove styles only in: {mapping_file}")
+
+    try:
+        if not mapping_file.exists():
+            with open(mapping_file, 'w', encoding='utf-8') as f:
+                json.dump(DEFAULT_REMOVE_STYLES_ONLY, f, indent=4)
+            print(f"Created default remove styles only in: {mapping_file}")
+            return DEFAULT_REMOVE_STYLES_ONLY
+
+        with open(mapping_file, 'r', encoding='utf-8') as f:
+            return json.load(f)
+
+    except Exception as e:
+        print(f"\nError loading remove styles only: {e}")
+        print("Using default mappings")
+        return DEFAULT_REMOVE_STYLES_ONLY
 
 
 def find_spotdl_file(folder_path: Path) -> Optional[Path]:
@@ -61,21 +101,6 @@ def find_spotdl_file(folder_path: Path) -> Optional[Path]:
     return spotdl_files[0]
 
 
-def clean_name(name: str) -> str:
-    """Clean and normalize a name string by keeping only alphanumeric and spaces"""
-    # Convert to lowercase and replace '&' with 'and'
-    cleaned = name.lower().replace('&', 'and')
-    # Keep only alphanumeric and spaces, remove all other characters
-    cleaned = re.sub(r'[^a-z0-9\s]', '', cleaned)
-    # Normalize spaces (replace multiple spaces with single space and strip)
-    cleaned = ' '.join(cleaned.split())
-    return cleaned
-
-def capitalize_genre(genre: str) -> str:
-    """Capitalize each word in a genre name"""
-    return ' '.join(word.capitalize() for word in genre.split())
-
-
 def load_playlist_metadata(playlist_file: Path) -> Tuple[Dict[str, SongMetadata], Set[Tuple[str, str]]]:
     """Load and parse playlist metadata"""
     try:
@@ -86,14 +111,12 @@ def load_playlist_metadata(playlist_file: Path) -> Tuple[Dict[str, SongMetadata]
         album_urls = set()
 
         for song in playlist_data['songs']:
-            # Handle both single artist and multiple artists
-            artists = song.get('artists', [song['artist']])  # Use artists list if available, fallback to artist
+            artists = song.get('artists', [song['artist']])
             name = song['name']
             album_name = song.get('album_name')
             album_id = song.get('album_id')
             genres = [capitalize_genre(genre) for genre in song.get('genres', [])]
 
-            # Create metadata with primary artist
             metadata = SongMetadata(
                 artist=song['artist'],
                 name=name,
@@ -102,12 +125,11 @@ def load_playlist_metadata(playlist_file: Path) -> Tuple[Dict[str, SongMetadata]
                 genres=genres
             )
 
-            # Add album URL if available
             if album_id:
                 album_url = f"https://open.spotify.com/album/{album_id}"
                 album_urls.add((album_name, album_url))
 
-            # Store all possible artist combinations
+            # Store both single artist and multiple artists versions
             # Single artist version
             clean_key = f"{clean_name(song['artist'])} - {clean_name(name)}"
             metadata_lookup[clean_key] = metadata
@@ -130,22 +152,34 @@ def load_playlist_metadata(playlist_file: Path) -> Tuple[Dict[str, SongMetadata]
 
 
 def extract_genres_and_styles(styles: List[str], genre_mappings: Dict[str, List[str]],
-                              unmapped_styles: Set[str]) -> Tuple[List[str], List[str]]:
+                            remove_styles_only: List[str],
+                            unmapped_styles: Set[str]) -> Tuple[List[str], List[str]]:
     """Extract genres and remaining styles from a list of styles"""
     genres = set()
     remaining_styles = []
 
+    # Create style to genre lookup
     style_to_genre = {
         style.lower(): genre
         for genre, style_list in genre_mappings.items()
         for style in style_list
     }
 
+    # Convert remove_styles_only to lowercase set for efficient lookup
+    remove_styles_only_set = {style.lower() for style in remove_styles_only}
+
     for style in styles:
         style_lower = style.lower()
+
+        # Skip if style is in remove_styles_only list
+        if style_lower in remove_styles_only_set:
+            continue
+
         mapped_genre = style_to_genre.get(style_lower)
+
         if mapped_genre:
             genres.add(mapped_genre)
+            # Keep style if it's not the same as its genre
             if style_lower != mapped_genre.lower():
                 remaining_styles.append(style)
         else:
@@ -156,6 +190,7 @@ def extract_genres_and_styles(styles: List[str], genre_mappings: Dict[str, List[
 
 
 def fix_genres(song_path: Path, metadata: SongMetadata, genre_mappings: Dict[str, List[str]],
+               remove_styles_only: List[str],
                processing_state: ProcessingState) -> None:
     """Update genre and style tags for a song"""
     styles = metadata.genres or []
@@ -176,7 +211,8 @@ def fix_genres(song_path: Path, metadata: SongMetadata, genre_mappings: Dict[str
         tags.delall('TCON')  # Clear existing genre tags
 
         genres, remaining_styles = extract_genres_and_styles(
-            styles, genre_mappings, processing_state.unmapped_styles)
+            styles, genre_mappings, remove_styles_only,
+            processing_state.unmapped_styles)
 
         if remaining_styles:
             tags.add(TXXX(encoding=3, desc='Styles', text=remaining_styles))
@@ -185,6 +221,11 @@ def fix_genres(song_path: Path, metadata: SongMetadata, genre_mappings: Dict[str
             tags.add(TCON(encoding=3, text=genres))
             print(f"Mapped Genres: {', '.join(genres)}")
             print(f"Remaining Styles: {', '.join(remaining_styles)}")
+
+            # Show which styles were removed
+            removed_styles = [s for s in styles if s not in remaining_styles and s.lower() not in [g.lower() for g in genres]]
+            if removed_styles:
+                print(f"Removed styles: {', '.join(removed_styles)}")
         else:
             print("No genres mapped")
             print(f"Styles unchanged: {', '.join(styles)}")
@@ -206,12 +247,11 @@ def process_playlist(playlist_path: Path, genre_mappings: Dict[str, List[str]]) 
     if not metadata_lookup:
         return
 
-    # Initialize processing state
+    remove_styles_only = load_remove_styles_only(get_base_dir())
     processing_state = ProcessingState(set(), set(), set())
 
     print(f"\nProcessing files in: {playlist_path}")
 
-    # Process each MP3 file
     for mp3_path in playlist_path.rglob('*.mp3'):
         filename = mp3_path.stem
         clean_filename = clean_name(filename)
@@ -224,7 +264,7 @@ def process_playlist(playlist_path: Path, genre_mappings: Dict[str, List[str]]) 
         metadata = metadata_lookup.get(clean_filename) or metadata_lookup.get(clean_filename_alt)
 
         if metadata:
-            fix_genres(mp3_path, metadata, genre_mappings, processing_state)
+            fix_genres(mp3_path, metadata, genre_mappings, remove_styles_only, processing_state)
         else:
             print(f"\nNo metadata found for: {mp3_path.name}")
             processing_state.songs_without_metadata.add(mp3_path.name)
@@ -325,38 +365,37 @@ def handle_fix_genres(base_dir: Path, genre_mappings: Dict[str, List[str]]) -> N
 
 def main() -> None:
     """Main entry point for the application"""
-    try:
-        base_dir = get_base_dir()
-        genre_mappings = load_genre_mappings(base_dir)
+    base_dir = get_base_dir()
+    genre_mappings = load_genre_mappings(base_dir)
 
-        while True:
-            print("\nSpotify Playlist Sync Tool")
-            print("------------------------")
-            print("1. First-time sync")
-            print("2. Update existing sync")
-            print("3. Fix genres")
-            print("4. Exit\n")
+    while True:
+        print("\nSpotify Playlist Sync Tool")
+        print("------------------------")
+        print("1. First-time sync")
+        print("2. Update existing sync")
+        print("3. Fix genres")
+        print("4. Exit\n")
 
-            choice = input("Choice (1-4): ").strip()
+        choice = input("Choice (1-4): ").strip()
 
-            actions = {
-                "1": lambda: handle_new_sync(base_dir),
-                "2": lambda: handle_existing_sync(base_dir),
-                "3": lambda: handle_fix_genres(base_dir, genre_mappings),
-                "4": sys.exit
-            }
+        actions = {
+            "1": lambda: handle_new_sync(base_dir),
+            "2": lambda: handle_existing_sync(base_dir),
+            "3": lambda: handle_fix_genres(base_dir, genre_mappings),
+            "4": sys.exit
+        }
 
-            if choice in actions:
-                actions[choice]()
-            else:
-                print("Invalid choice!")
-
-    except KeyboardInterrupt:
-        print("\nExiting...")
-    except Exception as e:
-        print(f"\nUnexpected error: {e}")
-        sys.exit(1)
+        if choice in actions:
+            actions[choice]()
+        else:
+            print("Invalid choice!")
 
 
 if __name__ == "__main__":
-    main()
+    try:
+        main()
+    except KeyboardInterrupt:
+        print("\nExiting...")
+    except Exception as e:
+        print(f"Error: {e}")
+        sys.exit(1)
