@@ -33,9 +33,53 @@ class PlaylistProcessor:
 
         # Process all music files
         self._process_music_files(playlist_path, metadata_lookup, processing_state)
-        self._print_summary(processing_state)
+        self._print_summary(processing_state, playlist_path)
 
-    def _process_music_files(self, playlist_path: Path, metadata_lookup: Dict[str, SongMetadata],     processing_state: ProcessingState) -> None:
+    def show_missing_files(self, playlist_path: Path) -> None:
+        """Show files that spotdl failed to download"""
+        spotdl_file = self.playlist_manager.find_spotdl_file(playlist_path)
+        if not spotdl_file:
+            print(f"\nError: No .spotdl file found in: {playlist_path}")
+            return
+
+        # Get expected files from spotdl
+        try:
+            metadata_lookup, _ = self.playlist_manager.load_playlist_metadata(spotdl_file)
+            expected_files = {
+                f"{metadata.artist} - {metadata.name}"
+                for metadata in metadata_lookup.values()
+            }
+        except Exception as e:
+            print(f"\nError reading spotdl file: {e}")
+            return
+
+        # Get actual files from directory
+        music_files = []
+        for ext in self.MUSIC_EXTENSIONS:
+            music_files.extend(playlist_path.rglob(f'*{ext}'))
+
+        # Clean actual filenames for comparison
+        actual_files = {
+            StringCleaner.clean_name(file.stem)
+            for file in music_files
+        }
+
+        # Find missing files
+        missing_files = expected_files - actual_files
+
+        # Display results
+        print(f"\nAnalyzing playlist in: {playlist_path}")
+        print(f"Total expected files: {len(expected_files)}")
+        print(f"Total files found: {len(actual_files)}")
+
+        if missing_files:
+            print(f"\nMissing {len(missing_files)} files:")
+            for file in sorted(missing_files):
+                print(f"- {file}")
+        else:
+            print("\nAll files were downloaded successfully!")
+
+    def _process_music_files(self, playlist_path: Path, metadata_lookup: Dict[str, SongMetadata], processing_state: ProcessingState) -> None:
         """Process all music files in the playlist"""
         music_files = self._get_music_files(playlist_path)
         if not music_files:
@@ -82,7 +126,9 @@ class PlaylistProcessor:
 
         return metadata_lookup.get(clean_filename) or metadata_lookup.get(clean_filename_alt)
 
-    def _print_summary(self, state: ProcessingState) -> None:
+    def _print_summary(self, state: ProcessingState, playlist_path: Path) -> None:
+        self.show_missing_files(playlist_path)
+
         """Print summary of processing issues"""
         print("\n=== Processing Summary ===")
 
