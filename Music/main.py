@@ -1,9 +1,4 @@
-﻿"""
-Spotify Playlist Management Tool
-Handles playlist syncing, genre mapping, and metadata management for Spotify playlists.
-Uses a functional approach for better simplicity and testability.
-"""
-import json
+﻿import json
 import re
 import subprocess
 import sys
@@ -238,6 +233,9 @@ def fix_genres(song_path: Path, metadata: SongMetadata, genre_mappings: Dict[str
 
 def process_playlist(playlist_path: Path, genre_mappings: Dict[str, List[str]]) -> None:
     """Process all songs in a playlist"""
+    
+    write_songs_list(playlist_path)
+    
     spotdl_file = find_spotdl_file(playlist_path)
     if not spotdl_file:
         print(f"\nError: No .spotdl file found in: {playlist_path}")
@@ -362,6 +360,28 @@ def handle_fix_genres(base_dir: Path, genre_mappings: Dict[str, List[str]]) -> N
     else:
         print(f"\nError: Folder not found: {playlist_dir}")
 
+def write_songs_list(playlist_path: Path) -> None:
+    """Write list of all music files in the directory"""
+    # Common audio file extensions
+    music_extensions = {'.mp3', '.flac', '.m4a', '.wav', '.wma', '.aac', '.ogg'}
+    
+    try:
+        # Get all music files
+        music_files = []
+        for ext in music_extensions:
+            music_files.extend(playlist_path.rglob(f'*{ext}'))
+        
+        # Write to file
+        output_file = playlist_path / "music_files.txt"
+        with open(output_file, 'w', encoding='utf-8') as f:
+            for file in sorted(music_files):
+                f.write(f"{file.name}\n")
+                
+        print(f"\nMusic files list written to: {output_file}")
+        print(f"Total music files: {len(music_files)}")
+        
+    except Exception as e:
+        print(f"\nError writing music files list: {e}")
 
 def main() -> None:
     """Main entry point for the application"""
