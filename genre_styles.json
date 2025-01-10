@@ -1,0 +1,14 @@
+{
+    "Rock": [
+        "rock",
+        "alternative rock"
+    ],
+    "Synthwave": [
+        "synthwave",
+        "darksynth"
+    ],
+    "Pop": [
+        "pop",
+        "dance pop"
+    ]
+}
