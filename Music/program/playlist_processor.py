@@ -1,5 +1,5 @@
 ﻿from pathlib import Path
-from typing import Dict
+from typing import Dict, List, Set
 
 from program.models import ProcessingState, SongMetadata
 from program.config import Config
@@ -10,6 +10,7 @@ from program.string_cleaner import StringCleaner
 
 class PlaylistProcessor:
     """Main playlist processing orchestrator"""
+    MUSIC_EXTENSIONS = {'.mp3', '.flac', '.m4a', '.wav', '.wma', '.aac', '.ogg'}
 
     def __init__(self, config: Config):
         self.config = config
@@ -18,40 +19,68 @@ class PlaylistProcessor:
 
     def process_playlist(self, playlist_path: Path) -> None:
         """Process all songs in a playlist"""
-        spotdl_file = self.playlist_manager.find_spotdl_file(playlist_path)
-        if not spotdl_file:
-            print(f"\nError: No .spotdl file found in: {playlist_path}")
-            return
-
-        metadata_lookup, _ = self.playlist_manager.load_playlist_metadata(spotdl_file)
-        if not metadata_lookup:
-            return
-
+        # Initialize processing state
         processing_state = ProcessingState(set(), set(), set())
         print(f"\nProcessing files in: {playlist_path}")
 
-        self._process_mp3_files(playlist_path, metadata_lookup, processing_state)
+        # Try to get spotdl metadata if available
+        metadata_lookup = {}
+        spotdl_file = self.playlist_manager.find_spotdl_file(playlist_path)
+        if spotdl_file:
+            metadata_lookup, _ = self.playlist_manager.load_playlist_metadata(spotdl_file)
+        else:
+            print("No .spotdl file found - will process existing file metadata only")
+
+        # Process all music files
+        self._process_music_files(playlist_path, metadata_lookup, processing_state)
         self._print_summary(processing_state)
 
-    def _process_mp3_files(self, playlist_path: Path, metadata_lookup: Dict[str, SongMetadata],
-                           processing_state: ProcessingState) -> None:
-        """Process all MP3 files in the playlist"""
-        for mp3_path in playlist_path.rglob('*.mp3'):
-            filename = mp3_path.stem
-            clean_filename = StringCleaner.clean_name(filename)
-            clean_filename_alt = StringCleaner.clean_name(
-                filename.lower()
-                .replace('remastered', '')
-                .replace('album version', '')
-            )
+    def _process_music_files(self, playlist_path: Path, metadata_lookup: Dict[str, SongMetadata],     processing_state: ProcessingState) -> None:
+        """Process all music files in the playlist"""
+        music_files = self._get_music_files(playlist_path)
+        if not music_files:
+            print("No music files found in the directory")
+            return
 
-            metadata = metadata_lookup.get(clean_filename) or metadata_lookup.get(clean_filename_alt)
+        print(f"Found {len(music_files)} music files")
+
+        for music_path in music_files:
+            # First try to find spotdl metadata
+            metadata = self._try_get_spotdl_metadata(music_path, metadata_lookup)
 
             if metadata:
-                self.genre_processor.fix_genres(mp3_path, metadata, processing_state)
+                print(f"\nProcessing {music_path.name} with spotdl metadata")
+                self.genre_processor.fix_genres(music_path, metadata, processing_state)
             else:
-                print(f"\nNo metadata found for: {mp3_path.name}")
-                processing_state.songs_without_metadata.add(mp3_path.name)
+                # If no spotdl metadata, process existing file metadata
+                print(f"\nProcessing {music_path.name} with existing metadata")
+                try:
+                    self.genre_processor.process_existing_metadata(music_path, processing_state)
+                except Exception as e:
+                    print(f"Error processing existing metadata: {e}")
+                    processing_state.songs_without_metadata.add(music_path.name)
+
+    def _get_music_files(self, playlist_path: Path) -> List[Path]:
+        """Get all music files in the directory"""
+        music_files = []
+        for ext in self.MUSIC_EXTENSIONS:
+            music_files.extend(playlist_path.rglob(f'*{ext}'))
+        return sorted(music_files)
+
+    def _try_get_spotdl_metadata(self, music_path: Path, metadata_lookup: Dict[str, SongMetadata]) -> SongMetadata | None:
+        """Try to find spotdl metadata for a file"""
+        if not metadata_lookup:
+            return None
+
+        filename = music_path.stem
+        clean_filename = StringCleaner.clean_name(filename)
+        clean_filename_alt = StringCleaner.clean_name(
+            filename.lower()
+            .replace('remastered', '')
+            .replace('album version', '')
+        )
+
+        return metadata_lookup.get(clean_filename) or metadata_lookup.get(clean_filename_alt)
 
     def _print_summary(self, state: ProcessingState) -> None:
         """Print summary of processing issues"""

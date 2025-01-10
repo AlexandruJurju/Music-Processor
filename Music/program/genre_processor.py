@@ -59,26 +59,117 @@ class GenreProcessor:
             return
 
         try:
-            tags = self._get_or_create_id3_tags(song_path)
-            tags.delall('TCON')  # Clear existing genre tags
-
+            # Process the genres and styles
             genres, remaining_styles = self.extract_genres_and_styles(
                 styles, processing_state.unmapped_styles)
 
-            self._update_tags(tags, genres, remaining_styles)
-            self._print_processing_results(styles, genres, remaining_styles)
+            # Update tags based on file type
+            if song_path.suffix.lower() == '.flac':
+                self._update_flac_tags(song_path, genres, remaining_styles)
+            else:
+                # Handle MP3 and other ID3-compatible formats
+                tags = self._get_or_create_id3_tags(song_path)
+                tags.delall('TCON')  # Clear existing genre tags
+                self._update_tags(tags, genres, remaining_styles)
+                tags.save(song_path)
 
-            tags.save(song_path)
+            self._print_processing_results(styles, genres, remaining_styles)
 
         except Exception as e:
             print(f"Error processing {song_path}: {e}")
+
+    def _update_flac_tags(self, song_path: Path, genres: List[str], remaining_styles: List[str]) -> None:
+        """Update FLAC file tags"""
+        from mutagen.flac import FLAC
+        try:
+            audio = FLAC(song_path)
+
+            # Clear existing genres and ratings
+            audio.tags.clear()
+
+            # Add genres
+            if genres:
+                audio['genre'] = genres
+
+            # Add remaining styles as a custom tag
+            if remaining_styles:
+                audio['styles'] = remaining_styles
+
+            # Clear rating
+            if 'rating' in audio:
+                del audio['rating']
+
+            audio.save()
+        except Exception as e:
+            print(f"Error updating FLAC tags: {e}")
+
+    def process_existing_metadata(self, song_path: Path, processing_state: ProcessingState) -> None:
+        """Process genres from existing file metadata"""
+        print(f"\nProcessing existing metadata for: {song_path.name}")
+        try:
+            existing_genres = set()
+
+            if song_path.suffix.lower() == '.flac':
+                # Handle FLAC files
+                from mutagen.flac import FLAC
+                audio = FLAC(song_path)
+                if 'genre' in audio:
+                    existing_genres.update(audio['genre'])
+                if 'styles' in audio:
+                    existing_genres.update(audio['styles'])
+            else:
+                # Handle MP3 and other ID3-compatible formats
+                tags = self._get_or_create_id3_tags(song_path)
+                existing_genres = self._extract_existing_genres(tags)
+
+            if not existing_genres:
+                print("No existing genres/styles found")
+                processing_state.songs_without_styles.add(song_path.name)
+                return
+
+            # Create temporary metadata for processing
+            temp_metadata = SongMetadata(
+                artist="",  # Not needed for genre processing
+                name="",  # Not needed for genre processing
+                album_name=None,
+                album_id=None,
+                genres=list(existing_genres)
+            )
+
+            # Use existing fix_genres logic
+            self.fix_genres(song_path, temp_metadata, processing_state)
+
+        except Exception as e:
+            print(f"Error processing existing metadata: {e}")
+            processing_state.songs_without_metadata.add(song_path.name)
+
+    def _extract_existing_genres(self, tags: ID3) -> Set[str]:
+        """Extract existing genres from ID3 tags"""
+        genres = set()
+
+        # Get standard genre tags
+        if 'TCON' in tags:
+            genres.update(tags['TCON'].text)
+
+        # Get styles from TXXX
+        for tag in tags.getall('TXXX'):
+            if tag.desc.lower() in ('styles', 'genre', 'genres'):
+                if isinstance(tag.text, str):
+                    genres.add(tag.text)
+                else:
+                    genres.update(tag.text)
+
+        return genres
 
     def _get_or_create_id3_tags(self, song_path: Path) -> ID3:
         """Get existing ID3 tags or create new ones"""
         try:
             return ID3(song_path)
         except mutagen.id3.ID3NoHeaderError:
-            return ID3()
+            # Create new ID3 tag and add it to the file
+            tags = ID3()
+            tags.save(song_path)  # This creates the ID3 header in the file
+            return tags
 
     def _update_tags(self, tags: ID3, genres: List[str], remaining_styles: List[str]) -> None:
         """Update ID3 tags with genres and styles"""
