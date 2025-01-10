@@ -37,7 +37,8 @@ class CLI:
         print("1. First-time sync")
         print("2. Update existing sync")
         print("3. Fix genres")
-        print("4. Exit\n")
+        print("4. Write song list")
+        print("5. Exit\n")
 
     def _handle_choice(self, choice: str) -> None:
         """Handle menu choice"""
@@ -45,7 +46,8 @@ class CLI:
             "1": self._handle_new_sync,
             "2": self._handle_existing_sync,
             "3": self._handle_fix_genres,
-            "4": sys.exit
+            "4": self._write_song_list,
+            "5": sys.exit
         }
 
         if choice in actions:
@@ -79,6 +81,19 @@ class CLI:
 
         if playlist_dir.exists():
             self.processor.process_playlist(playlist_dir)
+        else:
+            print(f"\nError: Folder not found: {playlist_dir}")
+
+    def _write_song_list(self) -> None:
+        playlists = self.fs_handler.get_available_playlists(self.base_dir)
+        if playlists:
+            print("\nAvailable playlists:\n" + "\n".join(playlists))
+
+        playlist_name = input("\nEnter playlist name: ").strip()
+        playlist_dir = self.base_dir / playlist_name
+
+        if playlist_dir.exists():
+            self.fs_handler.write_songs_list(playlist_dir)
         else:
             print(f"\nError: Folder not found: {playlist_dir}")
 

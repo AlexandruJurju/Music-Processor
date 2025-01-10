@@ -3,7 +3,6 @@ from typing import Dict
 
 from program.models import ProcessingState, SongMetadata
 from program.config import Config
-from program.file_system_handler import FileSystemHandler
 from program.genre_processor import GenreProcessor
 from program.playlist_manager import PlaylistManager
 from program.string_cleaner import StringCleaner
@@ -19,8 +18,6 @@ class PlaylistProcessor:
 
     def process_playlist(self, playlist_path: Path) -> None:
         """Process all songs in a playlist"""
-        FileSystemHandler.write_songs_list(playlist_path)
-
         spotdl_file = self.playlist_manager.find_spotdl_file(playlist_path)
         if not spotdl_file:
             print(f"\nError: No .spotdl file found in: {playlist_path}")
