@@ -81,7 +81,6 @@ ALEX, TOKYO ROSE, THE AKUMA - DEATH RACE.mp3
 ALEX, TOKYO ROSE, THE AKUMA - DELETE SOUL.mp3
 ALEX, TOKYO ROSE, THE AKUMA - INSERT SOUL.mp3
 ALEX, TOKYO ROSE, THE AKUMA - SACRIFICE.mp3
-ALEX, TOKYO ROSE, THE AKUMA - WITCHCRAFT.mp3
 ALEX, TOKYO ROSE, THE AKUMA, Power Glove - RIVALS.mp3
 ALEX, TOKYO ROSE, THE AKUMA, WVLFPAKT - THE PACT.mp3
 Alexi Action, Infraction - Witch's Whispers.mp3
@@ -402,8 +401,6 @@ Deorro - Five Hours.mp3
 Desmeon - Back From The Dead.mp3
 Different Heaven, EH!DE - My Heart.mp3
 Digitalism - Electric Fist.mp3
-Digitalism - JPEG.mp3
-Digitalism - Miami Showdown.mp3
 Digitalism - Picnic.mp3
 Digitalism - Pogo.mp3
 Digitalism - Zdarlight.mp3
@@ -468,8 +465,6 @@ Earmake - The Mystery of Betelgeuse.mp3
 Earmake, AstroPilot, Unusual Cosmic Process - Fractal Forms.mp3
 Earmake, Lost Engineer - Secrets Inside of Me.mp3
 Earth, Wind & Fire - Let's Groove.mp3
-Earth, Wind & Fire - September.mp3
-Earth, Wind & Fire, The Emotions - Boogie Wonderland.mp3
 earthtown, Caspro - Input Output.mp3
 EDDIE - Sleeping with Machines.mp3
 EDDIE - Still Healing.mp3
@@ -494,12 +489,10 @@ Electro-Light - Symbolism.mp3
 Electronic Gems, Gemini Drive - White Sands.mp3
 Eli Brown - Be The One.mp3
 Elley Duhé, Whethan - MONEY ON THE DASH.mp3
-Ellie Goulding - Lights.mp3
 ellis, Anna Yvette - Migraine.mp3
 Elton John - I'm Still Standing.mp3
 Emil Rottmayer - Deflection (Reworked).mp3
 Emil Rottmayer - Descend.mp3
-Emil Rottmayer - Detached.mp3
 Emil Rottmayer - Dream Sync.mp3
 Emil Rottmayer - Glare.mp3
 Emil Rottmayer - K.E.Y.S.mp3
@@ -552,7 +545,6 @@ Falling North, Cullimore - Babylon - Cullimore Remix.mp3
 Fantom '87 - Destination.mp3
 Fantom '87 - Pay Phone.mp3
 Far East Movement, The Cataracs, DEV - Like A G6.mp3
-Fareoh, Archie - Feathers.mp3
 Farveblind - Amber.mp3
 Fatum, Genix, Jaytech, Judah, Rodg - All In - Rodg Remix.mp3
 Favored Nations - Lagoon.mp3
@@ -651,7 +643,6 @@ Hinkik - Outbreaker.mp3
 Hinkik - Skystrike.mp3
 Hinkik - Time Leaper.mp3
 Hinkik, A Himitsu - Realms.mp3
-Hollywood Burns - Black Saucers.mp3
 Hollywood Burns - Enter the Yakuza Club.mp3
 Hollywood Burns - Scherzo No. 5 in Death Minor.mp3
 Hollywood Undead - Whatever It Takes.mp3
@@ -758,7 +749,6 @@ JPB - High.mp3
 Judas Priest - Breaking the Law.mp3
 Judge Bitch - Trash Pandas.mp3
 Judge Bitch, Ango - Vandal.mp3
-Judge Bitch, Gold Reaper - Vandal.mp3
 Julia Bondar, Fragrance - Fleurs Du Mal - Fragrance Remix.mp3
 Julian Winding - Mascare.mp3
 Juno Dreams - Be With Me - Remastered 2018.mp3
@@ -818,7 +808,6 @@ Konrad Celinski - 2077.mp3
 Kotovsky86 - Crystal Dreams.mp3
 Kotovsky86 - Space Traveller (7' edition).mp3
 Kotovsky86 - Space Traveller.mp3
-Krale, Jasmina Lin, Jay Christopher - Frontier.mp3
 Kraysh, Joyia - Talk to Me - Edited Version.mp3
 KREAM - Take Control.mp3
 Krosia - Azur.mp3
@@ -876,7 +865,6 @@ Lensko - Let's Go!.mp3
 Lets Be Friends - Manslaughter - VIP.mp3
 Lifelike - Italo Disco.mp3
 Lifelike - So Electric.mp3
-Light Club - Blizzard.mp3
 Light Club, Motëm - Blizzard.mp3
 Limp Bizkit - Rollin' (Air Raid Vehicle).mp3
 Linkin Park - Breaking the Habit.mp3
@@ -928,14 +916,12 @@ Lyde - Relief.mp3
 M.A.D.E.S - Kill Him.mp3
 M.A.D.E.S - Nightkiller.mp3
 M.A.D.E.S - Return - Original Mix.mp3
-M.A.D.E.S, Wice - Nightkiller - Wice Remix.mp3
 M4SONIC - Weapon.mp3
 M83 - Midnight City.mp3
 Magic Sword - In The Face Of Evil.mp3
 Magic Sword - Legend of the Keeper.mp3
 Magic Sword - Only Way In.mp3
 Magic Sword - The Curse (The Toxic Avenger Remix).mp3
-Magic Sword, The Toxic Avenger - The Curse (The Toxic Avenger Remix).mp3
 Magna - Divide (Miami Edit).mp3
 Maiki Vanics - Vice - Radio Edit.mp3
 Makeup And Vanity Set - A Physical Connection.mp3
@@ -1037,6 +1023,16 @@ Mindsight, LIOHN - Adventure.mp3
 Mire. - Bury.mp3
 Mire., Kavi - Envy.mp3
 Misanthropix - Boostergangs.mp3
+01. Vitality.flac
+02. Apropos.flac
+03. Epitomize.flac
+04. Luminescent.flac
+05. Alchemy.flac
+06. Titanium.flac
+07. Epitomize (VIP Edit).flac
+08. Vitality (VIP Edit).flac
+09. Epitomize (Sinner's VIP).flac
+10. Brimstone.flac
 Mittsies - Titanium.mp3
 Mittsies - Vitality.mp3
 Mo Beats - Righteous.mp3
@@ -1565,7 +1561,6 @@ THYKIER - Shimmer.mp3
 Tiësto - All Nighter.mp3
 Tobu - Candyland.mp3
 Tobu - Colors.mp3
-Tobu - Dusk.mp3
 Tobu - Higher.mp3
 Tobu - Hope (Original Mix).mp3
 Tobu - Hope.mp3
@@ -1655,9 +1650,7 @@ Vestron Vulture - Phantom.mp3
 Vestron Vulture - Welcome to the Woods.mp3
 Vestron Vulture - Witch Hunter.mp3
 Vexento - Pixel Party.mp3
-VHS Glitch - Analysis of a Serial Killer.mp3
 VHS Glitch - Blood in Blood Out.mp3
-VHS Glitch - Can't Catch Me.mp3
 VHS Glitch - Jaw Breaker.mp3
 Vibrasphere, Jaia - Purple - Jaia Remix.mp3
 Vicetone - California.mp3
@@ -1671,7 +1664,6 @@ Vicetone, Collin McLoughlin - Heartbeat.mp3
 Vicetone, Cozi Zuehlsdorff - Nevada.mp3
 Vicetone, Jonny Rose - Stars.mp3
 Vincenzo Salvia - The Pineapple Pizza Slayer.mp3
-Vintage Culture, RICCI - Wild Kidz.mp3
 Violation Drive - Sanity Extinction.mp3
 VIQ - Girl from Nowhere.mp3
 VIQ - Vestige.mp3
@@ -1683,9 +1675,6 @@ Vitalic - No More Sleep.mp3
 Vitalic - Stamina.mp3
 VIZE, Papa Roach - Core (That's Who We Are).mp3
 VMacbeth - Arrival.mp3
-Vogel - Andromeda.mp3
-Vogel - Dreamwaves.mp3
-Vogel - Hologram II.mp3
 Vogel - Hologram.mp3
 Vogel - Imperivm.mp3
 Vogel - Night City.mp3

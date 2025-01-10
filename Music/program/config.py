@@ -17,8 +17,8 @@ class Config:
 
     def __init__(self, base_dir: Path):
         self.base_dir = base_dir
-        self.genre_mappings = self._load_json('../genre_styles.json', self.DEFAULT_GENRES)
-        self.remove_styles = self._load_json('../remove_styles_only.json', self.DEFAULT_REMOVE_STYLES)
+        self.genre_mappings = self._load_json('genre_styles.json', self.DEFAULT_GENRES)
+        self.remove_styles = self._load_json('remove_styles_only.json', self.DEFAULT_REMOVE_STYLES)
 
     def _load_json(self, filename: str, default_value: dict | list) -> dict | list:
         """Generic JSON loader with default value handling"""

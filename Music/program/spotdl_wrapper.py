@@ -33,7 +33,7 @@ class SpotDLWrapper:
         if sync_file.exists():
             self.run_command([
                 "spotdl",
-                "--sync", str(sync_file),
+                "sync", str(sync_file),
                 "--output", str(base_dir / playlist_name)
             ])
         else:
