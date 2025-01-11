@@ -1,0 +1,5380 @@
+
+Processing existing metadata for: 009 Sound System - Born To Be Wasted.mp3
+
+Processing: 009 Sound System - Born To Be Wasted.mp3
+Original styles: Dream Trance
+No genres mapped
+Styles unchanged: Dream Trance
+
+Processing existing metadata for: 01. 009 Sound System - Dreamscape.flac
+
+Processing: 01. 009 Sound System - Dreamscape.flac
+Original styles: Technopop
+No genres mapped
+Styles unchanged: Technopop
+
+Processing existing metadata for: 02. 009 Sound System - Space and Time.flac
+
+Processing: 02. 009 Sound System - Space and Time.flac
+Original styles: Technopop
+No genres mapped
+Styles unchanged: Technopop
+
+Processing existing metadata for: 03. 009 Sound System - Shine Down.flac
+
+Processing: 03. 009 Sound System - Shine Down.flac
+Original styles: Technopop
+No genres mapped
+Styles unchanged: Technopop
+
+Processing existing metadata for: 04. 009 Sound System - Number Two.flac
+
+Processing: 04. 009 Sound System - Number Two.flac
+Original styles: Technopop
+No genres mapped
+Styles unchanged: Technopop
+
+Processing existing metadata for: 05. 009 Sound System - Holy Ghost.flac
+
+Processing: 05. 009 Sound System - Holy Ghost.flac
+Original styles: Technopop
+No genres mapped
+Styles unchanged: Technopop
+
+Processing existing metadata for: 06. 009 Sound System - Standing Stones.flac
+
+Processing: 06. 009 Sound System - Standing Stones.flac
+Original styles: Technopop
+No genres mapped
+Styles unchanged: Technopop
+
+Processing existing metadata for: 07. 009 Sound System - Trinity.flac
+
+Processing: 07. 009 Sound System - Trinity.flac
+Original styles: Technopop
+No genres mapped
+Styles unchanged: Technopop
+
+Processing existing metadata for: 08. 009 Sound System - Killer with a Thousand Faces.flac
+
+Processing: 08. 009 Sound System - Killer with a Thousand Faces.flac
+Original styles: Technopop
+No genres mapped
+Styles unchanged: Technopop
+
+Processing existing metadata for: 09. 009 Sound System - Speak to Angels.flac
+
+Processing: 09. 009 Sound System - Speak to Angels.flac
+Original styles: Technopop
+No genres mapped
+Styles unchanged: Technopop
+
+Processing existing metadata for: 10. 009 Sound System - With a Spirit.flac
+
+Processing: 10. 009 Sound System - With a Spirit.flac
+Original styles: Technopop
+No genres mapped
+Styles unchanged: Technopop
+
+Processing existing metadata for: 11. 009 Sound System - Born to Be Wasted.flac
+
+Processing: 11. 009 Sound System - Born to Be Wasted.flac
+Original styles: Technopop
+No genres mapped
+Styles unchanged: Technopop
+
+Processing existing metadata for: 01. 009 Sound System - Solo.flac
+
+Processing: 01. 009 Sound System - Solo.flac
+Original styles: Technopop
+No genres mapped
+Styles unchanged: Technopop
+
+Processing existing metadata for: 01. 009 Sound System - Violate.flac
+
+Processing: 01. 009 Sound System - Violate.flac
+Original styles: Technopop
+No genres mapped
+Styles unchanged: Technopop
+
+Processing existing metadata for: 01. 009 Sound System - Sweet Mary.flac
+
+Processing: 01. 009 Sound System - Sweet Mary.flac
+Original styles: Technopop
+No genres mapped
+Styles unchanged: Technopop
+
+Processing existing metadata for: 01. 009 Sound System - Beat of the Moment (Remastered).flac
+
+Processing: 01. 009 Sound System - Beat of the Moment (Remastered).flac
+Original styles: Technopop
+No genres mapped
+Styles unchanged: Technopop
+
+Processing existing metadata for: 02. 009 Sound System - The Hero Waits (Remastered).flac
+
+Processing: 02. 009 Sound System - The Hero Waits (Remastered).flac
+Original styles: Technopop
+No genres mapped
+Styles unchanged: Technopop
+
+Processing existing metadata for: 03. 009 Sound System - Dreamscape (Remastered).flac
+
+Processing: 03. 009 Sound System - Dreamscape (Remastered).flac
+Original styles: Technopop
+No genres mapped
+Styles unchanged: Technopop
+
+Processing existing metadata for: 04. 009 Sound System - Space and Time (Remastered).flac
+
+Processing: 04. 009 Sound System - Space and Time (Remastered).flac
+Original styles: Technopop
+No genres mapped
+Styles unchanged: Technopop
+
+Processing existing metadata for: 05. 009 Sound System - Holy Ghost (Remastered).flac
+
+Processing: 05. 009 Sound System - Holy Ghost (Remastered).flac
+Original styles: Technopop
+No genres mapped
+Styles unchanged: Technopop
+
+Processing existing metadata for: 06. 009 Sound System - Trinity (Remastered).flac
+
+Processing: 06. 009 Sound System - Trinity (Remastered).flac
+Original styles: Technopop
+No genres mapped
+Styles unchanged: Technopop
+
+Processing existing metadata for: 07. 009 Sound System - Speak to Angels (Remastered).flac
+
+Processing: 07. 009 Sound System - Speak to Angels (Remastered).flac
+Original styles: Technopop
+No genres mapped
+Styles unchanged: Technopop
+
+Processing existing metadata for: 08. 009 Sound System - Standing Stones (Remastered).flac
+
+Processing: 08. 009 Sound System - Standing Stones (Remastered).flac
+Original styles: Technopop
+No genres mapped
+Styles unchanged: Technopop
+
+Processing existing metadata for: 09. 009 Sound System - With a Spirit (Remastered).flac
+
+Processing: 09. 009 Sound System - With a Spirit (Remastered).flac
+Original styles: Technopop
+No genres mapped
+Styles unchanged: Technopop
+
+Processing existing metadata for: 10. 009 Sound System - Number Two (Remastered).flac
+
+Processing: 10. 009 Sound System - Number Two (Remastered).flac
+Original styles: Technopop
+No genres mapped
+Styles unchanged: Technopop
+
+Processing existing metadata for: 11. 009 Sound System - Shine Down (Remastered).flac
+
+Processing: 11. 009 Sound System - Shine Down (Remastered).flac
+Original styles: Technopop
+No genres mapped
+Styles unchanged: Technopop
+
+Processing existing metadata for: 12. 009 Sound System - Born to Be Wasted (Remastered).flac
+
+Processing: 12. 009 Sound System - Born to Be Wasted (Remastered).flac
+Original styles: Technopop
+No genres mapped
+Styles unchanged: Technopop
+
+Processing existing metadata for: 13. 009 Sound System - Killer with a Thousand Faces (Remastered).flac
+
+Processing: 13. 009 Sound System - Killer with a Thousand Faces (Remastered).flac
+Original styles: Technopop
+No genres mapped
+Styles unchanged: Technopop
+
+Processing existing metadata for: 14. 009 Sound System - Solo (Remastered).flac
+
+Processing: 14. 009 Sound System - Solo (Remastered).flac
+Original styles: Technopop
+No genres mapped
+Styles unchanged: Technopop
+
+Processing existing metadata for: 15. 009 Sound System - Violate (Remastered).flac
+
+Processing: 15. 009 Sound System - Violate (Remastered).flac
+Original styles: Technopop
+No genres mapped
+Styles unchanged: Technopop
+
+Processing existing metadata for: 16. 009 Sound System - Holiday (So High).flac
+
+Processing: 16. 009 Sound System - Holiday (So High).flac
+Original styles: Technopop
+No genres mapped
+Styles unchanged: Technopop
+
+Processing existing metadata for: 17. 009 Sound System - Sweet Mary.flac
+
+Processing: 17. 009 Sound System - Sweet Mary.flac
+Original styles: Technopop
+No genres mapped
+Styles unchanged: Technopop
+
+Processing existing metadata for: 18. 009 Sound System - High All Day.flac
+
+Processing: 18. 009 Sound System - High All Day.flac
+Original styles: Technopop
+No genres mapped
+Styles unchanged: Technopop
+
+Processing existing metadata for: 01. 009 Sound System - Dreamscape (Jai Lyra Deep R.E.M. Remix).flac
+
+Processing: 01. 009 Sound System - Dreamscape (Jai Lyra Deep R.E.M. Remix).flac
+Original styles: Technopop
+No genres mapped
+Styles unchanged: Technopop
+
+Processing existing metadata for: 02. 009 Sound System - High All Day (Jai Lyra Longest Daze Remix).flac
+
+Processing: 02. 009 Sound System - High All Day (Jai Lyra Longest Daze Remix).flac
+Original styles: Technopop
+No genres mapped
+Styles unchanged: Technopop
+
+Processing existing metadata for: 03. 009 Sound System - Holy Ghost (Bluesolar Chill Mix).flac
+
+Processing: 03. 009 Sound System - Holy Ghost (Bluesolar Chill Mix).flac
+Original styles: Technopop
+No genres mapped
+Styles unchanged: Technopop
+
+Processing existing metadata for: 04. 009 Sound System - Born to Be Wasted (Brainpain Remix).flac
+
+Processing: 04. 009 Sound System - Born to Be Wasted (Brainpain Remix).flac
+Original styles: Technopop
+No genres mapped
+Styles unchanged: Technopop
+
+Processing existing metadata for: 05. 009 Sound System - Dreamscape (Bluesolar Remix).flac
+
+Processing: 05. 009 Sound System - Dreamscape (Bluesolar Remix).flac
+Original styles: Technopop
+No genres mapped
+Styles unchanged: Technopop
+
+Processing existing metadata for: 06. 009 Sound System - High All Day (Brainpain Remix).flac
+
+Processing: 06. 009 Sound System - High All Day (Brainpain Remix).flac
+Original styles: Technopop
+No genres mapped
+Styles unchanged: Technopop
+
+Processing existing metadata for: 07. 009 Sound System - Powerstation (Brainpain Remix).flac
+
+Processing: 07. 009 Sound System - Powerstation (Brainpain Remix).flac
+Original styles: Technopop
+No genres mapped
+Styles unchanged: Technopop
+
+Processing existing metadata for: 08. 009 Sound System - Born to Be Wasted (Double M Beatz Dubstep Remix).flac
+
+Processing: 08. 009 Sound System - Born to Be Wasted (Double M Beatz Dubstep Remix).flac
+Original styles: Technopop
+No genres mapped
+Styles unchanged: Technopop
+
+Processing existing metadata for: 09. 009 Sound System - Dreamscape (Brainpain Remix).flac
+
+Processing: 09. 009 Sound System - Dreamscape (Brainpain Remix).flac
+Original styles: Technopop
+No genres mapped
+Styles unchanged: Technopop
+
+Processing existing metadata for: 10. 009 Sound System - Dreamscape (Vadim Soloviev Remix).flac
+
+Processing: 10. 009 Sound System - Dreamscape (Vadim Soloviev Remix).flac
+Original styles: Technopop
+No genres mapped
+Styles unchanged: Technopop
+
+Processing existing metadata for: 11. 009 Sound System - Born to Be Wasted (Jai Lyra Reborn Remix).flac
+
+Processing: 11. 009 Sound System - Born to Be Wasted (Jai Lyra Reborn Remix).flac
+Original styles: Technopop
+No genres mapped
+Styles unchanged: Technopop
+
+Processing existing metadata for: 12. 009 Sound System - Born to Be Wasted (Hardrox Remix).flac
+
+Processing: 12. 009 Sound System - Born to Be Wasted (Hardrox Remix).flac
+Original styles: Technopop
+No genres mapped
+Styles unchanged: Technopop
+
+Processing existing metadata for: 13. 009 Sound System - Born to Be Wasted (Man of Goodwill Remix).flac
+
+Processing: 13. 009 Sound System - Born to Be Wasted (Man of Goodwill Remix).flac
+Original styles: Technopop
+No genres mapped
+Styles unchanged: Technopop
+
+Processing existing metadata for: 14. 009 Sound System - Dreamscape (King Julian Remix).flac
+
+Processing: 14. 009 Sound System - Dreamscape (King Julian Remix).flac
+Original styles: Technopop
+No genres mapped
+Styles unchanged: Technopop
+
+Processing existing metadata for: 15. 009 Sound System - Dreamscape (Victor Palmez Remix).flac
+
+Processing: 15. 009 Sound System - Dreamscape (Victor Palmez Remix).flac
+Original styles: Technopop
+No genres mapped
+Styles unchanged: Technopop
+
+Processing existing metadata for: 16. 009 Sound System - Born to Be Wasted (Kenny Hayes Remix).flac
+
+Processing: 16. 009 Sound System - Born to Be Wasted (Kenny Hayes Remix).flac
+Original styles: Technopop
+No genres mapped
+Styles unchanged: Technopop
+
+Processing existing metadata for: 01. 009 Sound System - Born to Be Wasted (Bluesolar Remix).flac
+
+Processing: 01. 009 Sound System - Born to Be Wasted (Bluesolar Remix).flac
+Original styles: Technopop
+No genres mapped
+Styles unchanged: Technopop
+
+Processing existing metadata for: 02. 009 Sound System - Holy Ghost (Vlegel Remix).flac
+
+Processing: 02. 009 Sound System - Holy Ghost (Vlegel Remix).flac
+Original styles: Technopop
+No genres mapped
+Styles unchanged: Technopop
+
+Processing existing metadata for: 03. 009 Sound System - Powerstation (Double M Beatz Remix).flac
+
+Processing: 03. 009 Sound System - Powerstation (Double M Beatz Remix).flac
+Original styles: Technopop
+No genres mapped
+Styles unchanged: Technopop
+
+Processing existing metadata for: 04. 009 Sound System - High All Day (Bluesolar Remix).flac
+
+Processing: 04. 009 Sound System - High All Day (Bluesolar Remix).flac
+Original styles: Technopop
+No genres mapped
+Styles unchanged: Technopop
+
+Processing existing metadata for: 05. 009 Sound System - Born to Be Wasted (Roma Pafos Remix).flac
+
+Processing: 05. 009 Sound System - Born to Be Wasted (Roma Pafos Remix).flac
+Original styles: Technopop
+No genres mapped
+Styles unchanged: Technopop
+
+Processing existing metadata for: 06. 009 Sound System - Holiday (Bluesolar Chill Mix).flac
+
+Processing: 06. 009 Sound System - Holiday (Bluesolar Chill Mix).flac
+Original styles: Technopop
+No genres mapped
+Styles unchanged: Technopop
+
+Processing existing metadata for: 07. 009 Sound System - Born to Be Wasted (Gladys Freak Plutonium Remix).flac
+
+Processing: 07. 009 Sound System - Born to Be Wasted (Gladys Freak Plutonium Remix).flac
+Original styles: Technopop
+No genres mapped
+Styles unchanged: Technopop
+
+Processing existing metadata for: 08. 009 Sound System - Powerstation (Bluesolar Remix).flac
+
+Processing: 08. 009 Sound System - Powerstation (Bluesolar Remix).flac
+Original styles: Technopop
+No genres mapped
+Styles unchanged: Technopop
+
+Processing existing metadata for: 09. 009 Sound System - Born to Be Wasted (Michael Mansion Remix).flac
+
+Processing: 09. 009 Sound System - Born to Be Wasted (Michael Mansion Remix).flac
+Original styles: Technopop
+No genres mapped
+Styles unchanged: Technopop
+
+Processing existing metadata for: 10. 009 Sound System - With a Spirit (Bluesolar Remix).flac
+
+Processing: 10. 009 Sound System - With a Spirit (Bluesolar Remix).flac
+Original styles: Technopop
+No genres mapped
+Styles unchanged: Technopop
+
+Processing existing metadata for: 11. 009 Sound System - Holiday (Immersion Remix).flac
+
+Processing: 11. 009 Sound System - Holiday (Immersion Remix).flac
+Original styles: Technopop
+No genres mapped
+Styles unchanged: Technopop
+
+Processing existing metadata for: 12. 009 Sound System - Holy Ghost (Brainpain Remix).flac
+
+Processing: 12. 009 Sound System - Holy Ghost (Brainpain Remix).flac
+Original styles: Technopop
+No genres mapped
+Styles unchanged: Technopop
+
+Processing existing metadata for: 13. 009 Sound System - Holiday (Bluesolar Remix).flac
+
+Processing: 13. 009 Sound System - Holiday (Bluesolar Remix).flac
+Original styles: Technopop
+No genres mapped
+Styles unchanged: Technopop
+
+Processing existing metadata for: 14. 009 Sound System - Born to Be Wasted (Hernan Marchesi Remix).flac
+
+Processing: 14. 009 Sound System - Born to Be Wasted (Hernan Marchesi Remix).flac
+Original styles: Technopop
+No genres mapped
+Styles unchanged: Technopop
+
+Processing existing metadata for: 15. 009 Sound System - Wings (Exosphere Remix).flac
+
+Processing: 15. 009 Sound System - Wings (Exosphere Remix).flac
+Original styles: Technopop
+No genres mapped
+Styles unchanged: Technopop
+
+Processing existing metadata for: 01. 009 Sound System - Dreamscape (Vlegel Remix).flac
+
+Processing: 01. 009 Sound System - Dreamscape (Vlegel Remix).flac
+Original styles: Technopop
+No genres mapped
+Styles unchanged: Technopop
+
+Processing existing metadata for: 02. 009 Sound System - Number Two (Bluesolar Afterlife Remix).flac
+
+Processing: 02. 009 Sound System - Number Two (Bluesolar Afterlife Remix).flac
+Original styles: Technopop
+No genres mapped
+Styles unchanged: Technopop
+
+Processing existing metadata for: 03. 009 Sound System - Solo (Vlegel Remix).flac
+
+Processing: 03. 009 Sound System - Solo (Vlegel Remix).flac
+Original styles: Technopop
+No genres mapped
+Styles unchanged: Technopop
+
+Processing existing metadata for: 04. 009 Sound System - Number Two (Gladys Freak Foundry Remix).flac
+
+Processing: 04. 009 Sound System - Number Two (Gladys Freak Foundry Remix).flac
+Original styles: Technopop
+No genres mapped
+Styles unchanged: Technopop
+
+Processing existing metadata for: 05. 009 Sound System - Solo (Gladys Freak Automation Remix).flac
+
+Processing: 05. 009 Sound System - Solo (Gladys Freak Automation Remix).flac
+Original styles: Technopop
+No genres mapped
+Styles unchanged: Technopop
+
+Processing existing metadata for: 06. 009 Sound System - Violate (Brainpain Remix).flac
+
+Processing: 06. 009 Sound System - Violate (Brainpain Remix).flac
+Original styles: Technopop
+No genres mapped
+Styles unchanged: Technopop
+
+Processing existing metadata for: 07. 009 Sound System - Violate (Bluesolar Remix).flac
+
+Processing: 07. 009 Sound System - Violate (Bluesolar Remix).flac
+Original styles: Technopop
+No genres mapped
+Styles unchanged: Technopop
+
+Processing existing metadata for: 08. 009 Sound System - Dreamscape (Reelaux Remix).flac
+
+Processing: 08. 009 Sound System - Dreamscape (Reelaux Remix).flac
+Original styles: Technopop
+No genres mapped
+Styles unchanged: Technopop
+
+Processing existing metadata for: 09. 009 Sound System - Space and Time (Bluesolar Remix).flac
+
+Processing: 09. 009 Sound System - Space and Time (Bluesolar Remix).flac
+Original styles: Technopop
+No genres mapped
+Styles unchanged: Technopop
+
+Processing existing metadata for: 10. 009 Sound System - Powerstation (Vlegel Remix).flac
+
+Processing: 10. 009 Sound System - Powerstation (Vlegel Remix).flac
+Original styles: Technopop
+No genres mapped
+Styles unchanged: Technopop
+
+Processing existing metadata for: 11. 009 Sound System - Wings (Bluesolar Radio Mix).flac
+
+Processing: 11. 009 Sound System - Wings (Bluesolar Radio Mix).flac
+Original styles: Technopop
+No genres mapped
+Styles unchanged: Technopop
+
+Processing existing metadata for: 12. 009 Sound System - Holiday (Palmez Remix).flac
+
+Processing: 12. 009 Sound System - Holiday (Palmez Remix).flac
+Original styles: Technopop
+No genres mapped
+Styles unchanged: Technopop
+
+Processing existing metadata for: 13. 009 Sound System - Number Two (Palmez Remix).flac
+
+Processing: 13. 009 Sound System - Number Two (Palmez Remix).flac
+Original styles: Technopop
+No genres mapped
+Styles unchanged: Technopop
+
+Processing existing metadata for: 01. 009 Sound System - Dream We Knew.flac
+
+Processing: 01. 009 Sound System - Dream We Knew.flac
+Original styles: Technopop
+No genres mapped
+Styles unchanged: Technopop
+
+Processing existing metadata for: 01. 009 Sound System - Powerstation.flac
+
+Processing: 01. 009 Sound System - Powerstation.flac
+Original styles: Technopop
+No genres mapped
+Styles unchanged: Technopop
+
+Processing existing metadata for: 01. 009 Sound System - When You're Young.flac
+
+Processing: 01. 009 Sound System - When You're Young.flac
+Original styles: Technopop
+No genres mapped
+Styles unchanged: Technopop
+
+Processing existing metadata for: 01. 009 Sound System - Wings.flac
+
+Processing: 01. 009 Sound System - Wings.flac
+Original styles: Technopop
+No genres mapped
+Styles unchanged: Technopop
+
+Processing existing metadata for: 009 Sound System - Dreamscape (Remastered).mp3
+
+Processing: 009 Sound System - Dreamscape (Remastered).mp3
+Original styles: Dream Trance
+No genres mapped
+Styles unchanged: Dream Trance
+
+Processing existing metadata for: 009 Sound System - Dreamscape.mp3
+
+Processing: 009 Sound System - Dreamscape.mp3
+Original styles: Dream Trance
+No genres mapped
+Styles unchanged: Dream Trance
+
+Processing existing metadata for: 009 Sound System - Trinity.mp3
+
+Processing: 009 Sound System - Trinity.mp3
+Original styles: Dream Trance
+No genres mapped
+Styles unchanged: Dream Trance
+
+Processing existing metadata for: 009 Sound System - With A Spirit.mp3
+
+Processing: 009 Sound System - With A Spirit.mp3
+Original styles: Dream Trance
+No genres mapped
+Styles unchanged: Dream Trance
+
+Processing existing metadata for: 07. Faint.flac
+
+Processing: 07. Faint.flac
+Original styles: Rock
+Mapped Genres: Rock
+Remaining Styles: 
+
+Processing existing metadata for: 12 Stones - We Are One.mp3
+
+Processing: 12 Stones - We Are One.mp3
+Original styles: Christian Rock, Post-grunge, Alternative Metal, Nu Metal, Christian Hard Rock
+No genres mapped
+Styles unchanged: Christian Rock, Post-grunge, Alternative Metal, Nu Metal, Christian Hard Rock
+
+Processing existing metadata for: 2050 - Power Punch.mp3
+No existing genres/styles found
+
+Processing existing metadata for: 3FORCE - Doomsday Codex.mp3
+
+Processing: 3FORCE - Doomsday Codex.mp3
+Original styles: Synthwave
+Mapped Genres: Synthwave
+Remaining Styles: 
+
+Processing existing metadata for: 3FORCE - Dust.mp3
+
+Processing: 3FORCE - Dust.mp3
+Original styles: Synthwave
+Mapped Genres: Synthwave
+Remaining Styles: 
+
+Processing existing metadata for: 3FORCE - Ghost.mp3
+
+Processing: 3FORCE - Ghost.mp3
+Original styles: Synthwave
+Mapped Genres: Synthwave
+Remaining Styles: 
+
+Processing existing metadata for: 3FORCE - Grand Design.mp3
+
+Processing: 3FORCE - Grand Design.mp3
+Original styles: Synthwave
+Mapped Genres: Synthwave
+Remaining Styles: 
+
+Processing existing metadata for: 3FORCE - In the House, In a Heartbeat.mp3
+
+Processing: 3FORCE - In the House, In a Heartbeat.mp3
+Original styles: Synthwave
+Mapped Genres: Synthwave
+Remaining Styles: 
+
+Processing existing metadata for: 3FORCE - Nuclear Sunday.mp3
+
+Processing: 3FORCE - Nuclear Sunday.mp3
+Original styles: Synthwave
+Mapped Genres: Synthwave
+Remaining Styles: 
+
+Processing existing metadata for: 3FORCE - Pursuit.mp3
+
+Processing: 3FORCE - Pursuit.mp3
+Original styles: Synthwave
+Mapped Genres: Synthwave
+Remaining Styles: 
+
+Processing existing metadata for: 3FORCE - Resistance.mp3
+
+Processing: 3FORCE - Resistance.mp3
+Original styles: Synthwave
+Mapped Genres: Synthwave
+Remaining Styles: 
+
+Processing existing metadata for: 3FORCE - Shape Shifter.mp3
+
+Processing: 3FORCE - Shape Shifter.mp3
+Original styles: Synthwave
+Mapped Genres: Synthwave
+Remaining Styles: 
+
+Processing existing metadata for: 3FORCE - Unleash.mp3
+
+Processing: 3FORCE - Unleash.mp3
+Original styles: Synthwave
+Mapped Genres: Synthwave
+Remaining Styles: 
+
+Processing existing metadata for: 3FORCE, Young Medicine - Crossfire.mp3
+
+Processing: 3FORCE, Young Medicine - Crossfire.mp3
+Original styles: Synthwave
+Mapped Genres: Synthwave
+Remaining Styles: 
+
+Processing existing metadata for: 4RUNNR - Time.mp3
+No existing genres/styles found
+
+Processing existing metadata for: 505 Games, We Are Magonia - Dive Into The Void.mp3
+No existing genres/styles found
+
+Processing existing metadata for: 7DD9 - Starlink.mp3
+No existing genres/styles found
+
+Processing existing metadata for: _ensnare_ - Let Us Progress to the Castle of Funk.mp3
+
+Processing: _ensnare_ - Let Us Progress to the Castle of Funk.mp3
+Original styles: Chiptune
+No genres mapped
+Styles unchanged: Chiptune
+
+Processing existing metadata for: _ensnare_ - There Is Always Love.mp3
+
+Processing: _ensnare_ - There Is Always Love.mp3
+Original styles: Chiptune
+No genres mapped
+Styles unchanged: Chiptune
+
+Processing existing metadata for: A.L.I.S.O.N - euphorie.mp3
+
+Processing: A.L.I.S.O.N - euphorie.mp3
+Original styles: Chillsynth
+No genres mapped
+Styles unchanged: Chillsynth
+
+Processing existing metadata for: A.L.I.S.O.N - Golden Dust.mp3
+
+Processing: A.L.I.S.O.N - Golden Dust.mp3
+Original styles: Chillsynth
+No genres mapped
+Styles unchanged: Chillsynth
+
+Processing existing metadata for: A.L.I.S.O.N - June.mp3
+
+Processing: A.L.I.S.O.N - June.mp3
+Original styles: Chillsynth
+No genres mapped
+Styles unchanged: Chillsynth
+
+Processing existing metadata for: A.L.I.S.O.N - Nightride.mp3
+
+Processing: A.L.I.S.O.N - Nightride.mp3
+Original styles: Chillsynth
+No genres mapped
+Styles unchanged: Chillsynth
+
+Processing existing metadata for: A.L.I.S.O.N - Pantheon.mp3
+
+Processing: A.L.I.S.O.N - Pantheon.mp3
+Original styles: Chillsynth
+No genres mapped
+Styles unchanged: Chillsynth
+
+Processing existing metadata for: A.L.I.S.O.N - Space Echo.mp3
+
+Processing: A.L.I.S.O.N - Space Echo.mp3
+Original styles: Chillsynth
+No genres mapped
+Styles unchanged: Chillsynth
+
+Processing existing metadata for: A.L.I.S.O.N - Subtract.mp3
+
+Processing: A.L.I.S.O.N - Subtract.mp3
+Original styles: Chillsynth
+No genres mapped
+Styles unchanged: Chillsynth
+
+Processing existing metadata for: A.L.I.S.O.N - Warm.mp3
+
+Processing: A.L.I.S.O.N - Warm.mp3
+Original styles: Chillsynth
+No genres mapped
+Styles unchanged: Chillsynth
+
+Processing existing metadata for: A.L.I.S.O.N, Hotel Pools - Firefall.mp3
+
+Processing: A.L.I.S.O.N, Hotel Pools - Firefall.mp3
+Original styles: Chillsynth
+No genres mapped
+Styles unchanged: Chillsynth
+
+Processing existing metadata for: A.M. Attack - Tarzana.mp3
+No existing genres/styles found
+
+Processing existing metadata for: Aaro - Indestructable.mp3
+No existing genres/styles found
+
+Processing existing metadata for: Aaron Smith, Luvli, Krono - Dancin - Krono Remix.mp3
+
+Processing: Aaron Smith, Luvli, Krono - Dancin - Krono Remix.mp3
+Original styles: Chicago House
+No genres mapped
+Styles unchanged: Chicago House
+
+Processing existing metadata for: Absolute Valentine - Bad News.mp3
+
+Processing: Absolute Valentine - Bad News.mp3
+Original styles: Synthwave, Darksynth
+Mapped Genres: Synthwave
+Remaining Styles: Darksynth
+
+Processing existing metadata for: Absolute Valentine - In the 42nd Street.mp3
+
+Processing: Absolute Valentine - In the 42nd Street.mp3
+Original styles: Synthwave, Darksynth
+Mapped Genres: Synthwave
+Remaining Styles: Darksynth
+
+Processing existing metadata for: ACDC - Back In Black.mp3
+
+Processing: ACDC - Back In Black.mp3
+Original styles: Australian Rock, Rock, Hard Rock
+Mapped Genres: Rock
+Remaining Styles: Australian Rock, Hard Rock
+
+Processing existing metadata for: ACDC - Highway to Hell.mp3
+
+Processing: ACDC - Highway to Hell.mp3
+Original styles: Australian Rock, Rock, Hard Rock
+Mapped Genres: Rock
+Remaining Styles: Australian Rock, Hard Rock
+
+Processing existing metadata for: Adam Young - 1977.mp3
+No existing genres/styles found
+
+Processing existing metadata for: Adelitas Way - Invincible.mp3
+
+Processing: Adelitas Way - Invincible.mp3
+Original styles: Post-grunge, Alternative Metal, Christian Rock
+No genres mapped
+Styles unchanged: Post-grunge, Alternative Metal, Christian Rock
+
+Processing existing metadata for: Adieu Aru - Arbrevy.mp3
+
+Processing: Adieu Aru - Arbrevy.mp3
+Original styles: Chillsynth
+No genres mapped
+Styles unchanged: Chillsynth
+
+Processing existing metadata for: Adieu Aru - Dark Ages.mp3
+
+Processing: Adieu Aru - Dark Ages.mp3
+Original styles: Chillsynth
+No genres mapped
+Styles unchanged: Chillsynth
+
+Processing existing metadata for: Adieu Aru - Release.mp3
+
+Processing: Adieu Aru - Release.mp3
+Original styles: Chillsynth
+No genres mapped
+Styles unchanged: Chillsynth
+
+Processing existing metadata for: Aerds - Deadline (2018).mp3
+No existing genres/styles found
+
+Processing existing metadata for: Aero Chord - Boundless.mp3
+
+Processing: Aero Chord - Boundless.mp3
+Original styles: Bass Trap, Gaming Edm
+No genres mapped
+Styles unchanged: Bass Trap, Gaming Edm
+
+Processing existing metadata for: Aero Chord - Surface.mp3
+
+Processing: Aero Chord - Surface.mp3
+Original styles: Bass Trap, Gaming Edm
+No genres mapped
+Styles unchanged: Bass Trap, Gaming Edm
+
+Processing existing metadata for: AEROVIPER - Dark Cloud.mp3
+No existing genres/styles found
+
+Processing existing metadata for: AGTHA - K3Pt - AGTHA Remix.mp3
+No existing genres/styles found
+
+Processing existing metadata for: Ahrix - Nova.mp3
+
+Processing: Ahrix - Nova.mp3
+Original styles: Gaming Edm
+No genres mapped
+Styles unchanged: Gaming Edm
+
+Processing existing metadata for: Air - Alone in Kyoto.mp3
+
+Processing: Air - Alone in Kyoto.mp3
+Original styles: Electronica, Ambient Pop, Trip Hop, Downtempo, Indietronica
+No genres mapped
+Styles unchanged: Electronica, Ambient Pop, Trip Hop, Downtempo, Indietronica
+
+Processing existing metadata for: akiaura, LONOWN, STM - Destruction Age.mp3
+
+Processing: akiaura, LONOWN, STM - Destruction Age.mp3
+Original styles: Dreampunk
+No genres mapped
+Styles unchanged: Dreampunk
+
+Processing existing metadata for: akiaura, LONOWN, STM - Sleepwalker - Slowed.mp3
+
+Processing: akiaura, LONOWN, STM - Sleepwalker - Slowed.mp3
+Original styles: Dreampunk
+No genres mapped
+Styles unchanged: Dreampunk
+
+Processing existing metadata for: akiaura, LONOWN, STM - Sleepwalker.mp3
+
+Processing: akiaura, LONOWN, STM - Sleepwalker.mp3
+Original styles: Dreampunk
+No genres mapped
+Styles unchanged: Dreampunk
+
+Processing existing metadata for: akiaura, Olya Holiday - veil.mp3
+
+Processing: akiaura, Olya Holiday - veil.mp3
+Original styles: Dreampunk
+No genres mapped
+Styles unchanged: Dreampunk
+
+Processing existing metadata for: Alan Walker - Fade.mp3
+
+Processing: Alan Walker - Fade.mp3
+Original styles: Electro House
+No genres mapped
+Styles unchanged: Electro House
+
+Processing existing metadata for: Alan Walker - Faded.mp3
+
+Processing: Alan Walker - Faded.mp3
+Original styles: Electro House
+No genres mapped
+Styles unchanged: Electro House
+
+Processing existing metadata for: Alan Walker - Force.mp3
+
+Processing: Alan Walker - Force.mp3
+Original styles: Electro House
+No genres mapped
+Styles unchanged: Electro House
+
+Processing existing metadata for: Alan Walker - Spectre.mp3
+
+Processing: Alan Walker - Spectre.mp3
+Original styles: Electro House
+No genres mapped
+Styles unchanged: Electro House
+
+Processing existing metadata for: Alan Walker - The Spectre.mp3
+
+Processing: Alan Walker - The Spectre.mp3
+Original styles: Electro House
+No genres mapped
+Styles unchanged: Electro House
+
+Processing existing metadata for: Alan Walker, Georgia Ku - Don't You Hold Me Down.mp3
+
+Processing: Alan Walker, Georgia Ku - Don't You Hold Me Down.mp3
+Original styles: Electro House
+No genres mapped
+Styles unchanged: Electro House
+
+Processing existing metadata for: Alan Walker, Noah Cyrus, Digital Farm Animals, Juliander - All Falls Down (feat. Juliander) - Sped up Remix.mp3
+
+Processing: Alan Walker, Noah Cyrus, Digital Farm Animals, Juliander - All Falls Down (feat. Juliander) - Sped up Remix.mp3
+Original styles: Electro House
+No genres mapped
+Styles unchanged: Electro House
+
+Processing existing metadata for: ALEX - Odyssey.mp3
+
+Processing: ALEX - Odyssey.mp3
+Original styles: Synthwave, Cyberpunk, Darksynth
+Mapped Genres: Synthwave
+Remaining Styles: Cyberpunk, Darksynth
+
+Processing existing metadata for: Alex Skrindo - Ease.mp3
+
+Processing: Alex Skrindo - Ease.mp3
+Original styles: Gaming Edm
+No genres mapped
+Styles unchanged: Gaming Edm
+
+Processing existing metadata for: Alex Skrindo - Jumbo.mp3
+
+Processing: Alex Skrindo - Jumbo.mp3
+Original styles: Gaming Edm
+No genres mapped
+Styles unchanged: Gaming Edm
+
+Processing existing metadata for: Alex Yarmak - No King Rules Forever.mp3
+
+Processing: Alex Yarmak - No King Rules Forever.mp3
+Original styles: Dark Clubbing
+No genres mapped
+Styles unchanged: Dark Clubbing
+
+Processing existing metadata for: ALEX, Absolute Valentine - PARADISE - Absolute Valentine Remix  nightcore mix.mp3
+
+Processing: ALEX, Absolute Valentine - PARADISE - Absolute Valentine Remix  nightcore mix.mp3
+Original styles: Synthwave, Cyberpunk, Darksynth
+Mapped Genres: Synthwave
+Remaining Styles: Cyberpunk, Darksynth
+
+Processing existing metadata for: ALEX, Mono Memory - SOCIAL MEDIOCRITY.mp3
+
+Processing: ALEX, Mono Memory - SOCIAL MEDIOCRITY.mp3
+Original styles: Synthwave, Cyberpunk, Darksynth
+Mapped Genres: Synthwave
+Remaining Styles: Cyberpunk, Darksynth
+
+Processing existing metadata for: ALEX, Rachel Mcalpine - Game Over.mp3
+
+Processing: ALEX, Rachel Mcalpine - Game Over.mp3
+Original styles: Synthwave, Cyberpunk, Darksynth
+Mapped Genres: Synthwave
+Remaining Styles: Cyberpunk, Darksynth
+
+Processing existing metadata for: ALEX, Rachel Mcalpine - YOUTH V2 - TECH NOIR LIVE 2017 VERSION.mp3
+
+Processing: ALEX, Rachel Mcalpine - YOUTH V2 - TECH NOIR LIVE 2017 VERSION.mp3
+Original styles: Synthwave, Cyberpunk, Darksynth
+Mapped Genres: Synthwave
+Remaining Styles: Cyberpunk, Darksynth
+
+Processing existing metadata for: ALEX, TOKYO ROSE, F.O.O.L - AWAKENING - nightcore mix.mp3
+
+Processing: ALEX, TOKYO ROSE, F.O.O.L - AWAKENING - nightcore mix.mp3
+Original styles: Synthwave, Cyberpunk, Darksynth
+Mapped Genres: Synthwave
+Remaining Styles: Cyberpunk, Darksynth
+
+Processing existing metadata for: ALEX, TOKYO ROSE, Kick Puncher - SYSTEM SHOCK - Kick Puncher Remix.mp3
+
+Processing: ALEX, TOKYO ROSE, Kick Puncher - SYSTEM SHOCK - Kick Puncher Remix.mp3
+Original styles: Synthwave, Cyberpunk, Darksynth
+Mapped Genres: Synthwave
+Remaining Styles: Cyberpunk, Darksynth
+
+Processing existing metadata for: ALEX, TOKYO ROSE, Mecha Maiko - CURSED - nightcore mix.mp3
+
+Processing: ALEX, TOKYO ROSE, Mecha Maiko - CURSED - nightcore mix.mp3
+Original styles: Synthwave, Cyberpunk, Darksynth
+Mapped Genres: Synthwave
+Remaining Styles: Cyberpunk, Darksynth
+
+Processing existing metadata for: ALEX, TOKYO ROSE, Power Glove - RIVALS - nightcore mix.mp3
+
+Processing: ALEX, TOKYO ROSE, Power Glove - RIVALS - nightcore mix.mp3
+Original styles: Synthwave, Cyberpunk, Darksynth
+Mapped Genres: Synthwave
+Remaining Styles: Cyberpunk, Darksynth
+
+Processing existing metadata for: ALEX, TOKYO ROSE, Rachel Mcalpine, THE AKUMA - AKUMA.mp3
+
+Processing: ALEX, TOKYO ROSE, Rachel Mcalpine, THE AKUMA - AKUMA.mp3
+Original styles: Synthwave, Cyberpunk, Darksynth
+Mapped Genres: Synthwave
+Remaining Styles: Cyberpunk, Darksynth
+
+Processing existing metadata for: ALEX, TOKYO ROSE, Rachel Mcalpine, Tonebox, THE AKUMA - AKUMA V2.mp3
+
+Processing: ALEX, TOKYO ROSE, Rachel Mcalpine, Tonebox, THE AKUMA - AKUMA V2.mp3
+Original styles: Synthwave, Cyberpunk, Darksynth
+Mapped Genres: Synthwave
+Remaining Styles: Cyberpunk, Darksynth
+
+Processing existing metadata for: ALEX, TOKYO ROSE, THE AKUMA - ANTAGONIST.mp3
+
+Processing: ALEX, TOKYO ROSE, THE AKUMA - ANTAGONIST.mp3
+Original styles: Synthwave, Cyberpunk, Darksynth
+Mapped Genres: Synthwave
+Remaining Styles: Cyberpunk, Darksynth
+
+Processing existing metadata for: ALEX, TOKYO ROSE, THE AKUMA - BLOOD OATH.mp3
+
+Processing: ALEX, TOKYO ROSE, THE AKUMA - BLOOD OATH.mp3
+Original styles: Synthwave, Cyberpunk, Darksynth
+Mapped Genres: Synthwave
+Remaining Styles: Cyberpunk, Darksynth
+
+Processing existing metadata for: ALEX, TOKYO ROSE, THE AKUMA - DEATH RACE.mp3
+
+Processing: ALEX, TOKYO ROSE, THE AKUMA - DEATH RACE.mp3
+Original styles: Synthwave, Cyberpunk, Darksynth
+Mapped Genres: Synthwave
+Remaining Styles: Cyberpunk, Darksynth
+
+Processing existing metadata for: ALEX, TOKYO ROSE, THE AKUMA - DELETE SOUL.mp3
+
+Processing: ALEX, TOKYO ROSE, THE AKUMA - DELETE SOUL.mp3
+Original styles: Synthwave, Cyberpunk, Darksynth
+Mapped Genres: Synthwave
+Remaining Styles: Cyberpunk, Darksynth
+
+Processing existing metadata for: ALEX, TOKYO ROSE, THE AKUMA - INSERT SOUL.mp3
+
+Processing: ALEX, TOKYO ROSE, THE AKUMA - INSERT SOUL.mp3
+Original styles: Synthwave, Cyberpunk, Darksynth
+Mapped Genres: Synthwave
+Remaining Styles: Cyberpunk, Darksynth
+
+Processing existing metadata for: ALEX, TOKYO ROSE, THE AKUMA - SACRIFICE.mp3
+
+Processing: ALEX, TOKYO ROSE, THE AKUMA - SACRIFICE.mp3
+Original styles: Synthwave, Cyberpunk, Darksynth
+Mapped Genres: Synthwave
+Remaining Styles: Cyberpunk, Darksynth
+
+Processing existing metadata for: ALEX, TOKYO ROSE, THE AKUMA, Power Glove - RIVALS.mp3
+
+Processing: ALEX, TOKYO ROSE, THE AKUMA, Power Glove - RIVALS.mp3
+Original styles: Synthwave, Cyberpunk, Darksynth
+Mapped Genres: Synthwave
+Remaining Styles: Cyberpunk, Darksynth
+
+Processing existing metadata for: ALEX, TOKYO ROSE, THE AKUMA, WVLFPAKT - THE PACT.mp3
+
+Processing: ALEX, TOKYO ROSE, THE AKUMA, WVLFPAKT - THE PACT.mp3
+Original styles: Synthwave, Cyberpunk, Darksynth
+Mapped Genres: Synthwave
+Remaining Styles: Cyberpunk, Darksynth
+
+Processing existing metadata for: Alexi Action, Infraction - Witch's Whispers.mp3
+No existing genres/styles found
+
+Processing existing metadata for: Alice Cooper - Poison.mp3
+
+Processing: Alice Cooper - Poison.mp3
+Original styles: Protopunk, Glam Metal, Glam Rock, Album Rock, Rock, Classic Rock, Hard Rock, Metal
+Mapped Genres: Rock
+Remaining Styles: Protopunk, Glam Metal, Glam Rock, Album Rock, Classic Rock, Hard Rock, Metal
+
+Processing existing metadata for: Alice Deejay - Better Off Alone.mp3
+
+Processing: Alice Deejay - Better Off Alone.mp3
+Original styles: Eurodance
+No genres mapped
+Styles unchanged: Eurodance
+
+Processing existing metadata for: Alien Ant Farm - Smooth Criminal.mp3
+
+Processing: Alien Ant Farm - Smooth Criminal.mp3
+Original styles: Post-grunge, Alternative Metal, Nu Metal, Funk Metal
+No genres mapped
+Styles unchanged: Post-grunge, Alternative Metal, Nu Metal, Funk Metal
+
+Processing existing metadata for: Allen Nova - Alter.mp3
+No existing genres/styles found
+
+Processing existing metadata for: Allen Nova - Feels Good.mp3
+No existing genres/styles found
+
+Processing existing metadata for: almogfx - fata morgana.mp3
+
+Processing: almogfx - fata morgana.mp3
+Original styles: Drift Phonk, Hardwave, Wave
+No genres mapped
+Styles unchanged: Drift Phonk, Hardwave, Wave
+
+Processing existing metadata for: Alok, Ella Eyre, Kenny Dope, Never Dull - Deep Down (feat. Never Dull).mp3
+
+Processing: Alok, Ella Eyre, Kenny Dope, Never Dull - Deep Down (feat. Never Dull).mp3
+Original styles: Pop Nacional, Electro House, Slap House
+No genres mapped
+Styles unchanged: Pop Nacional, Electro House, Slap House
+
+Processing existing metadata for: Alpha Room - Avatar of Nine.mp3
+
+Processing: Alpha Room - Avatar of Nine.mp3
+Original styles: Chillsynth
+No genres mapped
+Styles unchanged: Chillsynth
+
+Processing existing metadata for: Alpharisc - 1989 Dream Girl.mp3
+
+Processing: Alpharisc - 1989 Dream Girl.mp3
+Original styles: Synthwave
+Mapped Genres: Synthwave
+Remaining Styles: 
+
+Processing existing metadata for: Alpharisc - The Commitment.mp3
+
+Processing: Alpharisc - The Commitment.mp3
+Original styles: Synthwave
+Mapped Genres: Synthwave
+Remaining Styles: 
+
+Processing existing metadata for: Alt236 - All Seeying Eyes.mp3
+No existing genres/styles found
+
+Processing existing metadata for: Animadrop - Stuck in a Timeloop.mp3
+
+Processing: Animadrop - Stuck in a Timeloop.mp3
+Original styles: Melodic Dubstep
+No genres mapped
+Styles unchanged: Melodic Dubstep
+
+Processing existing metadata for: Anmeom - Aesthetic.mp3
+No existing genres/styles found
+
+Processing existing metadata for: Antonio Vivaldi, Adrian Chandler, La Serenissima - The Four Seasons- Concerto No. 2 in G Minor, RV 315 'L'estate' (summer)- III. Presto.mp3
+
+Processing: Antonio Vivaldi, Adrian Chandler, La Serenissima - The Four Seasons- Concerto No. 2 in G Minor, RV 315 'L'estate' (summer)- III. Presto.mp3
+Original styles: Early Music, Italian Baroque, Classical, Baroque
+No genres mapped
+Styles unchanged: Early Music, Italian Baroque, Classical, Baroque
+
+Processing existing metadata for: Antonio Vivaldi, Adrian Chandler, La Serenissima - The Four Seasons- Concerto No. 4 in F Minor, RV 297 'L'inverno' (winter)- I. Allegro non molto.mp3
+
+Processing: Antonio Vivaldi, Adrian Chandler, La Serenissima - The Four Seasons- Concerto No. 4 in F Minor, RV 297 'L'inverno' (winter)- I. Allegro non molto.mp3
+Original styles: Early Music, Italian Baroque, Classical, Baroque
+No genres mapped
+Styles unchanged: Early Music, Italian Baroque, Classical, Baroque
+
+Processing existing metadata for: Anzo - Colony.mp3
+
+Processing: Anzo - Colony.mp3
+Original styles: Complextro
+No genres mapped
+Styles unchanged: Complextro
+
+Processing existing metadata for: Anzo - Moonbound.mp3
+
+Processing: Anzo - Moonbound.mp3
+Original styles: Complextro
+No genres mapped
+Styles unchanged: Complextro
+
+Processing existing metadata for: Apex - Inner Space - Original Mix.mp3
+
+Processing: Apex - Inner Space - Original Mix.mp3
+Original styles: Neurofunk
+No genres mapped
+Styles unchanged: Neurofunk
+
+Processing existing metadata for: Approaching Nirvana - 305.mp3
+No existing genres/styles found
+
+Processing existing metadata for: Approaching Nirvana - Monster.mp3
+No existing genres/styles found
+
+Processing existing metadata for: Approaching Nirvana - Mount Olympus.mp3
+No existing genres/styles found
+
+Processing existing metadata for: Approaching Nirvana, Veela - Witness (feat. Veela).mp3
+No existing genres/styles found
+
+Processing existing metadata for: Arcade High - Campfire Curse.mp3
+
+Processing: Arcade High - Campfire Curse.mp3
+Original styles: Synthwave
+Mapped Genres: Synthwave
+Remaining Styles: 
+
+Processing existing metadata for: Arcade High - Full Hearts.mp3
+
+Processing: Arcade High - Full Hearts.mp3
+Original styles: Synthwave
+Mapped Genres: Synthwave
+Remaining Styles: 
+
+Processing existing metadata for: Arcade High - In the Dark.mp3
+
+Processing: Arcade High - In the Dark.mp3
+Original styles: Synthwave
+Mapped Genres: Synthwave
+Remaining Styles: 
+
+Processing existing metadata for: Arcade High - Outrun This!.mp3
+
+Processing: Arcade High - Outrun This!.mp3
+Original styles: Synthwave
+Mapped Genres: Synthwave
+Remaining Styles: 
+
+Processing existing metadata for: Archie - Back Again.mp3
+No existing genres/styles found
+
+Processing existing metadata for: Arctic Monkeys - Do I Wanna Know.mp3
+
+Processing: Arctic Monkeys - Do I Wanna Know.mp3
+Original styles: Sheffield Indie, Permanent Wave, Garage Rock, Modern Rock, Rock
+Mapped Genres: Rock
+Remaining Styles: Sheffield Indie, Permanent Wave, Garage Rock, Modern Rock
+
+Processing existing metadata for: Ariis - S1KE.mp3
+
+Processing: Ariis - S1KE.mp3
+Original styles: Gym Phonk
+No genres mapped
+Styles unchanged: Gym Phonk
+
+Processing existing metadata for: Armin van Buuren, Punctual, Alika - On & On.mp3
+
+Processing: Armin van Buuren, Punctual, Alika - On & On.mp3
+Original styles: Trance, Progressive House, Pop Dance, Edm, Dutch Trance, Dutch House
+No genres mapped
+Styles unchanged: Trance, Progressive House, Pop Dance, Edm, Dutch Trance, Dutch House
+
+Processing existing metadata for: Armin van Buuren, Sharon Den Adel - In And Out Of Love.mp3
+
+Processing: Armin van Buuren, Sharon Den Adel - In And Out Of Love.mp3
+Original styles: Trance, Progressive House, Pop Dance, Edm, Dutch Trance, Dutch House
+No genres mapped
+Styles unchanged: Trance, Progressive House, Pop Dance, Edm, Dutch Trance, Dutch House
+
+Processing existing metadata for: Arvo Party - Chevy Chase.mp3
+
+Processing: Arvo Party - Chevy Chase.mp3
+Original styles: Belfast Indie
+No genres mapped
+Styles unchanged: Belfast Indie
+
+Processing existing metadata for: Ash O'Connor - Vibe.mp3
+
+Processing: Ash O'Connor - Vibe.mp3
+Original styles: Gaming Edm
+No genres mapped
+Styles unchanged: Gaming Edm
+
+Processing existing metadata for: Ash O'Connor - You.mp3
+
+Processing: Ash O'Connor - You.mp3
+Original styles: Gaming Edm
+No genres mapped
+Styles unchanged: Gaming Edm
+
+Processing existing metadata for: Ashbury Heights - Phantasmagoria.mp3
+
+Processing: Ashbury Heights - Phantasmagoria.mp3
+Original styles: Futurepop, Industrial Pop, Dark Wave, Ebm, Industrial Metal, Swedish Synthpop, Swedish Synth, Aggrotech
+No genres mapped
+Styles unchanged: Futurepop, Industrial Pop, Dark Wave, Ebm, Industrial Metal, Swedish Synthpop, Swedish Synth, Aggrotech
+
+Processing existing metadata for: Astronaut - Apollo - Electro Mix.mp3
+
+Processing: Astronaut - Apollo - Electro Mix.mp3
+Original styles: Filthstep, Complextro, Gaming Edm
+No genres mapped
+Styles unchanged: Filthstep, Complextro, Gaming Edm
+
+Processing existing metadata for: Astronaut, Harry Brooks JNR - Champions (feat. Harry Brooks Jnr).mp3
+
+Processing: Astronaut, Harry Brooks JNR - Champions (feat. Harry Brooks Jnr).mp3
+Original styles: Filthstep, Complextro, Gaming Edm
+No genres mapped
+Styles unchanged: Filthstep, Complextro, Gaming Edm
+
+Processing existing metadata for: Astronaut, Harry Brooks JNR - Champions.mp3
+
+Processing: Astronaut, Harry Brooks JNR - Champions.mp3
+Original styles: Filthstep, Complextro, Gaming Edm
+No genres mapped
+Styles unchanged: Filthstep, Complextro, Gaming Edm
+
+Processing existing metadata for: Atlas Plug - Truth Be Known.mp3
+
+Processing: Atlas Plug - Truth Be Known.mp3
+Original styles: Future Rock
+No genres mapped
+Styles unchanged: Future Rock
+
+Processing existing metadata for: Atomic Raptor - Augmented.mp3
+No existing genres/styles found
+
+Processing existing metadata for: Atrey - Dark Prince (Final Cut).mp3
+
+Processing: Atrey - Dark Prince (Final Cut).mp3
+Original styles: Synthwave, Darksynth, Czech Electronic
+Mapped Genres: Synthwave
+Remaining Styles: Darksynth, Czech Electronic
+
+Processing existing metadata for: Atrey - Dark Prince, Pt. 3.mp3
+
+Processing: Atrey - Dark Prince, Pt. 3.mp3
+Original styles: Synthwave, Darksynth, Czech Electronic
+Mapped Genres: Synthwave
+Remaining Styles: Darksynth, Czech Electronic
+
+Processing existing metadata for: Auralnauts - Dance Fight 66.mp3
+No existing genres/styles found
+
+Processing existing metadata for: Autoerotique, Max Styler, Torro Torro - Badman - Torro Torro Remix.mp3
+
+Processing: Autoerotique, Max Styler, Torro Torro - Badman - Torro Torro Remix.mp3
+Original styles: Canadian Electronic, Brostep, Electro House
+No genres mapped
+Styles unchanged: Canadian Electronic, Brostep, Electro House
+
+Processing existing metadata for: Avenged Sevenfold - Hail to the King.mp3
+
+Processing: Avenged Sevenfold - Hail to the King.mp3
+Original styles: Alternative Metal
+No genres mapped
+Styles unchanged: Alternative Metal
+
+Processing existing metadata for: Avenged Sevenfold - Nightmare.mp3
+
+Processing: Avenged Sevenfold - Nightmare.mp3
+Original styles: Alternative Metal
+No genres mapped
+Styles unchanged: Alternative Metal
+
+Processing existing metadata for: Avenged Sevenfold - Shepherd of Fire.mp3
+
+Processing: Avenged Sevenfold - Shepherd of Fire.mp3
+Original styles: Alternative Metal
+No genres mapped
+Styles unchanged: Alternative Metal
+
+Processing existing metadata for: Avenza - Hardliner.mp3
+No existing genres/styles found
+
+Processing existing metadata for: Avenza - Immersion.mp3
+No existing genres/styles found
+
+Processing existing metadata for: Avenza - My Special Hat.mp3
+No existing genres/styles found
+
+Processing existing metadata for: Avicii - Levels - Radio Edit.mp3
+
+Processing: Avicii - Levels - Radio Edit.mp3
+Original styles: Pop, Edm, Pop Dance, Dance Pop
+Mapped Genres: Pop
+Remaining Styles: Edm, Pop Dance, Dance Pop
+
+Processing existing metadata for: Avicii, Nicky Romero - I Could Be The One (Avicii Vs. Nicky Romero) - Radio Edit.mp3
+
+Processing: Avicii, Nicky Romero - I Could Be The One (Avicii Vs. Nicky Romero) - Radio Edit.mp3
+Original styles: Pop, Edm, Pop Dance, Dance Pop
+Mapped Genres: Pop
+Remaining Styles: Edm, Pop Dance, Dance Pop
+
+Processing existing metadata for: Bad Computer - Fly.mp3
+
+Processing: Bad Computer - Fly.mp3
+Original styles: Complextro
+No genres mapped
+Styles unchanged: Complextro
+
+Processing existing metadata for: Bad Computer - Heartbeat.mp3
+
+Processing: Bad Computer - Heartbeat.mp3
+Original styles: Complextro
+No genres mapped
+Styles unchanged: Complextro
+
+Processing existing metadata for: Bad Computer, Karra - Paradigm.mp3
+
+Processing: Bad Computer, Karra - Paradigm.mp3
+Original styles: Complextro
+No genres mapped
+Styles unchanged: Complextro
+
+Processing existing metadata for: Bad Computer, Savoi - Voyage.mp3
+
+Processing: Bad Computer, Savoi - Voyage.mp3
+Original styles: Complextro
+No genres mapped
+Styles unchanged: Complextro
+
+Processing existing metadata for: Bad Computer, Skyelle - Silhouette.mp3
+
+Processing: Bad Computer, Skyelle - Silhouette.mp3
+Original styles: Complextro
+No genres mapped
+Styles unchanged: Complextro
+
+Processing existing metadata for: Badass Wolf Shirt - Pretending to Sleep.mp3
+
+Processing: Badass Wolf Shirt - Pretending to Sleep.mp3
+Original styles: Witch House
+No genres mapped
+Styles unchanged: Witch House
+
+Processing existing metadata for: Baldocaster - Canyons.mp3
+
+Processing: Baldocaster - Canyons.mp3
+Original styles: Synthwave, Spacewave
+Mapped Genres: Synthwave
+Remaining Styles: Spacewave
+
+Processing existing metadata for: Basshunter - All I Ever Wanted - Radio Edit.mp3
+
+Processing: Basshunter - All I Ever Wanted - Radio Edit.mp3
+Original styles: Eurodance
+No genres mapped
+Styles unchanged: Eurodance
+
+Processing existing metadata for: Battle Tapes - Feel the Same.mp3
+
+Processing: Battle Tapes - Feel the Same.mp3
+Original styles: La Indie
+No genres mapped
+Styles unchanged: La Indie
+
+Processing existing metadata for: Battle Tapes - In Too Deep.mp3
+
+Processing: Battle Tapes - In Too Deep.mp3
+Original styles: La Indie
+No genres mapped
+Styles unchanged: La Indie
+
+Processing existing metadata for: Battle Tapes - Last Resort & Spa.mp3
+
+Processing: Battle Tapes - Last Resort & Spa.mp3
+Original styles: La Indie
+No genres mapped
+Styles unchanged: La Indie
+
+Processing existing metadata for: Battlejuice - Serpent Head.mp3
+
+Processing: Battlejuice - Serpent Head.mp3
+Original styles: Synthwave, Darksynth
+Mapped Genres: Synthwave
+Remaining Styles: Darksynth
+
+Processing existing metadata for: Battlejuice, LeBrock - Made Of Steel.mp3
+
+Processing: Battlejuice, LeBrock - Made Of Steel.mp3
+Original styles: Synthwave, Darksynth
+Mapped Genres: Synthwave
+Remaining Styles: Darksynth
+
+Processing existing metadata for: Beast In Black - Die By The Blade.mp3
+
+Processing: Beast In Black - Die By The Blade.mp3
+Original styles: Finnish Power Metal, Finnish Heavy Metal, Power Metal
+No genres mapped
+Styles unchanged: Finnish Power Metal, Finnish Heavy Metal, Power Metal
+
+Processing existing metadata for: Benny Benassi, The Biz - Satisfaction - Isak Original Extended.mp3
+
+Processing: Benny Benassi, The Biz - Satisfaction - Isak Original Extended.mp3
+Original styles: Dutch House, Electro House, Pop Dance, Edm
+No genres mapped
+Styles unchanged: Dutch House, Electro House, Pop Dance, Edm
+
+Processing existing metadata for: Betamaxx - Take Off.mp3
+
+Processing: Betamaxx - Take Off.mp3
+Original styles: Synthwave
+Mapped Genres: Synthwave
+Remaining Styles: 
+
+Processing existing metadata for: Big Giant Circles - Lax.mp3
+
+Processing: Big Giant Circles - Lax.mp3
+Original styles: Chiptune
+No genres mapped
+Styles unchanged: Chiptune
+
+Processing existing metadata for: Bignic - Ruiner - Domina Mix.mp3
+
+Processing: Bignic - Ruiner - Domina Mix.mp3
+Original styles: Ambient Fusion, Chiptune
+No genres mapped
+Styles unchanged: Ambient Fusion, Chiptune
+
+Processing existing metadata for: Bill Kiley - Chinatown.mp3
+
+Processing: Bill Kiley - Chinatown.mp3
+Original styles: Indie Game Soundtrack
+No genres mapped
+Styles unchanged: Indie Game Soundtrack
+
+Processing existing metadata for: Bill Kiley - Sneaky Driver.mp3
+
+Processing: Bill Kiley - Sneaky Driver.mp3
+Original styles: Indie Game Soundtrack
+No genres mapped
+Styles unchanged: Indie Game Soundtrack
+
+Processing existing metadata for: Bill Kiley - Worst Neighbors Ever.mp3
+
+Processing: Bill Kiley - Worst Neighbors Ever.mp3
+Original styles: Indie Game Soundtrack
+No genres mapped
+Styles unchanged: Indie Game Soundtrack
+
+Processing existing metadata for: Bill Kiley - You Will Never Know.mp3
+
+Processing: Bill Kiley - You Will Never Know.mp3
+Original styles: Indie Game Soundtrack
+No genres mapped
+Styles unchanged: Indie Game Soundtrack
+
+Processing existing metadata for: Billy Talent - Red Flag.mp3
+
+Processing: Billy Talent - Red Flag.mp3
+Original styles: Canadian Punk
+No genres mapped
+Styles unchanged: Canadian Punk
+
+Processing existing metadata for: Billy Talent - Rusted From the Rain.mp3
+
+Processing: Billy Talent - Rusted From the Rain.mp3
+Original styles: Canadian Punk
+No genres mapped
+Styles unchanged: Canadian Punk
+
+Processing existing metadata for: Billy Talent - Viking Death March.mp3
+
+Processing: Billy Talent - Viking Death March.mp3
+Original styles: Canadian Punk
+No genres mapped
+Styles unchanged: Canadian Punk
+
+Processing existing metadata for: Bingo Players, Far East Movement - Get Up (Rattle) [feat. Far East Movement] - Vocal Edit.mp3
+
+Processing: Bingo Players, Far East Movement - Get Up (Rattle) [feat. Far East Movement] - Vocal Edit.mp3
+Original styles: Progressive Electro House, Progressive House, Melbourne Bounce, Electro House, Pop Dance, Edm, Dutch House, Big Room
+No genres mapped
+Styles unchanged: Progressive Electro House, Progressive House, Melbourne Bounce, Electro House, Pop Dance, Edm, Dutch House, Big Room
+
+Processing existing metadata for: Birdy Nam Nam - DEFIANT ORDER.mp3
+
+Processing: Birdy Nam Nam - DEFIANT ORDER.mp3
+Original styles: Filter House, Turntablism
+No genres mapped
+Styles unchanged: Filter House, Turntablism
+
+Processing existing metadata for: Black Eyed Peas - Boom Boom Pow.mp3
+
+Processing: Black Eyed Peas - Boom Boom Pow.mp3
+Original styles: Pop, Dance Pop, Pop Rap
+Mapped Genres: Pop
+Remaining Styles: Dance Pop, Pop Rap
+
+Processing existing metadata for: Black Eyed Peas - Don’t Stop The Party.mp3
+
+Processing: Black Eyed Peas - Don’t Stop The Party.mp3
+Original styles: Pop, Dance Pop, Pop Rap
+Mapped Genres: Pop
+Remaining Styles: Dance Pop, Pop Rap
+
+Processing existing metadata for: Black Eyed Peas - I Gotta Feeling - Edit.mp3
+
+Processing: Black Eyed Peas - I Gotta Feeling - Edit.mp3
+Original styles: Pop, Dance Pop, Pop Rap
+Mapped Genres: Pop
+Remaining Styles: Dance Pop, Pop Rap
+
+Processing existing metadata for: Black Eyed Peas - I Gotta Feeling.mp3
+
+Processing: Black Eyed Peas - I Gotta Feeling.mp3
+Original styles: Pop, Dance Pop, Pop Rap
+Mapped Genres: Pop
+Remaining Styles: Dance Pop, Pop Rap
+
+Processing existing metadata for: Black Eyed Peas - Just Can’t Get Enough.mp3
+
+Processing: Black Eyed Peas - Just Can’t Get Enough.mp3
+Original styles: Pop, Dance Pop, Pop Rap
+Mapped Genres: Pop
+Remaining Styles: Dance Pop, Pop Rap
+
+Processing existing metadata for: Black Eyed Peas - Let's Get It Started - Spike Mix.mp3
+
+Processing: Black Eyed Peas - Let's Get It Started - Spike Mix.mp3
+Original styles: Pop, Dance Pop, Pop Rap
+Mapped Genres: Pop
+Remaining Styles: Dance Pop, Pop Rap
+
+Processing existing metadata for: Black Eyed Peas - Pump It.mp3
+
+Processing: Black Eyed Peas - Pump It.mp3
+Original styles: Pop, Dance Pop, Pop Rap
+Mapped Genres: Pop
+Remaining Styles: Dance Pop, Pop Rap
+
+Processing existing metadata for: Black Eyed Peas - The Time (Dirty Bit).mp3
+
+Processing: Black Eyed Peas - The Time (Dirty Bit).mp3
+Original styles: Pop, Dance Pop, Pop Rap
+Mapped Genres: Pop
+Remaining Styles: Dance Pop, Pop Rap
+
+Processing existing metadata for: Black Sabbath - Paranoid.mp3
+
+Processing: Black Sabbath - Paranoid.mp3
+Original styles: Alternative Metal, Birmingham Metal, Stoner Rock, Album Rock, Rock, Classic Rock, Hard Rock, Metal, Uk Doom Metal
+Mapped Genres: Rock
+Remaining Styles: Alternative Metal, Birmingham Metal, Stoner Rock, Album Rock, Classic Rock, Hard Rock, Metal, Uk Doom Metal
+
+Processing existing metadata for: Blackbird - Foggy Night.mp3
+No existing genres/styles found
+
+Processing existing metadata for: Blaze U - Have It All.mp3
+
+Processing: Blaze U - Have It All.mp3
+Original styles: Future House, Slap House
+No genres mapped
+Styles unchanged: Future House, Slap House
+
+Processing existing metadata for: Blinders - Lost Control.mp3
+
+Processing: Blinders - Lost Control.mp3
+Original styles: Progressive Electro House, Electro House, Louisville Underground, Dutch House, Sky Room
+No genres mapped
+Styles unchanged: Progressive Electro House, Electro House, Louisville Underground, Dutch House, Sky Room
+
+Processing existing metadata for: Bloody Hammers - Let Sleeping Corpses Lie.mp3
+
+Processing: Bloody Hammers - Let Sleeping Corpses Lie.mp3
+Original styles: North Carolina Metal, Psychedelic Doom
+No genres mapped
+Styles unchanged: North Carolina Metal, Psychedelic Doom
+
+Processing existing metadata for: Blue Mora - Life.mp3
+No existing genres/styles found
+
+Processing existing metadata for: Blue Stahli - Headshot.mp3
+
+Processing: Blue Stahli - Headshot.mp3
+Original styles: Cyberpunk, Future Rock
+No genres mapped
+Styles unchanged: Cyberpunk, Future Rock
+
+Processing existing metadata for: Blue Stahli - Red Carpet Rush.mp3
+
+Processing: Blue Stahli - Red Carpet Rush.mp3
+Original styles: Cyberpunk, Future Rock
+No genres mapped
+Styles unchanged: Cyberpunk, Future Rock
+
+Processing existing metadata for: Blue Stahli, Sunset Neon - Sunset Neon.mp3
+
+Processing: Blue Stahli, Sunset Neon - Sunset Neon.mp3
+Original styles: Cyberpunk, Future Rock
+No genres mapped
+Styles unchanged: Cyberpunk, Future Rock
+
+Processing existing metadata for: blueberry - EVA.mp3
+
+Processing: blueberry - EVA.mp3
+Original styles: Gym Phonk
+No genres mapped
+Styles unchanged: Gym Phonk
+
+Processing existing metadata for: blueberry - Phase Shift.mp3
+
+Processing: blueberry - Phase Shift.mp3
+Original styles: Gym Phonk
+No genres mapped
+Styles unchanged: Gym Phonk
+
+Processing existing metadata for: blueberry, Leenucch - Nomad.mp3
+
+Processing: blueberry, Leenucch - Nomad.mp3
+Original styles: Gym Phonk
+No genres mapped
+Styles unchanged: Gym Phonk
+
+Processing existing metadata for: Blur - Song 2 - 2012 Remaster.mp3
+
+Processing: Blur - Song 2 - 2012 Remaster.mp3
+Original styles: Alternative Rock, Rock, Permanent Wave
+Mapped Genres: Rock
+Remaining Styles: Alternative Rock, Permanent Wave
+
+Processing existing metadata for: Bob Sinclar, Cutee B., DollarMan, Big Ali, Makedah - Rock This Party - Everybody Dance Now.mp3
+
+Processing: Bob Sinclar, Cutee B., DollarMan, Big Ali, Makedah - Rock This Party - Everybody Dance Now.mp3
+Original styles: Disco House, Filter House
+No genres mapped
+Styles unchanged: Disco House, Filter House
+
+Processing existing metadata for: Bob Sinclar, FISHER, Steve Edwards - World Hold On (Children Of The Sky) - FISHER Rework.mp3
+
+Processing: Bob Sinclar, FISHER, Steve Edwards - World Hold On (Children Of The Sky) - FISHER Rework.mp3
+Original styles: Disco House, Filter House
+No genres mapped
+Styles unchanged: Disco House, Filter House
+
+Processing existing metadata for: Bon Jovi - It's My Life.mp3
+
+Processing: Bon Jovi - It's My Life.mp3
+Original styles: Rock, Glam Metal
+Mapped Genres: Rock
+Remaining Styles: Glam Metal
+
+Processing existing metadata for: Bon Jovi - Livin' On A Prayer.mp3
+
+Processing: Bon Jovi - Livin' On A Prayer.mp3
+Original styles: Rock, Glam Metal
+Mapped Genres: Rock
+Remaining Styles: Glam Metal
+
+Processing existing metadata for: BONES UK - Dirty Little Animals (from the series Arcane League of Legends).mp3
+
+Processing: BONES UK - Dirty Little Animals (from the series Arcane League of Legends).mp3
+Original styles: Slayer
+No genres mapped
+Styles unchanged: Slayer
+
+Processing existing metadata for: Borena, Hidden Tigress - Finding You.mp3
+No existing genres/styles found
+
+Processing existing metadata for: Botolv - Roppongi Hills.mp3
+No existing genres/styles found
+
+Processing existing metadata for: Braken - To The Stars.mp3
+
+Processing: Braken - To The Stars.mp3
+Original styles: Gaming Edm
+No genres mapped
+Styles unchanged: Gaming Edm
+
+Processing existing metadata for: Breaking Benjamin - Blood.mp3
+
+Processing: Breaking Benjamin - Blood.mp3
+Original styles: Post-grunge, Alternative Metal, Nu Metal
+No genres mapped
+Styles unchanged: Post-grunge, Alternative Metal, Nu Metal
+
+Processing existing metadata for: Breaking Benjamin - Blow Me Away - Soundtrack Version.mp3
+
+Processing: Breaking Benjamin - Blow Me Away - Soundtrack Version.mp3
+Original styles: Post-grunge, Alternative Metal, Nu Metal
+No genres mapped
+Styles unchanged: Post-grunge, Alternative Metal, Nu Metal
+
+Processing existing metadata for: Breaking Benjamin - Blow Me Away.mp3
+
+Processing: Breaking Benjamin - Blow Me Away.mp3
+Original styles: Post-grunge, Alternative Metal, Nu Metal
+No genres mapped
+Styles unchanged: Post-grunge, Alternative Metal, Nu Metal
+
+Processing existing metadata for: Breaking Benjamin - Breath.mp3
+
+Processing: Breaking Benjamin - Breath.mp3
+Original styles: Post-grunge, Alternative Metal, Nu Metal
+No genres mapped
+Styles unchanged: Post-grunge, Alternative Metal, Nu Metal
+
+Processing existing metadata for: Breaking Benjamin - I Will Not Bow.mp3
+
+Processing: Breaking Benjamin - I Will Not Bow.mp3
+Original styles: Post-grunge, Alternative Metal, Nu Metal
+No genres mapped
+Styles unchanged: Post-grunge, Alternative Metal, Nu Metal
+
+Processing existing metadata for: Breaking Benjamin - The Diary of Jane - Single Version.mp3
+
+Processing: Breaking Benjamin - The Diary of Jane - Single Version.mp3
+Original styles: Post-grunge, Alternative Metal, Nu Metal
+No genres mapped
+Styles unchanged: Post-grunge, Alternative Metal, Nu Metal
+
+Processing existing metadata for: Bring Me The Horizon - Can You Feel My Heart.mp3
+
+Processing: Bring Me The Horizon - Can You Feel My Heart.mp3
+Original styles: Uk Metalcore, Melodic Metalcore, Modern Rock, Rock, Metalcore
+Mapped Genres: Rock
+Remaining Styles: Uk Metalcore, Melodic Metalcore, Modern Rock, Metalcore
+
+Processing existing metadata for: Britney Spears - ...Baby One More Time.mp3
+
+Processing: Britney Spears - ...Baby One More Time.mp3
+Original styles: Pop, Dance Pop
+Mapped Genres: Pop
+Remaining Styles: Dance Pop
+
+Processing existing metadata for: Britney Spears - Toxic.mp3
+
+Processing: Britney Spears - Toxic.mp3
+Original styles: Pop, Dance Pop
+Mapped Genres: Pop
+Remaining Styles: Dance Pop
+
+Processing existing metadata for: BUDD - Highline - Original Club Mix.mp3
+No existing genres/styles found
+
+Processing existing metadata for: Bustre - Combine.mp3
+
+Processing: Bustre - Combine.mp3
+Original styles: Gaming Edm, Chillstep
+No genres mapped
+Styles unchanged: Gaming Edm, Chillstep
+
+Processing existing metadata for: C418 - Aria Math.mp3
+
+Processing: C418 - Aria Math.mp3
+Original styles: Pixel, Video Game Music
+No genres mapped
+Styles unchanged: Pixel, Video Game Music
+
+Processing existing metadata for: C418 - Dry Hands.mp3
+
+Processing: C418 - Dry Hands.mp3
+Original styles: Pixel, Video Game Music
+No genres mapped
+Styles unchanged: Pixel, Video Game Music
+
+Processing existing metadata for: C418 - Haggstrom.mp3
+
+Processing: C418 - Haggstrom.mp3
+Original styles: Pixel, Video Game Music
+No genres mapped
+Styles unchanged: Pixel, Video Game Music
+
+Processing existing metadata for: C418 - Key.mp3
+
+Processing: C418 - Key.mp3
+Original styles: Pixel, Video Game Music
+No genres mapped
+Styles unchanged: Pixel, Video Game Music
+
+Processing existing metadata for: C418 - Living Mice.mp3
+
+Processing: C418 - Living Mice.mp3
+Original styles: Pixel, Video Game Music
+No genres mapped
+Styles unchanged: Pixel, Video Game Music
+
+Processing existing metadata for: C418 - Mice On Venus.mp3
+
+Processing: C418 - Mice On Venus.mp3
+Original styles: Pixel, Video Game Music
+No genres mapped
+Styles unchanged: Pixel, Video Game Music
+
+Processing existing metadata for: C418 - Minecraft.mp3
+
+Processing: C418 - Minecraft.mp3
+Original styles: Pixel, Video Game Music
+No genres mapped
+Styles unchanged: Pixel, Video Game Music
+
+Processing existing metadata for: C418 - Moog City 2.mp3
+
+Processing: C418 - Moog City 2.mp3
+Original styles: Pixel, Video Game Music
+No genres mapped
+Styles unchanged: Pixel, Video Game Music
+
+Processing existing metadata for: C418 - Moog City.mp3
+
+Processing: C418 - Moog City.mp3
+Original styles: Pixel, Video Game Music
+No genres mapped
+Styles unchanged: Pixel, Video Game Music
+
+Processing existing metadata for: C418 - Oxygène.mp3
+
+Processing: C418 - Oxygène.mp3
+Original styles: Pixel, Video Game Music
+No genres mapped
+Styles unchanged: Pixel, Video Game Music
+
+Processing existing metadata for: C418 - Subwoofer Lullaby.mp3
+
+Processing: C418 - Subwoofer Lullaby.mp3
+Original styles: Pixel, Video Game Music
+No genres mapped
+Styles unchanged: Pixel, Video Game Music
+
+Processing existing metadata for: C418 - Sweden.mp3
+
+Processing: C418 - Sweden.mp3
+Original styles: Pixel, Video Game Music
+No genres mapped
+Styles unchanged: Pixel, Video Game Music
+
+Processing existing metadata for: C418 - Wet Hands.mp3
+
+Processing: C418 - Wet Hands.mp3
+Original styles: Pixel, Video Game Music
+No genres mapped
+Styles unchanged: Pixel, Video Game Music
+
+Processing existing metadata for: C418 - Équinoxe.mp3
+
+Processing: C418 - Équinoxe.mp3
+Original styles: Pixel, Video Game Music
+No genres mapped
+Styles unchanged: Pixel, Video Game Music
+
+Processing existing metadata for: Calvin Harris - Feel So Close - Radio Edit.mp3
+
+Processing: Calvin Harris - Feel So Close - Radio Edit.mp3
+Original styles: House, Uk Dance, Progressive House, Electro House, Pop, Edm, Dance Pop
+Mapped Genres: Pop
+Remaining Styles: House, Uk Dance, Progressive House, Electro House, Edm, Dance Pop
+
+Processing existing metadata for: Calvin Harris - Summer.mp3
+
+Processing: Calvin Harris - Summer.mp3
+Original styles: House, Uk Dance, Progressive House, Electro House, Pop, Edm, Dance Pop
+Mapped Genres: Pop
+Remaining Styles: House, Uk Dance, Progressive House, Electro House, Edm, Dance Pop
+
+Processing existing metadata for: Carbon Killer - The Last Stand.mp3
+
+Processing: Carbon Killer - The Last Stand.mp3
+Original styles: Cyberpunk
+No genres mapped
+Styles unchanged: Cyberpunk
+
+Processing existing metadata for: Carbon Killer, Elay Arson - All Cyborgs Are Biomechanical.mp3
+
+Processing: Carbon Killer, Elay Arson - All Cyborgs Are Biomechanical.mp3
+Original styles: Cyberpunk
+No genres mapped
+Styles unchanged: Cyberpunk
+
+Processing existing metadata for: Carbon Killer, Rogue VHS - Neon Sign - Rogue VHS Remix.mp3
+
+Processing: Carbon Killer, Rogue VHS - Neon Sign - Rogue VHS Remix.mp3
+Original styles: Cyberpunk
+No genres mapped
+Styles unchanged: Cyberpunk
+
+Processing existing metadata for: Carl Orff, Michael Tilson Thomas, The Cleveland Orchestra Chorus, The Cleveland Orchestra - Carmina Burana- O Fortuna.mp3
+
+Processing: Carl Orff, Michael Tilson Thomas, The Cleveland Orchestra Chorus, The Cleveland Orchestra - Carmina Burana- O Fortuna.mp3
+Original styles: Early Modern Classical
+No genres mapped
+Styles unchanged: Early Modern Classical
+
+Processing existing metadata for: Carpenter Brut - Enraged.mp3
+
+Processing: Carpenter Brut - Enraged.mp3
+Original styles: Synthwave, Cyberpunk, Darksynth
+Mapped Genres: Synthwave
+Remaining Styles: Cyberpunk, Darksynth
+
+Processing existing metadata for: Carpenter Brut - Escape From Midwich Valley.mp3
+
+Processing: Carpenter Brut - Escape From Midwich Valley.mp3
+Original styles: Synthwave, Cyberpunk, Darksynth
+Mapped Genres: Synthwave
+Remaining Styles: Cyberpunk, Darksynth
+
+Processing existing metadata for: Carpenter Brut - Hairspray Hurricane.mp3
+
+Processing: Carpenter Brut - Hairspray Hurricane.mp3
+Original styles: Synthwave, Cyberpunk, Darksynth
+Mapped Genres: Synthwave
+Remaining Styles: Cyberpunk, Darksynth
+
+Processing existing metadata for: Carpenter Brut - Hang'em All.mp3
+
+Processing: Carpenter Brut - Hang'em All.mp3
+Original styles: Synthwave, Cyberpunk, Darksynth
+Mapped Genres: Synthwave
+Remaining Styles: Cyberpunk, Darksynth
+
+Processing existing metadata for: Carpenter Brut - Hush Sally, Hush!.mp3
+
+Processing: Carpenter Brut - Hush Sally, Hush!.mp3
+Original styles: Synthwave, Cyberpunk, Darksynth
+Mapped Genres: Synthwave
+Remaining Styles: Cyberpunk, Darksynth
+
+Processing existing metadata for: Carpenter Brut - Inferno Galore.mp3
+
+Processing: Carpenter Brut - Inferno Galore.mp3
+Original styles: Synthwave, Cyberpunk, Darksynth
+Mapped Genres: Synthwave
+Remaining Styles: Cyberpunk, Darksynth
+
+Processing existing metadata for: Carpenter Brut - Le perv.mp3
+
+Processing: Carpenter Brut - Le perv.mp3
+Original styles: Synthwave, Cyberpunk, Darksynth
+Mapped Genres: Synthwave
+Remaining Styles: Cyberpunk, Darksynth
+
+Processing existing metadata for: Carpenter Brut - Looking For Tracy Tzu.mp3
+
+Processing: Carpenter Brut - Looking For Tracy Tzu.mp3
+Original styles: Synthwave, Cyberpunk, Darksynth
+Mapped Genres: Synthwave
+Remaining Styles: Cyberpunk, Darksynth
+
+Processing existing metadata for: Carpenter Brut - Paradise Warfare.mp3
+
+Processing: Carpenter Brut - Paradise Warfare.mp3
+Original styles: Synthwave, Cyberpunk, Darksynth
+Mapped Genres: Synthwave
+Remaining Styles: Cyberpunk, Darksynth
+
+Processing existing metadata for: Carpenter Brut - Roller Mobster.mp3
+
+Processing: Carpenter Brut - Roller Mobster.mp3
+Original styles: Synthwave, Cyberpunk, Darksynth
+Mapped Genres: Synthwave
+Remaining Styles: Cyberpunk, Darksynth
+
+Processing existing metadata for: Carpenter Brut - Run, Sally, Run!.mp3
+
+Processing: Carpenter Brut - Run, Sally, Run!.mp3
+Original styles: Synthwave, Cyberpunk, Darksynth
+Mapped Genres: Synthwave
+Remaining Styles: Cyberpunk, Darksynth
+
+Processing existing metadata for: Carpenter Brut - Time to Wake Up.mp3
+
+Processing: Carpenter Brut - Time to Wake Up.mp3
+Original styles: Synthwave, Cyberpunk, Darksynth
+Mapped Genres: Synthwave
+Remaining Styles: Cyberpunk, Darksynth
+
+Processing existing metadata for: Carpenter Brut - Turbo Killer.mp3
+
+Processing: Carpenter Brut - Turbo Killer.mp3
+Original styles: Synthwave, Cyberpunk, Darksynth
+Mapped Genres: Synthwave
+Remaining Styles: Cyberpunk, Darksynth
+
+Processing existing metadata for: Carpenter Brut - What We Fight For.mp3
+
+Processing: Carpenter Brut - What We Fight For.mp3
+Original styles: Synthwave, Cyberpunk, Darksynth
+Mapped Genres: Synthwave
+Remaining Styles: Cyberpunk, Darksynth
+
+Processing existing metadata for: Carpenter Brut - You're Mine.mp3
+
+Processing: Carpenter Brut - You're Mine.mp3
+Original styles: Synthwave, Cyberpunk, Darksynth
+Mapped Genres: Synthwave
+Remaining Styles: Cyberpunk, Darksynth
+
+Processing existing metadata for: Carpenter Brut, Yann Ligner - Maniac.mp3
+
+Processing: Carpenter Brut, Yann Ligner - Maniac.mp3
+Original styles: Synthwave, Cyberpunk, Darksynth
+Mapped Genres: Synthwave
+Remaining Styles: Cyberpunk, Darksynth
+
+Processing existing metadata for: Cartoon, Jéja, Coleman Trapp - Why We Lose.mp3
+
+Processing: Cartoon, Jéja, Coleman Trapp - Why We Lose.mp3
+Original styles: Gaming Edm
+No genres mapped
+Styles unchanged: Gaming Edm
+
+Processing existing metadata for: Cartridge 1987 - Carnage.mp3
+
+Processing: Cartridge 1987 - Carnage.mp3
+Original styles: Synthwave
+Mapped Genres: Synthwave
+Remaining Styles: 
+
+Processing existing metadata for: CARV.R, Mari Kattman - Deflect.mp3
+
+Processing: CARV.R, Mari Kattman - Deflect.mp3
+Original styles: Industrial Pop
+No genres mapped
+Styles unchanged: Industrial Pop
+
+Processing existing metadata for: Case & Point - Error Code.mp3
+
+Processing: Case & Point - Error Code.mp3
+Original styles: Complextro, Gaming Edm
+No genres mapped
+Styles unchanged: Complextro, Gaming Edm
+
+Processing existing metadata for: Case & Point - Fugitive.mp3
+
+Processing: Case & Point - Fugitive.mp3
+Original styles: Complextro, Gaming Edm
+No genres mapped
+Styles unchanged: Complextro, Gaming Edm
+
+Processing existing metadata for: Case & Point - Prism.mp3
+
+Processing: Case & Point - Prism.mp3
+Original styles: Complextro, Gaming Edm
+No genres mapped
+Styles unchanged: Complextro, Gaming Edm
+
+Processing existing metadata for: Case & Point - Savage.mp3
+
+Processing: Case & Point - Savage.mp3
+Original styles: Complextro, Gaming Edm
+No genres mapped
+Styles unchanged: Complextro, Gaming Edm
+
+Processing existing metadata for: Case & Point, Gamble & Burke - All On Me.mp3
+
+Processing: Case & Point, Gamble & Burke - All On Me.mp3
+Original styles: Complextro, Gaming Edm
+No genres mapped
+Styles unchanged: Complextro, Gaming Edm
+
+Processing existing metadata for: Caspro - Costa Chill.mp3
+
+Processing: Caspro - Costa Chill.mp3
+Original styles: Chillsynth, Synthwave
+Mapped Genres: Synthwave
+Remaining Styles: Chillsynth
+
+Processing existing metadata for: Caspro - Dimensions.mp3
+
+Processing: Caspro - Dimensions.mp3
+Original styles: Chillsynth, Synthwave
+Mapped Genres: Synthwave
+Remaining Styles: Chillsynth
+
+Processing existing metadata for: Caspro - Goosebumps - Cover.mp3
+
+Processing: Caspro - Goosebumps - Cover.mp3
+Original styles: Chillsynth, Synthwave
+Mapped Genres: Synthwave
+Remaining Styles: Chillsynth
+
+Processing existing metadata for: Caspro - Goosebumps.mp3
+
+Processing: Caspro - Goosebumps.mp3
+Original styles: Chillsynth, Synthwave
+Mapped Genres: Synthwave
+Remaining Styles: Chillsynth
+
+Processing existing metadata for: Caspro - Pastel.mp3
+
+Processing: Caspro - Pastel.mp3
+Original styles: Chillsynth, Synthwave
+Mapped Genres: Synthwave
+Remaining Styles: Chillsynth
+
+Processing existing metadata for: Caspro - Really Wanna Go!.mp3
+
+Processing: Caspro - Really Wanna Go!.mp3
+Original styles: Chillsynth, Synthwave
+Mapped Genres: Synthwave
+Remaining Styles: Chillsynth
+
+Processing existing metadata for: Caspro - Spooky Scary Skeletons - Cover.mp3
+
+Processing: Caspro - Spooky Scary Skeletons - Cover.mp3
+Original styles: Chillsynth, Synthwave
+Mapped Genres: Synthwave
+Remaining Styles: Chillsynth
+
+Processing existing metadata for: Caspro, Dark Digital - Dark Digital.mp3
+
+Processing: Caspro, Dark Digital - Dark Digital.mp3
+Original styles: Chillsynth, Synthwave
+Mapped Genres: Synthwave
+Remaining Styles: Chillsynth
+
+Processing existing metadata for: Cassetter - Moon Disco.mp3
+
+Processing: Cassetter - Moon Disco.mp3
+Original styles: Synthwave
+Mapped Genres: Synthwave
+Remaining Styles: 
+
+Processing existing metadata for: Cassetter - Seek & Destroy.mp3
+
+Processing: Cassetter - Seek & Destroy.mp3
+Original styles: Synthwave
+Mapped Genres: Synthwave
+Remaining Styles: 
+
+Processing existing metadata for: Cassetter - Slasher.mp3
+
+Processing: Cassetter - Slasher.mp3
+Original styles: Synthwave
+Mapped Genres: Synthwave
+Remaining Styles: 
+
+Processing existing metadata for: Cassetter, Extra Terra - Slasher - Extra Terra Remix.mp3
+
+Processing: Cassetter, Extra Terra - Slasher - Extra Terra Remix.mp3
+Original styles: Synthwave
+Mapped Genres: Synthwave
+Remaining Styles: 
+
+Processing existing metadata for: Cassetter, OVRGRWN, Donbor - Through The Lights - Donbor Remix.mp3
+
+Processing: Cassetter, OVRGRWN, Donbor - Through The Lights - Donbor Remix.mp3
+Original styles: Synthwave
+Mapped Genres: Synthwave
+Remaining Styles: 
+
+Processing existing metadata for: Celldweller - Baptized In Fire - Single Edit.mp3
+
+Processing: Celldweller - Baptized In Fire - Single Edit.mp3
+Original styles: Industrial Rock, Future Rock, Industrial Metal
+No genres mapped
+Styles unchanged: Industrial Rock, Future Rock, Industrial Metal
+
+Processing existing metadata for: Celldweller - Good L_ck (Yo_'re F_cked).mp3
+
+Processing: Celldweller - Good L_ck (Yo_'re F_cked).mp3
+Original styles: Industrial Rock, Future Rock, Industrial Metal
+No genres mapped
+Styles unchanged: Industrial Rock, Future Rock, Industrial Metal
+
+Processing existing metadata for: Cheshyre - Madness 5.5.mp3
+No existing genres/styles found
+
+Processing existing metadata for: Chime, Rob Gasser - Whole - Rob Gasser Remix.mp3
+
+Processing: Chime, Rob Gasser - Whole - Rob Gasser Remix.mp3
+Original styles: Melodic Dubstep, Gaming Dubstep, Brostep, Dubstep
+No genres mapped
+Styles unchanged: Melodic Dubstep, Gaming Dubstep, Brostep, Dubstep
+
+Processing existing metadata for: CHMCL SØUP - DARKSIDE.mp3
+No existing genres/styles found
+
+Processing existing metadata for: Chris Keya - Hotlines.mp3
+
+Processing: Chris Keya - Hotlines.mp3
+Original styles: Cyberpunk
+No genres mapped
+Styles unchanged: Cyberpunk
+
+Processing existing metadata for: Chris Ramos, Natasha Waterman - Emergency.mp3
+
+Processing: Chris Ramos, Natasha Waterman - Emergency.mp3
+Original styles: Pop Edm
+No genres mapped
+Styles unchanged: Pop Edm
+
+Processing existing metadata for: Chrisson, Hot Date - Overcome (This Time).mp3
+
+Processing: Chrisson, Hot Date - Overcome (This Time).mp3
+Original styles: Gaming Edm
+No genres mapped
+Styles unchanged: Gaming Edm
+
+Processing existing metadata for: Christine, T La Rock - Drama.mp3
+
+Processing: Christine, T La Rock - Drama.mp3
+Original styles: Super Eurobeat
+No genres mapped
+Styles unchanged: Super Eurobeat
+
+Processing existing metadata for: Christopher Larkin - Dirtmouth.mp3
+
+Processing: Christopher Larkin - Dirtmouth.mp3
+Original styles: Indie Game Soundtrack, Video Game Music, Oceania Soundtrack
+No genres mapped
+Styles unchanged: Indie Game Soundtrack, Video Game Music, Oceania Soundtrack
+
+Processing existing metadata for: Christopher Larkin - Enter Hallownest.mp3
+
+Processing: Christopher Larkin - Enter Hallownest.mp3
+Original styles: Indie Game Soundtrack, Video Game Music, Oceania Soundtrack
+No genres mapped
+Styles unchanged: Indie Game Soundtrack, Video Game Music, Oceania Soundtrack
+
+Processing existing metadata for: Christopher Larkin - Greenpath.mp3
+
+Processing: Christopher Larkin - Greenpath.mp3
+Original styles: Indie Game Soundtrack, Video Game Music, Oceania Soundtrack
+No genres mapped
+Styles unchanged: Indie Game Soundtrack, Video Game Music, Oceania Soundtrack
+
+Processing existing metadata for: Christopher Larkin - Hollow Knight.mp3
+
+Processing: Christopher Larkin - Hollow Knight.mp3
+Original styles: Indie Game Soundtrack, Video Game Music, Oceania Soundtrack
+No genres mapped
+Styles unchanged: Indie Game Soundtrack, Video Game Music, Oceania Soundtrack
+
+Processing existing metadata for: Christopher Larkin - Resting Grounds.mp3
+
+Processing: Christopher Larkin - Resting Grounds.mp3
+Original styles: Indie Game Soundtrack, Video Game Music, Oceania Soundtrack
+No genres mapped
+Styles unchanged: Indie Game Soundtrack, Video Game Music, Oceania Soundtrack
+
+Processing existing metadata for: Christopher Larkin - The Grimm Troupe.mp3
+
+Processing: Christopher Larkin - The Grimm Troupe.mp3
+Original styles: Indie Game Soundtrack, Video Game Music, Oceania Soundtrack
+No genres mapped
+Styles unchanged: Indie Game Soundtrack, Video Game Music, Oceania Soundtrack
+
+Processing existing metadata for: Cihat Aşkın - Waltz No.2.mp3
+
+Processing: Cihat Aşkın - Waltz No.2.mp3
+Original styles: Turkish Instrumental, Turkish Jazz
+No genres mapped
+Styles unchanged: Turkish Instrumental, Turkish Jazz
+
+Processing existing metadata for: Cinnamon Chasers - Signals.mp3
+
+Processing: Cinnamon Chasers - Signals.mp3
+Original styles: Filter House
+No genres mapped
+Styles unchanged: Filter House
+
+Processing existing metadata for: Citizen 12b - Orion.mp3
+
+Processing: Citizen 12b - Orion.mp3
+Original styles: Spacewave
+No genres mapped
+Styles unchanged: Spacewave
+
+Processing existing metadata for: Citizen 12b - Tunnel of Light.mp3
+
+Processing: Citizen 12b - Tunnel of Light.mp3
+Original styles: Spacewave
+No genres mapped
+Styles unchanged: Spacewave
+
+Processing existing metadata for: Clams Casino, Imogen Heap - I'm God.mp3
+
+Processing: Clams Casino, Imogen Heap - I'm God.mp3
+Original styles: Instrumental Hip Hop, Experimental Hip Hop, Cloud Rap, Psychedelic Hip Hop
+No genres mapped
+Styles unchanged: Instrumental Hip Hop, Experimental Hip Hop, Cloud Rap, Psychedelic Hip Hop
+
+Processing existing metadata for: Clarx - Bones.mp3
+
+Processing: Clarx - Bones.mp3
+Original styles: Gaming Edm
+No genres mapped
+Styles unchanged: Gaming Edm
+
+Processing existing metadata for: Clarx - Disco.mp3
+
+Processing: Clarx - Disco.mp3
+Original styles: Gaming Edm
+No genres mapped
+Styles unchanged: Gaming Edm
+
+Processing existing metadata for: Clarx - H.A.Y.mp3
+
+Processing: Clarx - H.A.Y.mp3
+Original styles: Gaming Edm
+No genres mapped
+Styles unchanged: Gaming Edm
+
+Processing existing metadata for: Clarx - Voodoo People.mp3
+
+Processing: Clarx - Voodoo People.mp3
+Original styles: Gaming Edm
+No genres mapped
+Styles unchanged: Gaming Edm
+
+Processing existing metadata for: Clarx - Zig Zag.mp3
+
+Processing: Clarx - Zig Zag.mp3
+Original styles: Gaming Edm
+No genres mapped
+Styles unchanged: Gaming Edm
+
+Processing existing metadata for: Clarx, Harddope - Castle.mp3
+
+Processing: Clarx, Harddope - Castle.mp3
+Original styles: Gaming Edm
+No genres mapped
+Styles unchanged: Gaming Edm
+
+Processing existing metadata for: Clarx, Mad Miguel - Don't Go.mp3
+
+Processing: Clarx, Mad Miguel - Don't Go.mp3
+Original styles: Gaming Edm
+No genres mapped
+Styles unchanged: Gaming Edm
+
+Processing existing metadata for: Claude Debussy, Martin Jones - Clair de Lune, L. 32.mp3
+
+Processing: Claude Debussy, Martin Jones - Clair de Lune, L. 32.mp3
+Original styles: Impressionism, Post-romantic Era, Classical
+No genres mapped
+Styles unchanged: Impressionism, Post-romantic Era, Classical
+
+Processing existing metadata for: Cloud Battalion - Heat.mp3
+
+Processing: Cloud Battalion - Heat.mp3
+Original styles: Synthwave
+Mapped Genres: Synthwave
+Remaining Styles: 
+
+Processing existing metadata for: Cloud Battalion - Vengeance.mp3
+
+Processing: Cloud Battalion - Vengeance.mp3
+Original styles: Synthwave
+Mapped Genres: Synthwave
+Remaining Styles: 
+
+Processing existing metadata for: Cocoon - The Road.mp3
+
+Processing: Cocoon - The Road.mp3
+Original styles: French Rock, Nouvelle Chanson Francaise, French Indie Pop
+No genres mapped
+Styles unchanged: French Rock, Nouvelle Chanson Francaise, French Indie Pop
+
+Processing existing metadata for: Code Elektro - Night Train.mp3
+
+Processing: Code Elektro - Night Train.mp3
+Original styles: Synthwave
+Mapped Genres: Synthwave
+Remaining Styles: 
+
+Processing existing metadata for: Codeko - Crest.mp3
+
+Processing: Codeko - Crest.mp3
+Original styles: Gaming Edm, Melodic Dubstep, Pop Edm
+No genres mapped
+Styles unchanged: Gaming Edm, Melodic Dubstep, Pop Edm
+
+Processing existing metadata for: Coldplay - Viva La Vida.mp3
+
+Processing: Coldplay - Viva La Vida.mp3
+Original styles: Pop, Permanent Wave
+Mapped Genres: Pop
+Remaining Styles: Permanent Wave
+
+Processing existing metadata for: Com Truise - Cntrld.mp3
+
+Processing: Com Truise - Cntrld.mp3
+Original styles: Chillwave, Vaporwave, Indietronica
+No genres mapped
+Styles unchanged: Chillwave, Vaporwave, Indietronica
+
+Processing existing metadata for: Com Truise - Propagation.mp3
+
+Processing: Com Truise - Propagation.mp3
+Original styles: Chillwave, Vaporwave, Indietronica
+No genres mapped
+Styles unchanged: Chillwave, Vaporwave, Indietronica
+
+Processing existing metadata for: Compilerbau - Fragments of Bach III.mp3
+
+Processing: Compilerbau - Fragments of Bach III.mp3
+Original styles: Synthwave
+Mapped Genres: Synthwave
+Remaining Styles: 
+
+Processing existing metadata for: Compilerbau - Neon Drive.mp3
+
+Processing: Compilerbau - Neon Drive.mp3
+Original styles: Synthwave
+Mapped Genres: Synthwave
+Remaining Styles: 
+
+Processing existing metadata for: Confrontational, Adrien Grousset - Happy Children.mp3
+
+Processing: Confrontational, Adrien Grousset - Happy Children.mp3
+Original styles: Synthwave, Darksynth
+Mapped Genres: Synthwave
+Remaining Styles: Darksynth
+
+Processing existing metadata for: Coolio, L.V. - Gangsta's Paradise.mp3
+
+Processing: Coolio, L.V. - Gangsta's Paradise.mp3
+Original styles: West Coast Rap, Hip Hop, G Funk, Gangster Rap
+No genres mapped
+Styles unchanged: West Coast Rap, Hip Hop, G Funk, Gangster Rap
+
+Processing existing metadata for: Corey Wolfhart - Outrun.mp3
+No existing genres/styles found
+
+Processing existing metadata for: Covex, Grabbitz - Regret - Remix.mp3
+No existing genres/styles found
+
+Processing existing metadata for: Cowbell Cult, Joehdah - Smoke.mp3
+
+Processing: Cowbell Cult, Joehdah - Smoke.mp3
+Original styles: Drift Phonk, Memphis Phonk
+No genres mapped
+Styles unchanged: Drift Phonk, Memphis Phonk
+
+Processing existing metadata for: Crazy Loop - Crazy Loop - Mm-ma-ma.mp3
+No existing genres/styles found
+
+Processing existing metadata for: Crazy Town - Butterfly.mp3
+
+Processing: Crazy Town - Butterfly.mp3
+Original styles: Post-grunge, Alternative Metal, Rap Rock, Nu Metal, Funk Metal
+No genres mapped
+Styles unchanged: Post-grunge, Alternative Metal, Rap Rock, Nu Metal, Funk Metal
+
+Processing existing metadata for: Creedence Clearwater Revival - Fortunate Son.mp3
+
+Processing: Creedence Clearwater Revival - Fortunate Son.mp3
+Original styles: Mellow Gold, Swamp Rock, Country Rock, Album Rock, Rock, Classic Rock, Southern Rock
+Mapped Genres: Rock
+Remaining Styles: Mellow Gold, Swamp Rock, Country Rock, Album Rock, Classic Rock, Southern Rock
+
+Processing existing metadata for: Crockett - Wiretap.mp3
+
+Processing: Crockett - Wiretap.mp3
+Original styles: Synthwave
+Mapped Genres: Synthwave
+Remaining Styles: 
+
+Processing existing metadata for: Crystal Castles - Kerosene.mp3
+
+Processing: Crystal Castles - Kerosene.mp3
+Original styles: Digital Hardcore, Bitpop, Nintendocore, Alternative Dance, Indietronica, New Rave, Neo-synthpop
+No genres mapped
+Styles unchanged: Digital Hardcore, Bitpop, Nintendocore, Alternative Dance, Indietronica, New Rave, Neo-synthpop
+
+Processing existing metadata for: Crystal Castles - Magic Spells.mp3
+
+Processing: Crystal Castles - Magic Spells.mp3
+Original styles: Digital Hardcore, Bitpop, Nintendocore, Alternative Dance, Indietronica, New Rave, Neo-synthpop
+No genres mapped
+Styles unchanged: Digital Hardcore, Bitpop, Nintendocore, Alternative Dance, Indietronica, New Rave, Neo-synthpop
+
+Processing existing metadata for: Crystal Castles - Suffocation.mp3
+
+Processing: Crystal Castles - Suffocation.mp3
+Original styles: Digital Hardcore, Bitpop, Nintendocore, Alternative Dance, Indietronica, New Rave, Neo-synthpop
+No genres mapped
+Styles unchanged: Digital Hardcore, Bitpop, Nintendocore, Alternative Dance, Indietronica, New Rave, Neo-synthpop
+
+Processing existing metadata for: Crystal Castles - Transgender.mp3
+
+Processing: Crystal Castles - Transgender.mp3
+Original styles: Digital Hardcore, Bitpop, Nintendocore, Alternative Dance, Indietronica, New Rave, Neo-synthpop
+No genres mapped
+Styles unchanged: Digital Hardcore, Bitpop, Nintendocore, Alternative Dance, Indietronica, New Rave, Neo-synthpop
+
+Processing existing metadata for: Crystal Castles - Vanished.mp3
+
+Processing: Crystal Castles - Vanished.mp3
+Original styles: Digital Hardcore, Bitpop, Nintendocore, Alternative Dance, Indietronica, New Rave, Neo-synthpop
+No genres mapped
+Styles unchanged: Digital Hardcore, Bitpop, Nintendocore, Alternative Dance, Indietronica, New Rave, Neo-synthpop
+
+Processing existing metadata for: Crystal Castles, HEALTH - Crimewave.mp3
+
+Processing: Crystal Castles, HEALTH - Crimewave.mp3
+Original styles: Digital Hardcore, Bitpop, Nintendocore, Alternative Dance, Indietronica, New Rave, Neo-synthpop
+No genres mapped
+Styles unchanged: Digital Hardcore, Bitpop, Nintendocore, Alternative Dance, Indietronica, New Rave, Neo-synthpop
+
+Processing existing metadata for: CthulhuSeeker - Malenia, Blade of Miquella (From 'Elden Ring') - Synthwave Version.mp3
+No existing genres/styles found
+
+Processing existing metadata for: cTrix - Reach for the Stars.mp3
+
+Processing: cTrix - Reach for the Stars.mp3
+Original styles: Chiptune, Bitpop
+No genres mapped
+Styles unchanged: Chiptune, Bitpop
+
+Processing existing metadata for: Cult To Follow - Leave It All Behind.mp3
+
+Processing: Cult To Follow - Leave It All Behind.mp3
+Original styles: Heavy Alternative
+No genres mapped
+Styles unchanged: Heavy Alternative
+
+Processing existing metadata for: Cyberoptics - Electric Angel.mp3
+
+Processing: Cyberoptics - Electric Angel.mp3
+Original styles: Filthstep
+No genres mapped
+Styles unchanged: Filthstep
+
+Processing existing metadata for: Cyberpunkers - Synthblade.mp3
+
+Processing: Cyberpunkers - Synthblade.mp3
+Original styles: Electro Trash
+No genres mapped
+Styles unchanged: Electro Trash
+
+Processing existing metadata for: Cyberpunkers - The Line Is Bugged.mp3
+
+Processing: Cyberpunkers - The Line Is Bugged.mp3
+Original styles: Electro Trash
+No genres mapped
+Styles unchanged: Electro Trash
+
+Processing existing metadata for: cYsmix - House With Legs - Original Mix.mp3
+
+Processing: cYsmix - House With Legs - Original Mix.mp3
+Original styles: Speedrun
+No genres mapped
+Styles unchanged: Speedrun
+
+Processing existing metadata for: d.notive - Red Light Syndrome.mp3
+
+Processing: d.notive - Red Light Syndrome.mp3
+Original styles: Synthwave
+Mapped Genres: Synthwave
+Remaining Styles: 
+
+Processing existing metadata for: Dabin - The Fall.mp3
+
+Processing: Dabin - The Fall.mp3
+Original styles: Canadian Electronic, Melodic Dubstep, Pop Edm
+No genres mapped
+Styles unchanged: Canadian Electronic, Melodic Dubstep, Pop Edm
+
+Processing existing metadata for: Daft Punk - Da Funk.mp3
+
+Processing: Daft Punk - Da Funk.mp3
+Original styles: Filter House, Rock, Electro
+Mapped Genres: Rock
+Remaining Styles: Filter House, Electro
+
+Processing existing metadata for: Daft Punk - One More Time.mp3
+
+Processing: Daft Punk - One More Time.mp3
+Original styles: Filter House, Rock, Electro
+Mapped Genres: Rock
+Remaining Styles: Filter House, Electro
+
+Processing existing metadata for: Daft Punk - Robot Rock.mp3
+
+Processing: Daft Punk - Robot Rock.mp3
+Original styles: Filter House, Rock, Electro
+Mapped Genres: Rock
+Remaining Styles: Filter House, Electro
+
+Processing existing metadata for: Dan Terminus - Avalanche.mp3
+
+Processing: Dan Terminus - Avalanche.mp3
+Original styles: Synthwave, Cyberpunk, Darksynth
+Mapped Genres: Synthwave
+Remaining Styles: Cyberpunk, Darksynth
+
+Processing existing metadata for: Dan Terminus - Cherenkov Blue Overdriver.mp3
+
+Processing: Dan Terminus - Cherenkov Blue Overdriver.mp3
+Original styles: Synthwave, Cyberpunk, Darksynth
+Mapped Genres: Synthwave
+Remaining Styles: Cyberpunk, Darksynth
+
+Processing existing metadata for: Dan Terminus - Digital Onslaught.mp3
+
+Processing: Dan Terminus - Digital Onslaught.mp3
+Original styles: Synthwave, Cyberpunk, Darksynth
+Mapped Genres: Synthwave
+Remaining Styles: Cyberpunk, Darksynth
+
+Processing existing metadata for: Dan Terminus - Eternal Annihilator.mp3
+
+Processing: Dan Terminus - Eternal Annihilator.mp3
+Original styles: Synthwave, Cyberpunk, Darksynth
+Mapped Genres: Synthwave
+Remaining Styles: Cyberpunk, Darksynth
+
+Processing existing metadata for: Dan Terminus - Pegasus Pro Ultra Fusion.mp3
+
+Processing: Dan Terminus - Pegasus Pro Ultra Fusion.mp3
+Original styles: Synthwave, Cyberpunk, Darksynth
+Mapped Genres: Synthwave
+Remaining Styles: Cyberpunk, Darksynth
+
+Processing existing metadata for: Dan Terminus - Refuge.mp3
+
+Processing: Dan Terminus - Refuge.mp3
+Original styles: Synthwave, Cyberpunk, Darksynth
+Mapped Genres: Synthwave
+Remaining Styles: Cyberpunk, Darksynth
+
+Processing existing metadata for: Dan Terminus - Restless Destroyer.mp3
+
+Processing: Dan Terminus - Restless Destroyer.mp3
+Original styles: Synthwave, Cyberpunk, Darksynth
+Mapped Genres: Synthwave
+Remaining Styles: Cyberpunk, Darksynth
+
+Processing existing metadata for: Dan Terminus - The Chasm.mp3
+
+Processing: Dan Terminus - The Chasm.mp3
+Original styles: Synthwave, Cyberpunk, Darksynth
+Mapped Genres: Synthwave
+Remaining Styles: Cyberpunk, Darksynth
+
+Processing existing metadata for: Dan Terminus, Tommy '86 - Stratospheric Cannon Symphony.mp3
+
+Processing: Dan Terminus, Tommy '86 - Stratospheric Cannon Symphony.mp3
+Original styles: Synthwave, Cyberpunk, Darksynth
+Mapped Genres: Synthwave
+Remaining Styles: Cyberpunk, Darksynth
+
+Processing existing metadata for: Dance With the Dead - A New Fear.mp3
+
+Processing: Dance With the Dead - A New Fear.mp3
+Original styles: Synthwave, Nightrun, Darksynth
+Mapped Genres: Synthwave
+Remaining Styles: Nightrun, Darksynth
+
+Processing existing metadata for: Dance With the Dead - Andromeda.mp3
+
+Processing: Dance With the Dead - Andromeda.mp3
+Original styles: Synthwave, Nightrun, Darksynth
+Mapped Genres: Synthwave
+Remaining Styles: Nightrun, Darksynth
+
+Processing existing metadata for: Dance With the Dead - Dressed to Kill.mp3
+
+Processing: Dance With the Dead - Dressed to Kill.mp3
+Original styles: Synthwave, Nightrun, Darksynth
+Mapped Genres: Synthwave
+Remaining Styles: Nightrun, Darksynth
+
+Processing existing metadata for: Dance With the Dead - Invader.mp3
+
+Processing: Dance With the Dead - Invader.mp3
+Original styles: Synthwave, Nightrun, Darksynth
+Mapped Genres: Synthwave
+Remaining Styles: Nightrun, Darksynth
+
+Processing existing metadata for: Dance With the Dead - Mask.mp3
+
+Processing: Dance With the Dead - Mask.mp3
+Original styles: Synthwave, Nightrun, Darksynth
+Mapped Genres: Synthwave
+Remaining Styles: Nightrun, Darksynth
+
+Processing existing metadata for: Dance With the Dead - Robeast.mp3
+
+Processing: Dance With the Dead - Robeast.mp3
+Original styles: Synthwave, Nightrun, Darksynth
+Mapped Genres: Synthwave
+Remaining Styles: Nightrun, Darksynth
+
+Processing existing metadata for: Dance With the Dead - Skeletons in the Attic.mp3
+
+Processing: Dance With the Dead - Skeletons in the Attic.mp3
+Original styles: Synthwave, Nightrun, Darksynth
+Mapped Genres: Synthwave
+Remaining Styles: Nightrun, Darksynth
+
+Processing existing metadata for: Dance With the Dead - Spacewalk.mp3
+
+Processing: Dance With the Dead - Spacewalk.mp3
+Original styles: Synthwave, Nightrun, Darksynth
+Mapped Genres: Synthwave
+Remaining Styles: Nightrun, Darksynth
+
+Processing existing metadata for: Dance With the Dead - That House.mp3
+
+Processing: Dance With the Dead - That House.mp3
+Original styles: Synthwave, Nightrun, Darksynth
+Mapped Genres: Synthwave
+Remaining Styles: Nightrun, Darksynth
+
+Processing existing metadata for: Dance With the Dead - The Man Who Made a Monster.mp3
+
+Processing: Dance With the Dead - The Man Who Made a Monster.mp3
+Original styles: Synthwave, Nightrun, Darksynth
+Mapped Genres: Synthwave
+Remaining Styles: Nightrun, Darksynth
+
+Processing existing metadata for: Danger - 04-42 Still Free.mp3
+
+Processing: Danger - 04-42 Still Free.mp3
+Original styles: Synthwave, Filter House, Darksynth
+Mapped Genres: Synthwave
+Remaining Styles: Filter House, Darksynth
+
+Processing existing metadata for: Danger - 19.06.mp3
+
+Processing: Danger - 19.06.mp3
+Original styles: Synthwave, Filter House, Darksynth
+Mapped Genres: Synthwave
+Remaining Styles: Filter House, Darksynth
+
+Processing existing metadata for: Danger - 19.07.mp3
+
+Processing: Danger - 19.07.mp3
+Original styles: Synthwave, Filter House, Darksynth
+Mapped Genres: Synthwave
+Remaining Styles: Filter House, Darksynth
+
+Processing existing metadata for: Danger - 22-39.mp3
+
+Processing: Danger - 22-39.mp3
+Original styles: Synthwave, Filter House, Darksynth
+Mapped Genres: Synthwave
+Remaining Styles: Filter House, Darksynth
+
+Processing existing metadata for: Danger - 4-30.mp3
+
+Processing: Danger - 4-30.mp3
+Original styles: Synthwave, Filter House, Darksynth
+Mapped Genres: Synthwave
+Remaining Styles: Filter House, Darksynth
+
+Processing existing metadata for: Danger - 6.24.mp3
+
+Processing: Danger - 6.24.mp3
+Original styles: Synthwave, Filter House, Darksynth
+Mapped Genres: Synthwave
+Remaining Styles: Filter House, Darksynth
+
+Processing existing metadata for: Danger - 7.53.mp3
+
+Processing: Danger - 7.53.mp3
+Original styles: Synthwave, Filter House, Darksynth
+Mapped Genres: Synthwave
+Remaining Styles: Filter House, Darksynth
+
+Processing existing metadata for: Danger - 8.02.mp3
+
+Processing: Danger - 8.02.mp3
+Original styles: Synthwave, Filter House, Darksynth
+Mapped Genres: Synthwave
+Remaining Styles: Filter House, Darksynth
+
+Processing existing metadata for: Danger - Action.mp3
+No existing genres/styles found
+
+Processing existing metadata for: Daniel Deluxe - Blood Magic.mp3
+
+Processing: Daniel Deluxe - Blood Magic.mp3
+Original styles: Synthwave, Darksynth
+Mapped Genres: Synthwave
+Remaining Styles: Darksynth
+
+Processing existing metadata for: Daniel Deluxe - Infiltrator.mp3
+
+Processing: Daniel Deluxe - Infiltrator.mp3
+Original styles: Synthwave, Darksynth
+Mapped Genres: Synthwave
+Remaining Styles: Darksynth
+
+Processing existing metadata for: Daniel Deluxe - Phantoms.mp3
+
+Processing: Daniel Deluxe - Phantoms.mp3
+Original styles: Synthwave, Darksynth
+Mapped Genres: Synthwave
+Remaining Styles: Darksynth
+
+Processing existing metadata for: Daniel Deluxe - Respawn.mp3
+
+Processing: Daniel Deluxe - Respawn.mp3
+Original styles: Synthwave, Darksynth
+Mapped Genres: Synthwave
+Remaining Styles: Darksynth
+
+Processing existing metadata for: Daniel Deluxe - Star Eater.mp3
+
+Processing: Daniel Deluxe - Star Eater.mp3
+Original styles: Synthwave, Darksynth
+Mapped Genres: Synthwave
+Remaining Styles: Darksynth
+
+Processing existing metadata for: Danny Blu, Mr.Kitty - Bubble (Mr.Kitty Remix).mp3
+
+Processing: Danny Blu, Mr.Kitty - Bubble (Mr.Kitty Remix).mp3
+Original styles: Industrial Pop
+No genres mapped
+Styles unchanged: Industrial Pop
+
+Processing existing metadata for: Das Mörtal, Ghost Twin - Risking My Life (feat. Ghost Twin).mp3
+
+Processing: Das Mörtal, Ghost Twin - Risking My Life (feat. Ghost Twin).mp3
+Original styles: Synthwave
+Mapped Genres: Synthwave
+Remaining Styles: 
+
+Processing existing metadata for: David Bulla - High Life.mp3
+
+Processing: David Bulla - High Life.mp3
+Original styles: Gaming Edm
+No genres mapped
+Styles unchanged: Gaming Edm
+
+Processing existing metadata for: David Guetta, Akon - Sexy Bitch (feat. Akon).mp3
+
+Processing: David Guetta, Akon - Sexy Bitch (feat. Akon).mp3
+Original styles: Pop, Edm, Pop Dance, Dance Pop, Big Room
+Mapped Genres: Pop
+Remaining Styles: Edm, Pop Dance, Dance Pop, Big Room
+
+Processing existing metadata for: David Guetta, Bebe Rexha - I'm Good (Blue).mp3
+
+Processing: David Guetta, Bebe Rexha - I'm Good (Blue).mp3
+Original styles: Pop, Edm, Pop Dance, Dance Pop, Big Room
+Mapped Genres: Pop
+Remaining Styles: Edm, Pop Dance, Dance Pop, Big Room
+
+Processing existing metadata for: David Guetta, Kid Cudi - Memories (feat. Kid Cudi) - 2021 Remix.mp3
+
+Processing: David Guetta, Kid Cudi - Memories (feat. Kid Cudi) - 2021 Remix.mp3
+Original styles: Pop, Edm, Pop Dance, Dance Pop, Big Room
+Mapped Genres: Pop
+Remaining Styles: Edm, Pop Dance, Dance Pop, Big Room
+
+Processing existing metadata for: David Guetta, Kid Cudi - Memories (feat. Kid Cudi).mp3
+
+Processing: David Guetta, Kid Cudi - Memories (feat. Kid Cudi).mp3
+Original styles: Pop, Edm, Pop Dance, Dance Pop, Big Room
+Mapped Genres: Pop
+Remaining Styles: Edm, Pop Dance, Dance Pop, Big Room
+
+Processing existing metadata for: David Guetta, MistaJam, John Newman - If You Really Love Me (How Will I Know).mp3
+
+Processing: David Guetta, MistaJam, John Newman - If You Really Love Me (How Will I Know).mp3
+Original styles: Pop, Edm, Pop Dance, Dance Pop, Big Room
+Mapped Genres: Pop
+Remaining Styles: Edm, Pop Dance, Dance Pop, Big Room
+
+Processing existing metadata for: David Guetta, Nicki Minaj - Turn Me On (feat. Nicki Minaj).mp3
+
+Processing: David Guetta, Nicki Minaj - Turn Me On (feat. Nicki Minaj).mp3
+Original styles: Pop, Edm, Pop Dance, Dance Pop, Big Room
+Mapped Genres: Pop
+Remaining Styles: Edm, Pop Dance, Dance Pop, Big Room
+
+Processing existing metadata for: David Guetta, Showtek, VASSY - Bad (feat. Vassy) - Radio Edit.mp3
+
+Processing: David Guetta, Showtek, VASSY - Bad (feat. Vassy) - Radio Edit.mp3
+Original styles: Pop, Edm, Pop Dance, Dance Pop, Big Room
+Mapped Genres: Pop
+Remaining Styles: Edm, Pop Dance, Dance Pop, Big Room
+
+Processing existing metadata for: Day One - Game Changer.mp3
+No existing genres/styles found
+
+Processing existing metadata for: De Lorra - E N D L E S S.mp3
+
+Processing: De Lorra - E N D L E S S.mp3
+Original styles: Chillsynth
+No genres mapped
+Styles unchanged: Chillsynth
+
+Processing existing metadata for: De Lorra - Our First House Was A Basement.mp3
+
+Processing: De Lorra - Our First House Was A Basement.mp3
+Original styles: Chillsynth
+No genres mapped
+Styles unchanged: Chillsynth
+
+Processing existing metadata for: De Lorra - Slow Drip.mp3
+
+Processing: De Lorra - Slow Drip.mp3
+Original styles: Chillsynth
+No genres mapped
+Styles unchanged: Chillsynth
+
+Processing existing metadata for: Dead Astronauts - B Side (Perturbator Remix).mp3
+
+Processing: Dead Astronauts - B Side (Perturbator Remix).mp3
+Original styles: Synthwave, Experimental Dubstep
+Mapped Genres: Synthwave
+Remaining Styles: Experimental Dubstep
+
+Processing existing metadata for: Dead Astronauts - Favorite Lover (Dead Astronauts Theme) - Original Mix.mp3
+
+Processing: Dead Astronauts - Favorite Lover (Dead Astronauts Theme) - Original Mix.mp3
+Original styles: Synthwave, Experimental Dubstep
+Mapped Genres: Synthwave
+Remaining Styles: Experimental Dubstep
+
+Processing existing metadata for: Dead Or Alive - You Spin Me Round (Like a Record).mp3
+
+Processing: Dead Or Alive - You Spin Me Round (Like a Record).mp3
+Original styles: Hi-nrg, New Wave Pop, Synthpop, New Romantic
+No genres mapped
+Styles unchanged: Hi-nrg, New Wave Pop, Synthpop, New Romantic
+
+Processing existing metadata for: DEADLIFE - Aberrations in Blindness.mp3
+
+Processing: DEADLIFE - Aberrations in Blindness.mp3
+Original styles: Synthwave, Darksynth
+Mapped Genres: Synthwave
+Remaining Styles: Darksynth
+
+Processing existing metadata for: DEADLIFE - Carbon Cult.mp3
+
+Processing: DEADLIFE - Carbon Cult.mp3
+Original styles: Synthwave, Darksynth
+Mapped Genres: Synthwave
+Remaining Styles: Darksynth
+
+Processing existing metadata for: DEADLIFE - Deviant - Instrumental.mp3
+
+Processing: DEADLIFE - Deviant - Instrumental.mp3
+Original styles: Synthwave, Darksynth
+Mapped Genres: Synthwave
+Remaining Styles: Darksynth
+
+Processing existing metadata for: DEADLIFE - Strands Unravel.mp3
+
+Processing: DEADLIFE - Strands Unravel.mp3
+Original styles: Synthwave, Darksynth
+Mapped Genres: Synthwave
+Remaining Styles: Darksynth
+
+Processing existing metadata for: DEADLIFE - We Are One & The Same.mp3
+
+Processing: DEADLIFE - We Are One & The Same.mp3
+Original styles: Synthwave, Darksynth
+Mapped Genres: Synthwave
+Remaining Styles: Darksynth
+
+Processing existing metadata for: DEADLIFE - Young Fury Endure.mp3
+
+Processing: DEADLIFE - Young Fury Endure.mp3
+Original styles: Synthwave, Darksynth
+Mapped Genres: Synthwave
+Remaining Styles: Darksynth
+
+Processing existing metadata for: deadmau5 - Hyperlandia.mp3
+
+Processing: deadmau5 - Hyperlandia.mp3
+Original styles: Progressive Electro House, Progressive House, Complextro, Canadian Electronic, Pop Dance, Edm, Electro House
+No genres mapped
+Styles unchanged: Progressive Electro House, Progressive House, Complextro, Canadian Electronic, Pop Dance, Edm, Electro House
+
+Processing existing metadata for: deadmau5 - Strobe - Radio Edit.mp3
+
+Processing: deadmau5 - Strobe - Radio Edit.mp3
+Original styles: Progressive Electro House, Progressive House, Complextro, Canadian Electronic, Pop Dance, Edm, Electro House
+No genres mapped
+Styles unchanged: Progressive Electro House, Progressive House, Complextro, Canadian Electronic, Pop Dance, Edm, Electro House
+
+Processing existing metadata for: deadmau5, Foster The People - Hyperlandia - Radio Edit.mp3
+
+Processing: deadmau5, Foster The People - Hyperlandia - Radio Edit.mp3
+Original styles: Progressive Electro House, Progressive House, Complextro, Canadian Electronic, Pop Dance, Edm, Electro House
+No genres mapped
+Styles unchanged: Progressive Electro House, Progressive House, Complextro, Canadian Electronic, Pop Dance, Edm, Electro House
+
+Processing existing metadata for: deadmau5, Gerard Way - Professional Griefers.mp3
+
+Processing: deadmau5, Gerard Way - Professional Griefers.mp3
+Original styles: Progressive Electro House, Progressive House, Complextro, Canadian Electronic, Pop Dance, Edm, Electro House
+No genres mapped
+Styles unchanged: Progressive Electro House, Progressive House, Complextro, Canadian Electronic, Pop Dance, Edm, Electro House
+
+Processing existing metadata for: deadmau5, Lights - When The Summer Dies.mp3
+
+Processing: deadmau5, Lights - When The Summer Dies.mp3
+Original styles: Progressive Electro House, Progressive House, Complextro, Canadian Electronic, Pop Dance, Edm, Electro House
+No genres mapped
+Styles unchanged: Progressive Electro House, Progressive House, Complextro, Canadian Electronic, Pop Dance, Edm, Electro House
+
+Processing existing metadata for: deadmau5, Morgan Page - imaginary friends (ov) - Morgan Page Remix.mp3
+
+Processing: deadmau5, Morgan Page - imaginary friends (ov) - Morgan Page Remix.mp3
+Original styles: Progressive Electro House, Progressive House, Complextro, Canadian Electronic, Pop Dance, Edm, Electro House
+No genres mapped
+Styles unchanged: Progressive Electro House, Progressive House, Complextro, Canadian Electronic, Pop Dance, Edm, Electro House
+
+Processing existing metadata for: deadmau5, Rob Swire - Ghosts 'n' Stuff.mp3
+
+Processing: deadmau5, Rob Swire - Ghosts 'n' Stuff.mp3
+Original styles: Progressive Electro House, Progressive House, Complextro, Canadian Electronic, Pop Dance, Edm, Electro House
+No genres mapped
+Styles unchanged: Progressive Electro House, Progressive House, Complextro, Canadian Electronic, Pop Dance, Edm, Electro House
+
+Processing existing metadata for: deadmau5, Wolfgang Gartner - Channel 43 - Radio Edit.mp3
+
+Processing: deadmau5, Wolfgang Gartner - Channel 43 - Radio Edit.mp3
+Original styles: Progressive Electro House, Progressive House, Complextro, Canadian Electronic, Pop Dance, Edm, Electro House
+No genres mapped
+Styles unchanged: Progressive Electro House, Progressive House, Complextro, Canadian Electronic, Pop Dance, Edm, Electro House
+
+Processing existing metadata for: Deaf Kev - Invincible.mp3
+
+Processing: Deaf Kev - Invincible.mp3
+Original styles: Gaming Edm
+No genres mapped
+Styles unchanged: Gaming Edm
+
+Processing existing metadata for: Death From Above 1979 - Freeze Me.mp3
+
+Processing: Death From Above 1979 - Freeze Me.mp3
+Original styles: Garage Rock, Modern Alternative Rock, Modern Rock, Dance-punk, Rock, Canadian Rock, Indietronica
+Mapped Genres: Rock
+Remaining Styles: Garage Rock, Modern Alternative Rock, Modern Rock, Dance-punk, Canadian Rock, Indietronica
+
+Processing existing metadata for: Debris, Clarx - Waters.mp3
+
+Processing: Debris, Clarx - Waters.mp3
+Original styles: Gaming Edm
+No genres mapped
+Styles unchanged: Gaming Edm
+
+Processing existing metadata for: Debris, Dazers - Double D.mp3
+
+Processing: Debris, Dazers - Double D.mp3
+Original styles: Gaming Edm
+No genres mapped
+Styles unchanged: Gaming Edm
+
+Processing existing metadata for: Debris, RudeLies - Genesis.mp3
+
+Processing: Debris, RudeLies - Genesis.mp3
+Original styles: Gaming Edm
+No genres mapped
+Styles unchanged: Gaming Edm
+
+Processing existing metadata for: Deep Purple - Smoke On The Water - Remastered 2012.mp3
+
+Processing: Deep Purple - Smoke On The Water - Remastered 2012.mp3
+Original styles: Album Rock, Rock, Hard Rock, Classic Rock, Metal
+Mapped Genres: Rock
+Remaining Styles: Album Rock, Hard Rock, Classic Rock, Metal
+
+Processing existing metadata for: Delta Heavy - Punish My Love.mp3
+
+Processing: Delta Heavy - Punish My Love.mp3
+Original styles: Filthstep, Brostep, Drum And Bass
+No genres mapped
+Styles unchanged: Filthstep, Brostep, Drum And Bass
+
+Processing existing metadata for: Dem MC - High Voltage - Original Mix.mp3
+No existing genres/styles found
+
+Processing existing metadata for: Deorro - Five Hours.mp3
+
+Processing: Deorro - Five Hours.mp3
+Original styles: Progressive Electro House, Melbourne Bounce International, Melbourne Bounce, Electro House, Pop Dance, Edm, Dutch House
+No genres mapped
+Styles unchanged: Progressive Electro House, Melbourne Bounce International, Melbourne Bounce, Electro House, Pop Dance, Edm, Dutch House
+
+Processing existing metadata for: Desmeon - Back From The Dead.mp3
+
+Processing: Desmeon - Back From The Dead.mp3
+Original styles: Gaming Edm
+No genres mapped
+Styles unchanged: Gaming Edm
+
+Processing existing metadata for: Different Heaven, EH!DE - My Heart.mp3
+
+Processing: Different Heaven, EH!DE - My Heart.mp3
+Original styles: Gaming Edm
+No genres mapped
+Styles unchanged: Gaming Edm
+
+Processing existing metadata for: Digitalism - Electric Fist.mp3
+
+Processing: Digitalism - Electric Fist.mp3
+Original styles: Electronica, Dance-punk, Alternative Dance, Indietronica, New Rave, Neo-synthpop
+No genres mapped
+Styles unchanged: Electronica, Dance-punk, Alternative Dance, Indietronica, New Rave, Neo-synthpop
+
+Processing existing metadata for: Digitalism - Picnic.mp3
+
+Processing: Digitalism - Picnic.mp3
+Original styles: Electronica, Dance-punk, Alternative Dance, Indietronica, New Rave, Neo-synthpop
+No genres mapped
+Styles unchanged: Electronica, Dance-punk, Alternative Dance, Indietronica, New Rave, Neo-synthpop
+
+Processing existing metadata for: Digitalism - Pogo.mp3
+
+Processing: Digitalism - Pogo.mp3
+Original styles: Electronica, Dance-punk, Alternative Dance, Indietronica, New Rave, Neo-synthpop
+No genres mapped
+Styles unchanged: Electronica, Dance-punk, Alternative Dance, Indietronica, New Rave, Neo-synthpop
+
+Processing existing metadata for: Digitalism - Zdarlight.mp3
+
+Processing: Digitalism - Zdarlight.mp3
+Original styles: Electronica, Dance-punk, Alternative Dance, Indietronica, New Rave, Neo-synthpop
+No genres mapped
+Styles unchanged: Electronica, Dance-punk, Alternative Dance, Indietronica, New Rave, Neo-synthpop
+
+Processing existing metadata for: Dimitri Vangelis & Wyman, Steve Angello - Payback.mp3
+
+Processing: Dimitri Vangelis & Wyman, Steve Angello - Payback.mp3
+Original styles: Progressive Electro House, Electro House, Pop Dance, Edm, Dutch House
+No genres mapped
+Styles unchanged: Progressive Electro House, Electro House, Pop Dance, Edm, Dutch House
+
+Processing existing metadata for: Disfigure - Blank.mp3
+
+Processing: Disfigure - Blank.mp3
+Original styles: Gaming Edm
+No genres mapped
+Styles unchanged: Gaming Edm
+
+Processing existing metadata for: Disfigure - Hollah!.mp3
+
+Processing: Disfigure - Hollah!.mp3
+Original styles: Gaming Edm
+No genres mapped
+Styles unchanged: Gaming Edm
+
+Processing existing metadata for: Disfigure - Summer Tune.mp3
+
+Processing: Disfigure - Summer Tune.mp3
+Original styles: Gaming Edm
+No genres mapped
+Styles unchanged: Gaming Edm
+
+Processing existing metadata for: Distrion, Alex Skrindo - Entropy.mp3
+
+Processing: Distrion, Alex Skrindo - Entropy.mp3
+Original styles: Gaming Edm
+No genres mapped
+Styles unchanged: Gaming Edm
+
+Processing existing metadata for: Distrion, Electro-Light - Rubik.mp3
+
+Processing: Distrion, Electro-Light - Rubik.mp3
+Original styles: Gaming Edm
+No genres mapped
+Styles unchanged: Gaming Edm
+
+Processing existing metadata for: Disturbed - Down with the Sickness.mp3
+
+Processing: Disturbed - Down with the Sickness.mp3
+Original styles: Rap Metal, Alternative Metal, Nu Metal, Rock
+Mapped Genres: Rock
+Remaining Styles: Rap Metal, Alternative Metal, Nu Metal
+
+Processing existing metadata for: Disturbed - Indestructible.mp3
+
+Processing: Disturbed - Indestructible.mp3
+Original styles: Rap Metal, Alternative Metal, Nu Metal, Rock
+Mapped Genres: Rock
+Remaining Styles: Rap Metal, Alternative Metal, Nu Metal
+
+Processing existing metadata for: Disturbed - Inside the Fire.mp3
+
+Processing: Disturbed - Inside the Fire.mp3
+Original styles: Rap Metal, Alternative Metal, Nu Metal, Rock
+Mapped Genres: Rock
+Remaining Styles: Rap Metal, Alternative Metal, Nu Metal
+
+Processing existing metadata for: Disturbed - No More.mp3
+
+Processing: Disturbed - No More.mp3
+Original styles: Rap Metal, Alternative Metal, Nu Metal, Rock
+Mapped Genres: Rock
+Remaining Styles: Rap Metal, Alternative Metal, Nu Metal
+
+Processing existing metadata for: Disturbed - Stricken.mp3
+
+Processing: Disturbed - Stricken.mp3
+Original styles: Rap Metal, Alternative Metal, Nu Metal, Rock
+Mapped Genres: Rock
+Remaining Styles: Rap Metal, Alternative Metal, Nu Metal
+
+Processing existing metadata for: Disturbed - Ten Thousand Fists.mp3
+
+Processing: Disturbed - Ten Thousand Fists.mp3
+Original styles: Rap Metal, Alternative Metal, Nu Metal, Rock
+Mapped Genres: Rock
+Remaining Styles: Rap Metal, Alternative Metal, Nu Metal
+
+Processing existing metadata for: Disturbed - The Vengeful One.mp3
+
+Processing: Disturbed - The Vengeful One.mp3
+Original styles: Rap Metal, Alternative Metal, Nu Metal, Rock
+Mapped Genres: Rock
+Remaining Styles: Rap Metal, Alternative Metal, Nu Metal
+
+Processing existing metadata for: Disturbed - Warrior.mp3
+
+Processing: Disturbed - Warrior.mp3
+Original styles: Rap Metal, Alternative Metal, Nu Metal, Rock
+Mapped Genres: Rock
+Remaining Styles: Rap Metal, Alternative Metal, Nu Metal
+
+Processing existing metadata for: Diviners, Contacreast - Tropic Love.mp3
+
+Processing: Diviners, Contacreast - Tropic Love.mp3
+Original styles: Gaming Edm
+No genres mapped
+Styles unchanged: Gaming Edm
+
+Processing existing metadata for: Division Street - Separate.mp3
+
+Processing: Division Street - Separate.mp3
+Original styles: Chillsynth
+No genres mapped
+Styles unchanged: Chillsynth
+
+Processing existing metadata for: DJ Fluke, Jaki Nelson - Seven Nation Army.mp3
+No existing genres/styles found
+
+Processing existing metadata for: DMG1981 - Deflectors up.mp3
+No existing genres/styles found
+
+Processing existing metadata for: Dmitry Puffin - Future Prophecy.mp3
+No existing genres/styles found
+
+Processing existing metadata for: Donbor - Against the Law.mp3
+
+Processing: Donbor - Against the Law.mp3
+Original styles: Synthwave, Darksynth
+Mapped Genres: Synthwave
+Remaining Styles: Darksynth
+
+Processing existing metadata for: Donbor - All Around.mp3
+
+Processing: Donbor - All Around.mp3
+Original styles: Synthwave, Darksynth
+Mapped Genres: Synthwave
+Remaining Styles: Darksynth
+
+Processing existing metadata for: Donbor - Smoke.mp3
+
+Processing: Donbor - Smoke.mp3
+Original styles: Synthwave, Darksynth
+Mapped Genres: Synthwave
+Remaining Styles: Darksynth
+
+Processing existing metadata for: Donor Lens - Turn the Fridge On.mp3
+
+Processing: Donor Lens - Turn the Fridge On.mp3
+Original styles: Vaporwave, Future Funk
+No genres mapped
+Styles unchanged: Vaporwave, Future Funk
+
+Processing existing metadata for: Dope - Die MF Die.mp3
+
+Processing: Dope - Die MF Die.mp3
+Original styles: Alternative Metal, Nu Metal, Industrial Metal
+No genres mapped
+Styles unchanged: Alternative Metal, Nu Metal, Industrial Metal
+
+Processing existing metadata for: dot - Follow Me.mp3
+
+Processing: dot - Follow Me.mp3
+Original styles: Electra
+No genres mapped
+Styles unchanged: Electra
+
+Processing existing metadata for: DOWN - Electricity - Original mix.mp3
+No existing genres/styles found
+
+Processing existing metadata for: Draft - Coney's Wheel.mp3
+No existing genres/styles found
+
+Processing existing metadata for: DragonForce - Through The Fire And Flames.mp3
+
+Processing: DragonForce - Through The Fire And Flames.mp3
+Original styles: British Power Metal, Fantasy Metal, Speed Metal, Power Metal, Metal
+No genres mapped
+Styles unchanged: British Power Metal, Fantasy Metal, Speed Metal, Power Metal, Metal
+
+Processing existing metadata for: Draper - Ghost Town.mp3
+
+Processing: Draper - Ghost Town.mp3
+Original styles: Filthstep, Gaming Edm, Melodic Dubstep, Complextro, Chillstep
+No genres mapped
+Styles unchanged: Filthstep, Gaming Edm, Melodic Dubstep, Complextro, Chillstep
+
+Processing existing metadata for: Draven - Redrum 8.mp3
+
+Processing: Draven - Redrum 8.mp3
+Original styles: Dark Clubbing
+No genres mapped
+Styles unchanged: Dark Clubbing
+
+Processing existing metadata for: DreamReaper - Renegade.mp3
+
+Processing: DreamReaper - Renegade.mp3
+Original styles: Synthwave, Cyberpunk, Darksynth
+Mapped Genres: Synthwave
+Remaining Styles: Cyberpunk, Darksynth
+
+Processing existing metadata for: Droid Bishop - Light Years.mp3
+
+Processing: Droid Bishop - Light Years.mp3
+Original styles: Synthwave, Spacewave
+Mapped Genres: Synthwave
+Remaining Styles: Spacewave
+
+Processing existing metadata for: Droid Bishop - Nightland.mp3
+
+Processing: Droid Bishop - Nightland.mp3
+Original styles: Synthwave, Spacewave
+Mapped Genres: Synthwave
+Remaining Styles: Spacewave
+
+Processing existing metadata for: Drowning Pool - All Over Me.mp3
+
+Processing: Drowning Pool - All Over Me.mp3
+Original styles: Post-grunge, Alternative Metal, Nu Metal, Rap Metal
+No genres mapped
+Styles unchanged: Post-grunge, Alternative Metal, Nu Metal, Rap Metal
+
+Processing existing metadata for: Drowning Pool - Bodies.mp3
+
+Processing: Drowning Pool - Bodies.mp3
+Original styles: Post-grunge, Alternative Metal, Nu Metal, Rap Metal
+No genres mapped
+Styles unchanged: Post-grunge, Alternative Metal, Nu Metal, Rap Metal
+
+Processing existing metadata for: Dubmood - Main Theme (Richard Theme).mp3
+
+Processing: Dubmood - Main Theme (Richard Theme).mp3
+Original styles: Swedish Synth, Chiptune
+No genres mapped
+Styles unchanged: Swedish Synth, Chiptune
+
+Processing existing metadata for: DVRST - Close Eyes - Slowed + Reverb.mp3
+
+Processing: DVRST - Close Eyes - Slowed + Reverb.mp3
+Original styles: Drift Phonk, Chill Phonk
+No genres mapped
+Styles unchanged: Drift Phonk, Chill Phonk
+
+Processing existing metadata for: DVRST - Close Eyes.mp3
+
+Processing: DVRST - Close Eyes.mp3
+Original styles: Drift Phonk, Chill Phonk
+No genres mapped
+Styles unchanged: Drift Phonk, Chill Phonk
+
+Processing existing metadata for: DXSTXNCE - MANIAC.mp3
+No existing genres/styles found
+
+Processing existing metadata for: Dybbukk, Sabrina Gomes - It's Not So Bad.mp3
+
+Processing: Dybbukk, Sabrina Gomes - It's Not So Bad.mp3
+Original styles: Sped Up, Slowed And Reverb
+No genres mapped
+Styles unchanged: Sped Up, Slowed And Reverb
+
+Processing existing metadata for: DyE - Fantasy.mp3
+No existing genres/styles found
+
+Processing existing metadata for: Dynatron - Aurora Nights.mp3
+
+Processing: Dynatron - Aurora Nights.mp3
+Original styles: Synthwave, Spacewave
+Mapped Genres: Synthwave
+Remaining Styles: Spacewave
+
+Processing existing metadata for: Dynatron - Intergalactic Highway.mp3
+
+Processing: Dynatron - Intergalactic Highway.mp3
+Original styles: Synthwave, Spacewave
+Mapped Genres: Synthwave
+Remaining Styles: Spacewave
+
+Processing existing metadata for: Dynatron - Pulse Power.mp3
+
+Processing: Dynatron - Pulse Power.mp3
+Original styles: Synthwave, Spacewave
+Mapped Genres: Synthwave
+Remaining Styles: Spacewave
+
+Processing existing metadata for: Dynatron - Stars of the Night.mp3
+
+Processing: Dynatron - Stars of the Night.mp3
+Original styles: Synthwave, Spacewave
+Mapped Genres: Synthwave
+Remaining Styles: Spacewave
+
+Processing existing metadata for: Dynatron - Throttle Up.mp3
+
+Processing: Dynatron - Throttle Up.mp3
+Original styles: Synthwave, Spacewave
+Mapped Genres: Synthwave
+Remaining Styles: Spacewave
+
+Processing existing metadata for: Dynatron, Perturbator - Volcanic Machinery (Bonus Track).mp3
+
+Processing: Dynatron, Perturbator - Volcanic Machinery (Bonus Track).mp3
+Original styles: Synthwave, Spacewave
+Mapped Genres: Synthwave
+Remaining Styles: Spacewave
+
+Processing existing metadata for: Dynoro, Gigi D'Agostino - In My Mind.mp3
+
+Processing: Dynoro, Gigi D'Agostino - In My Mind.mp3
+Original styles: Edm
+No genres mapped
+Styles unchanged: Edm
+
+Processing existing metadata for: Eagle Eyed Tiger - Fly Me to the Groove.mp3
+
+Processing: Eagle Eyed Tiger - Fly Me to the Groove.mp3
+Original styles: Chillsynth
+No genres mapped
+Styles unchanged: Chillsynth
+
+Processing existing metadata for: Eagle Eyed Tiger - Metal & Plastic.mp3
+
+Processing: Eagle Eyed Tiger - Metal & Plastic.mp3
+Original styles: Chillsynth
+No genres mapped
+Styles unchanged: Chillsynth
+
+Processing existing metadata for: Eagle Eyed Tiger - Outlaw Star.mp3
+
+Processing: Eagle Eyed Tiger - Outlaw Star.mp3
+Original styles: Chillsynth
+No genres mapped
+Styles unchanged: Chillsynth
+
+Processing existing metadata for: Earmake - Endless Love.mp3
+
+Processing: Earmake - Endless Love.mp3
+Original styles: Synthwave
+Mapped Genres: Synthwave
+Remaining Styles: 
+
+Processing existing metadata for: Earmake - Game Changer (From “First Person Shooter”).mp3
+
+Processing: Earmake - Game Changer (From “First Person Shooter”).mp3
+Original styles: Synthwave
+Mapped Genres: Synthwave
+Remaining Styles: 
+
+Processing existing metadata for: Earmake - Game Changer.mp3
+
+Processing: Earmake - Game Changer.mp3
+Original styles: Synthwave
+Mapped Genres: Synthwave
+Remaining Styles: 
+
+Processing existing metadata for: Earmake - I'm the Law.mp3
+
+Processing: Earmake - I'm the Law.mp3
+Original styles: Synthwave
+Mapped Genres: Synthwave
+Remaining Styles: 
+
+Processing existing metadata for: Earmake - Regulus.mp3
+
+Processing: Earmake - Regulus.mp3
+Original styles: Synthwave
+Mapped Genres: Synthwave
+Remaining Styles: 
+
+Processing existing metadata for: Earmake - Sensual.mp3
+
+Processing: Earmake - Sensual.mp3
+Original styles: Synthwave
+Mapped Genres: Synthwave
+Remaining Styles: 
+
+Processing existing metadata for: Earmake - The Mystery of Betelgeuse.mp3
+
+Processing: Earmake - The Mystery of Betelgeuse.mp3
+Original styles: Synthwave
+Mapped Genres: Synthwave
+Remaining Styles: 
+
+Processing existing metadata for: Earmake, AstroPilot, Unusual Cosmic Process - Fractal Forms.mp3
+
+Processing: Earmake, AstroPilot, Unusual Cosmic Process - Fractal Forms.mp3
+Original styles: Synthwave
+Mapped Genres: Synthwave
+Remaining Styles: 
+
+Processing existing metadata for: Earmake, Lost Engineer - Secrets Inside of Me.mp3
+
+Processing: Earmake, Lost Engineer - Secrets Inside of Me.mp3
+Original styles: Synthwave
+Mapped Genres: Synthwave
+Remaining Styles: 
+
+Processing existing metadata for: Earth, Wind & Fire - Let's Groove.mp3
+
+Processing: Earth, Wind & Fire - Let's Groove.mp3
+Original styles: Funk, Disco, Motown, Soul, Jazz Funk
+No genres mapped
+Styles unchanged: Funk, Disco, Motown, Soul, Jazz Funk
+
+Processing existing metadata for: earthtown, Caspro - Input Output.mp3
+No existing genres/styles found
+
+Processing existing metadata for: EDDIE - Sleeping with Machines.mp3
+
+Processing: EDDIE - Sleeping with Machines.mp3
+Original styles: Dark Clubbing
+No genres mapped
+Styles unchanged: Dark Clubbing
+
+Processing existing metadata for: EDDIE - Still Healing.mp3
+
+Processing: EDDIE - Still Healing.mp3
+Original styles: Dark Clubbing
+No genres mapped
+Styles unchanged: Dark Clubbing
+
+Processing existing metadata for: EDDIE, Colleen D'agostino - Somewhere In Between.mp3
+
+Processing: EDDIE, Colleen D'agostino - Somewhere In Between.mp3
+Original styles: Dark Clubbing
+No genres mapped
+Styles unchanged: Dark Clubbing
+
+Processing existing metadata for: Edictum, Vici - Elevation.mp3
+
+Processing: Edictum, Vici - Elevation.mp3
+Original styles: Synthwave
+Mapped Genres: Synthwave
+Remaining Styles: 
+
+Processing existing metadata for: EDO BOYS - NO ONE SLEEP IN TOKYO.mp3
+
+Processing: EDO BOYS - NO ONE SLEEP IN TOKYO.mp3
+Original styles: Eurobeat, Super Eurobeat
+No genres mapped
+Styles unchanged: Eurobeat, Super Eurobeat
+
+Processing existing metadata for: Efence - Spaceflight.mp3
+
+Processing: Efence - Spaceflight.mp3
+Original styles: Cyberpunk
+No genres mapped
+Styles unchanged: Cyberpunk
+
+Processing existing metadata for: Effy - Raging.mp3
+No existing genres/styles found
+
+Processing existing metadata for: Eiffel 65, Gabry Ponte - Blue (Da Ba Dee) - Gabry Ponte Ice Pop Radio.mp3
+
+Processing: Eiffel 65, Gabry Ponte - Blue (Da Ba Dee) - Gabry Ponte Ice Pop Radio.mp3
+Original styles: Italian Adult Pop, Italo Dance, Europop, Eurodance
+No genres mapped
+Styles unchanged: Italian Adult Pop, Italo Dance, Europop, Eurodance
+
+Processing existing metadata for: eightiesheadachetape - what we did in the desert.mp3
+
+Processing: eightiesheadachetape - what we did in the desert.mp3
+Original styles: Chill Breakcore, Glitchbreak
+No genres mapped
+Styles unchanged: Chill Breakcore, Glitchbreak
+
+Processing existing metadata for: Eisbrecher - Eiszeit.mp3
+
+Processing: Eisbrecher - Eiszeit.mp3
+Original styles: Neue Deutsche Harte
+No genres mapped
+Styles unchanged: Neue Deutsche Harte
+
+Processing existing metadata for: Eisbrecher - Verrückt.mp3
+
+Processing: Eisbrecher - Verrückt.mp3
+Original styles: Neue Deutsche Harte
+No genres mapped
+Styles unchanged: Neue Deutsche Harte
+
+Processing existing metadata for: Ekstrak - Belt.mp3
+No existing genres/styles found
+
+Processing existing metadata for: El Huervo - Daisuke.mp3
+No existing genres/styles found
+
+Processing existing metadata for: El Huervo - Rust.mp3
+No existing genres/styles found
+
+Processing existing metadata for: El Tigr3 - Huntress.mp3
+
+Processing: El Tigr3 - Huntress.mp3
+Original styles: Synthwave, Darksynth
+Mapped Genres: Synthwave
+Remaining Styles: Darksynth
+
+Processing existing metadata for: El Tigr3 - Infanticide.mp3
+
+Processing: El Tigr3 - Infanticide.mp3
+Original styles: Synthwave, Darksynth
+Mapped Genres: Synthwave
+Remaining Styles: Darksynth
+
+Processing existing metadata for: Electric Alchemy - Nighttime Motion - Clip Mix.mp3
+No existing genres/styles found
+
+Processing existing metadata for: Electric Dragon - Covenant.mp3
+
+Processing: Electric Dragon - Covenant.mp3
+Original styles: Synthwave, Darksynth
+Mapped Genres: Synthwave
+Remaining Styles: Darksynth
+
+Processing existing metadata for: Electric Joy Ride - Origin.mp3
+
+Processing: Electric Joy Ride - Origin.mp3
+Original styles: Gaming Edm
+No genres mapped
+Styles unchanged: Gaming Edm
+
+Processing existing metadata for: Electro-Light - Symbolism.mp3
+
+Processing: Electro-Light - Symbolism.mp3
+Original styles: Speedrun, Gaming Edm
+No genres mapped
+Styles unchanged: Speedrun, Gaming Edm
+
+Processing existing metadata for: Electronic Gems, Gemini Drive - White Sands.mp3
+
+Processing: Electronic Gems, Gemini Drive - White Sands.mp3
+Original styles: Chillsynth
+No genres mapped
+Styles unchanged: Chillsynth
+
+Processing existing metadata for: Eli Brown - Be The One.mp3
+
+Processing: Eli Brown - Be The One.mp3
+Original styles: Uk Dance, House, Tech House
+No genres mapped
+Styles unchanged: Uk Dance, House, Tech House
+
+Processing existing metadata for: Elley Duhé, Whethan - MONEY ON THE DASH.mp3
+
+Processing: Elley Duhé, Whethan - MONEY ON THE DASH.mp3
+Original styles: Alt Z
+No genres mapped
+Styles unchanged: Alt Z
+
+Processing existing metadata for: ellis, Anna Yvette - Migraine.mp3
+No existing genres/styles found
+
+Processing existing metadata for: Elton John - I'm Still Standing.mp3
+
+Processing: Elton John - I'm Still Standing.mp3
+Original styles: Glam Rock, Mellow Gold, Rock, Piano Rock
+Mapped Genres: Rock
+Remaining Styles: Glam Rock, Mellow Gold, Piano Rock
+
+Processing existing metadata for: Emil Rottmayer - Deflection (Reworked).mp3
+
+Processing: Emil Rottmayer - Deflection (Reworked).mp3
+Original styles: Chillsynth
+No genres mapped
+Styles unchanged: Chillsynth
+
+Processing existing metadata for: Emil Rottmayer - Descend.mp3
+
+Processing: Emil Rottmayer - Descend.mp3
+Original styles: Chillsynth
+No genres mapped
+Styles unchanged: Chillsynth
+
+Processing existing metadata for: Emil Rottmayer - Dream Sync.mp3
+
+Processing: Emil Rottmayer - Dream Sync.mp3
+Original styles: Chillsynth
+No genres mapped
+Styles unchanged: Chillsynth
+
+Processing existing metadata for: Emil Rottmayer - Glare.mp3
+
+Processing: Emil Rottmayer - Glare.mp3
+Original styles: Chillsynth
+No genres mapped
+Styles unchanged: Chillsynth
+
+Processing existing metadata for: Emil Rottmayer - K.E.Y.S.mp3
+
+Processing: Emil Rottmayer - K.E.Y.S.mp3
+Original styles: Chillsynth
+No genres mapped
+Styles unchanged: Chillsynth
+
+Processing existing metadata for: Emil Rottmayer - L.E.V.E.L.mp3
+
+Processing: Emil Rottmayer - L.E.V.E.L.mp3
+Original styles: Chillsynth
+No genres mapped
+Styles unchanged: Chillsynth
+
+Processing existing metadata for: Emil Rottmayer - Limit (Bonus Track).mp3
+
+Processing: Emil Rottmayer - Limit (Bonus Track).mp3
+Original styles: Chillsynth
+No genres mapped
+Styles unchanged: Chillsynth
+
+Processing existing metadata for: Emil Rottmayer - Mega (Bonus Track).mp3
+
+Processing: Emil Rottmayer - Mega (Bonus Track).mp3
+Original styles: Chillsynth
+No genres mapped
+Styles unchanged: Chillsynth
+
+Processing existing metadata for: Emil Rottmayer - October.mp3
+
+Processing: Emil Rottmayer - October.mp3
+Original styles: Chillsynth
+No genres mapped
+Styles unchanged: Chillsynth
+
+Processing existing metadata for: Emil Rottmayer - Radiate.mp3
+
+Processing: Emil Rottmayer - Radiate.mp3
+Original styles: Chillsynth
+No genres mapped
+Styles unchanged: Chillsynth
+
+Processing existing metadata for: Emil Rottmayer - Reaction.mp3
+
+Processing: Emil Rottmayer - Reaction.mp3
+Original styles: Chillsynth
+No genres mapped
+Styles unchanged: Chillsynth
+
+Processing existing metadata for: Emil Rottmayer - S.O.L.O.mp3
+
+Processing: Emil Rottmayer - S.O.L.O.mp3
+Original styles: Chillsynth
+No genres mapped
+Styles unchanged: Chillsynth
+
+Processing existing metadata for: Emil Rottmayer - T.I.M.E, Pt. 2.mp3
+
+Processing: Emil Rottmayer - T.I.M.E, Pt. 2.mp3
+Original styles: Chillsynth
+No genres mapped
+Styles unchanged: Chillsynth
+
+Processing existing metadata for: Emil Rottmayer - Vision.mp3
+
+Processing: Emil Rottmayer - Vision.mp3
+Original styles: Chillsynth
+No genres mapped
+Styles unchanged: Chillsynth
+
+Processing existing metadata for: Emil Rottmayer - W.A.V.E (Bonus Track).mp3
+
+Processing: Emil Rottmayer - W.A.V.E (Bonus Track).mp3
+Original styles: Chillsynth
+No genres mapped
+Styles unchanged: Chillsynth
+
+Processing existing metadata for: Emil Rottmayer, She's Not Real - Distraction.mp3
+
+Processing: Emil Rottmayer, She's Not Real - Distraction.mp3
+Original styles: Chillsynth
+No genres mapped
+Styles unchanged: Chillsynth
+
+Processing existing metadata for: Eminence - Shapes & Shifts.mp3
+
+Processing: Eminence - Shapes & Shifts.mp3
+Original styles: Gaming Edm, Chillstep
+No genres mapped
+Styles unchanged: Gaming Edm, Chillstep
+
+Processing existing metadata for: Eminence - United (RedMoon Remix).mp3
+
+Processing: Eminence - United (RedMoon Remix).mp3
+Original styles: Gaming Edm, Chillstep
+No genres mapped
+Styles unchanged: Gaming Edm, Chillstep
+
+Processing existing metadata for: Env - Pneumatic Tokyo.mp3
+
+Processing: Env - Pneumatic Tokyo.mp3
+Original styles: Speedrun
+No genres mapped
+Styles unchanged: Speedrun
+
+Processing existing metadata for: Env - ~EnV~Heaven Rd. 2 (Ng mix).mp3
+
+Processing: Env - ~EnV~Heaven Rd. 2 (Ng mix).mp3
+Original styles: Speedrun
+No genres mapped
+Styles unchanged: Speedrun
+
+Processing existing metadata for: Ephixa - Dreamstate.mp3
+
+Processing: Ephixa - Dreamstate.mp3
+Original styles: Filthstep, Gaming Edm, Complextro, Chillstep, Canadian Electronic, Edm
+No genres mapped
+Styles unchanged: Filthstep, Gaming Edm, Complextro, Chillstep, Canadian Electronic, Edm
+
+Processing existing metadata for: Epsilon Zero - Forces - Theme From Berserk.mp3
+
+Processing: Epsilon Zero - Forces - Theme From Berserk.mp3
+Original styles: Future Rock
+No genres mapped
+Styles unchanged: Future Rock
+
+Processing existing metadata for: Equip - CEMETERY MOONGLOW (in the cold air of the night).mp3
+
+Processing: Equip - CEMETERY MOONGLOW (in the cold air of the night).mp3
+Original styles: Vaporwave, Hardvapour, Utopian Virtual
+No genres mapped
+Styles unchanged: Vaporwave, Hardvapour, Utopian Virtual
+
+Processing existing metadata for: Erdling - Mein Element.mp3
+
+Processing: Erdling - Mein Element.mp3
+Original styles: Dark Rock, Neue Deutsche Harte
+No genres mapped
+Styles unchanged: Dark Rock, Neue Deutsche Harte
+
+Processing existing metadata for: Eric Prydz - Call on Me - Radio Mix.mp3
+
+Processing: Eric Prydz - Call on Me - Radio Mix.mp3
+Original styles: Progressive Electro House, House, Progressive House, Electro House, Pop Dance, Edm
+No genres mapped
+Styles unchanged: Progressive Electro House, House, Progressive House, Electro House, Pop Dance, Edm
+
+Processing existing metadata for: Eric Prydz - Pjanoo - Radio Edit.mp3
+
+Processing: Eric Prydz - Pjanoo - Radio Edit.mp3
+Original styles: Progressive Electro House, House, Progressive House, Electro House, Pop Dance, Edm
+No genres mapped
+Styles unchanged: Progressive Electro House, House, Progressive House, Electro House, Pop Dance, Edm
+
+Processing existing metadata for: Essenger, Fury Weekend - Plague Doctor - Fury Weekend Remix.mp3
+No existing genres/styles found
+
+Processing existing metadata for: Euan Ellis - U.F.O.mp3
+
+Processing: Euan Ellis - U.F.O.mp3
+Original styles: Chillsynth
+No genres mapped
+Styles unchanged: Chillsynth
+
+Processing existing metadata for: Europe - The Final Countdown.mp3
+
+Processing: Europe - The Final Countdown.mp3
+Original styles: Swedish Hard Rock, Swedish Melodic Rock, Glam Metal, Album Rock, Rock, Hard Rock
+Mapped Genres: Rock
+Remaining Styles: Swedish Hard Rock, Swedish Melodic Rock, Glam Metal, Album Rock, Hard Rock
+
+Processing existing metadata for: Eurythmics, Annie Lennox, Dave Stewart - Sweet Dreams (Are Made of This) - 2005 Remaster.mp3
+
+Processing: Eurythmics, Annie Lennox, Dave Stewart - Sweet Dreams (Are Made of This) - 2005 Remaster.mp3
+Original styles: New Wave Pop, Synthpop, Soft Rock, Dance Rock, New Wave, Sophisti-pop, New Romantic
+No genres mapped
+Styles unchanged: New Wave Pop, Synthpop, Soft Rock, Dance Rock, New Wave, Sophisti-pop, New Romantic
+
+Processing existing metadata for: Evanescence - Bring Me To Life.mp3
+
+Processing: Evanescence - Bring Me To Life.mp3
+Original styles: Alternative Metal
+No genres mapped
+Styles unchanged: Alternative Metal
+
+Processing existing metadata for: Eyedress - Jealous.mp3
+
+Processing: Eyedress - Jealous.mp3
+Original styles: Pov: Indie, Noise Pop
+No genres mapped
+Styles unchanged: Pov: Indie, Noise Pop
+
+Processing existing metadata for: F.O.O.L - Conflict.mp3
+
+Processing: F.O.O.L - Conflict.mp3
+Original styles: Complextro, Electro Trash, Dark Clubbing
+No genres mapped
+Styles unchanged: Complextro, Electro Trash, Dark Clubbing
+
+Processing existing metadata for: F.O.O.L - Criminals.mp3
+
+Processing: F.O.O.L - Criminals.mp3
+Original styles: Complextro, Electro Trash, Dark Clubbing
+No genres mapped
+Styles unchanged: Complextro, Electro Trash, Dark Clubbing
+
+Processing existing metadata for: F.O.O.L - Escape Plan.mp3
+
+Processing: F.O.O.L - Escape Plan.mp3
+Original styles: Complextro, Electro Trash, Dark Clubbing
+No genres mapped
+Styles unchanged: Complextro, Electro Trash, Dark Clubbing
+
+Processing existing metadata for: F.O.O.L - Fairytaler.mp3
+
+Processing: F.O.O.L - Fairytaler.mp3
+Original styles: Complextro, Electro Trash, Dark Clubbing
+No genres mapped
+Styles unchanged: Complextro, Electro Trash, Dark Clubbing
+
+Processing existing metadata for: F.O.O.L - Highway.mp3
+
+Processing: F.O.O.L - Highway.mp3
+Original styles: Complextro, Electro Trash, Dark Clubbing
+No genres mapped
+Styles unchanged: Complextro, Electro Trash, Dark Clubbing
+
+Processing existing metadata for: F.O.O.L - Keep On Rocking.mp3
+
+Processing: F.O.O.L - Keep On Rocking.mp3
+Original styles: Complextro, Electro Trash, Dark Clubbing
+No genres mapped
+Styles unchanged: Complextro, Electro Trash, Dark Clubbing
+
+Processing existing metadata for: F.O.O.L - Lost.mp3
+
+Processing: F.O.O.L - Lost.mp3
+Original styles: Complextro, Electro Trash, Dark Clubbing
+No genres mapped
+Styles unchanged: Complextro, Electro Trash, Dark Clubbing
+
+Processing existing metadata for: F.O.O.L - MENTAL STATE.mp3
+
+Processing: F.O.O.L - MENTAL STATE.mp3
+Original styles: Complextro, Electro Trash, Dark Clubbing
+No genres mapped
+Styles unchanged: Complextro, Electro Trash, Dark Clubbing
+
+Processing existing metadata for: F.O.O.L - She.mp3
+
+Processing: F.O.O.L - She.mp3
+Original styles: Complextro, Electro Trash, Dark Clubbing
+No genres mapped
+Styles unchanged: Complextro, Electro Trash, Dark Clubbing
+
+Processing existing metadata for: F.O.O.L - Showdown.mp3
+
+Processing: F.O.O.L - Showdown.mp3
+Original styles: Complextro, Electro Trash, Dark Clubbing
+No genres mapped
+Styles unchanged: Complextro, Electro Trash, Dark Clubbing
+
+Processing existing metadata for: F.O.O.L - The Truth.mp3
+
+Processing: F.O.O.L - The Truth.mp3
+Original styles: Complextro, Electro Trash, Dark Clubbing
+No genres mapped
+Styles unchanged: Complextro, Electro Trash, Dark Clubbing
+
+Processing existing metadata for: F.O.O.L - TROUBLEMAKER.mp3
+
+Processing: F.O.O.L - TROUBLEMAKER.mp3
+Original styles: Complextro, Electro Trash, Dark Clubbing
+No genres mapped
+Styles unchanged: Complextro, Electro Trash, Dark Clubbing
+
+Processing existing metadata for: F.O.O.L - VIOLENCE.mp3
+
+Processing: F.O.O.L - VIOLENCE.mp3
+Original styles: Complextro, Electro Trash, Dark Clubbing
+No genres mapped
+Styles unchanged: Complextro, Electro Trash, Dark Clubbing
+
+Processing existing metadata for: F.O.O.L, Holly Drummond - Carry On.mp3
+
+Processing: F.O.O.L, Holly Drummond - Carry On.mp3
+Original styles: Complextro, Electro Trash, Dark Clubbing
+No genres mapped
+Styles unchanged: Complextro, Electro Trash, Dark Clubbing
+
+Processing existing metadata for: F.O.O.L, Power Glove - Mercenary.mp3
+
+Processing: F.O.O.L, Power Glove - Mercenary.mp3
+Original styles: Complextro, Electro Trash, Dark Clubbing
+No genres mapped
+Styles unchanged: Complextro, Electro Trash, Dark Clubbing
+
+Processing existing metadata for: Fall Out Boy - Centuries.mp3
+
+Processing: Fall Out Boy - Centuries.mp3
+Original styles: Emo, Modern Rock, Pop, Rock
+Mapped Genres: Pop, Rock
+Remaining Styles: Emo, Modern Rock
+
+Processing existing metadata for: Fall Out Boy - The Phoenix.mp3
+
+Processing: Fall Out Boy - The Phoenix.mp3
+Original styles: Emo, Modern Rock, Pop, Rock
+Mapped Genres: Pop, Rock
+Remaining Styles: Emo, Modern Rock
+
+Processing existing metadata for: Fall Out Boy - Thnks fr th Mmrs.mp3
+
+Processing: Fall Out Boy - Thnks fr th Mmrs.mp3
+Original styles: Emo, Modern Rock, Pop, Rock
+Mapped Genres: Pop, Rock
+Remaining Styles: Emo, Modern Rock
+
+Processing existing metadata for: Falling North, Cullimore - Babylon - Cullimore Remix.mp3
+No existing genres/styles found
+
+Processing existing metadata for: Fantom '87 - Destination.mp3
+
+Processing: Fantom '87 - Destination.mp3
+Original styles: Chillsynth, Synthwave, Spacewave
+Mapped Genres: Synthwave
+Remaining Styles: Chillsynth, Spacewave
+
+Processing existing metadata for: Fantom '87 - Pay Phone.mp3
+
+Processing: Fantom '87 - Pay Phone.mp3
+Original styles: Chillsynth, Synthwave, Spacewave
+Mapped Genres: Synthwave
+Remaining Styles: Chillsynth, Spacewave
+
+Processing existing metadata for: Far East Movement, The Cataracs, DEV - Like A G6.mp3
+
+Processing: Far East Movement, The Cataracs, DEV - Like A G6.mp3
+Original styles: Dance Pop, Pop, Asian American Hip Hop, Pop Rap
+Mapped Genres: Pop
+Remaining Styles: Dance Pop, Asian American Hip Hop, Pop Rap
+
+Processing existing metadata for: Farveblind - Amber.mp3
+
+Processing: Farveblind - Amber.mp3
+Original styles: Danish Electropop
+No genres mapped
+Styles unchanged: Danish Electropop
+
+Processing existing metadata for: Fatum, Genix, Jaytech, Judah, Rodg - All In - Rodg Remix.mp3
+
+Processing: Fatum, Genix, Jaytech, Judah, Rodg - All In - Rodg Remix.mp3
+Original styles: Progressive House, Progressive Trance
+No genres mapped
+Styles unchanged: Progressive House, Progressive Trance
+
+Processing existing metadata for: Favored Nations - Lagoon.mp3
+No existing genres/styles found
+
+Processing existing metadata for: Favright - Deep City.mp3
+
+Processing: Favright - Deep City.mp3
+Original styles: Complextro, Gaming Edm
+No genres mapped
+Styles unchanged: Complextro, Gaming Edm
+
+Processing existing metadata for: Favright - Green Storm.mp3
+
+Processing: Favright - Green Storm.mp3
+Original styles: Complextro, Gaming Edm
+No genres mapped
+Styles unchanged: Complextro, Gaming Edm
+
+Processing existing metadata for: Favright - Iceladen.mp3
+
+Processing: Favright - Iceladen.mp3
+Original styles: Complextro, Gaming Edm
+No genres mapped
+Styles unchanged: Complextro, Gaming Edm
+
+Processing existing metadata for: Favright - Levitate.mp3
+
+Processing: Favright - Levitate.mp3
+Original styles: Complextro, Gaming Edm
+No genres mapped
+Styles unchanged: Complextro, Gaming Edm
+
+Processing existing metadata for: Favright - Nerve.mp3
+
+Processing: Favright - Nerve.mp3
+Original styles: Complextro, Gaming Edm
+No genres mapped
+Styles unchanged: Complextro, Gaming Edm
+
+Processing existing metadata for: Favright - Nocturnal.mp3
+
+Processing: Favright - Nocturnal.mp3
+Original styles: Complextro, Gaming Edm
+No genres mapped
+Styles unchanged: Complextro, Gaming Edm
+
+Processing existing metadata for: Favright, Cassandra Kay - Taking Over.mp3
+
+Processing: Favright, Cassandra Kay - Taking Over.mp3
+Original styles: Complextro, Gaming Edm
+No genres mapped
+Styles unchanged: Complextro, Gaming Edm
+
+Processing existing metadata for: Feint, CoMa - Snake Eyes.mp3
+
+Processing: Feint, CoMa - Snake Eyes.mp3
+Original styles: Dancefloor Dnb, Chillstep
+No genres mapped
+Styles unchanged: Dancefloor Dnb, Chillstep
+
+Processing existing metadata for: Feint, Laura Brehm - We Won't Be Alone.mp3
+
+Processing: Feint, Laura Brehm - We Won't Be Alone.mp3
+Original styles: Dancefloor Dnb, Chillstep
+No genres mapped
+Styles unchanged: Dancefloor Dnb, Chillstep
+
+Processing existing metadata for: Feint, Laura Brehm - Words.mp3
+
+Processing: Feint, Laura Brehm - Words.mp3
+Original styles: Dancefloor Dnb, Chillstep
+No genres mapped
+Styles unchanged: Dancefloor Dnb, Chillstep
+
+Processing existing metadata for: Ferus Melek - Octoparis.mp3
+
+Processing: Ferus Melek - Octoparis.mp3
+Original styles: Synthwave, Cyberpunk
+Mapped Genres: Synthwave
+Remaining Styles: Cyberpunk
+
+Processing existing metadata for: FIBRE - Virtual World.mp3
+
+Processing: FIBRE - Virtual World.mp3
+Original styles: Future Funk
+No genres mapped
+Styles unchanged: Future Funk
+
+Processing existing metadata for: Finger Eleven - Paralyzer.mp3
+
+Processing: Finger Eleven - Paralyzer.mp3
+Original styles: Post-grunge, Alternative Metal, Nu Metal, Canadian Rock, Funk Metal
+No genres mapped
+Styles unchanged: Post-grunge, Alternative Metal, Nu Metal, Canadian Rock, Funk Metal
+
+Processing existing metadata for: FISHER - Losing It.mp3
+
+Processing: FISHER - Losing It.mp3
+Original styles: Australian House, House
+No genres mapped
+Styles unchanged: Australian House, House
+
+Processing existing metadata for: Five Finger Death Punch - Jekyll and Hyde.mp3
+
+Processing: Five Finger Death Punch - Jekyll and Hyde.mp3
+Original styles: Alternative Metal, Nu Metal, Groove Metal
+No genres mapped
+Styles unchanged: Alternative Metal, Nu Metal, Groove Metal
+
+Processing existing metadata for: Five Finger Death Punch - The Tragic Truth.mp3
+
+Processing: Five Finger Death Punch - The Tragic Truth.mp3
+Original styles: Alternative Metal, Nu Metal, Groove Metal
+No genres mapped
+Styles unchanged: Alternative Metal, Nu Metal, Groove Metal
+
+Processing existing metadata for: Five Finger Death Punch - Wrong Side of Heaven.mp3
+
+Processing: Five Finger Death Punch - Wrong Side of Heaven.mp3
+Original styles: Alternative Metal, Nu Metal, Groove Metal
+No genres mapped
+Styles unchanged: Alternative Metal, Nu Metal, Groove Metal
+
+Processing existing metadata for: Fixions - Black Racers.mp3
+
+Processing: Fixions - Black Racers.mp3
+Original styles: Synthwave, Darksynth
+Mapped Genres: Synthwave
+Remaining Styles: Darksynth
+
+Processing existing metadata for: Fixions - Killing Pool.mp3
+
+Processing: Fixions - Killing Pool.mp3
+Original styles: Synthwave, Darksynth
+Mapped Genres: Synthwave
+Remaining Styles: Darksynth
+
+Processing existing metadata for: Fixions - We Are Ghouls.mp3
+
+Processing: Fixions - We Are Ghouls.mp3
+Original styles: Synthwave, Darksynth
+Mapped Genres: Synthwave
+Remaining Styles: Darksynth
+
+Processing existing metadata for: Fliin - Kumori.mp3
+No existing genres/styles found
+
+Processing existing metadata for: Flo Rida - Good Feeling.mp3
+
+Processing: Flo Rida - Good Feeling.mp3
+Original styles: Miami Hip Hop, Pop, Dance Pop, Pop Rap
+Mapped Genres: Pop
+Remaining Styles: Miami Hip Hop, Dance Pop, Pop Rap
+
+Processing existing metadata for: Florida Skyline - Home - Resonance - Florida Skyline Remix.mp3
+
+Processing: Florida Skyline - Home - Resonance - Florida Skyline Remix.mp3
+Original styles: Chillsynth
+No genres mapped
+Styles unchanged: Chillsynth
+
+Processing existing metadata for: FM-84 - Neon Sunrise.mp3
+
+Processing: FM-84 - Neon Sunrise.mp3
+Original styles: Synthwave, Popwave
+Mapped Genres: Synthwave
+Remaining Styles: Popwave
+
+Processing existing metadata for: Foewi - Traffic.mp3
+
+Processing: Foewi - Traffic.mp3
+Original styles: Chillsynth
+No genres mapped
+Styles unchanged: Chillsynth
+
+Processing existing metadata for: Foo Fighters - Everlong.mp3
+
+Processing: Foo Fighters - Everlong.mp3
+Original styles: Permanent Wave, Post-grunge, Alternative Metal, Alternative Rock, Modern Rock, Rock
+Mapped Genres: Rock
+Remaining Styles: Permanent Wave, Post-grunge, Alternative Metal, Alternative Rock, Modern Rock
+
+Processing existing metadata for: Foo Fighters - The Pretender.mp3
+
+Processing: Foo Fighters - The Pretender.mp3
+Original styles: Permanent Wave, Post-grunge, Alternative Metal, Alternative Rock, Modern Rock, Rock
+Mapped Genres: Rock
+Remaining Styles: Permanent Wave, Post-grunge, Alternative Metal, Alternative Rock, Modern Rock
+
+Processing existing metadata for: Forhill, VIQ - Arrival.mp3
+
+Processing: Forhill, VIQ - Arrival.mp3
+Original styles: Chillsynth, Spacewave
+No genres mapped
+Styles unchanged: Chillsynth, Spacewave
+
+Processing existing metadata for: Forhill, YOUTH 83 - Nightwalker.mp3
+
+Processing: Forhill, YOUTH 83 - Nightwalker.mp3
+Original styles: Chillsynth, Spacewave
+No genres mapped
+Styles unchanged: Chillsynth, Spacewave
+
+Processing existing metadata for: Formshift - Devolution.mp3
+
+Processing: Formshift - Devolution.mp3
+Original styles: Dark Clubbing
+No genres mapped
+Styles unchanged: Dark Clubbing
+
+Processing existing metadata for: Foxhunt - Castlevania.mp3
+No existing genres/styles found
+
+Processing existing metadata for: Fractal - Elements.mp3
+
+Processing: Fractal - Elements.mp3
+Original styles: Complextro, Gaming Edm, Melodic Dubstep
+No genres mapped
+Styles unchanged: Complextro, Gaming Edm, Melodic Dubstep
+
+Processing existing metadata for: Franz Ferdinand - Take Me Out.mp3
+
+Processing: Franz Ferdinand - Take Me Out.mp3
+Original styles: Indie Rock, Modern Rock, Alternative Rock, Scottish Rock, Rock, Dance Rock
+Mapped Genres: Rock
+Remaining Styles: Indie Rock, Modern Rock, Alternative Rock, Scottish Rock, Dance Rock
+
+Processing existing metadata for: Fraunhofer Diffraction - Awakening.mp3
+
+Processing: Fraunhofer Diffraction - Awakening.mp3
+Original styles: Witch House, Wave, Russian Witch House, Russian Electronic
+No genres mapped
+Styles unchanged: Witch House, Wave, Russian Witch House, Russian Electronic
+
+Processing existing metadata for: Fraunhofer Diffraction - Star Trails.mp3
+
+Processing: Fraunhofer Diffraction - Star Trails.mp3
+Original styles: Witch House, Wave, Russian Witch House, Russian Electronic
+No genres mapped
+Styles unchanged: Witch House, Wave, Russian Witch House, Russian Electronic
+
+Processing existing metadata for: Fraxo, Whales - Eternal Way.mp3
+
+Processing: Fraxo, Whales - Eternal Way.mp3
+Original styles: Bass Trap
+No genres mapped
+Styles unchanged: Bass Trap
+
+Processing existing metadata for: Fred Falke - Crepuscule.mp3
+
+Processing: Fred Falke - Crepuscule.mp3
+Original styles: Filter House, Nu Disco
+No genres mapped
+Styles unchanged: Filter House, Nu Disco
+
+Processing existing metadata for: Fukkk Offf - Pacific Coast Highway.mp3
+
+Processing: Fukkk Offf - Pacific Coast Highway.mp3
+Original styles: Electro Trash, Fidget House, Hamburg Electronic
+No genres mapped
+Styles unchanged: Electro Trash, Fidget House, Hamburg Electronic
+
+Processing existing metadata for: Fury Weekend - Another Brick In The Wall.mp3
+
+Processing: Fury Weekend - Another Brick In The Wall.mp3
+Original styles: Synthwave, Future Rock
+Mapped Genres: Synthwave
+Remaining Styles: Future Rock
+
+Processing existing metadata for: Fury Weekend - Black To The Future.mp3
+
+Processing: Fury Weekend - Black To The Future.mp3
+Original styles: Synthwave, Future Rock
+Mapped Genres: Synthwave
+Remaining Styles: Future Rock
+
+Processing existing metadata for: Fury Weekend - Dr. Online.mp3
+
+Processing: Fury Weekend - Dr. Online.mp3
+Original styles: Synthwave, Future Rock
+Mapped Genres: Synthwave
+Remaining Styles: Future Rock
+
+Processing existing metadata for: Fury Weekend - Knightriders.mp3
+
+Processing: Fury Weekend - Knightriders.mp3
+Original styles: Synthwave, Future Rock
+Mapped Genres: Synthwave
+Remaining Styles: Future Rock
+
+Processing existing metadata for: g3ox_em - GigaChad Theme - Phonk House Version.mp3
+
+Processing: g3ox_em - GigaChad Theme - Phonk House Version.mp3
+Original styles: Gym Phonk
+No genres mapped
+Styles unchanged: Gym Phonk
+
+Processing existing metadata for: Ganger Baster - I'm a Robot.mp3
+No existing genres/styles found
+
+Processing existing metadata for: Garth Knight - AutoTron.mp3
+
+Processing: Garth Knight - AutoTron.mp3
+Original styles: Synthwave
+Mapped Genres: Synthwave
+Remaining Styles: 
+
+Processing existing metadata for: Garth Knight - Break Point.mp3
+
+Processing: Garth Knight - Break Point.mp3
+Original styles: Synthwave
+Mapped Genres: Synthwave
+Remaining Styles: 
+
+Processing existing metadata for: Garth Knight - Mainframe.mp3
+
+Processing: Garth Knight - Mainframe.mp3
+Original styles: Synthwave
+Mapped Genres: Synthwave
+Remaining Styles: 
+
+Processing existing metadata for: Garth Knight - Silent Strike.mp3
+
+Processing: Garth Knight - Silent Strike.mp3
+Original styles: Synthwave
+Mapped Genres: Synthwave
+Remaining Styles: 
+
+Processing existing metadata for: Gemi, Ell Murphy, MPH - Calling (feat. Ell Murphy) [MPH Remix].mp3
+
+Processing: Gemi, Ell Murphy, MPH - Calling (feat. Ell Murphy) [MPH Remix].mp3
+Original styles: Ukg Revival
+No genres mapped
+Styles unchanged: Ukg Revival
+
+Processing existing metadata for: GentleBruce - Dead by 80's.mp3
+No existing genres/styles found
+
+Processing existing metadata for: GentleBruce - Sweden (From 'Minecraft').mp3
+No existing genres/styles found
+
+Processing existing metadata for: Gesaffelstein - Opr.mp3
+
+Processing: Gesaffelstein - Opr.mp3
+Original styles: Dark Clubbing
+No genres mapped
+Styles unchanged: Dark Clubbing
+
+Processing existing metadata for: Gesaffelstein - Viol.mp3
+
+Processing: Gesaffelstein - Viol.mp3
+Original styles: Dark Clubbing
+No genres mapped
+Styles unchanged: Dark Clubbing
+
+Processing existing metadata for: Getsix - Sky Fracture.mp3
+
+Processing: Getsix - Sky Fracture.mp3
+Original styles: Speedrun
+No genres mapped
+Styles unchanged: Speedrun
+
+Processing existing metadata for: GHOST DATA - Sovereign of the End.mp3
+
+Processing: GHOST DATA - Sovereign of the End.mp3
+Original styles: Future Funk
+No genres mapped
+Styles unchanged: Future Funk
+
+Processing existing metadata for: Ghostface Playa - Why Not.mp3
+
+Processing: Ghostface Playa - Why Not.mp3
+Original styles: Drift Phonk
+No genres mapped
+Styles unchanged: Drift Phonk
+
+Processing existing metadata for: Gioachino Rossini, Czech Symphony Orchestra, Michaela Rózsa Růžičková - William Tell- Overture (Finale).mp3
+
+Processing: Gioachino Rossini, Czech Symphony Orchestra, Michaela Rózsa Růžičková - William Tell- Overture (Finale).mp3
+Original styles: Italian Opera, Italian Romanticism, Classical
+No genres mapped
+Styles unchanged: Italian Opera, Italian Romanticism, Classical
+
+Processing existing metadata for: Giselle, Favored Nations - Silk - Favored Nations Remix.mp3
+No existing genres/styles found
+
+Processing existing metadata for: Giuseppe Verdi, Czech Symphony Orchestra, Czech Symphony Choir, Michaela Rózsa Růžičková - Requiem- II. Dies irae.mp3
+
+Processing: Giuseppe Verdi, Czech Symphony Orchestra, Czech Symphony Choir, Michaela Rózsa Růžičková - Requiem- II. Dies irae.mp3
+Original styles: Italian Opera, Late Romantic Era, Italian Romanticism, Classical
+No genres mapped
+Styles unchanged: Italian Opera, Late Romantic Era, Italian Romanticism, Classical
+
+Processing existing metadata for: glichery - Sea Of Problems.mp3
+
+Processing: glichery - Sea Of Problems.mp3
+Original styles: Gym Phonk
+No genres mapped
+Styles unchanged: Gym Phonk
+
+Processing existing metadata for: Glitch Black - Breaking Point.mp3
+
+Processing: Glitch Black - Breaking Point.mp3
+Original styles: Synthwave, Darksynth
+Mapped Genres: Synthwave
+Remaining Styles: Darksynth
+
+Processing existing metadata for: Gnarls Barkley - Crazy.mp3
+
+Processing: Gnarls Barkley - Crazy.mp3
+Original styles: Atl Hip Hop, Neo Soul
+No genres mapped
+Styles unchanged: Atl Hip Hop, Neo Soul
+
+Processing existing metadata for: Goo Munday - Fk Your Fear (Mr.Kitty Remix).mp3
+
+Processing: Goo Munday - Fk Your Fear (Mr.Kitty Remix).mp3
+Original styles: Witch House, Synth Punk
+No genres mapped
+Styles unchanged: Witch House, Synth Punk
+
+Processing existing metadata for: GoodBooks, Crystal Castles - Leni (Crystal Castles vs GoodBooks).mp3
+
+Processing: GoodBooks, Crystal Castles - Leni (Crystal Castles vs GoodBooks).mp3
+Original styles: Sped Up
+No genres mapped
+Styles unchanged: Sped Up
+
+Processing existing metadata for: Gorillaz - Feel Good Inc..mp3
+
+Processing: Gorillaz - Feel Good Inc..mp3
+Original styles: Modern Rock, Rock, Alternative Hip Hop
+Mapped Genres: Rock
+Remaining Styles: Modern Rock, Alternative Hip Hop
+
+Processing existing metadata for: Gost - Genesee Avenue.mp3
+No existing genres/styles found
+
+Processing existing metadata for: Green Day - Holiday  Boulevard of Broken Dreams.mp3
+
+Processing: Green Day - Holiday  Boulevard of Broken Dreams.mp3
+Original styles: Punk, Modern Rock, Permanent Wave, Rock
+Mapped Genres: Rock
+Remaining Styles: Punk, Modern Rock, Permanent Wave
+
+Processing existing metadata for: Gress - VLST.mp3
+
+Processing: Gress - VLST.mp3
+Original styles: Dark Clubbing
+No genres mapped
+Styles unchanged: Dark Clubbing
+
+Processing existing metadata for: Groundislava - Dark Planet.mp3
+
+Processing: Groundislava - Dark Planet.mp3
+Original styles: Wonky
+No genres mapped
+Styles unchanged: Wonky
+
+Processing existing metadata for: Gryff - Miami Overdrive - Radio Edit.mp3
+
+Processing: Gryff - Miami Overdrive - Radio Edit.mp3
+Original styles: Popwave
+No genres mapped
+Styles unchanged: Popwave
+
+Processing existing metadata for: Guillaume David - Caestus Metalican.mp3
+
+Processing: Guillaume David - Caestus Metalican.mp3
+Original styles: Video Game Music
+No genres mapped
+Styles unchanged: Video Game Music
+
+Processing existing metadata for: Guillaume David - Children of the Omnissiah.mp3
+
+Processing: Guillaume David - Children of the Omnissiah.mp3
+Original styles: Video Game Music
+No genres mapped
+Styles unchanged: Video Game Music
+
+Processing existing metadata for: Guillaume David - Noosphere.mp3
+
+Processing: Guillaume David - Noosphere.mp3
+Original styles: Video Game Music
+No genres mapped
+Styles unchanged: Video Game Music
+
+Processing existing metadata for: Guns N' Roses - Paradise City.mp3
+
+Processing: Guns N' Roses - Paradise City.mp3
+Original styles: Hard Rock, Rock, Glam Metal
+Mapped Genres: Rock
+Remaining Styles: Hard Rock, Glam Metal
+
+Processing existing metadata for: Guns N' Roses - Welcome To The Jungle.mp3
+
+Processing: Guns N' Roses - Welcome To The Jungle.mp3
+Original styles: Hard Rock, Rock, Glam Metal
+Mapped Genres: Rock
+Remaining Styles: Hard Rock, Glam Metal
+
+Processing existing metadata for: Gunship, Lights, Tim Cappello - Empress of the Damned (feat. Lights).mp3
+
+Processing: Gunship, Lights, Tim Cappello - Empress of the Damned (feat. Lights).mp3
+Original styles: Popwave
+No genres mapped
+Styles unchanged: Popwave
+
+Processing existing metadata for: Gunship, Tim Cappello, Indiana - Dark All Day.mp3
+
+Processing: Gunship, Tim Cappello, Indiana - Dark All Day.mp3
+Original styles: Popwave
+No genres mapped
+Styles unchanged: Popwave
+
+Processing existing metadata for: GÆRARD - Bipolar.mp3
+No existing genres/styles found
+
+Processing existing metadata for: Haddaway - What is Love.mp3
+
+Processing: Haddaway - What is Love.mp3
+Original styles: Europop, Eurodance
+No genres mapped
+Styles unchanged: Europop, Eurodance
+
+Processing existing metadata for: Halestorm - Back From The Dead.mp3
+
+Processing: Halestorm - Back From The Dead.mp3
+Original styles: Post-grunge, Alternative Metal, Nu Metal
+No genres mapped
+Styles unchanged: Post-grunge, Alternative Metal, Nu Metal
+
+Processing existing metadata for: Halestorm - Don't Know How to Stop.mp3
+
+Processing: Halestorm - Don't Know How to Stop.mp3
+Original styles: Post-grunge, Alternative Metal, Nu Metal
+No genres mapped
+Styles unchanged: Post-grunge, Alternative Metal, Nu Metal
+
+Processing existing metadata for: Haywyre - Do You Don't You.mp3
+
+Processing: Haywyre - Do You Don't You.mp3
+Original styles: Complextro, Canadian Electronic, Vapor Twitch, Future Bass
+No genres mapped
+Styles unchanged: Complextro, Canadian Electronic, Vapor Twitch, Future Bass
+
+Processing existing metadata for: Hellberg - Get Up.mp3
+
+Processing: Hellberg - Get Up.mp3
+Original styles: Complextro, Gaming Edm
+No genres mapped
+Styles unchanged: Complextro, Gaming Edm
+
+Processing existing metadata for: Hellberg, Deutgen, SPLITBREED - Collide.mp3
+
+Processing: Hellberg, Deutgen, SPLITBREED - Collide.mp3
+Original styles: Complextro, Gaming Edm
+No genres mapped
+Styles unchanged: Complextro, Gaming Edm
+
+Processing existing metadata for: Hellberg, Deutgen, SPLITBREED, BARELY ALIVE, Astronaut - Collide - Astronaut & Barely Alive Remix.mp3
+
+Processing: Hellberg, Deutgen, SPLITBREED, BARELY ALIVE, Astronaut - Collide - Astronaut & Barely Alive Remix.mp3
+Original styles: Complextro, Gaming Edm
+No genres mapped
+Styles unchanged: Complextro, Gaming Edm
+
+Processing existing metadata for: Hensonn - Sahara.mp3
+
+Processing: Hensonn - Sahara.mp3
+Original styles: Drift Phonk, Ukrainian Phonk
+No genres mapped
+Styles unchanged: Drift Phonk, Ukrainian Phonk
+
+Processing existing metadata for: Hexsystem - Nuclear Summer.mp3
+No existing genres/styles found
+
+Processing existing metadata for: High Maintenance, Charlotte Haining - Change Your Ways.mp3
+
+Processing: High Maintenance, Charlotte Haining - Change Your Ways.mp3
+Original styles: Dancefloor Dnb
+No genres mapped
+Styles unchanged: Dancefloor Dnb
+
+Processing existing metadata for: Highway Superstar - Them or Us.mp3
+
+Processing: Highway Superstar - Them or Us.mp3
+Original styles: Synthwave
+Mapped Genres: Synthwave
+Remaining Styles: 
+
+Processing existing metadata for: Hinkik - Ena.mp3
+
+Processing: Hinkik - Ena.mp3
+Original styles: Speedrun
+No genres mapped
+Styles unchanged: Speedrun
+
+Processing existing metadata for: Hinkik - Explorers.mp3
+
+Processing: Hinkik - Explorers.mp3
+Original styles: Speedrun
+No genres mapped
+Styles unchanged: Speedrun
+
+Processing existing metadata for: Hinkik - Outbreaker.mp3
+
+Processing: Hinkik - Outbreaker.mp3
+Original styles: Speedrun
+No genres mapped
+Styles unchanged: Speedrun
+
+Processing existing metadata for: Hinkik - Skystrike.mp3
+
+Processing: Hinkik - Skystrike.mp3
+Original styles: Speedrun
+No genres mapped
+Styles unchanged: Speedrun
+
+Processing existing metadata for: Hinkik - Time Leaper.mp3
+
+Processing: Hinkik - Time Leaper.mp3
+Original styles: Speedrun
+No genres mapped
+Styles unchanged: Speedrun
+
+Processing existing metadata for: Hinkik, A Himitsu - Realms.mp3
+
+Processing: Hinkik, A Himitsu - Realms.mp3
+Original styles: Speedrun
+No genres mapped
+Styles unchanged: Speedrun
+
+Processing existing metadata for: Hollywood Burns - Enter the Yakuza Club.mp3
+
+Processing: Hollywood Burns - Enter the Yakuza Club.mp3
+Original styles: Synthwave, Darksynth
+Mapped Genres: Synthwave
+Remaining Styles: Darksynth
+
+Processing existing metadata for: Hollywood Burns - Scherzo No. 5 in Death Minor.mp3
+
+Processing: Hollywood Burns - Scherzo No. 5 in Death Minor.mp3
+Original styles: Synthwave, Darksynth
+Mapped Genres: Synthwave
+Remaining Styles: Darksynth
+
+Processing existing metadata for: Hollywood Undead - Whatever It Takes.mp3
+
+Processing: Hollywood Undead - Whatever It Takes.mp3
+Original styles: Post-grunge, Alternative Metal, Modern Rock, Rap Metal, Rap Rock, Rock
+Mapped Genres: Rock
+Remaining Styles: Post-grunge, Alternative Metal, Modern Rock, Rap Metal, Rap Rock
+
+Processing existing metadata for: Holy Fuck - Tom Tom.mp3
+
+Processing: Holy Fuck - Tom Tom.mp3
+Original styles: Dance-punk, Electronic Rock
+No genres mapped
+Styles unchanged: Dance-punk, Electronic Rock
+
+Processing existing metadata for: Home - Above All.mp3
+No existing genres/styles found
+
+Processing existing metadata for: Home - Before the Night.mp3
+No existing genres/styles found
+
+Processing existing metadata for: Home - Burning.mp3
+No existing genres/styles found
+
+Processing existing metadata for: HOME - Dream Head.mp3
+No existing genres/styles found
+
+Processing existing metadata for: Home - Flood.mp3
+No existing genres/styles found
+
+Processing existing metadata for: Home - Head First.mp3
+No existing genres/styles found
+
+Processing existing metadata for: Home - Hold.mp3
+No existing genres/styles found
+
+Processing existing metadata for: Home - If I'm Wrong.mp3
+No existing genres/styles found
+
+Processing existing metadata for: Home - Pyxis.mp3
+No existing genres/styles found
+
+Processing existing metadata for: Home - Resonance.mp3
+No existing genres/styles found
+
+Processing existing metadata for: Home - We're Finally Landing.mp3
+No existing genres/styles found
+
+Processing existing metadata for: Hubrid, Forerunnerx, Hunter Norton - Berserker.mp3
+
+Processing: Hubrid, Forerunnerx, Hunter Norton - Berserker.mp3
+Original styles: Synthwave, Darksynth
+Mapped Genres: Synthwave
+Remaining Styles: Darksynth
+
+Processing existing metadata for: Hydrogenio, Frostloud!, Misha Sinal - Million Miles - Radio Edit.mp3
+No existing genres/styles found
+
+Processing existing metadata for: Iacon - Whilst I Enter These Gardens.mp3
+No existing genres/styles found
+
+Processing existing metadata for: Ian Snow - Tektronik.mp3
+No existing genres/styles found
+
+Processing existing metadata for: Imagine Dragons, JID, Arcane, League of Legends - Enemy (with JID) - from the series Arcane League of Legends.mp3
+
+Processing: Imagine Dragons, JID, Arcane, League of Legends - Enemy (with JID) - from the series Arcane League of Legends.mp3
+Original styles: Modern Rock, Pop, Rock
+Mapped Genres: Pop, Rock
+Remaining Styles: Modern Rock
+
+Processing existing metadata for: INCORE - Glide.mp3
+No existing genres/styles found
+
+Processing existing metadata for: Inexedra - Cyberkinetic.mp3
+
+Processing: Inexedra - Cyberkinetic.mp3
+Original styles: Synthwave, Darksynth
+Mapped Genres: Synthwave
+Remaining Styles: Darksynth
+
+Processing existing metadata for: Inexedra - Diode - VIP Mix.mp3
+
+Processing: Inexedra - Diode - VIP Mix.mp3
+Original styles: Synthwave, Darksynth
+Mapped Genres: Synthwave
+Remaining Styles: Darksynth
+
+Processing existing metadata for: Inova - Disowned.mp3
+
+Processing: Inova - Disowned.mp3
+Original styles: Traprun, Arab Trap
+No genres mapped
+Styles unchanged: Traprun, Arab Trap
+
+Processing existing metadata for: Inova - Immortal.mp3
+
+Processing: Inova - Immortal.mp3
+Original styles: Traprun, Arab Trap
+No genres mapped
+Styles unchanged: Traprun, Arab Trap
+
+Processing existing metadata for: Insan3lik3 - Bad Pitched.mp3
+
+Processing: Insan3lik3 - Bad Pitched.mp3
+Original styles: Complextro, Gaming Edm
+No genres mapped
+Styles unchanged: Complextro, Gaming Edm
+
+Processing existing metadata for: Insan3lik3 - Bliss.mp3
+
+Processing: Insan3lik3 - Bliss.mp3
+Original styles: Complextro, Gaming Edm
+No genres mapped
+Styles unchanged: Complextro, Gaming Edm
+
+Processing existing metadata for: Insan3lik3 - Dat Voices.mp3
+
+Processing: Insan3lik3 - Dat Voices.mp3
+Original styles: Complextro, Gaming Edm
+No genres mapped
+Styles unchanged: Complextro, Gaming Edm
+
+Processing existing metadata for: Insan3lik3 - La Vie.mp3
+
+Processing: Insan3lik3 - La Vie.mp3
+Original styles: Complextro, Gaming Edm
+No genres mapped
+Styles unchanged: Complextro, Gaming Edm
+
+Processing existing metadata for: Insan3lik3 - The Other Day.mp3
+
+Processing: Insan3lik3 - The Other Day.mp3
+Original styles: Complextro, Gaming Edm
+No genres mapped
+Styles unchanged: Complextro, Gaming Edm
+
+Processing existing metadata for: Insan3lik3 - Tokyo Express.mp3
+
+Processing: Insan3lik3 - Tokyo Express.mp3
+Original styles: Complextro, Gaming Edm
+No genres mapped
+Styles unchanged: Complextro, Gaming Edm
+
+Processing existing metadata for: Insan3lik3, Throttle - Better Than Expected.mp3
+
+Processing: Insan3lik3, Throttle - Better Than Expected.mp3
+Original styles: Complextro, Gaming Edm
+No genres mapped
+Styles unchanged: Complextro, Gaming Edm
+
+Processing existing metadata for: INTERWORLD - METAMORPHOSIS - Sped Up.mp3
+
+Processing: INTERWORLD - METAMORPHOSIS - Sped Up.mp3
+Original styles: Phonk Brasileiro
+No genres mapped
+Styles unchanged: Phonk Brasileiro
+
+Processing existing metadata for: INTERWORLD - METAMORPHOSIS.mp3
+
+Processing: INTERWORLD - METAMORPHOSIS.mp3
+Original styles: Phonk Brasileiro
+No genres mapped
+Styles unchanged: Phonk Brasileiro
+
+Processing existing metadata for: INTERWORLD - RAPTURE.mp3
+
+Processing: INTERWORLD - RAPTURE.mp3
+Original styles: Phonk Brasileiro
+No genres mapped
+Styles unchanged: Phonk Brasileiro
+
+Processing existing metadata for: INTERWORLD - SHINE.mp3
+
+Processing: INTERWORLD - SHINE.mp3
+Original styles: Phonk Brasileiro
+No genres mapped
+Styles unchanged: Phonk Brasileiro
+
+Processing existing metadata for: INZO - Brocaine Camaro.mp3
+No existing genres/styles found
+
+Processing existing metadata for: Iron Maiden - Hallowed Be Thy Name - 2015 Remaster.mp3
+
+Processing: Iron Maiden - Hallowed Be Thy Name - 2015 Remaster.mp3
+Original styles: Alternative Metal, Nwobhm, Rock, Hard Rock, Metal
+Mapped Genres: Rock
+Remaining Styles: Alternative Metal, Nwobhm, Hard Rock, Metal
+
+Processing existing metadata for: Iron Maiden - The Trooper - 1998 Remastered Version.mp3
+
+Processing: Iron Maiden - The Trooper - 1998 Remastered Version.mp3
+Original styles: Alternative Metal, Nwobhm, Rock, Hard Rock, Metal
+Mapped Genres: Rock
+Remaining Styles: Alternative Metal, Nwobhm, Hard Rock, Metal
+
+Processing existing metadata for: Iron Maiden - The Trooper - 2015 Remaster.mp3
+
+Processing: Iron Maiden - The Trooper - 2015 Remaster.mp3
+Original styles: Alternative Metal, Nwobhm, Rock, Hard Rock, Metal
+Mapped Genres: Rock
+Remaining Styles: Alternative Metal, Nwobhm, Hard Rock, Metal
+
+Processing existing metadata for: Iron Maiden - Wasted Years - 1998 Remaster.mp3
+
+Processing: Iron Maiden - Wasted Years - 1998 Remaster.mp3
+Original styles: Alternative Metal, Nwobhm, Rock, Hard Rock, Metal
+Mapped Genres: Rock
+Remaining Styles: Alternative Metal, Nwobhm, Hard Rock, Metal
+
+Processing existing metadata for: Irving Force - Overlord.mp3
+
+Processing: Irving Force - Overlord.mp3
+Original styles: Synthwave, Cyberpunk, Nightrun
+Mapped Genres: Synthwave
+Remaining Styles: Cyberpunk, Nightrun
+
+Processing existing metadata for: Irving Force - Sewer Wars.mp3
+
+Processing: Irving Force - Sewer Wars.mp3
+Original styles: Synthwave, Cyberpunk, Nightrun
+Mapped Genres: Synthwave
+Remaining Styles: Cyberpunk, Nightrun
+
+Processing existing metadata for: Irving Force - Street Mech.mp3
+
+Processing: Irving Force - Street Mech.mp3
+Original styles: Synthwave, Cyberpunk, Nightrun
+Mapped Genres: Synthwave
+Remaining Styles: Cyberpunk, Nightrun
+
+Processing existing metadata for: Irving Force - Subterranean Formations.mp3
+
+Processing: Irving Force - Subterranean Formations.mp3
+Original styles: Synthwave, Cyberpunk, Nightrun
+Mapped Genres: Synthwave
+Remaining Styles: Cyberpunk, Nightrun
+
+Processing existing metadata for: Irving Force - Violence Suppressor.mp3
+
+Processing: Irving Force - Violence Suppressor.mp3
+Original styles: Synthwave, Cyberpunk, Nightrun
+Mapped Genres: Synthwave
+Remaining Styles: Cyberpunk, Nightrun
+
+Processing existing metadata for: Isidor - Burning Saber.mp3
+
+Processing: Isidor - Burning Saber.mp3
+Original styles: Synthwave, Spacewave, Darksynth
+Mapped Genres: Synthwave
+Remaining Styles: Spacewave, Darksynth
+
+Processing existing metadata for: Isidor - Children of Cyberpunk.mp3
+
+Processing: Isidor - Children of Cyberpunk.mp3
+Original styles: Synthwave, Spacewave, Darksynth
+Mapped Genres: Synthwave
+Remaining Styles: Spacewave, Darksynth
+
+Processing existing metadata for: Isidor - Crystal City.mp3
+
+Processing: Isidor - Crystal City.mp3
+Original styles: Synthwave, Spacewave, Darksynth
+Mapped Genres: Synthwave
+Remaining Styles: Spacewave, Darksynth
+
+Processing existing metadata for: Isidor - Dare Dynamo.mp3
+
+Processing: Isidor - Dare Dynamo.mp3
+Original styles: Synthwave, Spacewave, Darksynth
+Mapped Genres: Synthwave
+Remaining Styles: Spacewave, Darksynth
+
+Processing existing metadata for: Isidor - Fahrenheit the Crazy.mp3
+
+Processing: Isidor - Fahrenheit the Crazy.mp3
+Original styles: Synthwave, Spacewave, Darksynth
+Mapped Genres: Synthwave
+Remaining Styles: Spacewave, Darksynth
+
+Processing existing metadata for: Isidor - Fallen Nine And The Lone Ascendant.mp3
+
+Processing: Isidor - Fallen Nine And The Lone Ascendant.mp3
+Original styles: Synthwave, Spacewave, Darksynth
+Mapped Genres: Synthwave
+Remaining Styles: Spacewave, Darksynth
+
+Processing existing metadata for: Isidor - Hard Fire.mp3
+
+Processing: Isidor - Hard Fire.mp3
+Original styles: Synthwave, Spacewave, Darksynth
+Mapped Genres: Synthwave
+Remaining Styles: Spacewave, Darksynth
+
+Processing existing metadata for: Isidor - Power Fighter 3000.mp3
+
+Processing: Isidor - Power Fighter 3000.mp3
+Original styles: Synthwave, Spacewave, Darksynth
+Mapped Genres: Synthwave
+Remaining Styles: Spacewave, Darksynth
+
+Processing existing metadata for: Isidor - Ripley Has A Gun.mp3
+
+Processing: Isidor - Ripley Has A Gun.mp3
+Original styles: Synthwave, Spacewave, Darksynth
+Mapped Genres: Synthwave
+Remaining Styles: Spacewave, Darksynth
+
+Processing existing metadata for: Isidor - Touch the Sky.mp3
+
+Processing: Isidor - Touch the Sky.mp3
+Original styles: Synthwave, Spacewave, Darksynth
+Mapped Genres: Synthwave
+Remaining Styles: Spacewave, Darksynth
+
+Processing existing metadata for: Isidor - Turbo Dance.mp3
+
+Processing: Isidor - Turbo Dance.mp3
+Original styles: Synthwave, Spacewave, Darksynth
+Mapped Genres: Synthwave
+Remaining Styles: Spacewave, Darksynth
+
+Processing existing metadata for: Isolate.exe - Crystals.mp3
+
+Processing: Isolate.exe - Crystals.mp3
+Original styles: Drift Phonk, Gym Phonk
+No genres mapped
+Styles unchanged: Drift Phonk, Gym Phonk
+
+Processing existing metadata for: Isolate.exe, AreaHysteria, dosez - Yurei.mp3
+
+Processing: Isolate.exe, AreaHysteria, dosez - Yurei.mp3
+Original styles: Drift Phonk, Gym Phonk
+No genres mapped
+Styles unchanged: Drift Phonk, Gym Phonk
+
+Processing existing metadata for: Isolate.exe, EL$E - MIASMA.mp3
+
+Processing: Isolate.exe, EL$E - MIASMA.mp3
+Original styles: Drift Phonk, Gym Phonk
+No genres mapped
+Styles unchanged: Drift Phonk, Gym Phonk
+
+Processing existing metadata for: Itro - Panda.mp3
+
+Processing: Itro - Panda.mp3
+Original styles: Gaming Edm
+No genres mapped
+Styles unchanged: Gaming Edm
+
+Processing existing metadata for: IZECOLD - Swiggity.mp3
+
+Processing: IZECOLD - Swiggity.mp3
+Original styles: Gaming Edm
+No genres mapped
+Styles unchanged: Gaming Edm
+
+Processing existing metadata for: IZECOLD, Molly Ann - Close.mp3
+
+Processing: IZECOLD, Molly Ann - Close.mp3
+Original styles: Gaming Edm
+No genres mapped
+Styles unchanged: Gaming Edm
+
+Processing existing metadata for: IZECOLD, Molly Ann, Brooks - Close - Brooks Remix.mp3
+
+Processing: IZECOLD, Molly Ann, Brooks - Close - Brooks Remix.mp3
+Original styles: Gaming Edm
+No genres mapped
+Styles unchanged: Gaming Edm
+
+Processing existing metadata for: Jacques Offenbach, Czech Symphony Orchestra, Michaela Rózsa Růžičková - Can-Can From Orpheus in the Underworld.mp3
+
+Processing: Jacques Offenbach, Czech Symphony Orchestra, Michaela Rózsa Růžičková - Can-Can From Orpheus in the Underworld.mp3
+Original styles: German Romanticism, Classical, French Romanticism, Operetta, Late Romantic Era, French Opera
+No genres mapped
+Styles unchanged: German Romanticism, Classical, French Romanticism, Operetta, Late Romantic Era, French Opera
+
+Processing existing metadata for: Jake Bowen - The Daily Sun.mp3
+
+Processing: Jake Bowen - The Daily Sun.mp3
+Original styles: Djent
+No genres mapped
+Styles unchanged: Djent
+
+Processing existing metadata for: James Egbert - Jettison - Original Mix.mp3
+
+Processing: James Egbert - Jettison - Original Mix.mp3
+Original styles: Complextro
+No genres mapped
+Styles unchanged: Complextro
+
+Processing existing metadata for: James Egbert, Nina Storey - Sound System.mp3
+
+Processing: James Egbert, Nina Storey - Sound System.mp3
+Original styles: Complextro
+No genres mapped
+Styles unchanged: Complextro
+
+Processing existing metadata for: Jason Charles Miller - Rules of Nature - Platinum Mix.mp3
+
+Processing: Jason Charles Miller - Rules of Nature - Platinum Mix.mp3
+Original styles: Video Game Music
+No genres mapped
+Styles unchanged: Video Game Music
+
+Processing existing metadata for: Jasper Byrne - Decade Dance - Game Mix.mp3
+
+Processing: Jasper Byrne - Decade Dance - Game Mix.mp3
+Original styles: Indie Game Soundtrack
+No genres mapped
+Styles unchanged: Indie Game Soundtrack
+
+Processing existing metadata for: Jasper Byrne - Decade Dance.mp3
+
+Processing: Jasper Byrne - Decade Dance.mp3
+Original styles: Indie Game Soundtrack
+No genres mapped
+Styles unchanged: Indie Game Soundtrack
+
+Processing existing metadata for: Jasper Byrne - Love 2 Hurt U.mp3
+
+Processing: Jasper Byrne - Love 2 Hurt U.mp3
+Original styles: Indie Game Soundtrack
+No genres mapped
+Styles unchanged: Indie Game Soundtrack
+
+Processing existing metadata for: Jasper Byrne - Miami - Original Mix.mp3
+
+Processing: Jasper Byrne - Miami - Original Mix.mp3
+Original styles: Indie Game Soundtrack
+No genres mapped
+Styles unchanged: Indie Game Soundtrack
+
+Processing existing metadata for: Jasper Byrne - Voyager - Original Mix.mp3
+
+Processing: Jasper Byrne - Voyager - Original Mix.mp3
+Original styles: Indie Game Soundtrack
+No genres mapped
+Styles unchanged: Indie Game Soundtrack
+
+Processing existing metadata for: Jay Eskar - Droppin' It (Nananana).mp3
+
+Processing: Jay Eskar - Droppin' It (Nananana).mp3
+Original styles: Future Bounce
+No genres mapped
+Styles unchanged: Future Bounce
+
+Processing existing metadata for: Jay Eskar - Hierarchy.mp3
+
+Processing: Jay Eskar - Hierarchy.mp3
+Original styles: Future Bounce
+No genres mapped
+Styles unchanged: Future Bounce
+
+Processing existing metadata for: Jay Eskar - My Name.mp3
+
+Processing: Jay Eskar - My Name.mp3
+Original styles: Future Bounce
+No genres mapped
+Styles unchanged: Future Bounce
+
+Processing existing metadata for: Jay Eskar - Rhythm Of The Universe.mp3
+
+Processing: Jay Eskar - Rhythm Of The Universe.mp3
+Original styles: Future Bounce
+No genres mapped
+Styles unchanged: Future Bounce
+
+Processing existing metadata for: Jay Eskar - Thinking.mp3
+
+Processing: Jay Eskar - Thinking.mp3
+Original styles: Future Bounce
+No genres mapped
+Styles unchanged: Future Bounce
+
+Processing existing metadata for: Jay Eskar, B Martin, Alessia Labate - Synchronicity.mp3
+
+Processing: Jay Eskar, B Martin, Alessia Labate - Synchronicity.mp3
+Original styles: Future Bounce
+No genres mapped
+Styles unchanged: Future Bounce
+
+Processing existing metadata for: Jay Eskar, Heleen - Just Dance.mp3
+
+Processing: Jay Eskar, Heleen - Just Dance.mp3
+Original styles: Future Bounce
+No genres mapped
+Styles unchanged: Future Bounce
+
+Processing existing metadata for: Jay Eskar, ILSE - Afterglow.mp3
+
+Processing: Jay Eskar, ILSE - Afterglow.mp3
+Original styles: Future Bounce
+No genres mapped
+Styles unchanged: Future Bounce
+
+Processing existing metadata for: Jay Eskar, SFRNG, Hazel - Ignite.mp3
+
+Processing: Jay Eskar, SFRNG, Hazel - Ignite.mp3
+Original styles: Future Bounce
+No genres mapped
+Styles unchanged: Future Bounce
+
+Processing existing metadata for: Jay Sean, Nippandab - Ride It - Nippandab Remix.mp3
+
+Processing: Jay Sean, Nippandab - Ride It - Nippandab Remix.mp3
+Original styles: Pop, Post-teen Pop, Dance Pop, Pop Rap
+Mapped Genres: Pop
+Remaining Styles: Post-teen Pop, Dance Pop, Pop Rap
+
+Processing existing metadata for: Jeremiah Kane - 2500 Racing.mp3
+
+Processing: Jeremiah Kane - 2500 Racing.mp3
+Original styles: Synthwave, Nightrun
+Mapped Genres: Synthwave
+Remaining Styles: Nightrun
+
+Processing existing metadata for: Jeremiah Kane - Never Back Down.mp3
+
+Processing: Jeremiah Kane - Never Back Down.mp3
+Original styles: Synthwave, Nightrun
+Mapped Genres: Synthwave
+Remaining Styles: Nightrun
+
+Processing existing metadata for: Jeremiah Kane - No Turn Back.mp3
+
+Processing: Jeremiah Kane - No Turn Back.mp3
+Original styles: Synthwave, Nightrun
+Mapped Genres: Synthwave
+Remaining Styles: Nightrun
+
+Processing existing metadata for: Jeremiah Kane - Vampirevania.mp3
+
+Processing: Jeremiah Kane - Vampirevania.mp3
+Original styles: Synthwave, Nightrun
+Mapped Genres: Synthwave
+Remaining Styles: Nightrun
+
+Processing existing metadata for: Jeremiah Kane, SANZ - This Night is Ours.mp3
+
+Processing: Jeremiah Kane, SANZ - This Night is Ours.mp3
+Original styles: Synthwave, Nightrun
+Mapped Genres: Synthwave
+Remaining Styles: Nightrun
+
+Processing existing metadata for: Jeremy Soule - Secunda.mp3
+
+Processing: Jeremy Soule - Secunda.mp3
+Original styles: Scorecore, Orchestral Soundtrack, Video Game Music
+No genres mapped

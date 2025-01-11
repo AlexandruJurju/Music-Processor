@@ -6,6 +6,7 @@ from mutagen.id3 import ID3, TXXX, TCON
 
 from program.models import ProcessingState, SongMetadata
 from program.config import Config
+from program.logger import PlaylistLogger
 
 
 class GenreProcessor:
@@ -15,7 +16,6 @@ class GenreProcessor:
         self.config = config
         self.style_to_genre = self._create_style_to_genre_lookup()
         self.remove_styles_set = {style.lower() for style in config.remove_styles}
-        self.processing_log = []
 
     def _create_style_to_genre_lookup(self) -> Dict[str, str]:
         """Create style to genre lookup dictionary"""
@@ -49,15 +49,16 @@ class GenreProcessor:
 
         return list(genres), remaining_styles
 
-    def fix_genres(self, song_path: Path, metadata: SongMetadata, processing_state: ProcessingState) -> List[str]:
+    def fix_genres(self, song_path: Path, metadata: SongMetadata, processing_state: ProcessingState, logger: PlaylistLogger) -> None:
         """Update genre and style tags for a song"""
         styles = metadata.genres or []
-        log_messages = [f"\nProcessing: {song_path.name}", f"Original styles: {', '.join(styles)}"]
+        logger.log(f"\nProcessing: {song_path.name}")
+        logger.log(f"Original styles: {', '.join(styles)}")
 
         if not styles:
-            log_messages.append("No styles found")
+            logger.log("No styles found")
             processing_state.songs_without_styles.add(song_path.name)
-            return log_messages
+            return
 
         try:
             # Process the genres and styles
@@ -74,12 +75,10 @@ class GenreProcessor:
                 self._update_tags(tags, genres, remaining_styles)
                 tags.save(song_path)
 
-            log_messages.extend(self._get_processing_results(styles, genres, remaining_styles))
+            self._log_processing_results(logger, styles, genres, remaining_styles)
 
         except Exception as e:
-            log_messages.append(f"Error processing {song_path}: {e}")
-
-        return log_messages
+            logger.log(f"Error processing {song_path}: {e}")
 
     def _update_flac_tags(self, song_path: Path, genres: List[str], remaining_styles: List[str]) -> None:
         """Update FLAC file tags"""
@@ -97,10 +96,9 @@ class GenreProcessor:
         except Exception as e:
             raise Exception(f"Error updating FLAC tags: {e}")
 
-    def process_existing_metadata(self, song_path: Path, processing_state: ProcessingState) -> List[str]:
+    def process_existing_metadata(self, song_path: Path, processing_state: ProcessingState, logger: PlaylistLogger) -> None:
         """Process genres from existing file metadata"""
-        log_messages = []
-        log_messages.append(f"\nProcessing existing metadata for: {song_path.name}")
+        logger.log(f"\nProcessing existing metadata for: {song_path.name}")
 
         try:
             existing_genres = set()
@@ -117,23 +115,21 @@ class GenreProcessor:
                 existing_genres = self._extract_existing_genres(tags)
 
             if not existing_genres:
-                log_messages.append("No existing genres/styles found")
+                logger.log("No existing genres/styles found")
                 processing_state.songs_without_styles.add(song_path.name)
-                return log_messages
+                return
 
             temp_metadata = SongMetadata(
-                artist="",
+                artists=[""],
                 name="",
                 genres=list(existing_genres)
             )
 
-            log_messages.extend(self.fix_genres(song_path, temp_metadata, processing_state))
+            self.fix_genres(song_path, temp_metadata, processing_state, logger)
 
         except Exception as e:
-            log_messages.append(f"Error processing existing metadata: {e}")
+            logger.log(f"Error processing existing metadata: {e}")
             processing_state.songs_without_metadata.add(song_path.name)
-
-        return log_messages
 
     def _extract_existing_genres(self, tags: ID3) -> Set[str]:
         """Extract existing genres from ID3 tags"""
@@ -164,17 +160,15 @@ class GenreProcessor:
         if genres:
             tags.add(TCON(encoding=3, text=genres))
 
-    def _get_processing_results(self, original_styles: List[str], genres: List[str], remaining_styles: List[str]) -> List[str]:
-        """Get processing results as messages"""
-        messages = []
+    def _log_processing_results(self, logger: PlaylistLogger, original_styles: List[str], genres: List[str], remaining_styles: List[str]) -> None:
+        """Log processing results"""
         if genres:
-            messages.append(f"Mapped Genres: {', '.join(genres)}")
-            messages.append(f"Remaining Styles: {', '.join(remaining_styles)}")
+            logger.log(f"Mapped Genres: {', '.join(genres)}")
+            logger.log(f"Remaining Styles: {', '.join(remaining_styles)}")
 
             removed_styles = [s for s in original_styles if s not in remaining_styles and s.lower() not in [g.lower() for g in genres]]
             if removed_styles:
-                messages.append(f"Removed styles: {', '.join(removed_styles)}")
+                logger.log(f"Removed styles: {', '.join(removed_styles)}")
         else:
-            messages.append("No genres mapped")
-            messages.append(f"Styles unchanged: {', '.join(original_styles)}")
-        return messages
+            logger.log("No genres mapped")
+            logger.log(f"Styles unchanged: {', '.join(original_styles)}")

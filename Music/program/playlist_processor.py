@@ -1,5 +1,5 @@
 ﻿from pathlib import Path
-from typing import Dict, List, Optional, Set, Tuple
+from typing import Dict, List, Optional
 import json
 
 from program.file_system_handler import FileSystemHandler
@@ -73,25 +73,20 @@ class PlaylistProcessor:
 
     def _add_metadata_lookups(self, metadata_lookup: dict, metadata: SongMetadata, song: dict) -> None:
         """Add metadata lookups for different artist combinations."""
-        artists = song.get('artists', [song['artist']])
 
         # Single artist version
         clean_key = f"{StringCleaner.clean_name(song['artist'])} - {StringCleaner.clean_name(metadata.name)}"
         metadata_lookup[clean_key] = metadata
-        clean_key_alt = StringCleaner.clean_name(
-            f"{song['artist']} - {metadata.name}".replace('remastered', '').replace('album version', '')
-        )
-        metadata_lookup[clean_key_alt] = metadata
 
-        # Multiple artists version
-        if len(artists) > 1:
-            artists_str = ', '.join(artists)
-            collab_key = f"{StringCleaner.clean_name(artists_str)} - {StringCleaner.clean_name(metadata.name)}"
-            metadata_lookup[collab_key] = metadata
-            collab_key_alt = StringCleaner.clean_name(
-                f"{artists_str} - {metadata.name}".replace('remastered', '').replace('album version', '')
-            )
-            metadata_lookup[collab_key_alt] = metadata
+        ## Multiple artists version
+        # if len(artists) > 1:
+        #     artists_str = ', '.join(artists)
+        #     collab_key = f"{StringCleaner.clean_name(artists_str)} - {StringCleaner.clean_name(metadata.name)}"
+        #     metadata_lookup[collab_key] = metadata
+        #     collab_key_alt = StringCleaner.clean_name(
+        #         f"{artists_str} - {metadata.name}".replace('remastered', '').replace('album version', '')
+        #     )
+        #     metadata_lookup[collab_key_alt] = metadata
 
     def _process_music_files(self, playlist_path: Path, metadata_lookup: Dict[str, SongMetadata], processing_state: ProcessingState, logger: PlaylistLogger) -> None:
         """
@@ -129,12 +124,9 @@ class PlaylistProcessor:
 
         try:
             if metadata:
-                log_messages = self.genre_processor.fix_genres(music_path, metadata, processing_state)
+                self.genre_processor.fix_genres(music_path, metadata, processing_state, logger=logger)
             else:
-                log_messages = self.genre_processor.process_existing_metadata(music_path, processing_state)
-
-            for message in log_messages:
-                logger.log(message)
+                self.genre_processor.process_existing_metadata(music_path, processing_state, logger=logger)
 
         except Exception as e:
             logger.log(f"Error processing file {music_path.name}: {str(e)}")
@@ -147,10 +139,5 @@ class PlaylistProcessor:
 
         filename = music_path.stem
         clean_filename = StringCleaner.clean_name(filename)
-        clean_filename_alt = StringCleaner.clean_name(
-            filename.lower()
-            .replace('remastered', '')
-            .replace('album version', '')
-        )
 
-        return metadata_lookup.get(clean_filename) or metadata_lookup.get(clean_filename_alt)
+        return metadata_lookup.get(clean_filename)
