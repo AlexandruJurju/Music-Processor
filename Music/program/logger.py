@@ -11,22 +11,22 @@ class PlaylistLogger:
         """Initialize logger with path to playlist directory"""
         self.log_path = playlist_path.parent / log_file_name
         self.log_file: TextIO | None = None
+        self.messages: list[str] = []
 
     def __enter__(self):
-        """Context manager entry - opens log file"""
-        self.log_file = open(self.log_path, 'w', encoding='utf-8')
+        """Context manager entry"""
         return self
 
     def __exit__(self, exc_type, exc_val, exc_tb):
-        """Context manager exit - closes log file"""
-        if self.log_file:
-            self.log_file.close()
-            self.log_file = None
+        """Context manager exit - writes accumulated messages and closes log file"""
+        with open(self.log_path, 'w', encoding='utf-8') as log_file:
+            log_file.write('\n'.join(self.messages))
+            if self.messages:  # Add final newline only if there are messages
+                log_file.write('\n')
 
     def log(self, message: str) -> None:
-        """Write message to log file"""
-        if self.log_file:
-            self.log_file.write(message + '\n')
+        """Add message to accumulated messages"""
+        self.messages.append(message)
 
     def log_unmapped_styles(self, unmapped_styles: set[str]) -> None:
         """Log unmapped styles summary"""

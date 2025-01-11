@@ -73,20 +73,8 @@ class PlaylistProcessor:
 
     def _add_metadata_lookups(self, metadata_lookup: dict, metadata: SongMetadata, song: dict) -> None:
         """Add metadata lookups for different artist combinations."""
-
-        # Single artist version
-        clean_key = f"{StringCleaner.clean_name(song['artist'])} - {StringCleaner.clean_name(metadata.name)}"
-        metadata_lookup[clean_key] = metadata
-
-        ## Multiple artists version
-        # if len(artists) > 1:
-        #     artists_str = ', '.join(artists)
-        #     collab_key = f"{StringCleaner.clean_name(artists_str)} - {StringCleaner.clean_name(metadata.name)}"
-        #     metadata_lookup[collab_key] = metadata
-        #     collab_key_alt = StringCleaner.clean_name(
-        #         f"{artists_str} - {metadata.name}".replace('remastered', '').replace('album version', '')
-        #     )
-        #     metadata_lookup[collab_key_alt] = metadata
+        key = f"{', '.join(StringCleaner.clean_name(artist) for artist in song['artists'])} - {StringCleaner.clean_name(song['name'])}"
+        metadata_lookup[key] = metadata
 
     def _process_music_files(self, playlist_path: Path, metadata_lookup: Dict[str, SongMetadata], processing_state: ProcessingState, logger: PlaylistLogger) -> None:
         """
