@@ -1,6 +1,8 @@
 ﻿from pathlib import Path
 from typing import TextIO
 
+from program.models import ProcessingState
+
 
 class PlaylistLogger:
     """Handles logging of playlist processing messages to a file"""
@@ -51,3 +53,9 @@ class PlaylistLogger:
     def get_log_path(self) -> Path:
         """Return the path to the log file"""
         return self.log_path
+
+    def log_processing_summaries(self, processing_state: ProcessingState) -> None:
+        """Log final processing summaries."""
+        self.log_unmapped_styles(processing_state.unmapped_styles)
+        self.log_songs_without_styles(processing_state.songs_without_styles)
+        self.log_songs_without_metadata(processing_state.songs_without_metadata)

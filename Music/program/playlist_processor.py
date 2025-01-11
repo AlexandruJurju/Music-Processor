@@ -35,15 +35,10 @@ class PlaylistProcessor:
             metadata_lookup = self._load_playlist_metadata(playlist_path)
 
             # Process all music files
-            self._process_music_files(
-                playlist_path=playlist_path,
-                metadata_lookup=metadata_lookup,
-                processing_state=processing_state,
-                logger=logger
-            )
+            self._process_music_files(playlist_path=playlist_path, metadata_lookup=metadata_lookup, processing_state=processing_state, logger=logger)
 
             # Log final processing summaries
-            self._log_processing_summaries(processing_state, logger)
+            logger.log_processing_summaries(processing_state)
             print(f"\nResults written to: {logger.get_log_path()}")
 
     def _load_playlist_metadata(self, playlist_path: Path) -> Dict[str, SongMetadata]:
@@ -59,7 +54,7 @@ class PlaylistProcessor:
                 playlist_data = json.load(f)
 
             for song in playlist_data['songs']:
-                metadata = self._create_song_metadata(song)
+                metadata = self._get_song_metadata_from_spotdl(song)
                 self._add_metadata_lookups(metadata_lookup, metadata, song)
 
             return metadata_lookup
@@ -68,7 +63,7 @@ class PlaylistProcessor:
             print(f"\nError reading playlist file: {e}")
             return metadata_lookup
 
-    def _create_song_metadata(self, song: dict) -> SongMetadata:
+    def _get_song_metadata_from_spotdl(self, song: dict) -> SongMetadata:
         """Create SongMetadata from song dict."""
         return SongMetadata(
             artists=song['artist'],
@@ -98,13 +93,7 @@ class PlaylistProcessor:
             )
             metadata_lookup[collab_key_alt] = metadata
 
-    def _process_music_files(
-            self,
-            playlist_path: Path,
-            metadata_lookup: Dict[str, SongMetadata],
-            processing_state: ProcessingState,
-            logger: PlaylistLogger
-    ) -> None:
+    def _process_music_files(self, playlist_path: Path, metadata_lookup: Dict[str, SongMetadata], processing_state: ProcessingState, logger: PlaylistLogger) -> None:
         """
         Process all music files in the playlist directory.
 
@@ -165,13 +154,3 @@ class PlaylistProcessor:
         )
 
         return metadata_lookup.get(clean_filename) or metadata_lookup.get(clean_filename_alt)
-
-    def _log_processing_summaries(
-            self,
-            processing_state: ProcessingState,
-            logger: PlaylistLogger
-    ) -> None:
-        """Log final processing summaries."""
-        logger.log_unmapped_styles(processing_state.unmapped_styles)
-        logger.log_songs_without_styles(processing_state.songs_without_styles)
-        logger.log_songs_without_metadata(processing_state.songs_without_metadata)
