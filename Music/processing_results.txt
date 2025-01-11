@@ -3211,17 +3211,17 @@ Styles unchanged: Complextro, Dark Clubbing, Electro Trash
 
 Processing: Fall Out Boy - Centuries.mp3
 Original styles: Emo, Modern Rock, Pop, Rock
-Mapped Genres: Rock, Pop
+Mapped Genres: Pop, Rock
 Remaining Styles: Emo, Modern Rock
 
 Processing: Fall Out Boy - The Phoenix.mp3
 Original styles: Emo, Modern Rock, Pop, Rock
-Mapped Genres: Rock, Pop
+Mapped Genres: Pop, Rock
 Remaining Styles: Emo, Modern Rock
 
 Processing: Fall Out Boy - Thnks fr th Mmrs.mp3
 Original styles: Emo, Modern Rock, Pop, Rock
-Mapped Genres: Rock, Pop
+Mapped Genres: Pop, Rock
 Remaining Styles: Emo, Modern Rock
 
 Processing: Falling North, Cullimore - Babylon - Cullimore Remix.mp3
@@ -3806,7 +3806,7 @@ No styles found
 
 Processing: Imagine Dragons, JID, Arcane, League of Legends - Enemy (with JID) - from the series Arcane League of Legends.mp3
 Original styles: Modern Rock, Pop, Rock
-Mapped Genres: Rock, Pop
+Mapped Genres: Pop, Rock
 Remaining Styles: Modern Rock
 
 Processing: INCORE - Glide.mp3
@@ -3905,9 +3905,9 @@ Remaining Styles: Alternative Metal, Hard Rock, Metal, Nwobhm
 Processing existing metadata for: Iron Maiden - The Trooper - 2015 Remaster.mp3
 
 Processing: Iron Maiden - The Trooper - 2015 Remaster.mp3
-Original styles: Alternative Metal, Rock, Nwobhm, Metal, Hard Rock
+Original styles: Metal, Rock, Hard Rock, Alternative Metal, Nwobhm
 Mapped Genres: Rock
-Remaining Styles: Alternative Metal, Nwobhm, Metal, Hard Rock
+Remaining Styles: Metal, Hard Rock, Alternative Metal, Nwobhm
 
 Processing: Iron Maiden - Wasted Years - 1998 Remaster.mp3
 Original styles: Alternative Metal, Hard Rock, Metal, Nwobhm, Rock
@@ -4406,18 +4406,18 @@ No styles found
 
 Processing: Kensuke Ushio - Buddy, Ryo.mp3
 Original styles: Anime Score, Japanese Soundtrack
-No genres mapped
-Styles unchanged: Anime Score, Japanese Soundtrack
+Mapped Genres: Anime
+Remaining Styles: Anime Score, Japanese Soundtrack
 
 Processing: Kensuke Ushio - Judgement.mp3
 Original styles: Anime Score, Japanese Soundtrack
-No genres mapped
-Styles unchanged: Anime Score, Japanese Soundtrack
+Mapped Genres: Anime
+Remaining Styles: Anime Score, Japanese Soundtrack
 
 Processing: Kensuke Ushio - Smells Blood.mp3
 Original styles: Anime Score, Japanese Soundtrack
-No genres mapped
-Styles unchanged: Anime Score, Japanese Soundtrack
+Mapped Genres: Anime
+Remaining Styles: Anime Score, Japanese Soundtrack
 
 Processing: Kesha - Die Young.mp3
 Original styles: Dance Pop, Pop
@@ -7348,8 +7348,8 @@ No styles found
 
 Processing: Samuel Kim - Pillar Men Theme (Awaken) - Cover.mp3
 Original styles: Anime Lo-fi
-No genres mapped
-Styles unchanged: Anime Lo-fi
+Mapped Genres: Anime
+Remaining Styles: Anime Lo-fi
 
 Processing: Samurah - Mental.mp3
 Original styles: 
@@ -8163,9 +8163,9 @@ No styles found
 Processing existing metadata for: The Bloody Beetroots - Rocksteady - Original.mp3
 
 Processing: The Bloody Beetroots - Rocksteady - Original.mp3
-Original styles: Filter House, Dance-punk, Electro House, Fidget House
+Original styles: Electro House, Dance-punk, Fidget House, Filter House
 No genres mapped
-Styles unchanged: Filter House, Dance-punk, Electro House, Fidget House
+Styles unchanged: Electro House, Dance-punk, Fidget House, Filter House
 
 Processing: The Bloody Beetroots - Rocksteady.mp3
 Original styles: Dance-punk, Electro House, Fidget House, Filter House
@@ -8693,12 +8693,12 @@ Styles unchanged: Chillstep, Complextro, Filthstep, Gaming Edm, Glitch, Melodic 
 
 Processing: Twenty One Pilots - Stressed Out.mp3
 Original styles: Modern Rock, Pop, Pov: Indie, Rock
-Mapped Genres: Rock, Pop
+Mapped Genres: Pop, Rock
 Remaining Styles: Modern Rock, Pov: Indie
 
 Processing: Twenty One Pilots - The Outside.mp3
 Original styles: Modern Rock, Pop, Pov: Indie, Rock
-Mapped Genres: Rock, Pop
+Mapped Genres: Pop, Rock
 Remaining Styles: Modern Rock, Pov: Indie
 
 Processing: Twisted Psykie - Forbidden Planet.mp3
@@ -9465,8 +9465,6 @@ Styles without genre mappings:
 - Ambient Idm
 - Ambient Pop
 - Anime
-- Anime Lo-fi
-- Anime Score
 - Antiviral Pop
 - Arab Trap
 - Art Pop
