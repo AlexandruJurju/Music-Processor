@@ -13,6 +13,4 @@ class ProcessingState:
 class SongMetadata:
     artist: str
     name: str
-    album_name: Optional[str]
-    album_id: Optional[str]
     genres: List[str]

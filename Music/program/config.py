@@ -3,7 +3,8 @@ from pathlib import Path
 
 
 class Config:
-    """Configuration management class"""
+    """Configuration management class - loads the json files that determine how the program will process the songs"""
+
     DEFAULT_GENRES = {
         'Rock': ['rock', 'alternative rock'],
         'Synthwave': ['synthwave', 'darksynth'],

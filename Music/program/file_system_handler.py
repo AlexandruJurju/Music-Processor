@@ -1,6 +1,6 @@
 ﻿import sys
 from pathlib import Path
-from typing import List
+from typing import List, Optional
 
 
 class FileSystemHandler:
@@ -13,7 +13,7 @@ class FileSystemHandler:
 
     @staticmethod
     def get_available_playlists(base_dir: Path) -> List[str]:
-        """Get list of available playlists"""
+        """Get list of available spotdl playlists"""
         return [
             p.name for p in base_dir.iterdir()
             if p.is_dir() and any(p.glob("*.spotdl"))
@@ -21,7 +21,7 @@ class FileSystemHandler:
 
     @staticmethod
     def write_songs_list(playlist_path: Path) -> None:
-        """Write list of all music files in the directory"""
+        """Write the list of all music files in the directory to a separate txt file"""
         music_extensions = {'.mp3', '.flac', '.m4a', '.wav', '.wma', '.aac', '.ogg'}
 
         try:
@@ -39,3 +39,13 @@ class FileSystemHandler:
 
         except Exception as e:
             print(f"\nError writing music files list: {e}")
+
+    @staticmethod
+    def find_spotdl_file(folder_path: Path) -> Optional[Path]:
+        """Find the spotdl file for the playlist"""
+        spotdl_files = list(folder_path.glob('*.spotdl'))
+        if not spotdl_files:
+            return None
+        if len(spotdl_files) > 1:
+            print(f"Warning: Multiple .spotdl files found, using: {spotdl_files[0].name}")
+        return spotdl_files[0]

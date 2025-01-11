@@ -1,6 +1,6 @@
 ﻿import json
 from pathlib import Path
-from typing import Optional, Tuple, Dict, Set
+from typing import Tuple, Dict, Set
 
 from program.config import Config
 from program.models import SongMetadata
@@ -13,33 +13,19 @@ class PlaylistManager:
     def __init__(self, config: Config):
         self.config = config
 
-    def find_spotdl_file(self, folder_path: Path) -> Optional[Path]:
-        """Find the spotdl file for the playlist"""
-        spotdl_files = list(folder_path.glob('*.spotdl'))
-        if not spotdl_files:
-            return None
-        if len(spotdl_files) > 1:
-            print(f"Warning: Multiple .spotdl files found, using: {spotdl_files[0].name}")
-        return spotdl_files[0]
-
-    def load_playlist_metadata(self, playlist_file: Path) -> Tuple[Dict[str, SongMetadata], Set[Tuple[str, str]]]:
+    def load_playlist_metadata(self, playlist_file: Path) -> Tuple[Dict[str, SongMetadata]]:
         """Load and parse playlist metadata"""
         try:
             with open(playlist_file, 'r', encoding='utf-8') as f:
                 playlist_data = json.load(f)
 
             metadata_lookup = {}
-            album_urls = set()
 
             for song in playlist_data['songs']:
                 metadata = self._create_song_metadata(song)
                 self._add_metadata_lookups(metadata_lookup, metadata, song)
 
-                if metadata.album_id:
-                    album_url = f"https://open.spotify.com/album/{metadata.album_id}"
-                    album_urls.add((metadata.album_name, album_url))
-
-            return metadata_lookup, album_urls
+            return metadata_lookup
 
         except Exception as e:
             print(f"\nError reading playlist file: {e}")
@@ -50,8 +36,6 @@ class PlaylistManager:
         return SongMetadata(
             artist=song['artist'],
             name=song['name'],
-            album_name=song.get('album_name'),
-            album_id=song.get('album_id'),
             genres=[StringCleaner.capitalize_genre(genre) for genre in song.get('genres', [])]
         )
 

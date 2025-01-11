@@ -19,6 +19,7 @@ class GenreProcessor:
 
     def _create_style_to_genre_lookup(self) -> Dict[str, str]:
         """Create style to genre lookup dictionary"""
+        """Each style will have the genre it belongs to"""
         return {
             style.lower(): genre
             for genre, style_list in self.config.genre_mappings.items()
@@ -51,9 +52,7 @@ class GenreProcessor:
     def fix_genres(self, song_path: Path, metadata: SongMetadata, processing_state: ProcessingState) -> List[str]:
         """Update genre and style tags for a song"""
         styles = metadata.genres or []
-        log_messages = []
-        log_messages.append(f"\nProcessing: {song_path.name}")
-        log_messages.append(f"Original styles: {', '.join(styles)}")
+        log_messages = [f"\nProcessing: {song_path.name}", f"Original styles: {', '.join(styles)}"]
 
         if not styles:
             log_messages.append("No styles found")
@@ -125,8 +124,6 @@ class GenreProcessor:
             temp_metadata = SongMetadata(
                 artist="",
                 name="",
-                album_name=None,
-                album_id=None,
                 genres=list(existing_genres)
             )
 
