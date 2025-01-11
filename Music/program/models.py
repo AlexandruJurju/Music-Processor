@@ -11,6 +11,6 @@ class ProcessingState:
 
 @dataclass
 class SongMetadata:
-    artist: str
+    artists: List[str]
     name: str
     genres: List[str]

@@ -34,7 +34,7 @@ class PlaylistManager:
     def _create_song_metadata(self, song: dict) -> SongMetadata:
         """Create SongMetadata from song dict"""
         return SongMetadata(
-            artist=song['artist'],
+            artists=song['artist'],
             name=song['name'],
             genres=[StringCleaner.capitalize_genre(genre) for genre in song.get('genres', [])]
         )
