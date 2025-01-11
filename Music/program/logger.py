@@ -1,5 +1,5 @@
 ﻿from pathlib import Path
-from typing import TextIO
+from typing import TextIO, List
 
 from program.models import ProcessingState
 
@@ -53,6 +53,19 @@ class PlaylistLogger:
     def get_log_path(self) -> Path:
         """Return the path to the log file"""
         return self.log_path
+
+    def log_genre_processing_results(self, original_styles: List[str], genres: List[str], remaining_styles: List[str]) -> None:
+        """Log processing results"""
+        if genres:
+            self.log(f"Mapped Genres: {', '.join(genres)}")
+            self.log(f"Remaining Styles: {', '.join(remaining_styles)}")
+
+            removed_styles = [s for s in original_styles if s not in remaining_styles and s.lower() not in [g.lower() for g in genres]]
+            if removed_styles:
+                self.log(f"Removed styles: {', '.join(removed_styles)}")
+        else:
+            self.log("No genres mapped")
+            self.log(f"Styles unchanged: {', '.join(original_styles)}")
 
     def log_processing_summaries(self, processing_state: ProcessingState) -> None:
         """Log final processing summaries."""

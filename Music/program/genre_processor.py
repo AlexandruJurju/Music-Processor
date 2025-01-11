@@ -75,7 +75,7 @@ class GenreProcessor:
                 self._update_tags(tags, genres, remaining_styles)
                 tags.save(song_path)
 
-            self._log_processing_results(logger, styles, genres, remaining_styles)
+            logger.log_genre_processing_results(styles, genres, remaining_styles)
 
         except Exception as e:
             logger.log(f"Error processing {song_path}: {e}")
@@ -159,16 +159,3 @@ class GenreProcessor:
             tags.add(TXXX(encoding=3, desc='Styles', text=remaining_styles))
         if genres:
             tags.add(TCON(encoding=3, text=genres))
-
-    def _log_processing_results(self, logger: PlaylistLogger, original_styles: List[str], genres: List[str], remaining_styles: List[str]) -> None:
-        """Log processing results"""
-        if genres:
-            logger.log(f"Mapped Genres: {', '.join(genres)}")
-            logger.log(f"Remaining Styles: {', '.join(remaining_styles)}")
-
-            removed_styles = [s for s in original_styles if s not in remaining_styles and s.lower() not in [g.lower() for g in genres]]
-            if removed_styles:
-                logger.log(f"Removed styles: {', '.join(removed_styles)}")
-        else:
-            logger.log("No genres mapped")
-            logger.log(f"Styles unchanged: {', '.join(original_styles)}")
