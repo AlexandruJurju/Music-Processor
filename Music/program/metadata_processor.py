@@ -243,3 +243,56 @@ class MetadataProcessor:
         if self.processing_state.unmapped_styles:
             print(f"- Found {len(self.processing_state.unmapped_styles)} unmapped styles")
             print("  Check the log file for details")
+
+
+def load_metadata_from_json(self, json_file: Path) -> Dict[str, ExtendedSongMetadata]:
+    """
+    Load metadata from a previously saved JSON file and return it as a lookup dictionary.
+    The dictionary key format will match the playlist processor: "artist1, artist2 - songname"
+    """
+    metadata_lookup = {}
+
+    try:
+        with open(json_file, 'r', encoding='utf-8') as f:
+            json_data = json.load(f)
+
+        if not isinstance(json_data, dict) or 'songs' not in json_data:
+            self.logger.error("Invalid JSON format: missing 'songs' array")
+            return metadata_lookup
+
+        for song_data in json_data['songs']:
+            try:
+                # Create the lookup key in the same format as playlist processor
+                artists = song_data.get('artists', ['Unknown Artist'])
+                name = song_data.get('name', '')
+                key = f"{', '.join(artists)} - {name}"
+
+                # Create ExtendedSongMetadata
+                metadata = ExtendedSongMetadata(
+                    filepath=song_data.get('filepath', ''),
+                    artists=artists,
+                    name=name,
+                    album=song_data.get('album'),
+                    year=song_data.get('year'),
+                    genres=song_data.get('genres', []),
+                    styles=song_data.get('styles', [])
+                )
+
+                metadata_lookup[key] = metadata
+
+            except Exception as e:
+                self.logger.error(f"Error processing song entry: {e}")
+                continue
+
+        self.logger.info(f"Loaded metadata for {len(metadata_lookup)} songs from JSON file")
+        return metadata_lookup
+
+    except FileNotFoundError:
+        self.logger.error(f"Metadata file not found: {json_file}")
+        return metadata_lookup
+    except json.JSONDecodeError as e:
+        self.logger.error(f"Error decoding JSON file: {e}")
+        return metadata_lookup
+    except Exception as e:
+        self.logger.error(f"Error loading metadata file: {e}")
+        return metadata_lookup
