@@ -37,4 +37,9 @@ public class FileService : IFileService
 
         return files.Where(file => audioFileFormats.Contains(Path.GetExtension(file).ToLower())).ToArray();
     }
+
+    public string GetMetadataStorageFileForPlaylist(string playlistPath)
+    {
+        return playlistPath + ".json";
+    }
 }
