@@ -25,6 +25,7 @@ var host = Host.CreateDefaultBuilder(args)
 
         services.AddTransient<IConfigService, ConfigService>();
         services.AddTransient<IMetadataService, JsonMetadataService>();
+        services.AddTransient<IPlaylistProcessor, PlaylistProcessor>();
 
         // Register command factory
         services.AddSingleton<MenuCommandFactory>();
@@ -37,16 +38,5 @@ var host = Host.CreateDefaultBuilder(args)
     })
     .Build();
 
-FileService fileService = new FileService();
-
-
-SpotdlMetadataLoader spotdlMetadataLoader = host.Services.GetRequiredService<SpotdlMetadataLoader>();
-var spotdlMetadata = spotdlMetadataLoader.LoadSpotDLMetadata(fileService.GetPlaylistsDirectory() + "\\" + "Favorites");
-
-foreach (var pair in spotdlMetadata)
-{
-    Console.WriteLine(pair.Key + " " + pair.Value);
-}
-
-// var cli = host.Services.GetRequiredService<CLI>();
-// await cli.RunAsync();
+var cli = host.Services.GetRequiredService<CLI>();
+await cli.RunAsync();

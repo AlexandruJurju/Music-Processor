@@ -7,11 +7,13 @@ public class FixGenresCommand : IMenuCommand
 {
     private readonly ILogger<FixGenresCommand> _logger;
     private readonly IFileService _fileService;
+    private readonly IPlaylistProcessor _playlistProcessor;
 
-    public FixGenresCommand(ILogger<FixGenresCommand> logger, IFileService fileService)
+    public FixGenresCommand(ILogger<FixGenresCommand> logger, IFileService fileService, IPlaylistProcessor playlistProcessor)
     {
         _logger = logger;
         _fileService = fileService;
+        _playlistProcessor = playlistProcessor;
     }
 
     public string Name => "Fix Genres";
@@ -37,13 +39,14 @@ public class FixGenresCommand : IMenuCommand
         }
 
         // check if entered playlist name exists in available playlists
-        var playlistFolders = availablePlaylists.Select(path => Path.GetFileName(path)).ToList();
+        var playlistFolders = availablePlaylists.Select(Path.GetFileName).ToList();
         if (!playlistFolders.Contains(playlistName))
         {
             Console.WriteLine("Playlist does not exist.");
             return;
         }
-        
-        
+
+        var playlistPath = _fileService.GetPlaylistsDirectory() + "\\" + playlistName;
+        _playlistProcessor.FixPlaylistGenresUsingSpotdlMetadata(playlistPath);
     }
 }

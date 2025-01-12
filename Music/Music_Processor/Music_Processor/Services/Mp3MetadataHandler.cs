@@ -6,7 +6,7 @@ using Tag = TagLib.Tag;
 
 namespace Music_Processor.Services;
 
-public class MP3MetadataHandler : IMetadataExtractor
+public class MP3MetadataHandler : IMetadataHandler
 {
     public AudioMetadata ExtractMetadata(string filePath)
     {

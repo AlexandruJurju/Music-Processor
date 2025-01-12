@@ -5,7 +5,7 @@ using TagLib;
 
 namespace Music_Processor.Services;
 
-public class FlacMetadataHandler : IMetadataExtractor
+public class FlacMetadataHandler : IMetadataHandler
 {
     public AudioMetadata ExtractMetadata(string filePath)
     {

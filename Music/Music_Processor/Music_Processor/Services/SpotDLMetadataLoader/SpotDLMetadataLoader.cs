@@ -82,12 +82,12 @@ public class SpotdlMetadataLoader
 
     private string CreateLookupKey(SpotDLSongMetadata song)
     {
-        var cleanArtist = CleanName(song.Artist);
-        var cleanTitle = CleanName(song.Name);
+        var cleanArtist = CleanKeyName(song.Artist);
+        var cleanTitle = CleanKeyName(song.Name);
         return $"{cleanArtist} - {cleanTitle}";
     }
 
-    private string CleanName(string name)
+    public string CleanKeyName(string name)
     {
         if (string.IsNullOrEmpty(name))
             return string.Empty;
