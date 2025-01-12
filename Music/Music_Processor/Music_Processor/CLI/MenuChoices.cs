@@ -1,6 +1,6 @@
 ﻿namespace Music_Processor.CLI;
 
-public static class MenuChoice
+public class MenuChoices
 {
     public const int FirstTimeSync = 1;
     public const int UpdateSync = 2;
@@ -9,5 +9,4 @@ public static class MenuChoice
     public const int WriteMetadataFile = 5;
     public const int ApplyMetadata = 6;
     public const int Exit = 7;
-
 }

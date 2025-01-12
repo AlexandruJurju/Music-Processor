@@ -1,21 +1,27 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Hosting;
 using Music_Processor.CLI;
+using Music_Processor.CLI.Commands;
 
-var services = new ServiceCollection();
-services.AddLogging(builder => 
-{
-    builder.AddSimpleConsole(options =>
+var host = Host.CreateDefaultBuilder(args)
+    .ConfigureServices((context, services) =>
     {
-        options.SingleLine = true;
-        options.TimestampFormat = "HH:mm:ss ";
-    });
-    builder.SetMinimumLevel(LogLevel.Information);
-});
+        // Register all commands
+        services.AddTransient<ICommand, FirstTimeSyncCommand>();
+        services.AddTransient<ICommand, UpdateSyncCommand>();
+        services.AddTransient<ICommand, FixGenresCommand>();
+        services.AddTransient<ICommand, WriteSongListCommand>();
+        services.AddTransient<ICommand, WriteMetadataFileCommand>();
+        services.AddTransient<ICommand, ApplyMetadataCommand>();
+        services.AddTransient<ICommand, ExitCommand>();
 
-services.AddSingleton<CLI>();
+        // Register command factory
+        services.AddSingleton<CommandFactory>();
 
-var serviceProvider = services.BuildServiceProvider();
-var cli = serviceProvider.GetRequiredService<CLI>();
+        // Register CLI
+        services.AddTransient<CLI>();
+    })
+    .Build();
 
+var cli = host.Services.GetRequiredService<CLI>();
 await cli.RunAsync();
