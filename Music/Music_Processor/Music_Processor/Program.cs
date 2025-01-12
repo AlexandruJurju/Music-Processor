@@ -18,14 +18,13 @@ var host = Host.CreateDefaultBuilder(args)
         services.AddTransient<IMenuCommand, FirstTimeSyncCommand>();
         services.AddTransient<IMenuCommand, UpdateSyncCommand>();
         services.AddTransient<IMenuCommand, FixGenresCommand>();
-        services.AddTransient<IMenuCommand, WriteSongListCommand>();
         services.AddTransient<IMenuCommand, WriteMetadataFileCommand>();
         services.AddTransient<IMenuCommand, ApplyMetadataCommand>();
         services.AddTransient<IMenuCommand, ExitCommand>();
 
         services.AddTransient<IConfigService, ConfigService>();
         services.AddTransient<IMetadataService, JsonMetadataService>();
-        services.AddTransient<IPlaylistProcessor, PlaylistProcessor>();
+        services.AddTransient<IPlaylistProcessor, PlaylistProcessor>(); 
 
         // Register command factory
         services.AddSingleton<MenuCommandFactory>();

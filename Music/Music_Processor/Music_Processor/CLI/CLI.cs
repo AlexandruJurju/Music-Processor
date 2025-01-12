@@ -40,16 +40,18 @@ public class CLI
         }
     }
 
+
     private void PrintMenu()
     {
         Console.WriteLine("Music Processor Menu:");
-        foreach (var command in _menuCommandFactory.GetAllCommands().OrderBy(c => c.MenuNumber))
+        foreach (var command in _menuCommandFactory.GetAllCommands())
         {
-            Console.WriteLine($"{command.MenuNumber}. {command.Name}");
+            Console.WriteLine($"{command.Key}. {command.Value.Name}");
         }
 
         Console.Write("Enter your choice: ");
     }
+
 
     private bool TryGetMenuChoice(out int choice)
     {
@@ -59,9 +61,13 @@ public class CLI
             return false;
         }
 
-        if (choice < MenuChoices.FirstTimeSync || choice > MenuChoices.Exit)
+        var commands = _menuCommandFactory.GetAllCommands();
+        int minChoice = commands.Min(c => c.Key);
+        int maxChoice = commands.Max(c => c.Key);
+
+        if (choice < minChoice || choice > maxChoice)
         {
-            Console.WriteLine($"Please enter a number between {MenuChoices.FirstTimeSync} and {MenuChoices.Exit}.");
+            Console.WriteLine($"Please enter a number between {minChoice} and {maxChoice}.");
             return false;
         }
 

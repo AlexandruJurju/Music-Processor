@@ -18,7 +18,6 @@ public class UpdateSyncCommand : IMenuCommand
     }
 
     public string Name => "Update Sync";
-    public int MenuNumber => MenuChoices.UpdateSync;
 
     public async Task ExecuteAsync()
     {

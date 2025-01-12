@@ -17,7 +17,6 @@ public class FirstTimeSyncCommand : IMenuCommand
     }
 
     public string Name => "First Time Sync";
-    public int MenuNumber => MenuChoices.FirstTimeSync;
 
     public async Task ExecuteAsync()
     {

@@ -4,11 +4,12 @@ namespace Music_Processor.Factories;
 
 public class MenuCommandFactory
 {
-    private readonly IReadOnlyDictionary<int, IMenuCommand> _commands;
+    private readonly Dictionary<int, IMenuCommand> _commands;
 
     public MenuCommandFactory(IEnumerable<IMenuCommand> commands)
     {
-        _commands = commands.ToDictionary(c => c.MenuNumber);
+        _commands = commands.Select((cmd, index) => new { cmd, index = index + 1 })
+            .ToDictionary(x => x.index, x => x.cmd);
     }
 
     public IMenuCommand GetCommand(int menuChoice)
@@ -21,5 +22,5 @@ public class MenuCommandFactory
         throw new ArgumentOutOfRangeException(nameof(menuChoice));
     }
 
-    public IReadOnlyCollection<IMenuCommand> GetAllCommands() => _commands.Values.ToList();
+    public IReadOnlyCollection<KeyValuePair<int, IMenuCommand>> GetAllCommands() => _commands.ToList();
 }

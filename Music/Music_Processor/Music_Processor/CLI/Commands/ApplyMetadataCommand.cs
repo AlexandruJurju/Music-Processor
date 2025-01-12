@@ -12,7 +12,6 @@ public class ApplyMetadataCommand : IMenuCommand
     }
 
     public string Name => "Apply Metadata from json";
-    public int MenuNumber => MenuChoices.ApplyMetadata;
 
     public Task ExecuteAsync()
     {

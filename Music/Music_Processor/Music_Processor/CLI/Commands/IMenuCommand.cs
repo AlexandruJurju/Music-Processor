@@ -3,6 +3,5 @@
 public interface IMenuCommand
 {
     string Name { get; }
-    int MenuNumber { get; }
     Task ExecuteAsync();
 }

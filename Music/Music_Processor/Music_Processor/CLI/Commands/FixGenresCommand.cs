@@ -17,7 +17,6 @@ public class FixGenresCommand : IMenuCommand
     }
 
     public string Name => "Fix Genres";
-    public int MenuNumber => MenuChoices.FixGenres;
 
     public async Task ExecuteAsync()
     {
