@@ -8,13 +8,13 @@ namespace Music_Processor.Services;
 
 public class JsonMetadataService : IMetadataService
 {
-    private readonly MetadataExtractorFactory _extractorFactory;
+    private readonly MetadataHandlesFactory _handlesFactory;
     private readonly JsonSerializerOptions _jsonOptions;
     private readonly ILogger<JsonMetadataService> _logger;
 
     public JsonMetadataService(ILogger<JsonMetadataService> logger)
     {
-        _extractorFactory = new MetadataExtractorFactory();
+        _handlesFactory = new MetadataHandlesFactory();
         _logger = logger;
         _jsonOptions = new JsonSerializerOptions
         {
@@ -35,7 +35,7 @@ public class JsonMetadataService : IMetadataService
         {
             try
             {
-                var extractor = _extractorFactory.GetExtractor(file);
+                var extractor = _handlesFactory.GetExtractor(file);
                 var audioMetadata = extractor.ExtractMetadata(file);
                 metadata.Add(audioMetadata);
             }

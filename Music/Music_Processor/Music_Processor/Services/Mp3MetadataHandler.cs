@@ -1,3 +1,4 @@
+using Microsoft.Extensions.Logging;
 using Music_Processor.Interfaces;
 using Music_Processor.Model;
 using TagLib.Id3v2;
@@ -5,7 +6,7 @@ using Tag = TagLib.Tag;
 
 namespace Music_Processor.Services;
 
-public class MP3MetadataExtractor : IMetadataExtractor
+public class MP3MetadataHandler : IMetadataExtractor
 {
     public AudioMetadata ExtractMetadata(string filePath)
     {
@@ -54,5 +55,39 @@ public class MP3MetadataExtractor : IMetadataExtractor
         }
 
         return styles;
+    }
+
+    public void WriteMetadata(string filePath, AudioMetadata audioMetadata)
+    {
+        try
+        {
+            using var file = TagLib.File.Create(filePath);
+            var tag = (file.Tag as TagLib.Id3v2.Tag) ?? throw new InvalidOperationException("Could not get ID3v2 tag");
+
+            // Remove existing genre frames
+            tag.RemoveFrames("TCON");
+
+            // Add new genre frame if there are genres
+            if (audioMetadata.Genres.Any())
+            {
+                tag.Genres = audioMetadata.Genres.ToArray();
+            }
+
+            if (audioMetadata.Styles.Any())
+            {
+                tag.AddFrame(new UserTextInformationFrame("TXXX")
+                {
+                    Description = "Styles",
+                    Text = audioMetadata.Styles.ToArray(),
+                    TextEncoding = TagLib.StringType.UTF8
+                });
+            }
+
+            file.Save();
+        }
+        catch (Exception ex)
+        {
+            throw new Exception(ex.Message);
+        }
     }
 }

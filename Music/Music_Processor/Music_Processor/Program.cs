@@ -28,9 +28,9 @@ var host = Host.CreateDefaultBuilder(args)
 
         // Register command factory
         services.AddSingleton<MenuCommandFactory>();
-        services.AddSingleton<MetadataExtractorFactory>();
+        services.AddSingleton<MetadataHandlesFactory>();
 
-        services.AddSingleton<SpotDLMetadataLoader>();
+        services.AddSingleton<SpotdlMetadataLoader>();
 
         // Register CLI
         services.AddTransient<CLI>();
@@ -40,8 +40,8 @@ var host = Host.CreateDefaultBuilder(args)
 FileService fileService = new FileService();
 
 
-SpotDLMetadataLoader spotDlMetadataLoader = host.Services.GetRequiredService<SpotDLMetadataLoader>();
-var spotdlMetadata = spotDlMetadataLoader.LoadSpotDLMetadata(fileService.GetPlaylistsDirectory() + "\\" + "Favorites");
+SpotdlMetadataLoader spotdlMetadataLoader = host.Services.GetRequiredService<SpotdlMetadataLoader>();
+var spotdlMetadata = spotdlMetadataLoader.LoadSpotDLMetadata(fileService.GetPlaylistsDirectory() + "\\" + "Favorites");
 
 foreach (var pair in spotdlMetadata)
 {

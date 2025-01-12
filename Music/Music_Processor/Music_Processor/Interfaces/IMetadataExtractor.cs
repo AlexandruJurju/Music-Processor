@@ -5,4 +5,5 @@ namespace Music_Processor.Interfaces;
 public interface IMetadataExtractor
 {
     AudioMetadata ExtractMetadata(string filePath);
+    void WriteMetadata(string filePath, AudioMetadata audioMetadata);
 }

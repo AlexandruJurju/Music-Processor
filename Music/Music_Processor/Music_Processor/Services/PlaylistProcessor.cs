@@ -1,6 +1,7 @@
 using Microsoft.Extensions.Logging;
 using Music_Processor.Interfaces;
 using Music_Processor.Model;
+using Music_Processor.Services.SpotDLMetadataLoader;
 
 namespace Music_Processor.Services;
 
@@ -9,33 +10,41 @@ public class PlaylistProcessor : IPlaylistProcessor
     private readonly ILogger<PlaylistProcessor> _logger;
     private readonly IFileService _fileService;
     private readonly IMetadataService _metadataService;
+    private readonly SpotdlMetadataLoader _spotdlMetadataLoader;
+    private readonly IConfigService _configService;
 
     private HashSet<string> UnmappedStyles;
     private HashSet<string> SongsWithoutStyles;
     private HashSet<string> SongsWithoutMetadata;
 
-    public PlaylistProcessor(ILogger<PlaylistProcessor> logger, IFileService fileService, IMetadataService metadataService)
+    public PlaylistProcessor(ILogger<PlaylistProcessor> logger, IFileService fileService, IMetadataService metadataService, SpotdlMetadataLoader spotdlMetadataLoader, IConfigService configService)
     {
-        _logger = logger;
-        _fileService = fileService;
-        _metadataService = metadataService;
         UnmappedStyles = new HashSet<string>();
         SongsWithoutStyles = new HashSet<string>();
         SongsWithoutMetadata = new HashSet<string>();
+
+        _logger = logger;
+        _fileService = fileService;
+        _metadataService = metadataService;
+        _spotdlMetadataLoader = spotdlMetadataLoader;
+        _configService = configService;
     }
 
-    public Dictionary<string, AudioMetadata> LoadSpotDLMetadata(string playlistPath)
+    public void FixPlaylistGenresUsingSpotdlMetadata(string playlistPath)
     {
-        Dictionary<string, AudioMetadata> playlistMetadata = new Dictionary<string, AudioMetadata>();
+        var spotdlMetadata = _spotdlMetadataLoader.LoadSpotDLMetadata(playlistPath);
+        var playlistSongs = _fileService.GetAllAudioFilesInFolder(playlistPath);
+        var styleMappings = _configService.LoadStyleMappingFile();
+        var stylesToRemove = _configService.LoadStylesToRemove();
 
-        var spotdlFile = _fileService.GetSpotDLFileInFolder(playlistPath);
-        if (spotdlFile is null)
+        foreach (var song in playlistSongs)
         {
-            _logger.LogError("Spotdl file could not be found");
-            throw new FileNotFoundException("Spotdl file not found");
+            ProcessSong(song);
         }
+    }
 
-
-        return playlistMetadata;
+    private void ProcessSong(string songPath)
+    {
+        throw new NotImplementedException();
     }
 }

@@ -3,16 +3,16 @@ using Music_Processor.Services;
 
 namespace Music_Processor.Factories;
 
-public class MetadataExtractorFactory
+public class MetadataHandlesFactory
 {
     private readonly Dictionary<string, IMetadataExtractor> _extractors;
 
-    public MetadataExtractorFactory()
+    public MetadataHandlesFactory()
     {
         _extractors = new Dictionary<string, IMetadataExtractor>(StringComparer.OrdinalIgnoreCase)
         {
-            { ".mp3", new MP3MetadataExtractor() },
-            { ".flac", new FlacMetadataExtractor() }
+            { ".mp3", new MP3MetadataHandler() },
+            { ".flac", new FlacMetadataHandler() }
         };
     }
 

@@ -5,7 +5,7 @@ using TagLib;
 
 namespace Music_Processor.Services;
 
-public class FlacMetadataExtractor : IMetadataExtractor
+public class FlacMetadataHandler : IMetadataExtractor
 {
     public AudioMetadata ExtractMetadata(string filePath)
     {
@@ -28,6 +28,7 @@ public class FlacMetadataExtractor : IMetadataExtractor
         };
     }
 
+
     private List<string> ExtractStyles(Tag tag)
     {
         var styles = new List<string>();
@@ -35,7 +36,7 @@ public class FlacMetadataExtractor : IMetadataExtractor
         if (tag is TagLib.Ogg.XiphComment xiph)
         {
             // Try to get styles from STYLE field
-            var styleFields = xiph.GetField("STYLE");
+            var styleFields = xiph.GetField("Styles");
             if (styleFields.Any())
             {
                 styles.AddRange(styleFields);
@@ -50,5 +51,41 @@ public class FlacMetadataExtractor : IMetadataExtractor
         }
 
         return styles;
+    }
+
+    public void WriteMetadata(string filePath, AudioMetadata audioMetadata)
+    {
+        try
+        {
+            using var file = TagLib.File.Create(filePath);
+            var tag = (file.Tag as TagLib.Ogg.XiphComment) ?? throw new InvalidOperationException("Could not get Xiph Comment tag");
+
+            // Clear existing genre tags
+            tag.Genres = [];
+
+            // Set new genres if any
+            if (audioMetadata.Genres.Any())
+            {
+                tag.Genres = audioMetadata.Genres.ToArray();
+            }
+
+            // Remove existing STYLE fields
+            tag.RemoveField("Styles");
+
+            // Add new styles if any
+            if (audioMetadata.Styles.Any())
+            {
+                foreach (var style in audioMetadata.Styles)
+                {
+                    tag.SetField("Styles", style);
+                }
+            }
+
+            file.Save();
+        }
+        catch (Exception ex)
+        {
+            throw new Exception(ex.Message);
+        }
     }
 }

@@ -5,13 +5,13 @@ using Music_Processor.Model;
 
 namespace Music_Processor.Services.SpotDLMetadataLoader;
 
-public class SpotDLMetadataLoader
+public class SpotdlMetadataLoader
 {
-    private readonly ILogger<SpotDLMetadataLoader> _logger;
+    private readonly ILogger<SpotdlMetadataLoader> _logger;
     private readonly IFileService _fileService;
     private readonly JsonSerializerOptions _jsonOptions;
 
-    public SpotDLMetadataLoader(ILogger<SpotDLMetadataLoader> logger, IFileService fileService)
+    public SpotdlMetadataLoader(ILogger<SpotdlMetadataLoader> logger, IFileService fileService)
     {
         _logger = logger;
         _fileService = fileService;
