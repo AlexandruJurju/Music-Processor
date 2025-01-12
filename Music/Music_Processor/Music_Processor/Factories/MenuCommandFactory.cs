@@ -1,10 +1,12 @@
-﻿namespace Music_Processor.CLI.Commands;
+﻿using Music_Processor.CLI.Commands;
 
-public class CommandFactory
+namespace Music_Processor.Factories;
+
+public class MenuCommandFactory
 {
     private readonly IReadOnlyDictionary<int, IMenuCommand> _commands;
 
-    public CommandFactory(IEnumerable<IMenuCommand> commands)
+    public MenuCommandFactory(IEnumerable<IMenuCommand> commands)
     {
         _commands = commands.ToDictionary(c => c.MenuNumber);
     }

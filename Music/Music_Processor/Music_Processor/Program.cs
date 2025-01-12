@@ -3,6 +3,7 @@ using Microsoft.Extensions.Hosting;
 using Music_Processor;
 using Music_Processor.CLI;
 using Music_Processor.CLI.Commands;
+using Music_Processor.Factories;
 using Music_Processor.Interfaces;
 using Music_Processor.Services;
 
@@ -23,19 +24,17 @@ var host = Host.CreateDefaultBuilder(args)
         services.AddTransient<IMenuCommand, ExitCommand>();
 
         services.AddTransient<IConfigService, ConfigService>();
+        services.AddTransient<IMetadataService, JsonMetadataService>();
 
         // Register command factory
-        services.AddSingleton<CommandFactory>();
+        services.AddSingleton<MenuCommandFactory>();
+        services.AddSingleton<MetadataExtractorFactory>();
 
         // Register CLI
         services.AddTransient<CLI>();
     })
     .Build();
 
-IFileService fileService = new FileService();
-IConfigService _configService = new ConfigService(fileService);
-Console.WriteLine(_configService.LoadStyleMappingFile());
-Console.WriteLine(_configService.LoadStylesToRemove());
 
 // var cli = host.Services.GetRequiredService<CLI>();
 // await cli.RunAsync();

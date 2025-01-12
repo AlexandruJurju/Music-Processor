@@ -1,17 +1,18 @@
 ﻿using Microsoft.Extensions.Logging;
 using Music_Processor.CLI.Commands;
+using Music_Processor.Factories;
 
 namespace Music_Processor.CLI;
 
 public class CLI
 {
     private readonly ILogger<CLI> _logger;
-    private readonly CommandFactory _commandFactory;
+    private readonly MenuCommandFactory _menuCommandFactory;
 
-    public CLI(ILogger<CLI> logger, CommandFactory commandFactory)
+    public CLI(ILogger<CLI> logger, MenuCommandFactory menuCommandFactory)
     {
         _logger = logger;
-        _commandFactory = commandFactory;
+        _menuCommandFactory = menuCommandFactory;
     }
 
     public async Task RunAsync()
@@ -23,7 +24,7 @@ public class CLI
 
             try
             {
-                var command = _commandFactory.GetCommand(choice);
+                var command = _menuCommandFactory.GetCommand(choice);
                 await command.ExecuteAsync();
                 Console.WriteLine();
             }
@@ -42,7 +43,7 @@ public class CLI
     private void PrintMenu()
     {
         Console.WriteLine("Music Processor Menu:");
-        foreach (var command in _commandFactory.GetAllCommands().OrderBy(c => c.MenuNumber))
+        foreach (var command in _menuCommandFactory.GetAllCommands().OrderBy(c => c.MenuNumber))
         {
             Console.WriteLine($"{command.MenuNumber}. {command.Name}");
         }
