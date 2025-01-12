@@ -3,7 +3,7 @@ from pathlib import Path
 
 from program.config import Config
 from program.file_system_handler import FileSystemHandler
-from program.metadata_scanner import MetadataScanner
+from program.metadata_processor import MetadataProcessor
 from program.playlist_processor import PlaylistProcessor
 from program.spotdl_wrapper import SpotDLWrapper
 
@@ -64,7 +64,7 @@ class CLI:
         playlist_dir = self.base_dir / playlist_name
 
         if playlist_dir.exists():
-            scanner = MetadataScanner(playlist_dir)
+            scanner = MetadataProcessor(playlist_dir)
             metadata_list = scanner.scan_directory()
             scanner.save_metadata_to_file(metadata_list)
         else:

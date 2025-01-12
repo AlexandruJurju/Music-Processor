@@ -1,20 +1,18 @@
-﻿from pathlib import Path
-from typing import Dict, List, Optional
-import json
+﻿import json
 import logging
+from pathlib import Path
+from typing import Dict, Optional
 
-from program.file_system_handler import FileSystemHandler
-from program.models import ProcessingState, SongMetadata
 from program.config import Config
+from program.file_system_handler import FileSystemHandler
 from program.genre_processor import GenreProcessor
-from program.string_cleaner import StringCleaner
+from program.models import ProcessingState, SongMetadata
 from program.progress_bar import ProgressDisplay
+from program.string_cleaner import StringCleaner
 
 
 class PlaylistProcessor:
     """Handles all playlist operations including metadata management, processing, and genre fixes."""
-
-    MUSIC_EXTENSIONS = {'.mp3', '.flac', '.m4a', '.wav', '.wma', '.aac', '.ogg'}
 
     def __init__(self, config: Config):
         """Initialize PlaylistManager with configuration."""
@@ -48,7 +46,7 @@ class PlaylistProcessor:
         self._log_processing_summaries(processing_state)
 
         # Print final summary to console
-        total_songs = len(self._get_music_files(playlist_path))
+        total_songs = len(FileSystemHandler.get_music_files(playlist_path))
         print("\nProcessing Complete!")
         print(f"- Detailed log saved to: {self.log_file}")
         print(f"- Total songs processed: {total_songs}")
@@ -137,7 +135,7 @@ class PlaylistProcessor:
 
     def _process_music_files(self, playlist_path: Path, metadata_lookup: Dict[str, SongMetadata], processing_state: ProcessingState) -> None:
         """Process all music files in the playlist directory."""
-        music_files = self._get_music_files(playlist_path)
+        music_files = FileSystemHandler.get_music_files(playlist_path)
         if not music_files:
             self.logger.warning("No music files found in the directory")
             return
@@ -154,13 +152,6 @@ class PlaylistProcessor:
             progress.update()
 
         progress.clear()
-
-    def _get_music_files(self, playlist_path: Path) -> List[Path]:
-        """Get all music files in the directory and subdirectories."""
-        music_files = []
-        for ext in self.MUSIC_EXTENSIONS:
-            music_files.extend(playlist_path.rglob(f'*{ext}'))
-        return sorted(music_files)
 
     def _process_single_file(self, music_path: Path, metadata_lookup: Dict[str, SongMetadata], processing_state: ProcessingState) -> None:
         """Process a single music file."""

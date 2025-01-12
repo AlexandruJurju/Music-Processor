@@ -2,6 +2,8 @@
 from pathlib import Path
 from typing import List, Optional
 
+from program.constants import MUSIC_EXTENSIONS
+
 
 class FileSystemHandler:
     """Handles file system operations"""
@@ -49,3 +51,11 @@ class FileSystemHandler:
         if len(spotdl_files) > 1:
             print(f"Warning: Multiple .spotdl files found, using: {spotdl_files[0].name}")
         return spotdl_files[0]
+
+    @staticmethod
+    def get_music_files(playlist_path: Path) -> List[Path]:
+        """Get all music files in the directory and subdirectories."""
+        music_files = []
+        for ext in MUSIC_EXTENSIONS:
+            music_files.extend(playlist_path.rglob(f'*{ext}'))
+        return sorted(music_files)

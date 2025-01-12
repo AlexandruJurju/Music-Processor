@@ -9,6 +9,7 @@ import mutagen
 from mutagen.id3 import ID3
 from mutagen.flac import FLAC
 
+from program.file_system_handler import FileSystemHandler
 from program.models import ProcessingState, SongMetadata
 from program.progress_bar import ProgressDisplay
 
@@ -28,7 +29,7 @@ class ExtendedSongMetadata(SongMetadata):
         return asdict(self)
 
 
-class MetadataScanner:
+class MetadataProcessor:
     """Scans music files for metadata and saves it to a file"""
 
     def __init__(self, playlist_path: Path):
@@ -64,7 +65,7 @@ class MetadataScanner:
 
     def scan_directory(self) -> List[ExtendedSongMetadata]:
         """Scan directory and return metadata for all supported music files"""
-        music_files = self._get_music_files()
+        music_files = FileSystemHandler.get_music_files(self.playlist_path)
         if not music_files:
             self.logger.warning("No music files found in the directory")
             return []
@@ -242,4 +243,3 @@ class MetadataScanner:
         if self.processing_state.unmapped_styles:
             print(f"- Found {len(self.processing_state.unmapped_styles)} unmapped styles")
             print("  Check the log file for details")
-
