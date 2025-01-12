@@ -3,6 +3,7 @@ from pathlib import Path
 
 from program.config import Config
 from program.file_system_handler import FileSystemHandler
+from program.metadata_scanner import MetadataScanner
 from program.playlist_processor import PlaylistProcessor
 from program.spotdl_wrapper import SpotDLWrapper
 
@@ -35,7 +36,8 @@ class CLI:
         print("2. Update existing sync")
         print("3. Fix genres")
         print("4. Write song list")
-        print("5. Exit\n")
+        print("5. Scan and save metadata backup")
+        print("6. Exit\n")
 
     def _handle_choice(self, choice: str) -> None:
         """Handle menu choice"""
@@ -44,13 +46,29 @@ class CLI:
             "2": self._handle_existing_sync,
             "3": self._handle_fix_genres,
             "4": self._write_song_list,
-            "5": sys.exit
+            "5": self._handle_scan_metadata,
+            "6": sys.exit
         }
 
         if choice in actions:
             actions[choice]()
         else:
             print("Invalid choice!")
+
+    def _handle_scan_metadata(self) -> None:
+        playlists = self.fs_handler.get_available_playlists(self.base_dir)
+        if playlists:
+            print("\nAvailable playlists:\n" + "\n".join(playlists))
+
+        playlist_name = input("\nEnter playlist name: ").strip()
+        playlist_dir = self.base_dir / playlist_name
+
+        if playlist_dir.exists():
+            scanner = MetadataScanner(playlist_dir)
+            metadata_list = scanner.scan_directory()
+            scanner.save_metadata_to_file(metadata_list)
+        else:
+            print(f"\nError: Folder {playlist_dir} not found")
 
     def _handle_new_sync(self) -> None:
         """Handle new playlist sync"""

@@ -1,25 +1,24 @@
 ﻿from pathlib import Path
 from typing import Dict, List, Set, Tuple
 from collections import defaultdict
+import logging
 
 import mutagen
 from mutagen.id3 import ID3, TXXX, TCON
 from mutagen.flac import FLAC
 
 from program.models import ProcessingState, SongMetadata
-from program.config import Config
-from program.logger import PlaylistLogger
 
 
 class GenreProcessor:
-    def __init__(self, config: Config):
+    def __init__(self, config):
         self.config = config
         self.style_to_genres = self._create_style_to_genres_lookup()
         self.remove_styles_set = {style.lower() for style in config.remove_styles}
 
-    def fix_genres_external_song(self, song_path: Path, processing_state: ProcessingState, logger: PlaylistLogger) -> None:
+    def fix_genres_external_song(self, song_path: Path, processing_state: ProcessingState, logger: logging.Logger) -> None:
         """Process genres from existing file metadata"""
-        logger.log(f"\nProcessing existing metadata for: {song_path.name}")
+        logger.info(f"\nProcessing existing metadata for: {song_path.name}")
 
         try:
             existing_genres = set()
@@ -35,7 +34,7 @@ class GenreProcessor:
                 existing_genres = self._extract_existing_genres(tags)
 
             if not existing_genres:
-                logger.log("No existing genres/styles found")
+                logger.warning("No existing genres/styles found")
                 processing_state.songs_without_styles.add(song_path.name)
                 return
 
@@ -48,17 +47,17 @@ class GenreProcessor:
             self.fix_genres_spotdl_song(song_path, temp_metadata, processing_state, logger)
 
         except Exception as e:
-            logger.log(f"Error processing existing metadata: {e}")
+            logger.error(f"Error processing existing metadata: {e}")
             processing_state.songs_without_metadata.add(song_path.name)
 
-    def fix_genres_spotdl_song(self, song_path: Path, metadata: SongMetadata, processing_state: ProcessingState, logger: PlaylistLogger) -> None:
+    def fix_genres_spotdl_song(self, song_path: Path, metadata: SongMetadata, processing_state: ProcessingState, logger: logging.Logger) -> None:
         """Update genre and style tags for a song"""
         styles = metadata.genres or []
-        logger.log(f"\nProcessing: {song_path.name}")
-        logger.log(f"Original styles: {', '.join(styles)}")
+        logger.info(f"\nProcessing: {song_path.name}")
+        logger.info(f"Original styles: {', '.join(styles)}")
 
         if not styles:
-            logger.log("No styles found")
+            logger.warning("No styles found")
             processing_state.songs_without_styles.add(song_path.name)
             return
 
@@ -76,13 +75,26 @@ class GenreProcessor:
                 self._update_tags(tags, genres, remaining_styles)
                 tags.save(song_path)
 
-            logger.log_genre_processing_results(styles, genres, remaining_styles)
+            self._log_genre_processing_results(logger, styles, genres, remaining_styles)
 
         except Exception as e:
-            logger.log(f"Error processing {song_path}: {e}")
+            logger.error(f"Error processing {song_path}: {e}")
+
+    def _log_genre_processing_results(self, logger: logging.Logger, original_styles: List[str], genres: List[str], remaining_styles: List[str]) -> None:
+        """Log genre processing results"""
+        if genres:
+            logger.info(f"Mapped Genres: {', '.join(genres)}")
+            logger.info(f"Remaining Styles: {', '.join(remaining_styles)}")
+
+            removed_styles = [s for s in original_styles if s not in remaining_styles and s.lower() not in [g.lower() for g in genres]]
+            if removed_styles:
+                logger.info(f"Removed styles: {', '.join(removed_styles)}")
+        else:
+            logger.warning("No genres mapped")
+            logger.info(f"Styles unchanged: {', '.join(original_styles)}")
 
     def _create_style_to_genres_lookup(self) -> Dict[str, Set[str]]:
-        """Create style to genres lookup dictionary where each style maps to a set of genres it belongs to"""
+        """Create style to genres lookup dictionary"""
         style_to_genres = defaultdict(set)
         for genre, style_list in self.config.genre_mappings.items():
             for style in style_list:
@@ -103,9 +115,7 @@ class GenreProcessor:
             mapped_genres = self.style_to_genres.get(style_lower)
 
             if mapped_genres:
-                # Add all mapped genres for this style
                 genres.update(mapped_genres)
-                # Keep the original style if it's different from any of its genres
                 if not any(style_lower == genre.lower() for genre in mapped_genres):
                     remaining_styles.append(style)
             else:
