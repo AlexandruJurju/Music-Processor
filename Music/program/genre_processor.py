@@ -1,5 +1,6 @@
 ﻿from pathlib import Path
 from typing import Dict, List, Set, Tuple
+from collections import defaultdict
 
 import mutagen
 from mutagen.id3 import ID3, TXXX, TCON
@@ -13,7 +14,7 @@ from program.logger import PlaylistLogger
 class GenreProcessor:
     def __init__(self, config: Config):
         self.config = config
-        self.style_to_genre = self._create_style_to_genre_lookup()
+        self.style_to_genres = self._create_style_to_genres_lookup()
         self.remove_styles_set = {style.lower() for style in config.remove_styles}
 
     def fix_genres_external_song(self, song_path: Path, processing_state: ProcessingState, logger: PlaylistLogger) -> None:
@@ -24,7 +25,6 @@ class GenreProcessor:
             existing_genres = set()
 
             if song_path.suffix.lower() == '.flac':
-                from mutagen.flac import FLAC
                 audio = FLAC(song_path)
                 if 'genre' in audio:
                     existing_genres.update(audio['genre'])
@@ -81,14 +81,13 @@ class GenreProcessor:
         except Exception as e:
             logger.log(f"Error processing {song_path}: {e}")
 
-    def _create_style_to_genre_lookup(self) -> Dict[str, str]:
-        """Create style to genre lookup dictionary"""
-        """Each style will have the genre it belongs to"""
-        return {
-            style.lower(): genre
-            for genre, style_list in self.config.genre_mappings.items()
-            for style in style_list
-        }
+    def _create_style_to_genres_lookup(self) -> Dict[str, Set[str]]:
+        """Create style to genres lookup dictionary where each style maps to a set of genres it belongs to"""
+        style_to_genres = defaultdict(set)
+        for genre, style_list in self.config.genre_mappings.items():
+            for style in style_list:
+                style_to_genres[style.lower()].add(genre)
+        return dict(style_to_genres)
 
     def _extract_genres_and_styles(self, styles: List[str], unmapped_styles: Set[str]) -> Tuple[List[str], List[str]]:
         """Extract genres and remaining styles"""
@@ -101,11 +100,13 @@ class GenreProcessor:
             if style_lower in self.remove_styles_set:
                 continue
 
-            mapped_genre = self.style_to_genre.get(style_lower)
+            mapped_genres = self.style_to_genres.get(style_lower)
 
-            if mapped_genre:
-                genres.add(mapped_genre)
-                if style_lower != mapped_genre.lower():
+            if mapped_genres:
+                # Add all mapped genres for this style
+                genres.update(mapped_genres)
+                # Keep the original style if it's different from any of its genres
+                if not any(style_lower == genre.lower() for genre in mapped_genres):
                     remaining_styles.append(style)
             else:
                 unmapped_styles.add(style)

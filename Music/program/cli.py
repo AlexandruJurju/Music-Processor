@@ -19,7 +19,7 @@ class CLI:
         """Main CLI loop"""
         while True:
             self._print_menu()
-            choice = input("Choice (1-4): ").strip()
+            choice = input("Choice (1-5): ").strip()
 
             try:
                 self._handle_choice(choice)
