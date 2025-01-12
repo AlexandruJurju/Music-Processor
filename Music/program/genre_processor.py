@@ -3,6 +3,7 @@ from typing import Dict, List, Set, Tuple
 
 import mutagen
 from mutagen.id3 import ID3, TXXX, TCON
+from mutagen.flac import FLAC
 
 from program.models import ProcessingState, SongMetadata
 from program.config import Config
@@ -10,93 +11,12 @@ from program.logger import PlaylistLogger
 
 
 class GenreProcessor:
-    """Handles genre processing and tag manipulation"""
-
     def __init__(self, config: Config):
         self.config = config
         self.style_to_genre = self._create_style_to_genre_lookup()
         self.remove_styles_set = {style.lower() for style in config.remove_styles}
 
-    def _create_style_to_genre_lookup(self) -> Dict[str, str]:
-        """Create style to genre lookup dictionary"""
-        """Each style will have the genre it belongs to"""
-        return {
-            style.lower(): genre
-            for genre, style_list in self.config.genre_mappings.items()
-            for style in style_list
-        }
-
-    def extract_genres_and_styles(self, styles: List[str], unmapped_styles: Set[str]) -> Tuple[List[str], List[str]]:
-        """Extract genres and remaining styles"""
-        genres = set()
-        remaining_styles = []
-
-        for style in styles:
-            style_lower = style.lower()
-
-            if style_lower in self.remove_styles_set:
-                continue
-
-            mapped_genre = self.style_to_genre.get(style_lower)
-
-            if mapped_genre:
-                genres.add(mapped_genre)
-                if style_lower != mapped_genre.lower():
-                    remaining_styles.append(style)
-            else:
-                unmapped_styles.add(style)
-                remaining_styles.append(style)
-
-        return list(genres), remaining_styles
-
-    def fix_genres(self, song_path: Path, metadata: SongMetadata, processing_state: ProcessingState, logger: PlaylistLogger) -> None:
-        """Update genre and style tags for a song"""
-        styles = metadata.genres or []
-        logger.log(f"\nProcessing: {song_path.name}")
-        logger.log(f"Original styles: {', '.join(styles)}")
-
-        if not styles:
-            logger.log("No styles found")
-            processing_state.songs_without_styles.add(song_path.name)
-            return
-
-        try:
-            # Process the genres and styles
-            genres, remaining_styles = self.extract_genres_and_styles(
-                styles, processing_state.unmapped_styles)
-
-            # Update tags based on file type
-            if song_path.suffix.lower() == '.flac':
-                self._update_flac_tags(song_path, genres, remaining_styles)
-            else:
-                # Handle MP3 and other ID3-compatible formats
-                tags = self._get_or_create_id3_tags(song_path)
-                tags.delall('TCON')  # Clear existing genre tags
-                self._update_tags(tags, genres, remaining_styles)
-                tags.save(song_path)
-
-            logger.log_genre_processing_results(styles, genres, remaining_styles)
-
-        except Exception as e:
-            logger.log(f"Error processing {song_path}: {e}")
-
-    def _update_flac_tags(self, song_path: Path, genres: List[str], remaining_styles: List[str]) -> None:
-        """Update FLAC file tags"""
-        from mutagen.flac import FLAC
-        try:
-            audio = FLAC(song_path)
-            audio.tags.clear()
-            if genres:
-                audio['genre'] = genres
-            if remaining_styles:
-                audio['styles'] = remaining_styles
-            if 'rating' in audio:
-                del audio['rating']
-            audio.save()
-        except Exception as e:
-            raise Exception(f"Error updating FLAC tags: {e}")
-
-    def process_existing_metadata(self, song_path: Path, processing_state: ProcessingState, logger: PlaylistLogger) -> None:
+    def fix_genres_external_song(self, song_path: Path, processing_state: ProcessingState, logger: PlaylistLogger) -> None:
         """Process genres from existing file metadata"""
         logger.log(f"\nProcessing existing metadata for: {song_path.name}")
 
@@ -125,11 +45,86 @@ class GenreProcessor:
                 genres=list(existing_genres)
             )
 
-            self.fix_genres(song_path, temp_metadata, processing_state, logger)
+            self.fix_genres_spotdl_song(song_path, temp_metadata, processing_state, logger)
 
         except Exception as e:
             logger.log(f"Error processing existing metadata: {e}")
             processing_state.songs_without_metadata.add(song_path.name)
+
+    def fix_genres_spotdl_song(self, song_path: Path, metadata: SongMetadata, processing_state: ProcessingState, logger: PlaylistLogger) -> None:
+        """Update genre and style tags for a song"""
+        styles = metadata.genres or []
+        logger.log(f"\nProcessing: {song_path.name}")
+        logger.log(f"Original styles: {', '.join(styles)}")
+
+        if not styles:
+            logger.log("No styles found")
+            processing_state.songs_without_styles.add(song_path.name)
+            return
+
+        try:
+            # Process the genres and styles
+            genres, remaining_styles = self._extract_genres_and_styles(styles, processing_state.unmapped_styles)
+
+            # Update tags based on file type
+            if song_path.suffix.lower() == '.flac':
+                self._update_flac_tags(song_path, genres, remaining_styles)
+            else:
+                # Handle MP3 and other ID3-compatible formats
+                tags = self._get_or_create_id3_tags(song_path)
+                tags.delall('TCON')  # Clear existing genre tags
+                self._update_tags(tags, genres, remaining_styles)
+                tags.save(song_path)
+
+            logger.log_genre_processing_results(styles, genres, remaining_styles)
+
+        except Exception as e:
+            logger.log(f"Error processing {song_path}: {e}")
+
+    def _create_style_to_genre_lookup(self) -> Dict[str, str]:
+        """Create style to genre lookup dictionary"""
+        """Each style will have the genre it belongs to"""
+        return {
+            style.lower(): genre
+            for genre, style_list in self.config.genre_mappings.items()
+            for style in style_list
+        }
+
+    def _extract_genres_and_styles(self, styles: List[str], unmapped_styles: Set[str]) -> Tuple[List[str], List[str]]:
+        """Extract genres and remaining styles"""
+        genres = set()
+        remaining_styles = []
+
+        for style in styles:
+            style_lower = style.lower()
+
+            if style_lower in self.remove_styles_set:
+                continue
+
+            mapped_genre = self.style_to_genre.get(style_lower)
+
+            if mapped_genre:
+                genres.add(mapped_genre)
+                if style_lower != mapped_genre.lower():
+                    remaining_styles.append(style)
+            else:
+                unmapped_styles.add(style)
+                remaining_styles.append(style)
+
+        return list(genres), remaining_styles
+
+    def _update_flac_tags(self, song_path: Path, genres: List[str], remaining_styles: List[str]) -> None:
+        """Update FLAC file tags"""
+        try:
+            audio = FLAC(song_path)
+            audio.tags.clear()
+            if genres:
+                audio['genre'] = genres
+            if remaining_styles:
+                audio['styles'] = remaining_styles
+            audio.save()
+        except Exception as e:
+            raise Exception(f"Error updating FLAC tags: {e}")
 
     def _extract_existing_genres(self, tags: ID3) -> Set[str]:
         """Extract existing genres from ID3 tags"""

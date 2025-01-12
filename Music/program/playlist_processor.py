@@ -112,9 +112,9 @@ class PlaylistProcessor:
 
         try:
             if metadata:
-                self.genre_processor.fix_genres(music_path, metadata, processing_state, logger=logger)
+                self.genre_processor.fix_genres_spotdl_song(music_path, metadata, processing_state, logger=logger)
             else:
-                self.genre_processor.process_existing_metadata(music_path, processing_state, logger=logger)
+                self.genre_processor.fix_genres_external_song(music_path, processing_state, logger=logger)
 
         except Exception as e:
             logger.log(f"Error processing file {music_path.name}: {str(e)}")
