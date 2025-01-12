@@ -3,9 +3,13 @@ import logging
 from pathlib import Path
 from typing import Dict, Optional
 
+from mutagen.flac import FLAC
+from mutagen.id3 import ID3NoHeaderError, ID3, TCON, TXXX
+
 from program.config import Config
 from program.file_system_handler import FileSystemHandler
 from program.genre_processor import GenreProcessor
+from program.metadata_processor import ExtendedSongMetadata
 from program.models import ProcessingState, SongMetadata
 from program.progress_bar import ProgressDisplay
 from program.string_cleaner import StringCleaner
@@ -144,11 +148,7 @@ class PlaylistProcessor:
         progress = ProgressDisplay(len(music_files))
 
         for music_path in music_files:
-            self._process_single_file(
-                music_path=music_path,
-                metadata_lookup=metadata_lookup,
-                processing_state=processing_state
-            )
+            self._process_single_file(music_path=music_path, metadata_lookup=metadata_lookup, processing_state=processing_state)
             progress.update()
 
         progress.clear()
@@ -183,3 +183,102 @@ class PlaylistProcessor:
             self.logger.debug(f"No metadata found for: {clean_filename}")
 
         return metadata
+
+    def process_playlist_with_metadata(self, playlist_path: Path, metadata_lookup: Dict[str, SongMetadata]) -> None:
+        """
+        Process all songs in a playlist using provided metadata.
+
+        Args:
+            playlist_path: Path to the playlist directory
+            metadata_lookup: Dictionary of song metadata from JSON
+        """
+        # Setup logging
+        self.log_file = playlist_path / "processing_results.log"
+        self.logger = self._setup_logger(playlist_path)
+
+        processing_state = ProcessingState(set(), set(), set())
+
+        # Process all music files with direct metadata lookup
+        self._process_music_files_from_json(playlist_path=playlist_path, metadata_lookup=metadata_lookup, processing_state=processing_state)
+
+        # Log final processing summaries
+        self._log_processing_summaries(processing_state)
+
+        # Print final summary to console
+        total_songs = len(FileSystemHandler.get_music_files(playlist_path))
+        print("\nProcessing Complete!")
+        print(f"- Detailed log saved to: {self.log_file}")
+        print(f"- Total songs processed: {total_songs}")
+        print(f"- Songs with metadata applied: {total_songs - len(processing_state.songs_without_metadata)}")
+        print(f"- Songs without styles: {len(processing_state.songs_without_styles)}")
+        print(f"- Songs without metadata: {len(processing_state.songs_without_metadata)}")
+        if processing_state.unmapped_styles:
+            print(f"- Found {len(processing_state.unmapped_styles)} unmapped styles")
+            print("  Check the log file for details")
+
+    def _process_music_files_from_json(self, playlist_path: Path, metadata_lookup: Dict[str, SongMetadata], processing_state: ProcessingState) -> None:
+        """Process all music files in the playlist directory with direct metadata lookup."""
+        music_files = FileSystemHandler.get_music_files(playlist_path)
+        if not music_files:
+            self.logger.warning("No music files found in the directory")
+            return
+
+        self.logger.info(f"\nProcessing {len(music_files)} music files")
+        progress = ProgressDisplay(len(music_files))
+
+        for music_path in music_files:
+            self._process_single_file_from_json(music_path=music_path, metadata_lookup=metadata_lookup, processing_state=processing_state)
+            progress.update()
+
+        progress.clear()
+
+    def _process_single_file_from_json(self, music_path: Path, metadata_lookup: Dict[str, ExtendedSongMetadata], processing_state: ProcessingState) -> None:
+        """Process a single music file using the provided metadata lookup."""
+        self.logger.info(f"\nProcessing file: {music_path.name}")
+
+        try:
+            file_name = music_path.stem
+            metadata = metadata_lookup.get(file_name)
+
+            if metadata:
+                self.logger.info("Using JSON metadata")
+                self._update_file_tags(music_path, metadata, processing_state)
+            else:
+                self.logger.info("No metadata found for file")
+                processing_state.songs_without_metadata.add(music_path.name)
+
+        except Exception as e:
+            self.logger.error(f"Error processing file {music_path.name}: {str(e)}")
+            processing_state.songs_without_metadata.add(music_path.name)
+
+    def _update_file_tags(self, music_path: Path, metadata: ExtendedSongMetadata, processing_state: ProcessingState) -> None:
+        """Update file tags with metadata from JSON"""
+        try:
+            if music_path.suffix.lower() == '.flac':
+                # Update FLAC tags
+                audio = FLAC(music_path)
+                audio.tags.clear()
+                if metadata.genres:
+                    audio['genre'] = metadata.genres
+                if metadata.styles:
+                    audio['styles'] = metadata.styles
+                audio.save()
+            else:
+                # Update ID3 tags
+                try:
+                    tags = ID3(music_path)
+                except ID3NoHeaderError:
+                    tags = ID3()
+
+                tags.delall('TCON')  # Clear existing genre tags
+                if metadata.genres:
+                    tags.add(TCON(encoding=3, text=metadata.genres))
+                if metadata.styles:
+                    tags.add(TXXX(encoding=3, desc='Styles', text=metadata.styles))
+
+                tags.save(music_path)
+
+            self.logger.info(f"Updated tags - Genres: {metadata.genres}, Styles: {metadata.styles}")
+
+        except Exception as e:
+            raise Exception(f"Error updating tags: {e}")

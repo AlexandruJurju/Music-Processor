@@ -36,8 +36,9 @@ class CLI:
         print("2. Update existing sync")
         print("3. Fix genres")
         print("4. Write song list")
-        print("5. Scan and save metadata backup")
-        print("6. Exit\n")
+        print("5. Metadata backup")
+        print("6. Apply metadata from json ")
+        print("7. Exit\n")
 
     def _handle_choice(self, choice: str) -> None:
         """Handle menu choice"""
@@ -47,7 +48,8 @@ class CLI:
             "3": self._handle_fix_genres,
             "4": self._write_song_list,
             "5": self._handle_scan_metadata,
-            "6": sys.exit
+            "6": self._handle_apply_metadata_from_json,
+            "7": sys.exit
         }
 
         if choice in actions:
@@ -111,3 +113,33 @@ class CLI:
             self.fs_handler.write_songs_list(playlist_dir)
         else:
             print(f"\nError: Folder {playlist_dir} not found")
+
+    def _handle_apply_metadata_from_json(self) -> None:
+        """Handle applying metadata from JSON file to songs"""
+        playlists = self.fs_handler.get_available_playlists(self.base_dir)
+        if playlists:
+            print("\nAvailable playlists:\n" + "\n".join(playlists))
+
+        playlist_name = input("\nEnter playlist name: ").strip()
+        playlist_dir = self.base_dir / playlist_name
+
+        if not playlist_dir.exists():
+            print(f"\nError: Folder {playlist_dir} not found")
+            return
+
+        # Get metadata file path
+        metadata_file = playlist_dir / "metadata_scan.json"
+        if not metadata_file.exists():
+            print(f"\nError: Metadata file not found at: {metadata_file}")
+            return
+
+        # Create metadata processor and load metadata
+        metadata_processor = MetadataProcessor(playlist_dir)
+        metadata_lookup = metadata_processor.load_metadata_from_json(metadata_file)
+
+        if not metadata_lookup:
+            print("\nError: No metadata found in the JSON file")
+            return
+
+        # Process the metadata using playlist processor
+        self.processor.process_playlist_with_metadata(playlist_dir, metadata_lookup)

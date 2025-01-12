@@ -1,5 +1,5 @@
 {
-  "scan_time": "2025-01-12T06:13:14.750289",
+  "scan_time": "2025-01-12T07:09:10.627870",
   "total_songs": 1762,
   "playlist_path": "X:\\Repos\\Music\\Music\\All",
   "songs": [
@@ -1387,9 +1387,9 @@
       "year": "2015-09-04",
       "styles": [
         "Baroque",
-        "Early Music",
         "Italian Baroque",
-        "Classical"
+        "Classical",
+        "Early Music"
       ]
     },
     {
@@ -1403,9 +1403,9 @@
       "year": "2015-09-04",
       "styles": [
         "Baroque",
-        "Early Music",
         "Italian Baroque",
-        "Classical"
+        "Classical",
+        "Early Music"
       ]
     },
     {
@@ -1572,10 +1572,10 @@
       "album": "AM",
       "year": "2013-09-09",
       "styles": [
-        "Sheffield Indie",
         "Permanent Wave",
+        "Garage Rock",
         "Modern Rock",
-        "Garage Rock"
+        "Sheffield Indie"
       ]
     },
     {
@@ -4987,8 +4987,8 @@
       "album": "Haven (Original Game Soundtrack)",
       "year": "2020-12-03",
       "styles": [
-        "Darksynth",
-        "Filter House"
+        "Filter House",
+        "Darksynth"
       ]
     },
     {
@@ -5035,8 +5035,8 @@
       "album": "Origins",
       "year": "2019-01-18",
       "styles": [
-        "Darksynth",
-        "Filter House"
+        "Filter House",
+        "Darksynth"
       ]
     },
     {
@@ -5051,8 +5051,8 @@
       "album": "09/17 2007",
       "year": "2010-01-25",
       "styles": [
-        "Darksynth",
         "Filter House",
+        "Darksynth",
         "Darksynth"
       ]
     },
@@ -7821,8 +7821,8 @@
       ],
       "name": "Centuries",
       "genres": [
-        "Rock",
-        "Pop"
+        "Pop",
+        "Rock"
       ],
       "filepath": "Fall Out Boy - Centuries.mp3",
       "album": "American Beauty/American Psycho",
@@ -7838,8 +7838,8 @@
       ],
       "name": "The Phoenix",
       "genres": [
-        "Rock",
-        "Pop"
+        "Pop",
+        "Rock"
       ],
       "filepath": "Fall Out Boy - The Phoenix.mp3",
       "album": "Save Rock And Roll",
@@ -7855,8 +7855,8 @@
       ],
       "name": "Thnks fr th Mmrs",
       "genres": [
-        "Rock",
-        "Pop"
+        "Pop",
+        "Rock"
       ],
       "filepath": "Fall Out Boy - Thnks fr th Mmrs.mp3",
       "album": "Infinity On High",
@@ -8774,9 +8774,9 @@
       "album": "William Tell: Overture (Finale)",
       "year": "2024-10-09",
       "styles": [
+        "Italian Romanticism",
         "Italian Opera",
-        "Classical",
-        "Italian Romanticism"
+        "Classical"
       ]
     },
     {
@@ -8800,10 +8800,10 @@
       "album": "VERDI REQUIEM",
       "year": "2024-11-20",
       "styles": [
-        "Late Romantic Era",
+        "Italian Romanticism",
         "Italian Opera",
-        "Classical",
-        "Italian Romanticism"
+        "Late Romantic Era",
+        "Classical"
       ]
     },
     {
@@ -8858,8 +8858,8 @@
       "album": "F**k Your Fear (mr.kitty Remix)",
       "year": "2019-01-25",
       "styles": [
-        "Synth Punk",
-        "Witch House"
+        "Witch House",
+        "Synth Punk"
       ]
     },
     {
@@ -9538,8 +9538,8 @@
       ],
       "name": "Enemy (with JID) - from the series Arcane League of Legends",
       "genres": [
-        "Rock",
-        "Pop"
+        "Pop",
+        "Rock"
       ],
       "filepath": "Imagine Dragons, JID, Arcane, League of Legends - Enemy (with JID) - from the series Arcane League of Legends.mp3",
       "album": "Enemy (with JID) [from the series Arcane League of Legends]",
@@ -9826,8 +9826,8 @@
       "album": "Piece of Mind (2015 Remaster)",
       "year": "1983",
       "styles": [
-        "Nwobhm",
         "Metal",
+        "Nwobhm",
         "Alternative Metal",
         "Hard Rock"
       ]
@@ -10569,9 +10569,9 @@
       "album": "Soule: Secunda (Transcr. Trifonov for Piano) [From \"The Elder Scrolls: Skyrim\"]",
       "year": "2024-07-19",
       "styles": [
-        "Scorecore",
+        "Video Game Music",
         "Orchestral Soundtrack",
-        "Video Game Music"
+        "Scorecore"
       ]
     },
     {
@@ -14263,14 +14263,14 @@
       "year": "1981-11-09",
       "styles": [
         "New Wave Pop",
-        "Australian Rock",
         "New Romantic",
-        "Soft Rock",
         "Mellow Gold",
-        "Album Rock",
-        "Classic Rock",
+        "Soft Rock",
         "New Wave",
-        "Hard Rock"
+        "Album Rock",
+        "Hard Rock",
+        "Australian Rock",
+        "Classic Rock"
       ]
     },
     {
@@ -14357,9 +14357,9 @@
       "album": "72 Seasons",
       "year": "2023-04-14",
       "styles": [
+        "Metal",
         "Thrash Metal",
         "Old School Thrash",
-        "Metal",
         "Hard Rock"
       ]
     },
@@ -21525,8 +21525,8 @@
       "styles": [
         "Dance-punk",
         "Filter House",
-        "Fidget House",
-        "Electro House"
+        "Electro House",
+        "Fidget House"
       ]
     },
     {
@@ -23144,8 +23144,8 @@
       ],
       "name": "Stressed Out",
       "genres": [
-        "Rock",
-        "Pop"
+        "Pop",
+        "Rock"
       ],
       "filepath": "Twenty One Pilots - Stressed Out.mp3",
       "album": "Blurryface",
@@ -23161,8 +23161,8 @@
       ],
       "name": "The Outside",
       "genres": [
-        "Rock",
-        "Pop"
+        "Pop",
+        "Rock"
       ],
       "filepath": "Twenty One Pilots - The Outside.mp3",
       "album": "Scaled And Icy",
