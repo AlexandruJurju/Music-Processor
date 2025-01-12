@@ -40,6 +40,7 @@ public class PlaylistProcessor : IPlaylistProcessor
         foreach (var song in playlistSongs)
         {
             var songName = Path.GetFileNameWithoutExtension(song);
+            
             var cleanedSongName = _spotdlMetadataLoader.CleanKeyName(songName);
 
             if (!spotdlMetadata.TryGetValue(cleanedSongName, out var songSpotDLMetadata))
@@ -67,42 +68,67 @@ public class PlaylistProcessor : IPlaylistProcessor
 
     private void ProcessSongMetadata(AudioMetadata songMetadata, Dictionary<string, List<string>> styleMappings, List<string> stylesToRemove)
     {
-        foreach (var mapping in styleMappings)
+        // Create HashSet from stylesToRemove for O(1) lookups
+        var stylesToRemoveSet = new HashSet<string>(stylesToRemove);
+
+        // Track which styles were mapped
+        var mappedStyles = new HashSet<string>();
+
+        // Process each style only once
+        foreach (var style in songMetadata.Styles.ToList())
         {
-            foreach (var style in songMetadata.Styles.ToList())
+            bool styleWasMapped = false;
+
+            // Check if any mapping contains this style
+            foreach (var mapping in styleMappings)
             {
+                var mappingGenre = mapping.Key;
                 if (mapping.Value.Contains(style))
                 {
-                    // Remove the original style if it's the same as the key
-                    if (mapping.Key == style)
+                    styleWasMapped = true;
+
+                    // Remove if it's the same as the genre or in stylesToRemove
+                    if (mappingGenre == style || stylesToRemoveSet.Contains(style))
                     {
                         songMetadata.Styles.Remove(style);
                     }
 
-                    // remove the style if it's a style that needs to be removed
-                    if (stylesToRemove.Contains(style))
+                    // Add mapped genre if not present
+                    if (!songMetadata.Genres.Contains(mappingGenre))
                     {
-                        songMetadata.Styles.Remove(style);
+                        songMetadata.Genres.Add(mappingGenre);
                     }
 
-                    // Add the mapped style if it's not already present
-                    if (!songMetadata.Genres.Contains(mapping.Key))
-                    {
-                        songMetadata.Genres.Add(mapping.Key);
-                    }
-
-                    // _logger.LogInformation($"Mapped style {style} to {mapping.Key} for song {songName}");
+                    break; // Style is mapped, no need to check other mappings
                 }
+            }
+
+            // If style wasn't mapped, add it to unmapped styles
+            if (!styleWasMapped && !stylesToRemoveSet.Contains(style))
+            {
+                UnmappedStyles.Add(style);
             }
         }
     }
 
     private void PrintProcessingResults()
     {
-        Console.WriteLine("Songs without metadata:");
+        Console.WriteLine("\nSongs without metadata:");
         foreach (var song in SongsWithoutMetadata)
         {
             Console.WriteLine(song);
+        }
+
+        Console.WriteLine("\nSongs without styles:");
+        foreach (var song in SongsWithoutStyles)
+        {
+            Console.WriteLine(song);
+        }
+
+        Console.WriteLine("\nUnmapped styles found:");
+        foreach (var style in UnmappedStyles)
+        {
+            Console.WriteLine(style);
         }
     }
 }

@@ -80,11 +80,11 @@ public class SpotdlMetadataLoader
         };
     }
 
-    private string CreateLookupKey(SpotDLSongMetadata song)
+    public string CreateLookupKey(SpotDLSongMetadata song)
     {
-        var cleanArtist = CleanKeyName(song.Artist);
+        var cleanArtists = string.Join(", ", song.Artists.Select(CleanKeyName));
         var cleanTitle = CleanKeyName(song.Name);
-        return $"{cleanArtist} - {cleanTitle}";
+        return $"{cleanArtists} - {cleanTitle}";
     }
 
     public string CleanKeyName(string name)
