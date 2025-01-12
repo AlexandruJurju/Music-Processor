@@ -2,7 +2,7 @@
 
 namespace Music_Processor.CLI.Commands;
 
-public class ApplyMetadataCommand : ICommand
+public class ApplyMetadataCommand : IMenuCommand
 {
     private readonly ILogger<ApplyMetadataCommand> _logger;
 

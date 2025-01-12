@@ -1,6 +1,6 @@
 ﻿namespace Music_Processor.CLI.Commands;
 
-public class WriteSongListCommand : ICommand
+public class WriteSongListCommand : IMenuCommand
 {
     public string Name => "Write song list file";
     public int MenuNumber => MenuChoices.WriteSongList;

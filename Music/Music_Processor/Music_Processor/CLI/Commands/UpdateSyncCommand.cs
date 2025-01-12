@@ -2,7 +2,7 @@
 
 namespace Music_Processor.CLI.Commands;
 
-public class UpdateSyncCommand : ICommand
+public class UpdateSyncCommand : IMenuCommand
 {
     private readonly ILogger<UpdateSyncCommand> _logger;
 

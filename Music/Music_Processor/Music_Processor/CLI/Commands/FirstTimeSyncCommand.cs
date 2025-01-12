@@ -1,10 +1,9 @@
 ﻿using Microsoft.Extensions.Logging;
 using Music_Processor.Interfaces;
-using Music_Processor.Services;
 
 namespace Music_Processor.CLI.Commands;
 
-public class FirstTimeSyncCommand : ICommand
+public class FirstTimeSyncCommand : IMenuCommand
 {
     private readonly ILogger<FirstTimeSyncCommand> _logger;
     private readonly ISpotDLService _spotdlService;

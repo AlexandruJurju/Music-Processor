@@ -14,13 +14,13 @@ var host = Host.CreateDefaultBuilder(args)
         services.AddTransient<IFileService, FileService>();
 
         // Register all commands
-        services.AddTransient<ICommand, FirstTimeSyncCommand>();
-        services.AddTransient<ICommand, UpdateSyncCommand>();
-        services.AddTransient<ICommand, FixGenresCommand>();
-        services.AddTransient<ICommand, WriteSongListCommand>();
-        services.AddTransient<ICommand, WriteMetadataFileCommand>();
-        services.AddTransient<ICommand, ApplyMetadataCommand>();
-        services.AddTransient<ICommand, ExitCommand>();
+        services.AddTransient<IMenuCommand, FirstTimeSyncCommand>();
+        services.AddTransient<IMenuCommand, UpdateSyncCommand>();
+        services.AddTransient<IMenuCommand, FixGenresCommand>();
+        services.AddTransient<IMenuCommand, WriteSongListCommand>();
+        services.AddTransient<IMenuCommand, WriteMetadataFileCommand>();
+        services.AddTransient<IMenuCommand, ApplyMetadataCommand>();
+        services.AddTransient<IMenuCommand, ExitCommand>();
 
         // Register command factory
         services.AddSingleton<CommandFactory>();

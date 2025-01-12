@@ -2,7 +2,7 @@
 
 namespace Music_Processor.CLI.Commands;
 
-public class FixGenresCommand : ICommand
+public class FixGenresCommand : IMenuCommand
 {
     private readonly ILogger<FixGenresCommand> _logger;
 

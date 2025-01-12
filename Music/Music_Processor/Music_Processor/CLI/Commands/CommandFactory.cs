@@ -2,14 +2,14 @@
 
 public class CommandFactory
 {
-    private readonly IReadOnlyDictionary<int, ICommand> _commands;
+    private readonly IReadOnlyDictionary<int, IMenuCommand> _commands;
 
-    public CommandFactory(IEnumerable<ICommand> commands)
+    public CommandFactory(IEnumerable<IMenuCommand> commands)
     {
         _commands = commands.ToDictionary(c => c.MenuNumber);
     }
 
-    public ICommand GetCommand(int menuChoice)
+    public IMenuCommand GetCommand(int menuChoice)
     {
         if (_commands.TryGetValue(menuChoice, out var command))
         {
@@ -19,5 +19,5 @@ public class CommandFactory
         throw new ArgumentOutOfRangeException(nameof(menuChoice));
     }
 
-    public IReadOnlyCollection<ICommand> GetAllCommands() => _commands.Values.ToList();
+    public IReadOnlyCollection<IMenuCommand> GetAllCommands() => _commands.Values.ToList();
 }
