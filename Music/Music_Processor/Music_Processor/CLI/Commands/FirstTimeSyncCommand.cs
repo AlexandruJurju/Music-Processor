@@ -1,14 +1,20 @@
 ﻿using Microsoft.Extensions.Logging;
+using Music_Processor.Interfaces;
+using Music_Processor.Services;
 
 namespace Music_Processor.CLI.Commands;
 
 public class FirstTimeSyncCommand : ICommand
 {
     private readonly ILogger<FirstTimeSyncCommand> _logger;
+    private readonly ISpotDLService _spotdlService;
+    private readonly IFileService _fileService;
 
-    public FirstTimeSyncCommand(ILogger<FirstTimeSyncCommand> logger)
+    public FirstTimeSyncCommand(ILogger<FirstTimeSyncCommand> logger, ISpotDLService spotdlService, IFileService fileService)
     {
         _logger = logger;
+        _spotdlService = spotdlService;
+        _fileService = fileService;
     }
 
     public string Name => "First Time Sync";
@@ -24,7 +30,7 @@ public class FirstTimeSyncCommand : ICommand
             Console.WriteLine("Please provide a valid Spotify playlist URL.");
             return;
         }
-        
+
         Console.Write("Enter playlist name: ");
         var playlistName = Console.ReadLine()?.Trim();
 
@@ -33,6 +39,16 @@ public class FirstTimeSyncCommand : ICommand
             Console.WriteLine("Please provide a valid playlist name.");
             return;
         }
-        
+
+        try
+        {
+            Console.WriteLine("Calling SpotDL...");
+            await _spotdlService.NewSyncAsync(playlistUrl, playlistName, _fileService.GetBaseDirectory());
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, "Failed to sync playlist");
+            Console.WriteLine($"\nError: {ex.Message}");
+        }
     }
 }
