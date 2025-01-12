@@ -1,11 +1,11 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Music_Processor;
 using Music_Processor.CLI;
 using Music_Processor.CLI.Commands;
 using Music_Processor.Factories;
 using Music_Processor.Interfaces;
 using Music_Processor.Services;
+using Music_Processor.Services.SpotDLMetadataLoader;
 
 var host = Host.CreateDefaultBuilder(args)
     .ConfigureServices((context, services) =>
@@ -30,11 +30,23 @@ var host = Host.CreateDefaultBuilder(args)
         services.AddSingleton<MenuCommandFactory>();
         services.AddSingleton<MetadataExtractorFactory>();
 
+        services.AddSingleton<SpotDLMetadataLoader>();
+
         // Register CLI
         services.AddTransient<CLI>();
     })
     .Build();
 
+FileService fileService = new FileService();
+
+
+SpotDLMetadataLoader spotDlMetadataLoader = host.Services.GetRequiredService<SpotDLMetadataLoader>();
+var spotdlMetadata = spotDlMetadataLoader.LoadSpotDLMetadata(fileService.GetPlaylistsDirectory() + "\\" + "Favorites");
+
+foreach (var pair in spotdlMetadata)
+{
+    Console.WriteLine(pair.Key + " " + pair.Value);
+}
 
 // var cli = host.Services.GetRequiredService<CLI>();
 // await cli.RunAsync();

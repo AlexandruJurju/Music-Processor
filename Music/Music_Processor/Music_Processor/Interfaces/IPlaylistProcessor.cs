@@ -4,5 +4,5 @@ namespace Music_Processor.Interfaces;
 
 public interface IPlaylistProcessor
 {
-    Dictionary<string, AudioMetadata> LoadPlaylistMetadata(string playlistPath);
+    Dictionary<string, AudioMetadata> LoadSpotDLMetadata(string playlistPath);
 }

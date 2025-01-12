@@ -38,6 +38,18 @@ public class FileService : IFileService
         return files.Where(file => audioFileFormats.Contains(Path.GetExtension(file).ToLower())).ToArray();
     }
 
+    public string? GetSpotDLFileInFolder(string path)
+    {
+        if (string.IsNullOrWhiteSpace(path))
+        {
+            throw new ArgumentException("The path cannot be null or empty.", nameof(path));
+        }
+
+        var spotdlFile = Directory.GetFiles(path, "*.spotdl", SearchOption.AllDirectories).FirstOrDefault();
+
+        return spotdlFile;
+    }
+
     public string GetMetadataStorageFileForPlaylist(string playlistPath)
     {
         return playlistPath + ".json";

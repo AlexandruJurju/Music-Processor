@@ -8,7 +8,7 @@ public record AudioMetadata
     public string Album { get; init; } = string.Empty;
     public List<string> Genres { get; init; } = new();
     public List<string> Styles { get; init; } = new();
-    public int Year { get; init; }
+    public int? Year { get; init; }
     public string Comment { get; init; } = string.Empty;
     public int TrackNumber { get; init; }
     public TimeSpan Duration { get; init; }

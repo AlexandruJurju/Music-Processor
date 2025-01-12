@@ -24,15 +24,17 @@ public class PlaylistProcessor : IPlaylistProcessor
         SongsWithoutMetadata = new HashSet<string>();
     }
 
-    public void ProcessPlaylist(string playlistPath)
-    {
-    }
-
-    public Dictionary<string, AudioMetadata> LoadPlaylistMetadata(string playlistPath)
+    public Dictionary<string, AudioMetadata> LoadSpotDLMetadata(string playlistPath)
     {
         Dictionary<string, AudioMetadata> playlistMetadata = new Dictionary<string, AudioMetadata>();
 
-        string metadataFile = _fileService.GetMetadataStorageFileForPlaylist(playlistPath);
+        var spotdlFile = _fileService.GetSpotDLFileInFolder(playlistPath);
+        if (spotdlFile is null)
+        {
+            _logger.LogError("Spotdl file could not be found");
+            throw new FileNotFoundException("Spotdl file not found");
+        }
+
 
         return playlistMetadata;
     }

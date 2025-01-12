@@ -7,4 +7,5 @@ public interface IFileService
     string[] GetAllFoldersInPath(string path);
     string[] GetAllAudioFilesInFolder(string path);
     string GetMetadataStorageFileForPlaylist(string playlistPath);
+    string? GetSpotDLFileInFolder(string path);
 }
