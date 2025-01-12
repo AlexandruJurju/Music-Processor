@@ -22,7 +22,7 @@ public class UpdateSyncCommand : IMenuCommand
 
     public async Task ExecuteAsync()
     {
-        string baseDirectory = _fileService.GetBaseDirectory();
+        string baseDirectory = _fileService.GetPlaylistsDirectory();
         string[] availablePlaylists = _fileService.GetAllFoldersInPath(baseDirectory);
 
         foreach (var playlist in availablePlaylists)
@@ -48,7 +48,7 @@ public class UpdateSyncCommand : IMenuCommand
         }
 
         // check if sync file exists
-        var syncFile = Path.Combine(_fileService.GetBaseDirectory(), playlistName, $"{playlistName}.spotdl");
+        var syncFile = Path.Combine(_fileService.GetPlaylistsDirectory(), playlistName, $"{playlistName}.spotdl");
         if (string.IsNullOrEmpty(syncFile))
         {
             Console.WriteLine("No spotdl file found.");
@@ -57,7 +57,7 @@ public class UpdateSyncCommand : IMenuCommand
         try
         {
             Console.WriteLine("Calling SpotDL...");
-            await _spotdlService.UpdateSyncAsync(playlistName, _fileService.GetBaseDirectory());
+            await _spotdlService.UpdateSyncAsync(playlistName, _fileService.GetPlaylistsDirectory());
         }
         catch (Exception ex)
         {

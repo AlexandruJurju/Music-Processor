@@ -4,9 +4,14 @@ namespace Music_Processor.Services;
 
 public class FileService : IFileService
 {
-    public string GetBaseDirectory()
+    public string GetPlaylistsDirectory()
     {
         return Path.Combine(Environment.CurrentDirectory, Constants.Constants.PlaylistFolder);
+    }
+
+    public string GetBaseDirectory()
+    {
+        return Path.Combine(Environment.CurrentDirectory);
     }
 
     public string[] GetAllFoldersInPath(string path)

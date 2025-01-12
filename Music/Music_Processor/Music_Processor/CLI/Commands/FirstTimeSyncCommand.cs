@@ -42,7 +42,7 @@ public class FirstTimeSyncCommand : IMenuCommand
         try
         {
             Console.WriteLine("Calling SpotDL...");
-            await _spotdlService.NewSyncAsync(playlistUrl, playlistName, _fileService.GetBaseDirectory());
+            await _spotdlService.NewSyncAsync(playlistUrl, playlistName, _fileService.GetPlaylistsDirectory());
         }
         catch (Exception ex)
         {

@@ -22,6 +22,8 @@ var host = Host.CreateDefaultBuilder(args)
         services.AddTransient<IMenuCommand, ApplyMetadataCommand>();
         services.AddTransient<IMenuCommand, ExitCommand>();
 
+        services.AddTransient<IConfigService, ConfigService>();
+
         // Register command factory
         services.AddSingleton<CommandFactory>();
 
@@ -30,5 +32,10 @@ var host = Host.CreateDefaultBuilder(args)
     })
     .Build();
 
-var cli = host.Services.GetRequiredService<CLI>();
-await cli.RunAsync();
+IFileService fileService = new FileService();
+IConfigService _configService = new ConfigService(fileService);
+Console.WriteLine(_configService.LoadStyleMappingFile());
+Console.WriteLine(_configService.LoadStylesToRemove());
+
+// var cli = host.Services.GetRequiredService<CLI>();
+// await cli.RunAsync();
