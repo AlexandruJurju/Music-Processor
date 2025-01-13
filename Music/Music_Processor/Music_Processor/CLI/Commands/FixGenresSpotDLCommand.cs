@@ -3,20 +3,20 @@ using Music_Processor.Interfaces;
 
 namespace Music_Processor.CLI.Commands;
 
-public class FixGenresCommand : IMenuCommand
+public class FixGenresSpotDLCommand : IMenuCommand
 {
-    private readonly ILogger<FixGenresCommand> _logger;
+    private readonly ILogger<FixGenresSpotDLCommand> _logger;
     private readonly IFileService _fileService;
     private readonly IPlaylistProcessor _playlistProcessor;
 
-    public FixGenresCommand(ILogger<FixGenresCommand> logger, IFileService fileService, IPlaylistProcessor playlistProcessor)
+    public FixGenresSpotDLCommand(ILogger<FixGenresSpotDLCommand> logger, IFileService fileService, IPlaylistProcessor playlistProcessor)
     {
         _logger = logger;
         _fileService = fileService;
         _playlistProcessor = playlistProcessor;
     }
 
-    public string Name => "Fix Genres";
+    public string Name => "Fix Genres SpotDL";
 
     public async Task ExecuteAsync()
     {

@@ -17,7 +17,7 @@ var host = Host.CreateDefaultBuilder(args)
         // Register all commands
         services.AddTransient<IMenuCommand, FirstTimeSyncCommand>();
         services.AddTransient<IMenuCommand, UpdateSyncCommand>();
-        services.AddTransient<IMenuCommand, FixGenresCommand>();
+        services.AddTransient<IMenuCommand, FixGenresSpotDLCommand>();
         services.AddTransient<IMenuCommand, WriteMetadataFileCommand>();
         services.AddTransient<IMenuCommand, ApplyMetadataCommand>();
         services.AddTransient<IMenuCommand, ExitCommand>();
