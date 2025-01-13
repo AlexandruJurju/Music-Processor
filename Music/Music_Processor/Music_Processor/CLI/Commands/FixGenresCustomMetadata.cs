@@ -5,8 +5,8 @@ namespace Music_Processor.CLI.Commands;
 
 public class FixGenresCustomMetadata : IMenuCommand
 {
-    private readonly ILogger<FixGenresCustomMetadata> _logger;
     private readonly IFileService _fileService;
+    private readonly ILogger<FixGenresCustomMetadata> _logger;
     private readonly IPlaylistProcessor _playlistProcessor;
 
     public FixGenresCustomMetadata(ILogger<FixGenresCustomMetadata> logger, IFileService fileService, IPlaylistProcessor playlistProcessor)
@@ -20,18 +20,18 @@ public class FixGenresCustomMetadata : IMenuCommand
 
     public async Task ExecuteAsync()
     {
-        string baseDirectory = _fileService.GetPlaylistsDirectory();
+        var baseDirectory = _fileService.GetPlaylistsDirectory();
         string[] availablePlaylists = _fileService.GetAllFoldersInPath(baseDirectory);
 
         foreach (var playlist in availablePlaylists)
         {
-            string folderName = Path.GetFileName(playlist);
+            var folderName = Path.GetFileName(playlist);
             Console.WriteLine(folderName);
         }
 
         Console.Write("Enter playlist name: ");
         var playlistName = Console.ReadLine()?.Trim();
-        if (String.IsNullOrEmpty(playlistName))
+        if (string.IsNullOrEmpty(playlistName))
         {
             Console.WriteLine("Please provide a valid playlist name.");
             return;
@@ -51,7 +51,7 @@ public class FixGenresCustomMetadata : IMenuCommand
             Console.WriteLine("Metadata file could not be found.");
             return;
         }
-        
+
         var playlistPath = Path.Combine(_fileService.GetPlaylistsDirectory(), playlistName);
         _playlistProcessor.FixPlaylistGenresUsingCustomMetadata(playlistPath, metadataFile);
     }

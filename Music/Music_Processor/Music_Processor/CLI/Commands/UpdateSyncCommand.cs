@@ -5,9 +5,9 @@ namespace Music_Processor.CLI.Commands;
 
 public class UpdateSyncCommand : IMenuCommand
 {
+    private readonly IFileService _fileService;
     private readonly ILogger<UpdateSyncCommand> _logger;
     private readonly ISpotDLService _spotdlService;
-    private readonly IFileService _fileService;
 
 
     public UpdateSyncCommand(ILogger<UpdateSyncCommand> logger, ISpotDLService spotdlService, IFileService fileService)
@@ -21,18 +21,18 @@ public class UpdateSyncCommand : IMenuCommand
 
     public async Task ExecuteAsync()
     {
-        string baseDirectory = _fileService.GetPlaylistsDirectory();
+        var baseDirectory = _fileService.GetPlaylistsDirectory();
         string[] availablePlaylists = _fileService.GetAllFoldersInPath(baseDirectory);
 
         foreach (var playlist in availablePlaylists)
         {
-            string folderName = Path.GetFileName(playlist);
+            var folderName = Path.GetFileName(playlist);
             Console.WriteLine(folderName);
         }
 
         Console.Write("Enter playlist name: ");
         var playlistName = Console.ReadLine()?.Trim();
-        if (String.IsNullOrEmpty(playlistName))
+        if (string.IsNullOrEmpty(playlistName))
         {
             Console.WriteLine("Please provide a valid playlist name.");
             return;

@@ -5,8 +5,8 @@ namespace Music_Processor.CLI.Commands;
 
 public class WriteMetadataFileCommand : IMenuCommand
 {
-    private readonly ILogger<WriteMetadataFileCommand> _logger;
     private readonly IFileService _fileService;
+    private readonly ILogger<WriteMetadataFileCommand> _logger;
     private readonly IMetadataService _metadataService;
 
     public WriteMetadataFileCommand(ILogger<WriteMetadataFileCommand> logger, IFileService fileService, IMetadataService metadataService)
@@ -20,18 +20,18 @@ public class WriteMetadataFileCommand : IMenuCommand
 
     public async Task ExecuteAsync()
     {
-        string baseDirectory = _fileService.GetPlaylistsDirectory();
+        var baseDirectory = _fileService.GetPlaylistsDirectory();
         string[] availablePlaylists = _fileService.GetAllFoldersInPath(baseDirectory);
 
         foreach (var playlist in availablePlaylists)
         {
-            string folderName = Path.GetFileName(playlist);
+            var folderName = Path.GetFileName(playlist);
             Console.WriteLine(folderName);
         }
 
         Console.Write("Enter playlist name: ");
         var playlistName = Console.ReadLine()?.Trim();
-        if (String.IsNullOrEmpty(playlistName))
+        if (string.IsNullOrEmpty(playlistName))
         {
             Console.WriteLine("Please provide a valid playlist name.");
             return;

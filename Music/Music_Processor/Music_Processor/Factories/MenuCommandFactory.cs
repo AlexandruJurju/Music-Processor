@@ -22,5 +22,8 @@ public class MenuCommandFactory
         throw new ArgumentOutOfRangeException(nameof(menuChoice));
     }
 
-    public IReadOnlyCollection<KeyValuePair<int, IMenuCommand>> GetAllCommands() => _commands.ToList();
+    public IReadOnlyCollection<KeyValuePair<int, IMenuCommand>> GetAllCommands()
+    {
+        return _commands.ToList();
+    }
 }

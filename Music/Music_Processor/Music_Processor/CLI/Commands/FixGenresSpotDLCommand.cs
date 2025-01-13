@@ -5,8 +5,8 @@ namespace Music_Processor.CLI.Commands;
 
 public class FixGenresSpotDLCommand : IMenuCommand
 {
-    private readonly ILogger<FixGenresSpotDLCommand> _logger;
     private readonly IFileService _fileService;
+    private readonly ILogger<FixGenresSpotDLCommand> _logger;
     private readonly IPlaylistProcessor _playlistProcessor;
 
     public FixGenresSpotDLCommand(ILogger<FixGenresSpotDLCommand> logger, IFileService fileService, IPlaylistProcessor playlistProcessor)
@@ -20,18 +20,18 @@ public class FixGenresSpotDLCommand : IMenuCommand
 
     public async Task ExecuteAsync()
     {
-        string baseDirectory = _fileService.GetPlaylistsDirectory();
+        var baseDirectory = _fileService.GetPlaylistsDirectory();
         string[] availablePlaylists = _fileService.GetAllFoldersInPath(baseDirectory);
 
         foreach (var playlist in availablePlaylists)
         {
-            string folderName = Path.GetFileName(playlist);
+            var folderName = Path.GetFileName(playlist);
             Console.WriteLine(folderName);
         }
 
         Console.Write("Enter playlist name: ");
         var playlistName = Console.ReadLine()?.Trim();
-        if (String.IsNullOrEmpty(playlistName))
+        if (string.IsNullOrEmpty(playlistName))
         {
             Console.WriteLine("Please provide a valid playlist name.");
             return;

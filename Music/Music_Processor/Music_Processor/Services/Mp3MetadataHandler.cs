@@ -1,7 +1,8 @@
-using Microsoft.Extensions.Logging;
 using Music_Processor.Interfaces;
 using Music_Processor.Model;
+using TagLib;
 using TagLib.Id3v2;
+using File = TagLib.File;
 using Tag = TagLib.Tag;
 
 namespace Music_Processor.Services;
@@ -10,8 +11,8 @@ public class MP3MetadataHandler : IMetadataHandler
 {
     public AudioMetadata ExtractMetadata(string filePath)
     {
-        using var file = TagLib.File.Create(filePath);
-        var tag = file.GetTag(TagLib.TagTypes.Id3v2, true) as TagLib.Id3v2.Tag;
+        using var file = File.Create(filePath);
+        var tag = file.GetTag(TagTypes.Id3v2, true) as TagLib.Id3v2.Tag;
 
         return new AudioMetadata
         {
@@ -29,33 +30,15 @@ public class MP3MetadataHandler : IMetadataHandler
         };
     }
 
-    private List<string> ExtractStyles(Tag tag)
-    {
-        var styles = new List<string>();
-
-        if (tag is TagLib.Id3v2.Tag id3v2)
-        {
-            var styleFrame = id3v2.GetFrames()
-                .OfType<UserTextInformationFrame>()
-                .FirstOrDefault(f => f.Description == "Styles");
-
-            if (styleFrame != null)
-            {
-                styles.AddRange(styleFrame.Text);
-            }
-        }
-
-        return styles;
-    }
-
     public void WriteMetadata(string filePath, AudioMetadata audioMetadata)
     {
         try
         {
-            using var file = TagLib.File.Create(filePath);
+            // todo: fix memory problems
+            using var file = File.Create(filePath);
 
             // Get or create ID3v2 tag
-            var tag = file.GetTag(TagLib.TagTypes.Id3v2, true) as TagLib.Id3v2.Tag;
+            var tag = file.GetTag(TagTypes.Id3v2, true) as TagLib.Id3v2.Tag;
             if (tag == null)
             {
                 throw new InvalidOperationException("Failed to create ID3v2 tag");
@@ -88,16 +71,36 @@ public class MP3MetadataHandler : IMetadataHandler
                 {
                     Description = "Styles",
                     Text = audioMetadata.Styles.ToArray(),
-                    TextEncoding = TagLib.StringType.UTF8
+                    TextEncoding = StringType.UTF8
                 };
                 tag.AddFrame(styleFrame);
             }
 
+            // todo: fix memory problems
             file.Save();
         }
         catch (Exception ex)
         {
             throw new Exception($"Error writing metadata to file {filePath}: {ex.Message}", ex);
         }
+    }
+
+    private List<string> ExtractStyles(Tag tag)
+    {
+        var styles = new List<string>();
+
+        if (tag is TagLib.Id3v2.Tag id3v2)
+        {
+            var styleFrame = id3v2.GetFrames()
+                .OfType<UserTextInformationFrame>()
+                .FirstOrDefault(f => f.Description == "Styles");
+
+            if (styleFrame != null)
+            {
+                styles.AddRange(styleFrame.Text);
+            }
+        }
+
+        return styles;
     }
 }

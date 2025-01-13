@@ -1,6 +1,6 @@
-using System.Text.Json;
 using System.Collections.Concurrent;
 using System.Diagnostics;
+using System.Text.Json;
 using Music_Processor.Factories;
 using Music_Processor.Interfaces;
 using Music_Processor.Model;
@@ -16,10 +16,10 @@ public class PlaylistProcessor(
     : IPlaylistProcessor
 {
     private readonly JsonSerializerOptions _jsonOptions = new() { PropertyNameCaseInsensitive = true };
+    private readonly ConcurrentDictionary<string, byte> SongsWithoutMetadata = new();
+    private readonly ConcurrentDictionary<string, byte> SongsWithoutStyles = new();
 
     private readonly ConcurrentDictionary<string, byte> UnmappedStyles = new();
-    private readonly ConcurrentDictionary<string, byte> SongsWithoutStyles = new();
-    private readonly ConcurrentDictionary<string, byte> SongsWithoutMetadata = new();
 
     public void FixPlaylistGenresUsingSpotdlMetadata(string playlistPath)
     {
@@ -29,7 +29,7 @@ public class PlaylistProcessor(
         var stylesToRemove = configService.LoadStylesToRemove();
 
         var stopwatch = Stopwatch.StartNew();
-        
+
         Parallel.ForEach(
             playlistSongs,
             new ParallelOptions { MaxDegreeOfParallelism = Environment.ProcessorCount },
@@ -62,16 +62,9 @@ public class PlaylistProcessor(
         PrintProcessingResults();
     }
 
-    private void PlaceGenresInStyles(AudioMetadata songSpotDLMetadata)
-    {
-        songSpotDLMetadata.Styles.Clear();
-        songSpotDLMetadata.Styles.AddRange(songSpotDLMetadata.Genres);
-        songSpotDLMetadata.Genres.Clear();
-    }
-
     public void FixPlaylistGenresUsingCustomMetadata(string playlistPath, string metadataPath)
     {
-        string jsonContent = File.ReadAllText(metadataPath);
+        var jsonContent = File.ReadAllText(metadataPath);
         List<AudioMetadata> customMetadata = JsonSerializer.Deserialize<List<AudioMetadata>>(jsonContent, _jsonOptions)!;
 
         var metadataByPath = customMetadata.ToDictionary(m => m.FilePath, m => m);
@@ -99,6 +92,13 @@ public class PlaylistProcessor(
             });
 
         PrintProcessingResults();
+    }
+
+    private void PlaceGenresInStyles(AudioMetadata songSpotDLMetadata)
+    {
+        songSpotDLMetadata.Styles.Clear();
+        songSpotDLMetadata.Styles.AddRange(songSpotDLMetadata.Genres);
+        songSpotDLMetadata.Genres.Clear();
     }
 
     private void ProcessSongMetadata(AudioMetadata songMetadata, Dictionary<string, List<string>> styleMappings, List<string> stylesToRemove)

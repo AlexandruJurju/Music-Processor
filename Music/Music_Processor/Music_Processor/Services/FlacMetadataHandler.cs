@@ -2,6 +2,7 @@ using Music_Processor.Interfaces;
 using Music_Processor.Model;
 using TagLib;
 using TagLib.Ogg;
+using File = TagLib.File;
 
 namespace Music_Processor.Services;
 
@@ -9,7 +10,7 @@ public class FlacMetadataHandler : IMetadataHandler
 {
     public AudioMetadata ExtractMetadata(string filePath)
     {
-        using var file = TagLib.File.Create(filePath);
+        using var file = File.Create(filePath);
         var tag = file.Tag;
 
         var styles = ExtractStyles(file);
@@ -30,29 +31,11 @@ public class FlacMetadataHandler : IMetadataHandler
         };
     }
 
-    private List<string> ExtractStyles(TagLib.File file)
-    {
-        var styles = new List<string>();
-
-        // Try to get the Xiph comment tag from the combined tags
-        if (file.TagTypes.HasFlag(TagTypes.Xiph))
-        {
-            var xiphTag = file.GetTag(TagTypes.Xiph) as XiphComment;
-            if (xiphTag != null)
-            {
-                var styleFields = xiphTag.GetField("STYLE");
-                styles.AddRange(styleFields);
-            }
-        }
-
-        return styles.Distinct().ToList();
-    }
-
     public void WriteMetadata(string filePath, AudioMetadata audioMetadata)
     {
         try
         {
-            using var file = TagLib.File.Create(filePath);
+            using var file = File.Create(filePath);
             var tag = file.Tag;
 
             // Handle the combined tag first for genres
@@ -84,5 +67,23 @@ public class FlacMetadataHandler : IMetadataHandler
         {
             throw new Exception($"Error writing metadata to FLAC file {filePath}: {ex.Message}", ex);
         }
+    }
+
+    private List<string> ExtractStyles(File file)
+    {
+        var styles = new List<string>();
+
+        // Try to get the Xiph comment tag from the combined tags
+        if (file.TagTypes.HasFlag(TagTypes.Xiph))
+        {
+            var xiphTag = file.GetTag(TagTypes.Xiph) as XiphComment;
+            if (xiphTag != null)
+            {
+                var styleFields = xiphTag.GetField("STYLE");
+                styles.AddRange(styleFields);
+            }
+        }
+
+        return styles.Distinct().ToList();
     }
 }

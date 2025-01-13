@@ -1,5 +1,4 @@
 ﻿using Microsoft.Extensions.Logging;
-using Music_Processor.CLI.Commands;
 using Music_Processor.Factories;
 
 namespace Music_Processor.CLI;
@@ -62,8 +61,8 @@ public class CLI
         }
 
         var commands = _menuCommandFactory.GetAllCommands();
-        int minChoice = commands.Min(c => c.Key);
-        int maxChoice = commands.Max(c => c.Key);
+        var minChoice = commands.Min(c => c.Key);
+        var maxChoice = commands.Max(c => c.Key);
 
         if (choice < minChoice || choice > maxChoice)
         {

@@ -1,5 +1,4 @@
 ﻿using System.Diagnostics;
-using System.Text;
 using Microsoft.Extensions.Logging;
 using Music_Processor.Interfaces;
 
@@ -7,13 +6,53 @@ namespace Music_Processor.Services;
 
 public class SpotDLService : ISpotDLService
 {
+    private readonly List<string> _downloadErrors = new();
     private readonly ILogger<SpotDLService> _logger;
     private readonly List<string> _lookupErrors = new();
-    private readonly List<string> _downloadErrors = new();
 
     public SpotDLService(ILogger<SpotDLService> logger)
     {
         _logger = logger;
+    }
+
+
+    public async Task NewSyncAsync(string playlistUrl, string playlistName, string baseDir)
+    {
+        var playlistDir = Path.Combine(baseDir, playlistName);
+        Directory.CreateDirectory(playlistDir);
+
+        var command = new[]
+        {
+            "sync",
+            playlistUrl,
+            "--output",
+            playlistDir,
+            "--save-file",
+            Path.Combine(playlistDir, $"{playlistName}.spotdl")
+        };
+
+
+        await RunCommandAsync(command);
+    }
+
+    public async Task UpdateSyncAsync(string playlistName, string baseDir)
+    {
+        var syncFile = Path.Combine(baseDir, playlistName, $"{playlistName}.spotdl");
+
+        if (!File.Exists(syncFile))
+        {
+            throw new FileNotFoundException($"Sync file not found for playlist {playlistName}");
+        }
+
+        var command = new[]
+        {
+            "sync",
+            syncFile,
+            "--output",
+            Path.Combine(baseDir, playlistName)
+        };
+
+        await RunCommandAsync(command);
     }
 
     private void ProcessStandardOutput(string data)
@@ -72,7 +111,7 @@ public class SpotDLService : ISpotDLService
             _downloadErrors.Add(data.Trim());
         }
     }
-    
+
     private void PrintMissingSongs()
     {
         if (_lookupErrors.Count == 0 && _downloadErrors.Count == 0) return;
@@ -120,7 +159,7 @@ public class SpotDLService : ISpotDLService
                 RedirectStandardOutput = true,
                 RedirectStandardError = true,
                 UseShellExecute = false,
-                CreateNoWindow = true,
+                CreateNoWindow = true
             };
 
             process.OutputDataReceived += (sender, args) => ProcessStandardOutput(args.Data!);
@@ -144,45 +183,5 @@ public class SpotDLService : ISpotDLService
             _logger.LogError(ex, "Error running spotdl command");
             throw;
         }
-    }
-
-
-    public async Task NewSyncAsync(string playlistUrl, string playlistName, string baseDir)
-    {
-        var playlistDir = Path.Combine(baseDir, playlistName);
-        Directory.CreateDirectory(playlistDir);
-
-        var command = new[]
-        {
-            "sync",
-            playlistUrl,
-            "--output",
-            playlistDir,
-            "--save-file",
-            Path.Combine(playlistDir, $"{playlistName}.spotdl")
-        };
-
-
-        await RunCommandAsync(command);
-    }
-
-    public async Task UpdateSyncAsync(string playlistName, string baseDir)
-    {
-        var syncFile = Path.Combine(baseDir, playlistName, $"{playlistName}.spotdl");
-
-        if (!File.Exists(syncFile))
-        {
-            throw new FileNotFoundException($"Sync file not found for playlist {playlistName}");
-        }
-
-        var command = new[]
-        {
-            "sync",
-            syncFile,
-            "--output",
-            Path.Combine(baseDir, playlistName)
-        };
-
-        await RunCommandAsync(command);
     }
 }

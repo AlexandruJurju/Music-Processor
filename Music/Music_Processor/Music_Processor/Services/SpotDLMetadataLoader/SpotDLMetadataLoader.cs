@@ -1,3 +1,4 @@
+using System.Text;
 using System.Text.Json;
 using Microsoft.Extensions.Logging;
 using Music_Processor.Interfaces;
@@ -7,9 +8,9 @@ namespace Music_Processor.Services.SpotDLMetadataLoader;
 
 public class SpotdlMetadataLoader
 {
-    private readonly ILogger<SpotdlMetadataLoader> _logger;
     private readonly IFileService _fileService;
     private readonly JsonSerializerOptions _jsonOptions;
+    private readonly ILogger<SpotdlMetadataLoader> _logger;
 
     public SpotdlMetadataLoader(ILogger<SpotdlMetadataLoader> logger, IFileService fileService)
     {
@@ -35,7 +36,7 @@ public class SpotdlMetadataLoader
                 return metadataLookup;
             }
 
-            var jsonContent = File.ReadAllText(spotdlFile, System.Text.Encoding.UTF8);
+            var jsonContent = File.ReadAllText(spotdlFile, Encoding.UTF8);
             var playlistData = JsonSerializer.Deserialize<SpotDLPlaylist>(jsonContent, _jsonOptions);
 
             if (playlistData?.Songs == null || !playlistData.Songs.Any())
@@ -62,7 +63,7 @@ public class SpotdlMetadataLoader
 
     private void AddMetadataLookups(Dictionary<string, AudioMetadata> metadataLookup, AudioMetadata metadata, SpotDLSongMetadata song)
     {
-        string key = CreateLookupKey(song);
+        var key = CreateLookupKey(song);
         metadataLookup[key] = metadata;
     }
 
@@ -74,9 +75,9 @@ public class SpotdlMetadataLoader
             Artists = song.Artists.ToList(),
             Album = song.AlbumName,
             Genres = song.Genres?.Select(CapitalizeGenre).ToList() ?? new List<string>(),
-            Year = int.TryParse(song.Year, out int year) ? year : null,
+            Year = int.TryParse(song.Year, out var year) ? year : null,
             TrackNumber = song.TrackNumber,
-            Duration = TimeSpan.FromSeconds(song.Duration),
+            Duration = TimeSpan.FromSeconds(song.Duration)
         };
     }
 

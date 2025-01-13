@@ -8,9 +8,9 @@ namespace Music_Processor.Services;
 
 public class JsonMetadataService : IMetadataService
 {
-    private readonly MetadataHandlesFactory _metadataHandlesFactory;
     private readonly JsonSerializerOptions _jsonOptions;
     private readonly ILogger<JsonMetadataService> _logger;
+    private readonly MetadataHandlesFactory _metadataHandlesFactory;
 
     public JsonMetadataService(ILogger<JsonMetadataService> logger)
     {

@@ -16,7 +16,7 @@ public class ConfigService : IConfigService
     {
         try
         {
-            using StreamReader r = new StreamReader(_fileService.GetBaseDirectory() + "\\" + Constants.Constants.StyleMappingFile);
+            using var r = new StreamReader(_fileService.GetBaseDirectory() + "\\" + Constants.Constants.StyleMappingFile);
             Dictionary<string, List<string>> styleMapping = JsonSerializer.Deserialize<Dictionary<string, List<string>>>(r.ReadToEnd(), new JsonSerializerOptions
             {
                 PropertyNameCaseInsensitive = true
@@ -44,7 +44,7 @@ public class ConfigService : IConfigService
     {
         try
         {
-            using StreamReader r = new StreamReader(_fileService.GetBaseDirectory() + "\\" + Constants.Constants.StylesToRemoveFile);
+            using var r = new StreamReader(_fileService.GetBaseDirectory() + "\\" + Constants.Constants.StylesToRemoveFile);
             List<string> stylesToRemove = JsonSerializer.Deserialize<List<string>>(r.ReadToEnd(), new JsonSerializerOptions
             {
                 PropertyNameCaseInsensitive = true

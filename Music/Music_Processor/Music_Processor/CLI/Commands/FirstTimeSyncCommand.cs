@@ -5,9 +5,9 @@ namespace Music_Processor.CLI.Commands;
 
 public class FirstTimeSyncCommand : IMenuCommand
 {
+    private readonly IFileService _fileService;
     private readonly ILogger<FirstTimeSyncCommand> _logger;
     private readonly ISpotDLService _spotdlService;
-    private readonly IFileService _fileService;
 
     public FirstTimeSyncCommand(ILogger<FirstTimeSyncCommand> logger, ISpotDLService spotdlService, IFileService fileService)
     {
@@ -23,7 +23,7 @@ public class FirstTimeSyncCommand : IMenuCommand
         Console.Write("\nEnter Spotify playlist URL: ");
         var playlistUrl = Console.ReadLine()?.Trim();
 
-        if (String.IsNullOrEmpty(playlistUrl))
+        if (string.IsNullOrEmpty(playlistUrl))
         {
             Console.WriteLine("Please provide a valid Spotify playlist URL.");
             return;
@@ -32,7 +32,7 @@ public class FirstTimeSyncCommand : IMenuCommand
         Console.Write("Enter playlist name: ");
         var playlistName = Console.ReadLine()?.Trim();
 
-        if (String.IsNullOrEmpty(playlistName))
+        if (string.IsNullOrEmpty(playlistName))
         {
             Console.WriteLine("Please provide a valid playlist name.");
             return;

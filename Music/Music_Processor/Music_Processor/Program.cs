@@ -24,7 +24,7 @@ var host = Host.CreateDefaultBuilder(args)
 
         services.AddTransient<IConfigService, ConfigService>();
         services.AddTransient<IMetadataService, JsonMetadataService>();
-        services.AddTransient<IPlaylistProcessor, PlaylistProcessor>(); 
+        services.AddTransient<IPlaylistProcessor, PlaylistProcessor>();
 
         // Register command factory
         services.AddSingleton<MenuCommandFactory>();
