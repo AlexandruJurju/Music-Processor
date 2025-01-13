@@ -123,7 +123,7 @@ public class SpotDLService : ISpotDLService
                 CreateNoWindow = true,
             };
 
-            process.OutputDataReceived += (sender, args) => ProcessStandardOutput(args.Data);
+            process.OutputDataReceived += (sender, args) => ProcessStandardOutput(args.Data!);
             // errors arent processed
             // process.ErrorDataReceived += (sender, args) => ProcessStandardError(args.Data);
 

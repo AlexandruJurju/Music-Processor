@@ -29,7 +29,7 @@ public class ConfigService : IConfigService
 
             return styleMapping;
         }
-        catch (FileNotFoundException ex)
+        catch (FileNotFoundException)
         {
             Console.WriteLine($"Style mapping file not found at expected location: {Constants.Constants.StyleMappingFile}");
             return Constants.Constants.DEFAULT_STYLE_MAPPINGS;
@@ -52,7 +52,7 @@ public class ConfigService : IConfigService
 
             return stylesToRemove;
         }
-        catch (FileNotFoundException ex)
+        catch (FileNotFoundException)
         {
             Console.WriteLine($"Styles to remove file not found at expected location: {Constants.Constants.StylesToRemoveFile}");
             return Constants.Constants.DEFAULT_STYLES_TO_REMOVE;
