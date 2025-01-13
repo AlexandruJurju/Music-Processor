@@ -19,7 +19,7 @@ var host = Host.CreateDefaultBuilder(args)
         services.AddTransient<IMenuCommand, UpdateSyncCommand>();
         services.AddTransient<IMenuCommand, FixGenresSpotDLCommand>();
         services.AddTransient<IMenuCommand, WriteMetadataFileCommand>();
-        services.AddTransient<IMenuCommand, ApplyMetadataCommand>();
+        services.AddTransient<IMenuCommand, FixGenresCustomMetadata>();
         services.AddTransient<IMenuCommand, ExitCommand>();
 
         services.AddTransient<IConfigService, ConfigService>();

@@ -5,13 +5,14 @@ using TagLib.Ogg;
 
 namespace Music_Processor.Services;
 
-// todo: fix the tag writing and reading
 public class FlacMetadataHandler : IMetadataHandler
 {
     public AudioMetadata ExtractMetadata(string filePath)
     {
         using var file = TagLib.File.Create(filePath);
         var tag = file.Tag;
+
+        var styles = ExtractStyles(file);
 
         return new AudioMetadata
         {
@@ -21,7 +22,7 @@ public class FlacMetadataHandler : IMetadataHandler
             Artists = tag.Performers.ToList(),
             Album = tag.Album ?? string.Empty,
             Genres = tag.Genres.ToList(),
-            Styles = ExtractStyles(tag),
+            Styles = styles,
             Year = (int)tag.Year,
             Comment = tag.Comment ?? string.Empty,
             TrackNumber = (int)tag.Track,
@@ -29,28 +30,22 @@ public class FlacMetadataHandler : IMetadataHandler
         };
     }
 
-    private List<string> ExtractStyles(Tag tag)
+    private List<string> ExtractStyles(TagLib.File file)
     {
         var styles = new List<string>();
 
-        if (tag is XiphComment xiph)
+        // Try to get the Xiph comment tag from the combined tags
+        if (file.TagTypes.HasFlag(TagTypes.Xiph))
         {
-            // Try to get styles from STYLE field
-            var styleFields = xiph.GetField("STYLE");  // FLAC usually uses uppercase field names
-            if (styleFields.Any())
+            var xiphTag = file.GetTag(TagTypes.Xiph) as XiphComment;
+            if (xiphTag != null)
             {
+                var styleFields = xiphTag.GetField("STYLE");
                 styles.AddRange(styleFields);
             }
         }
 
-        // If no styles found in STYLE field, try to parse them from comment
-        if (!styles.Any() && !string.IsNullOrEmpty(tag.Comment))
-        {
-            styles.AddRange(tag.Comment.Split(new[] { ';', ',' }, StringSplitOptions.RemoveEmptyEntries)
-                .Select(s => s.Trim()));
-        }
-
-        return styles.Distinct().ToList();  // Remove any duplicates
+        return styles.Distinct().ToList();
     }
 
     public void WriteMetadata(string filePath, AudioMetadata audioMetadata)
@@ -58,35 +53,29 @@ public class FlacMetadataHandler : IMetadataHandler
         try
         {
             using var file = TagLib.File.Create(filePath);
-            
-            // Get or create XiphComment tag
-            var tag = file.GetTag(TagTypes.Xiph, true) as XiphComment;
-            if (tag == null)
+            var tag = file.Tag;
+
+            // Handle the combined tag first for genres
+            tag.Genres = audioMetadata.Genres.ToArray();
+
+            // Then specifically handle the Xiph tag for styles
+            if (file.TagTypes.HasFlag(TagTypes.Xiph))
             {
-                throw new InvalidOperationException("Failed to create Xiph Comment tag");
-            }
+                var xiphTag = file.GetTag(TagTypes.Xiph) as XiphComment;
+                if (xiphTag != null)
+                {
+                    // Clear existing style fields
+                    xiphTag.RemoveField("STYLE");
+                    xiphTag.RemoveField("Style");
+                    xiphTag.RemoveField("Styles");
+                    xiphTag.RemoveField("styles");
 
-            // Clear existing genre tags
-            tag.Genres = Array.Empty<string>();
-
-            // Set new genres if any
-            if (audioMetadata.Genres.Any())
-            {
-                tag.Genres = audioMetadata.Genres.ToArray();
-            }
-
-            // Remove all variations of style fields (case-sensitive in FLAC)
-            tag.RemoveField("STYLE");
-            tag.RemoveField("Style");
-            tag.RemoveField("Styles");
-            tag.RemoveField("styles");
-
-            // Add new styles if any
-            if (audioMetadata.Styles.Any())
-            {
-                // In FLAC/Vorbis comments, we typically use uppercase field names
-                // and store each style as a separate field value
-                tag.SetField("STYLE", audioMetadata.Styles.ToArray());
+                    // Add new styles
+                    if (audioMetadata.Styles.Any())
+                    {
+                        xiphTag.SetField("STYLE", audioMetadata.Styles.ToArray());
+                    }
+                }
             }
 
             file.Save();

@@ -1,3 +1,4 @@
+using System.Text.Json;
 using Microsoft.Extensions.Logging;
 using Music_Processor.Factories;
 using Music_Processor.Interfaces;
@@ -6,44 +7,33 @@ using Music_Processor.Services.SpotDLMetadataLoader;
 
 namespace Music_Processor.Services;
 
-public class PlaylistProcessor : IPlaylistProcessor
+public class PlaylistProcessor(
+    ILogger<PlaylistProcessor> logger,
+    IFileService fileService,
+    SpotdlMetadataLoader spotdlMetadataLoader,
+    IConfigService configService,
+    MetadataHandlesFactory metadataHandlesFactory)
+    : IPlaylistProcessor
 {
-    private readonly ILogger<PlaylistProcessor> _logger;
-    private readonly IFileService _fileService;
-    private readonly SpotdlMetadataLoader _spotdlMetadataLoader;
-    private readonly IConfigService _configService;
-    private readonly MetadataHandlesFactory _metadataHandlesFactory;
+    private readonly ILogger<PlaylistProcessor> _logger = logger;
+    private readonly JsonSerializerOptions _jsonOptions = new() { PropertyNameCaseInsensitive = true };
 
-    private readonly HashSet<string> UnmappedStyles;
-    private readonly HashSet<string> SongsWithoutStyles;
-    private readonly HashSet<string> SongsWithoutMetadata;
-
-    public PlaylistProcessor(ILogger<PlaylistProcessor> logger, IFileService fileService, SpotdlMetadataLoader spotdlMetadataLoader, IConfigService configService,
-        MetadataHandlesFactory metadataHandlesFactory)
-    {
-        UnmappedStyles = new HashSet<string>();
-        SongsWithoutStyles = new HashSet<string>();
-        SongsWithoutMetadata = new HashSet<string>();
-
-        _logger = logger;
-        _fileService = fileService;
-        _spotdlMetadataLoader = spotdlMetadataLoader;
-        _configService = configService;
-        _metadataHandlesFactory = metadataHandlesFactory;
-    }
+    private readonly HashSet<string> UnmappedStyles = new();
+    private readonly HashSet<string> SongsWithoutStyles = new();
+    private readonly HashSet<string> SongsWithoutMetadata = new();
 
     public void FixPlaylistGenresUsingSpotdlMetadata(string playlistPath)
     {
-        var spotdlMetadata = _spotdlMetadataLoader.LoadSpotDLMetadata(playlistPath);
-        var playlistSongs = _fileService.GetAllAudioFilesInFolder(playlistPath);
-        var styleMappings = _configService.LoadStyleMappingFile();
-        var stylesToRemove = _configService.LoadStylesToRemove();
+        var spotdlMetadata = spotdlMetadataLoader.LoadSpotDLMetadata(playlistPath);
+        var playlistSongs = fileService.GetAllAudioFilesInFolder(playlistPath);
+        var styleMappings = configService.LoadStyleMappingFile();
+        var stylesToRemove = configService.LoadStylesToRemove();
 
         foreach (var song in playlistSongs)
         {
             var songName = Path.GetFileNameWithoutExtension(song);
 
-            var cleanedSongName = _spotdlMetadataLoader.CleanKeyName(songName);
+            var cleanedSongName = spotdlMetadataLoader.CleanKeyName(songName);
 
             if (!spotdlMetadata.TryGetValue(cleanedSongName, out var songSpotDLMetadata))
             {
@@ -52,10 +42,7 @@ public class PlaylistProcessor : IPlaylistProcessor
                 continue;
             }
 
-            // Move genres to styles - make it so i can use the process song for external metadata
-            songSpotDLMetadata.Styles.Clear();
-            songSpotDLMetadata.Styles.AddRange(songSpotDLMetadata.Genres);
-            songSpotDLMetadata.Genres.Clear();
+            PlaceGenresInStyles(songSpotDLMetadata);
 
             ProcessSongMetadata(songSpotDLMetadata, styleMappings, stylesToRemove);
 
@@ -65,8 +52,47 @@ public class PlaylistProcessor : IPlaylistProcessor
                 continue;
             }
 
-            var metadataHandler = _metadataHandlesFactory.GetHandler(song);
+            var metadataHandler = metadataHandlesFactory.GetHandler(song);
             metadataHandler.WriteMetadata(song, songSpotDLMetadata);
+        }
+
+        PrintProcessingResults();
+    }
+
+    private void PlaceGenresInStyles(AudioMetadata songSpotDLMetadata)
+    {
+        // Move genres to styles - make it so i can use the process song for external metadata
+        songSpotDLMetadata.Styles.Clear();
+        songSpotDLMetadata.Styles.AddRange(songSpotDLMetadata.Genres);
+        songSpotDLMetadata.Genres.Clear();
+    }
+
+    public void FixPlaylistGenresUsingCustomMetadata(string playlistPath, string metadataPath)
+    {
+        string jsonContent = File.ReadAllText(metadataPath);
+        List<AudioMetadata> customMetadata = JsonSerializer.Deserialize<List<AudioMetadata>>(jsonContent, _jsonOptions)!;
+
+        // dictionary using the song file path as key
+        var metadataByPath = customMetadata.ToDictionary(m => m.FilePath, m => m);
+        var songs = fileService.GetAllAudioFilesInFolder(playlistPath);
+        var styleMappings = configService.LoadStyleMappingFile();
+        var stylesToRemove = configService.LoadStylesToRemove();
+
+        foreach (var song in songs)
+        {
+            if (metadataByPath.TryGetValue(song, out var songMetadata))
+            {
+                PlaceGenresInStyles(songMetadata);
+
+                ProcessSongMetadata(songMetadata, styleMappings, stylesToRemove);
+
+                var metadataHandler = metadataHandlesFactory.GetHandler(song);
+                metadataHandler.WriteMetadata(song, songMetadata);
+            }
+            else
+            {
+                SongsWithoutMetadata.Add(Path.GetFileNameWithoutExtension(song));
+            }
         }
 
         PrintProcessingResults();
