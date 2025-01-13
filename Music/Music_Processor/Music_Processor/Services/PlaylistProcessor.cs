@@ -1,6 +1,7 @@
 using System.Collections.Concurrent;
 using System.Diagnostics;
 using System.Text.Json;
+using BenchmarkDotNet.Attributes;
 using Music_Processor.Factories;
 using Music_Processor.Interfaces;
 using Music_Processor.Model;
@@ -8,13 +9,25 @@ using Music_Processor.Services.SpotDLMetadataLoader;
 
 namespace Music_Processor.Services;
 
-public class PlaylistProcessor(
-    IFileService fileService,
-    SpotdlMetadataLoader spotdlMetadataLoader,
-    IConfigService configService,
-    MetadataHandlesFactory metadataHandlesFactory)
-    : IPlaylistProcessor
+public class PlaylistProcessor: IPlaylistProcessor
 {
+    private readonly IFileService _fileService;
+    private readonly SpotdlMetadataLoader _spotdlMetadataLoader;
+    private readonly IConfigService _configService;
+    private readonly MetadataHandlesFactory _metadataHandlesFactory;
+
+    public PlaylistProcessor(
+        IFileService fileService,
+        SpotdlMetadataLoader spotdlMetadataLoader,
+        IConfigService configService,
+        MetadataHandlesFactory metadataHandlesFactory)
+    {
+        _fileService = fileService;
+        _spotdlMetadataLoader = spotdlMetadataLoader;
+        _configService = configService;
+        _metadataHandlesFactory = metadataHandlesFactory;
+    }
+    
     private readonly JsonSerializerOptions _jsonOptions = new() { PropertyNameCaseInsensitive = true };
     private readonly ConcurrentDictionary<string, byte> SongsWithoutMetadata = new();
     private readonly ConcurrentDictionary<string, byte> SongsWithoutStyles = new();
@@ -23,10 +36,10 @@ public class PlaylistProcessor(
 
     public void FixPlaylistGenresUsingSpotdlMetadata(string playlistPath)
     {
-        var spotdlMetadata = spotdlMetadataLoader.LoadSpotDLMetadata(playlistPath);
-        var playlistSongs = fileService.GetAllAudioFilesInFolder(playlistPath);
-        var styleMappings = configService.LoadStyleMappingFile();
-        var stylesToRemove = configService.LoadStylesToRemove();
+        var spotdlMetadata = _spotdlMetadataLoader.LoadSpotDLMetadata(playlistPath);
+        var playlistSongs = _fileService.GetAllAudioFilesInFolder(playlistPath);
+        var styleMappings = _configService.LoadStyleMappingFile();
+        var stylesToRemove = _configService.LoadStylesToRemove();
 
         var stopwatch = Stopwatch.StartNew();
 
@@ -36,7 +49,7 @@ public class PlaylistProcessor(
             song =>
             {
                 var songName = Path.GetFileNameWithoutExtension(song);
-                var cleanedSongName = spotdlMetadataLoader.CleanKeyName(songName);
+                var cleanedSongName = _spotdlMetadataLoader.CleanKeyName(songName);
 
                 if (!spotdlMetadata.TryGetValue(cleanedSongName, out var songSpotDLMetadata))
                 {
@@ -53,13 +66,13 @@ public class PlaylistProcessor(
                     return;
                 }
 
-                var metadataHandler = metadataHandlesFactory.GetHandler(song);
+                var metadataHandler = _metadataHandlesFactory.GetHandler(song);
                 metadataHandler.WriteMetadata(song, songSpotDLMetadata);
             });
 
         Console.WriteLine($"Finished in {stopwatch.ElapsedMilliseconds}ms");
 
-        PrintProcessingResults();
+        // PrintProcessingResults();
     }
 
     public void FixPlaylistGenresUsingCustomMetadata(string playlistPath, string metadataPath)
@@ -68,13 +81,13 @@ public class PlaylistProcessor(
         List<AudioMetadata> customMetadata = JsonSerializer.Deserialize<List<AudioMetadata>>(jsonContent, _jsonOptions)!;
 
         var metadataByPath = customMetadata.ToDictionary(m => m.FilePath, m => m);
-        var songs = fileService.GetAllAudioFilesInFolder(playlistPath);
-        var styleMappings = configService.LoadStyleMappingFile();
-        var stylesToRemove = configService.LoadStylesToRemove();
+        var songs = _fileService.GetAllAudioFilesInFolder(playlistPath);
+        var styleMappings = _configService.LoadStyleMappingFile();
+        var stylesToRemove = _configService.LoadStylesToRemove();
 
         Parallel.ForEach(
             songs,
-            new ParallelOptions { MaxDegreeOfParallelism = Environment.ProcessorCount },
+            new ParallelOptions { MaxDegreeOfParallelism = 2 },
             song =>
             {
                 if (metadataByPath.TryGetValue(song, out var songMetadata))
@@ -82,7 +95,7 @@ public class PlaylistProcessor(
                     PlaceGenresInStyles(songMetadata);
                     ProcessSongMetadata(songMetadata, styleMappings, stylesToRemove);
 
-                    var metadataHandler = metadataHandlesFactory.GetHandler(song);
+                    var metadataHandler = _metadataHandlesFactory.GetHandler(song);
                     metadataHandler.WriteMetadata(song, songMetadata);
                 }
                 else
@@ -157,4 +170,5 @@ public class PlaylistProcessor(
             Console.WriteLine(style);
         }
     }
+    
 }
