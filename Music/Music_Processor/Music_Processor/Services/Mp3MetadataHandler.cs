@@ -11,7 +11,7 @@ public class MP3MetadataHandler : IMetadataHandler
     public AudioMetadata ExtractMetadata(string filePath)
     {
         using var file = TagLib.File.Create(filePath);
-        var tag = file.Tag;
+        var tag = file.GetTag(TagLib.TagTypes.Id3v2, true) as TagLib.Id3v2.Tag;
 
         return new AudioMetadata
         {
@@ -31,27 +31,18 @@ public class MP3MetadataHandler : IMetadataHandler
 
     private List<string> ExtractStyles(Tag tag)
     {
-        // First try to get styles from custom TXXX frame
         var styles = new List<string>();
 
-        // Check if we can access ID3v2 tag
         if (tag is TagLib.Id3v2.Tag id3v2)
         {
-            var styleFrames = id3v2.GetFrames()
+            var styleFrame = id3v2.GetFrames()
                 .OfType<UserTextInformationFrame>()
-                .Where(f => f.Description.Equals("Styles", StringComparison.OrdinalIgnoreCase));
+                .FirstOrDefault(f => f.Description == "Styles");
 
-            foreach (var frame in styleFrames)
+            if (styleFrame != null)
             {
-                styles.AddRange(frame.Text);
+                styles.AddRange(styleFrame.Text);
             }
-        }
-
-        // If no styles found in TXXX, try to parse them from comment
-        if (!styles.Any() && !string.IsNullOrEmpty(tag.Comment))
-        {
-            styles.AddRange(tag.Comment.Split(new[] { ';', ',' }, StringSplitOptions.RemoveEmptyEntries)
-                .Select(s => s.Trim()));
         }
 
         return styles;
@@ -62,7 +53,13 @@ public class MP3MetadataHandler : IMetadataHandler
         try
         {
             using var file = TagLib.File.Create(filePath);
-            var tag = (file.Tag as TagLib.Id3v2.Tag) ?? throw new InvalidOperationException("Could not get ID3v2 tag");
+
+            // Get or create ID3v2 tag
+            var tag = file.GetTag(TagLib.TagTypes.Id3v2, true) as TagLib.Id3v2.Tag;
+            if (tag == null)
+            {
+                throw new InvalidOperationException("Failed to create ID3v2 tag");
+            }
 
             // Remove existing genre frames
             tag.RemoveFrames("TCON");
@@ -73,21 +70,34 @@ public class MP3MetadataHandler : IMetadataHandler
                 tag.Genres = audioMetadata.Genres.ToArray();
             }
 
+            // Remove existing style frames first
+            var existingStyleFrames = tag.GetFrames("TXXX")
+                .OfType<UserTextInformationFrame>()
+                .Where(f => f.Description == "Styles")
+                .ToList();
+
+            foreach (var frame in existingStyleFrames)
+            {
+                tag.RemoveFrame(frame);
+            }
+
+            // Add new style frame if there are styles
             if (audioMetadata.Styles.Any())
             {
-                tag.AddFrame(new UserTextInformationFrame("TXXX")
+                var styleFrame = new UserTextInformationFrame("TXXX")
                 {
                     Description = "Styles",
                     Text = audioMetadata.Styles.ToArray(),
                     TextEncoding = TagLib.StringType.UTF8
-                });
+                };
+                tag.AddFrame(styleFrame);
             }
 
             file.Save();
         }
         catch (Exception ex)
         {
-            throw new Exception(ex.Message);
+            throw new Exception($"Error writing metadata to file {filePath}: {ex.Message}", ex);
         }
     }
 }

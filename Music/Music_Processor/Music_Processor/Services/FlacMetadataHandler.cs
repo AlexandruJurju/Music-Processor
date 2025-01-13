@@ -1,10 +1,11 @@
 using Music_Processor.Interfaces;
 using Music_Processor.Model;
 using TagLib;
-
+using TagLib.Ogg;
 
 namespace Music_Processor.Services;
 
+// todo: fix the tag writing and reading
 public class FlacMetadataHandler : IMetadataHandler
 {
     public AudioMetadata ExtractMetadata(string filePath)
@@ -28,15 +29,14 @@ public class FlacMetadataHandler : IMetadataHandler
         };
     }
 
-
     private List<string> ExtractStyles(Tag tag)
     {
         var styles = new List<string>();
 
-        if (tag is TagLib.Ogg.XiphComment xiph)
+        if (tag is XiphComment xiph)
         {
             // Try to get styles from STYLE field
-            var styleFields = xiph.GetField("Styles");
+            var styleFields = xiph.GetField("STYLE");  // FLAC usually uses uppercase field names
             if (styleFields.Any())
             {
                 styles.AddRange(styleFields);
@@ -50,7 +50,7 @@ public class FlacMetadataHandler : IMetadataHandler
                 .Select(s => s.Trim()));
         }
 
-        return styles;
+        return styles.Distinct().ToList();  // Remove any duplicates
     }
 
     public void WriteMetadata(string filePath, AudioMetadata audioMetadata)
@@ -58,10 +58,16 @@ public class FlacMetadataHandler : IMetadataHandler
         try
         {
             using var file = TagLib.File.Create(filePath);
-            var tag = (file.Tag as TagLib.Ogg.XiphComment) ?? throw new InvalidOperationException("Could not get Xiph Comment tag");
+            
+            // Get or create XiphComment tag
+            var tag = file.GetTag(TagTypes.Xiph, true) as XiphComment;
+            if (tag == null)
+            {
+                throw new InvalidOperationException("Failed to create Xiph Comment tag");
+            }
 
             // Clear existing genre tags
-            tag.Genres = [];
+            tag.Genres = Array.Empty<string>();
 
             // Set new genres if any
             if (audioMetadata.Genres.Any())
@@ -69,23 +75,25 @@ public class FlacMetadataHandler : IMetadataHandler
                 tag.Genres = audioMetadata.Genres.ToArray();
             }
 
-            // Remove existing STYLE fields
+            // Remove all variations of style fields (case-sensitive in FLAC)
+            tag.RemoveField("STYLE");
+            tag.RemoveField("Style");
             tag.RemoveField("Styles");
+            tag.RemoveField("styles");
 
             // Add new styles if any
             if (audioMetadata.Styles.Any())
             {
-                foreach (var style in audioMetadata.Styles)
-                {
-                    tag.SetField("Styles", style);
-                }
+                // In FLAC/Vorbis comments, we typically use uppercase field names
+                // and store each style as a separate field value
+                tag.SetField("STYLE", audioMetadata.Styles.ToArray());
             }
 
             file.Save();
         }
         catch (Exception ex)
         {
-            throw new Exception(ex.Message);
+            throw new Exception($"Error writing metadata to FLAC file {filePath}: {ex.Message}", ex);
         }
     }
 }

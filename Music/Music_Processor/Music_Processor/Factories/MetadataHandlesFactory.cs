@@ -5,21 +5,21 @@ namespace Music_Processor.Factories;
 
 public class MetadataHandlesFactory
 {
-    private readonly Dictionary<string, IMetadataHandler> _extractors;
+    private readonly Dictionary<string, IMetadataHandler> _handlers;
 
     public MetadataHandlesFactory()
     {
-        _extractors = new Dictionary<string, IMetadataHandler>(StringComparer.OrdinalIgnoreCase)
+        _handlers = new Dictionary<string, IMetadataHandler>(StringComparer.OrdinalIgnoreCase)
         {
             { ".mp3", new MP3MetadataHandler() },
             { ".flac", new FlacMetadataHandler() }
         };
     }
 
-    public IMetadataHandler GetExtractor(string filePath)
+    public IMetadataHandler GetHandler(string filePath)
     {
         var extension = Path.GetExtension(filePath);
-        if (_extractors.TryGetValue(extension, out var extractor))
+        if (_handlers.TryGetValue(extension, out var extractor))
         {
             return extractor;
         }

@@ -1,4 +1,5 @@
 using Microsoft.Extensions.Logging;
+using Music_Processor.Factories;
 using Music_Processor.Interfaces;
 using Music_Processor.Model;
 using Music_Processor.Services.SpotDLMetadataLoader;
@@ -9,15 +10,16 @@ public class PlaylistProcessor : IPlaylistProcessor
 {
     private readonly ILogger<PlaylistProcessor> _logger;
     private readonly IFileService _fileService;
-    private readonly IMetadataService _metadataService;
     private readonly SpotdlMetadataLoader _spotdlMetadataLoader;
     private readonly IConfigService _configService;
+    private readonly MetadataHandlesFactory _metadataHandlesFactory;
 
-    private HashSet<string> UnmappedStyles;
-    private HashSet<string> SongsWithoutStyles;
-    private HashSet<string> SongsWithoutMetadata;
+    private readonly HashSet<string> UnmappedStyles;
+    private readonly HashSet<string> SongsWithoutStyles;
+    private readonly HashSet<string> SongsWithoutMetadata;
 
-    public PlaylistProcessor(ILogger<PlaylistProcessor> logger, IFileService fileService, IMetadataService metadataService, SpotdlMetadataLoader spotdlMetadataLoader, IConfigService configService)
+    public PlaylistProcessor(ILogger<PlaylistProcessor> logger, IFileService fileService, SpotdlMetadataLoader spotdlMetadataLoader, IConfigService configService,
+        MetadataHandlesFactory metadataHandlesFactory)
     {
         UnmappedStyles = new HashSet<string>();
         SongsWithoutStyles = new HashSet<string>();
@@ -25,9 +27,9 @@ public class PlaylistProcessor : IPlaylistProcessor
 
         _logger = logger;
         _fileService = fileService;
-        _metadataService = metadataService;
         _spotdlMetadataLoader = spotdlMetadataLoader;
         _configService = configService;
+        _metadataHandlesFactory = metadataHandlesFactory;
     }
 
     public void FixPlaylistGenresUsingSpotdlMetadata(string playlistPath)
@@ -40,7 +42,7 @@ public class PlaylistProcessor : IPlaylistProcessor
         foreach (var song in playlistSongs)
         {
             var songName = Path.GetFileNameWithoutExtension(song);
-            
+
             var cleanedSongName = _spotdlMetadataLoader.CleanKeyName(songName);
 
             if (!spotdlMetadata.TryGetValue(cleanedSongName, out var songSpotDLMetadata))
@@ -60,7 +62,11 @@ public class PlaylistProcessor : IPlaylistProcessor
             if (!songSpotDLMetadata.Styles.Any())
             {
                 SongsWithoutStyles.Add(songName);
+                continue;
             }
+
+            var metadataHandler = _metadataHandlesFactory.GetHandler(song);
+            metadataHandler.WriteMetadata(song, songSpotDLMetadata);
         }
 
         PrintProcessingResults();
@@ -70,9 +76,6 @@ public class PlaylistProcessor : IPlaylistProcessor
     {
         // Create HashSet from stylesToRemove for O(1) lookups
         var stylesToRemoveSet = new HashSet<string>(stylesToRemove);
-
-        // Track which styles were mapped
-        var mappedStyles = new HashSet<string>();
 
         // Process each style only once
         foreach (var style in songMetadata.Styles.ToList())
