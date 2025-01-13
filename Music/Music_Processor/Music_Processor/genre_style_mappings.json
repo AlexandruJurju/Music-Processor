@@ -1,31 +1,18 @@
 {
-  "Rock": [
-    "Rock",
-    "Detroit Rock",
-    "Modern Rock",
-    "Rap Rock"
-  ],
-  "Rap": [
-    "Rap Rock"
-  ],
-  "Phonk": [
-    "Drift phonk"
-  ],
-  "Synthwave": [
-    "Synthwave",
-    "Darksynth",
-    "Sovietwave",
-    "Vaporwave",
-    "Slushwave",
-    "Spacewave",
-    "Hardwave"
-  ],
-  "Pop": [
-    "Pop",
-    "Dance pop"
-  ],
-  "Anime": [
-    "Anime Lo-fi",
-    "Anime Score"
-  ]
+  "Rock": ["Rock"],
+  "Detroit Rock": ["Rock"],
+  "Modern Rock": ["Rock"],
+  "Rap Rock": ["Rock", "Rap"],
+  "Drift phonk": ["Phonk"],
+  "Synthwave": ["Synthwave"],
+  "Darksynth": ["Synthwave"],
+  "Sovietwave": ["Synthwave"],
+  "Vaporwave": ["Synthwave"],
+  "Slushwave": ["Synthwave"],
+  "Spacewave": ["Synthwave"],
+  "Hardwave": ["Synthwave"],
+  "Pop": ["Pop"],
+  "Dance pop": ["Pop"],
+  "Anime Lo-fi": ["Anime"],
+  "Anime Score": ["Anime"]
 }

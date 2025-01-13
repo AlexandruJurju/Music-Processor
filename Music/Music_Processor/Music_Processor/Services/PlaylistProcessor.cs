@@ -27,6 +27,8 @@ public class PlaylistProcessor(
         var playlistSongs = fileService.GetAllAudioFilesInFolder(playlistPath);
         var styleMappings = configService.LoadStyleMappingFile();
         var stylesToRemove = configService.LoadStylesToRemove();
+
+        var stopwatch = Stopwatch.StartNew();
         
         Parallel.ForEach(
             playlistSongs,
@@ -54,7 +56,9 @@ public class PlaylistProcessor(
                 var metadataHandler = metadataHandlesFactory.GetHandler(song);
                 metadataHandler.WriteMetadata(song, songSpotDLMetadata);
             });
-        
+
+        Console.WriteLine($"Finished in {stopwatch.ElapsedMilliseconds}ms");
+
         PrintProcessingResults();
     }
 
@@ -100,37 +104,37 @@ public class PlaylistProcessor(
     private void ProcessSongMetadata(AudioMetadata songMetadata, Dictionary<string, List<string>> styleMappings, List<string> stylesToRemove)
     {
         var stylesToRemoveSet = new HashSet<string>(stylesToRemove);
+        var stylesToKeep = new List<string>();
+        var genresToAdd = new List<string>();
+        var genreSet = new HashSet<string>();
 
-        foreach (var style in songMetadata.Styles.ToList())
+        foreach (var style in songMetadata.Styles)
         {
-            bool styleWasMapped = false;
-
-            foreach (var mapping in styleMappings)
+            if (styleMappings.TryGetValue(style, out var genres))
             {
-                var mappingGenre = mapping.Key;
-                if (mapping.Value.Contains(style))
+                foreach (var genre in genres)
                 {
-                    styleWasMapped = true;
-
-                    if (mappingGenre == style || stylesToRemoveSet.Contains(style))
+                    if (genreSet.Add(genre))
                     {
-                        songMetadata.Styles.Remove(style);
+                        genresToAdd.Add(genre);
                     }
+                }
 
-                    if (!songMetadata.Genres.Contains(mappingGenre))
-                    {
-                        songMetadata.Genres.Add(mappingGenre);
-                    }
-
-                    break;
+                if (!stylesToRemoveSet.Contains(style))
+                {
+                    stylesToKeep.Add(style);
                 }
             }
-
-            if (!styleWasMapped && !stylesToRemoveSet.Contains(style))
+            else
             {
-                UnmappedStyles.TryAdd(style, 1);
+                UnmappedStyles.TryAdd(style, 0);
+                stylesToKeep.Add(style);
             }
         }
+
+        songMetadata.Genres.AddRange(genresToAdd);
+        songMetadata.Styles.Clear();
+        songMetadata.Styles.AddRange(stylesToKeep);
     }
 
     private void PrintProcessingResults()
