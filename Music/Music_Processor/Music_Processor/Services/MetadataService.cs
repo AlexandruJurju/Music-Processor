@@ -6,13 +6,13 @@ using Music_Processor.Model;
 
 namespace Music_Processor.Services;
 
-public class JsonMetadataService : IMetadataService
+public class MetadataService : IMetadataService
 {
     private readonly JsonSerializerOptions _jsonOptions;
-    private readonly ILogger<JsonMetadataService> _logger;
+    private readonly ILogger<MetadataService> _logger;
     private readonly MetadataHandlesFactory _metadataHandlesFactory;
 
-    public JsonMetadataService(ILogger<JsonMetadataService> logger)
+    public MetadataService(ILogger<MetadataService> logger)
     {
         _metadataHandlesFactory = new MetadataHandlesFactory();
         _logger = logger;
@@ -23,7 +23,7 @@ public class JsonMetadataService : IMetadataService
         };
     }
 
-    public async Task<List<AudioMetadata>> ProcessDirectoryAsync(string directoryPath, bool recursive = false)
+    public List<AudioMetadata> GetPlaylistSongsMetadata(string directoryPath, bool recursive = false)
     {
         var metadata = new List<AudioMetadata>();
         var searchOption = recursive ? SearchOption.AllDirectories : SearchOption.TopDirectoryOnly;
@@ -76,5 +76,17 @@ public class JsonMetadataService : IMetadataService
             _logger.LogError(ex, "Error loading metadata from JSON");
             throw;
         }
+    }
+
+    public void WriteSongMetadata(string songPath, AudioMetadata audioMetadata)
+    {
+        var handle = _metadataHandlesFactory.GetHandler(songPath);
+        handle.WriteMetadata(songPath, audioMetadata);
+    }
+
+    public AudioMetadata ExtractMetadataFromSong(string songPath)
+    {
+        var handle = _metadataHandlesFactory.GetHandler(songPath);
+        return handle.ExtractMetadata(songPath);
     }
 }

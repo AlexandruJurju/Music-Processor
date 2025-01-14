@@ -11,26 +11,25 @@ namespace Music_Processor.Services;
 public class PlaylistProcessor : IPlaylistProcessor
 {
     private readonly IFileService _fileService;
-    private readonly SpotdlMetadataLoader _spotdlMetadataLoader;
+    private readonly IMetadataService _metadataService;
     private readonly IConfigService _configService;
-    private readonly MetadataHandlesFactory _metadataHandlesFactory;
+    private readonly SpotdlMetadataLoader _spotdlMetadataLoader;
 
     public PlaylistProcessor(
         IFileService fileService,
         SpotdlMetadataLoader spotdlMetadataLoader,
         IConfigService configService,
-        MetadataHandlesFactory metadataHandlesFactory)
+        IMetadataService metadataService)
     {
         _fileService = fileService;
         _spotdlMetadataLoader = spotdlMetadataLoader;
         _configService = configService;
-        _metadataHandlesFactory = metadataHandlesFactory;
+        _metadataService = metadataService;
     }
 
     private readonly JsonSerializerOptions _jsonOptions = new() { PropertyNameCaseInsensitive = true };
     private readonly ConcurrentDictionary<string, byte> SongsWithoutMetadata = new();
     private readonly ConcurrentDictionary<string, byte> SongsWithoutStyles = new();
-
     private readonly ConcurrentDictionary<string, byte> UnmappedStyles = new();
 
     public async Task FixPlaylistGenresUsingSpotdlMetadataAsync(string playlistPath)
@@ -73,8 +72,7 @@ public class PlaylistProcessor : IPlaylistProcessor
             }
 
             // Queue up the I/O work without awaiting
-            var metadataHandler = _metadataHandlesFactory.GetHandler(song);
-            writeTasks.Add(Task.Run(() => metadataHandler.WriteMetadata(song, songSpotDLMetadata)));
+            writeTasks.Add(Task.Run(() => _metadataService.WriteSongMetadata(song, songSpotDLMetadata)));
         }
 
         // Execute all I/O operations concurrently
@@ -113,8 +111,7 @@ public class PlaylistProcessor : IPlaylistProcessor
             PlaceGenresInStyles(songMetadata);
             ProcessSongMetadata(songMetadata, styleMappings, stylesToRemove);
 
-            var metadataHandler = _metadataHandlesFactory.GetHandler(song);
-            writeTasks.Add(Task.Run(() => metadataHandler.WriteMetadata(song, songMetadata)));
+            writeTasks.Add(Task.Run(() => _metadataService.WriteSongMetadata(song, songMetadata)));
         }
 
         await Task.WhenAll(writeTasks);

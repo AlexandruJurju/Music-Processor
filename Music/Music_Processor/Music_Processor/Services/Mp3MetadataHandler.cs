@@ -9,16 +9,16 @@ namespace Music_Processor.Services;
 
 public class MP3MetadataHandler : IMetadataHandler
 {
-    public AudioMetadata ExtractMetadata(string filePath)
+    public AudioMetadata ExtractMetadata(string songPath)
     {
-        using var file = File.Create(filePath);
+        using var file = File.Create(songPath);
         var tag = file.GetTag(TagTypes.Id3v2, true) as TagLib.Id3v2.Tag;
 
         return new AudioMetadata
         {
-            FilePath = filePath,
+            FilePath = songPath,
             FileType = "MP3",
-            Title = tag.Title ?? Path.GetFileNameWithoutExtension(filePath),
+            Title = tag.Title ?? Path.GetFileNameWithoutExtension(songPath),
             Artists = tag.Performers.ToList(),
             Album = tag.Album ?? string.Empty,
             Genres = tag.Genres.ToList(),
@@ -30,10 +30,10 @@ public class MP3MetadataHandler : IMetadataHandler
         };
     }
 
-    public void WriteMetadata(string filePath, AudioMetadata audioMetadata)
+    public void WriteMetadata(string songPath, AudioMetadata audioMetadata)
     {
         // todo: fix memory problems
-        using var file = File.Create(filePath);
+        using var file = File.Create(songPath);
 
         // Get or create ID3v2 tag
         var tag = file.GetTag(TagTypes.Id3v2, true) as TagLib.Id3v2.Tag;

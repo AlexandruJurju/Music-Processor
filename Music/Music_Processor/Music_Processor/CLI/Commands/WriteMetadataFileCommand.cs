@@ -48,7 +48,7 @@ public class WriteMetadataFileCommand : IMenuCommand
         try
         {
             var folderPath = Path.Combine(_fileService.GetPlaylistsDirectory(), playlistName);
-            var playlistMetadata = await _metadataService.ProcessDirectoryAsync(folderPath);
+            var playlistMetadata =  _metadataService.GetPlaylistSongsMetadata(folderPath);
             await _metadataService.SaveMetadataToJsonAsync(playlistMetadata, $"{folderPath}.json");
         }
         catch (Exception ex)

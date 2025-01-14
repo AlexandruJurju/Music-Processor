@@ -8,18 +8,18 @@ namespace Music_Processor.Services;
 
 public class FlacMetadataHandler : IMetadataHandler
 {
-    public AudioMetadata ExtractMetadata(string filePath)
+    public AudioMetadata ExtractMetadata(string songPath)
     {
-        using var file = File.Create(filePath);
+        using var file = File.Create(songPath);
         var tag = file.Tag;
 
         var styles = ExtractStyles(file);
 
         return new AudioMetadata
         {
-            FilePath = filePath,
+            FilePath = songPath,
             FileType = "FLAC",
-            Title = tag.Title ?? Path.GetFileNameWithoutExtension(filePath),
+            Title = tag.Title ?? Path.GetFileNameWithoutExtension(songPath),
             Artists = tag.Performers.ToList(),
             Album = tag.Album ?? string.Empty,
             Genres = tag.Genres.ToList(),
@@ -31,11 +31,11 @@ public class FlacMetadataHandler : IMetadataHandler
         };
     }
 
-    public void WriteMetadata(string filePath, AudioMetadata audioMetadata)
+    public void WriteMetadata(string songPath, AudioMetadata audioMetadata)
     {
         try
         {
-            using var file = File.Create(filePath);
+            using var file = File.Create(songPath);
             var tag = file.Tag;
 
             // Handle the combined tag first for genres
@@ -65,7 +65,7 @@ public class FlacMetadataHandler : IMetadataHandler
         }
         catch (Exception ex)
         {
-            throw new Exception($"Error writing metadata to FLAC file {filePath}: {ex.Message}", ex);
+            throw new Exception($"Error writing metadata to FLAC file {songPath}: {ex.Message}", ex);
         }
     }
     
