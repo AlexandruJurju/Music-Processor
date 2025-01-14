@@ -42,6 +42,7 @@ public class JsonSerializationStrategy : IMetadataSerializationStrategy
         try
         {
             var metadataFile = Path.Combine(AppPaths.PlaylistsDirectory, playlistName + ".json");
+            _logger.LogInformation($"Reading metadata from: {metadataFile}");
             var json = await File.ReadAllTextAsync(metadataFile);
             var metadata = JsonSerializer.Deserialize<List<AudioMetadata>>(json, _jsonOptions);
             return metadata ?? new List<AudioMetadata>();

@@ -13,7 +13,7 @@ public class MP3MetadataHandler : IMetadataHandler
     {
         using var file = File.Create(songPath);
         var tag = file.GetTag(TagTypes.Id3v2, true) as TagLib.Id3v2.Tag;
-
+        
         return new AudioMetadata
         {
             FilePath = songPath,
@@ -34,6 +34,7 @@ public class MP3MetadataHandler : IMetadataHandler
     {
         // todo: fix memory problems
         using var file = File.Create(songPath);
+        
 
         // Get or create ID3v2 tag
         var tag = file.GetTag(TagTypes.Id3v2, true) as TagLib.Id3v2.Tag;
@@ -41,6 +42,12 @@ public class MP3MetadataHandler : IMetadataHandler
         {
             throw new InvalidOperationException("Failed to create ID3v2 tag");
         }
+        
+        if (tag.Title == "Doomsday Codex")
+        {
+            Console.WriteLine();
+        }
+
 
         // Remove existing genre frames
         tag.RemoveFrames("TCON");

@@ -55,9 +55,9 @@ public class MetadataService : IMetadataService
         await _metadataSerializationStrategy.SaveMetadataAsync(metadata, playlistName);
     }
 
-    public Task<List<AudioMetadata>> LoadMetadataFromFileAsync(string playlistName)
+    public async Task<List<AudioMetadata>> LoadMetadataFromFileAsync(string playlistName)
     {
-        return _metadataSerializationStrategy.LoadMetadataAsync(playlistName);
+        return await _metadataSerializationStrategy.LoadMetadataAsync(playlistName);;
     }
 
     public void WriteSongMetadata(string songPath, AudioMetadata audioMetadata)
