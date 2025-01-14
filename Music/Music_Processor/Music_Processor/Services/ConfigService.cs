@@ -1,22 +1,16 @@
 using System.Text.Json;
+using Music_Processor.Constants;
 using Music_Processor.Interfaces;
 
 namespace Music_Processor.Services;
 
 public class ConfigService : IConfigService
 {
-    private readonly IFileService _fileService;
-
-    public ConfigService(IFileService fileService)
-    {
-        _fileService = fileService;
-    }
-
     public Dictionary<string, List<string>> LoadStyleMappingFile()
     {
         try
         {
-            using var r = new StreamReader(_fileService.GetBaseDirectory() + "\\" + Constants.Constants.StyleMappingFile);
+            using var r = new StreamReader(Path.Combine(AppPaths.ExecutableDirectory, Constants.Constants.StyleMappingFile));
             Dictionary<string, List<string>> styleMapping = JsonSerializer.Deserialize<Dictionary<string, List<string>>>(r.ReadToEnd(), new JsonSerializerOptions
             {
                 PropertyNameCaseInsensitive = true
@@ -44,7 +38,7 @@ public class ConfigService : IConfigService
     {
         try
         {
-            using var r = new StreamReader(_fileService.GetBaseDirectory() + "\\" + Constants.Constants.StylesToRemoveFile);
+            using var r = new StreamReader(Path.Combine(AppPaths.ExecutableDirectory, Constants.Constants.StylesToRemoveFile));
             List<string> stylesToRemove = JsonSerializer.Deserialize<List<string>>(r.ReadToEnd(), new JsonSerializerOptions
             {
                 PropertyNameCaseInsensitive = true

@@ -4,16 +4,6 @@ namespace Music_Processor.Services;
 
 public class FileService : IFileService
 {
-    public string GetPlaylistsDirectory()
-    {
-        return Path.Combine(Environment.CurrentDirectory, Constants.Constants.PlaylistFolder);
-    }
-
-    public string GetBaseDirectory()
-    {
-        return Path.Combine(Environment.CurrentDirectory);
-    }
-
     public string[] GetAllFoldersInPath(string path)
     {
         if (string.IsNullOrWhiteSpace(path))
@@ -48,10 +38,5 @@ public class FileService : IFileService
         var spotdlFile = Directory.GetFiles(path, "*.spotdl", SearchOption.AllDirectories).FirstOrDefault();
 
         return spotdlFile;
-    }
-
-    public string GetMetadataStorageFileForPlaylist(string playlistPath)
-    {
-        return playlistPath + ".json";
     }
 }

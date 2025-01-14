@@ -1,4 +1,5 @@
 ﻿using Microsoft.Extensions.Logging;
+using Music_Processor.Constants;
 using Music_Processor.Interfaces;
 
 namespace Music_Processor.CLI.Commands;
@@ -20,7 +21,7 @@ public class WriteMetadataFileCommand : IMenuCommand
 
     public async Task ExecuteAsync()
     {
-        var baseDirectory = _fileService.GetPlaylistsDirectory();
+        var baseDirectory = AppPaths.PlaylistsDirectory;
         string[] availablePlaylists = _fileService.GetAllFoldersInPath(baseDirectory);
 
         foreach (var playlist in availablePlaylists)
@@ -47,9 +48,9 @@ public class WriteMetadataFileCommand : IMenuCommand
 
         try
         {
-            var folderPath = Path.Combine(_fileService.GetPlaylistsDirectory(), playlistName);
-            var playlistMetadata =  _metadataService.GetPlaylistSongsMetadata(folderPath);
-            await _metadataService.SaveMetadataToJsonAsync(playlistMetadata, $"{folderPath}.json");
+            var folderPath = Path.Combine(AppPaths.PlaylistsDirectory, playlistName);
+            var playlistMetadata = _metadataService.GetPlaylistSongsMetadata(folderPath);
+            await _metadataService.SaveMetadataToFileAsync(playlistMetadata, playlistName);
         }
         catch (Exception ex)
         {

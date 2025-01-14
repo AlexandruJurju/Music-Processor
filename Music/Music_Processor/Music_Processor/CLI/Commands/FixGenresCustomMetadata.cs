@@ -1,5 +1,6 @@
 ﻿using System.Diagnostics;
 using Microsoft.Extensions.Logging;
+using Music_Processor.Constants;
 using Music_Processor.Interfaces;
 
 namespace Music_Processor.CLI.Commands;
@@ -21,7 +22,7 @@ public class FixGenresCustomMetadata : IMenuCommand
 
     public async Task ExecuteAsync()
     {
-        var baseDirectory = _fileService.GetPlaylistsDirectory();
+        var baseDirectory = AppPaths.PlaylistsDirectory;
         string[] availablePlaylists = _fileService.GetAllFoldersInPath(baseDirectory);
 
         foreach (var playlist in availablePlaylists)
@@ -46,7 +47,7 @@ public class FixGenresCustomMetadata : IMenuCommand
             return;
         }
 
-        var metadataFile = Path.Combine(_fileService.GetPlaylistsDirectory(), playlistName + ".json");
+        var metadataFile = Path.Combine(AppPaths.PlaylistsDirectory, playlistName + ".json");
         if (!File.Exists(metadataFile))
         {
             Console.WriteLine("Metadata file could not be found.");
@@ -54,8 +55,8 @@ public class FixGenresCustomMetadata : IMenuCommand
         }
 
         var stopwatch = Stopwatch.StartNew();
-        var playlistPath = Path.Combine(_fileService.GetPlaylistsDirectory(), playlistName);
-        await _playlistProcessor.FixPlaylistGenresUsingCustomMetadataAsync(playlistPath, metadataFile);
+        var playlistPath = Path.Combine(AppPaths.PlaylistsDirectory, playlistName);
+        await _playlistProcessor.FixPlaylistGenresUsingCustomMetadataAsync(playlistPath);
         Console.WriteLine($"Finished in {stopwatch.Elapsed.Milliseconds}ms");
     }
 }

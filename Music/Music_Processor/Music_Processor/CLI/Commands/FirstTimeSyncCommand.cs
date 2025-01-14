@@ -1,4 +1,5 @@
 ﻿using Microsoft.Extensions.Logging;
+using Music_Processor.Constants;
 using Music_Processor.Interfaces;
 
 namespace Music_Processor.CLI.Commands;
@@ -41,7 +42,7 @@ public class FirstTimeSyncCommand : IMenuCommand
         try
         {
             Console.WriteLine("Calling SpotDL...");
-            await _spotdlService.NewSyncAsync(playlistUrl, playlistName, _fileService.GetPlaylistsDirectory());
+            await _spotdlService.NewSyncAsync(playlistUrl, playlistName, AppPaths.PlaylistsDirectory);
         }
         catch (Exception ex)
         {

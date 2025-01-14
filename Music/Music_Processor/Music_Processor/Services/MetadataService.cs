@@ -11,11 +11,13 @@ public class MetadataService : IMetadataService
     private readonly JsonSerializerOptions _jsonOptions;
     private readonly ILogger<MetadataService> _logger;
     private readonly MetadataHandlesFactory _metadataHandlesFactory;
+    private readonly IMetadataSerializationStrategy _metadataSerializationStrategy;
 
-    public MetadataService(ILogger<MetadataService> logger)
+    public MetadataService(ILogger<MetadataService> logger, IMetadataSerializationStrategy metadataSerializationStrategy)
     {
         _metadataHandlesFactory = new MetadataHandlesFactory();
         _logger = logger;
+        _metadataSerializationStrategy = metadataSerializationStrategy;
         _jsonOptions = new JsonSerializerOptions
         {
             WriteIndented = true,
@@ -48,34 +50,14 @@ public class MetadataService : IMetadataService
         return metadata;
     }
 
-    public async Task SaveMetadataToJsonAsync(List<AudioMetadata> metadata, string outputJsonPath)
+    public async Task SaveMetadataToFileAsync(List<AudioMetadata> metadata, string playlistName)
     {
-        try
-        {
-            var json = JsonSerializer.Serialize(metadata, _jsonOptions);
-            await File.WriteAllTextAsync(outputJsonPath, json);
-            _logger.LogInformation("Metadata saved to: {OutputPath}", outputJsonPath);
-        }
-        catch (Exception ex)
-        {
-            _logger.LogError(ex, "Error saving metadata to JSON");
-            throw;
-        }
+        await _metadataSerializationStrategy.SaveMetadataAsync(metadata, playlistName);
     }
 
-    public async Task<List<AudioMetadata>> LoadMetadataFromJsonAsync(string jsonPath)
+    public Task<List<AudioMetadata>> LoadMetadataFromFileAsync(string playlistName)
     {
-        try
-        {
-            var json = await File.ReadAllTextAsync(jsonPath);
-            var metadata = JsonSerializer.Deserialize<List<AudioMetadata>>(json, _jsonOptions);
-            return metadata ?? new List<AudioMetadata>();
-        }
-        catch (Exception ex)
-        {
-            _logger.LogError(ex, "Error loading metadata from JSON");
-            throw;
-        }
+        return _metadataSerializationStrategy.LoadMetadataAsync(playlistName);
     }
 
     public void WriteSongMetadata(string songPath, AudioMetadata audioMetadata)

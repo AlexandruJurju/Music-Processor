@@ -1,12 +1,16 @@
 ﻿using BenchmarkDotNet.Running;
+using FastSerialization;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Music_Processor.CLI;
 using Music_Processor.CLI.Commands;
+using Music_Processor.Constants;
 using Music_Processor.Factories;
 using Music_Processor.Interfaces;
 using Music_Processor.Services;
 using Music_Processor.Services.SpotDLMetadataLoader;
+
+var serializationFileType = SerializationFiles.JSON;
 
 var host = Host.CreateDefaultBuilder(args)
     .ConfigureServices((context, services) =>
@@ -26,6 +30,16 @@ var host = Host.CreateDefaultBuilder(args)
         services.AddTransient<IConfigService, ConfigService>();
         services.AddTransient<IMetadataService, MetadataService>();
         services.AddTransient<IPlaylistProcessor, PlaylistProcessor>();
+
+        switch (serializationFileType)
+        {
+            case SerializationFiles.JSON:
+                services.AddTransient<IMetadataSerializationStrategy, JsonSerializationStrategy>();
+                break;
+            case SerializationFiles.XML:
+                services.AddTransient<IMetadataSerializationStrategy, XmlSerializationStrategy>();
+                break;
+        }
 
         // Register command factory
         services.AddSingleton<MenuCommandFactory>();

@@ -1,4 +1,5 @@
 ﻿using Microsoft.Extensions.Logging;
+using Music_Processor.Constants;
 using Music_Processor.Interfaces;
 
 namespace Music_Processor.CLI.Commands;
@@ -21,7 +22,7 @@ public class UpdateSyncCommand : IMenuCommand
 
     public async Task ExecuteAsync()
     {
-        var baseDirectory = _fileService.GetPlaylistsDirectory();
+        var baseDirectory = AppPaths.PlaylistsDirectory;
         string[] availablePlaylists = _fileService.GetAllFoldersInPath(baseDirectory);
 
         foreach (var playlist in availablePlaylists)
@@ -47,7 +48,7 @@ public class UpdateSyncCommand : IMenuCommand
         }
 
         // check if sync file exists
-        var syncFile = Path.Combine(_fileService.GetPlaylistsDirectory(), playlistName, $"{playlistName}.spotdl");
+        var syncFile = Path.Combine(AppPaths.PlaylistsDirectory, playlistName, $"{playlistName}.spotdl");
         if (string.IsNullOrEmpty(syncFile))
         {
             Console.WriteLine("No spotdl file found.");
@@ -56,7 +57,7 @@ public class UpdateSyncCommand : IMenuCommand
         try
         {
             Console.WriteLine("Calling SpotDL...");
-            await _spotdlService.UpdateSyncAsync(playlistName, _fileService.GetPlaylistsDirectory());
+            await _spotdlService.UpdateSyncAsync(playlistName, AppPaths.PlaylistsDirectory);
         }
         catch (Exception ex)
         {

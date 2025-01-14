@@ -1,5 +1,6 @@
 ﻿using System.Diagnostics;
 using Microsoft.Extensions.Logging;
+using Music_Processor.Constants;
 using Music_Processor.Interfaces;
 
 namespace Music_Processor.CLI.Commands;
@@ -21,7 +22,7 @@ public class FixGenresSpotDLCommand : IMenuCommand
 
     public async Task ExecuteAsync()
     {
-        var baseDirectory = _fileService.GetPlaylistsDirectory();
+        var baseDirectory = AppPaths.PlaylistsDirectory;
         string[] availablePlaylists = _fileService.GetAllFoldersInPath(baseDirectory);
 
         foreach (var playlist in availablePlaylists)
@@ -47,7 +48,7 @@ public class FixGenresSpotDLCommand : IMenuCommand
         }
         
         var stopwatch = Stopwatch.StartNew();
-        var playlistPath = Path.Combine(_fileService.GetPlaylistsDirectory(), playlistName);
+        var playlistPath = Path.Combine(AppPaths.PlaylistsDirectory, playlistName);
         await _playlistProcessor.FixPlaylistGenresUsingSpotdlMetadataAsync(playlistPath);
         Console.WriteLine($"Finished in {stopwatch.Elapsed.Milliseconds}ms");
     }
