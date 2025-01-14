@@ -1,7 +1,6 @@
 using System.Collections.Concurrent;
 using System.Diagnostics;
 using System.Text.Json;
-using BenchmarkDotNet.Attributes;
 using Music_Processor.Factories;
 using Music_Processor.Interfaces;
 using Music_Processor.Model;
@@ -9,7 +8,7 @@ using Music_Processor.Services.SpotDLMetadataLoader;
 
 namespace Music_Processor.Services;
 
-public class PlaylistProcessor: IPlaylistProcessor
+public class PlaylistProcessor : IPlaylistProcessor
 {
     private readonly IFileService _fileService;
     private readonly SpotdlMetadataLoader _spotdlMetadataLoader;
@@ -27,7 +26,7 @@ public class PlaylistProcessor: IPlaylistProcessor
         _configService = configService;
         _metadataHandlesFactory = metadataHandlesFactory;
     }
-    
+
     private readonly JsonSerializerOptions _jsonOptions = new() { PropertyNameCaseInsensitive = true };
     private readonly ConcurrentDictionary<string, byte> SongsWithoutMetadata = new();
     private readonly ConcurrentDictionary<string, byte> SongsWithoutStyles = new();
@@ -37,19 +36,17 @@ public class PlaylistProcessor: IPlaylistProcessor
     public async Task FixPlaylistGenresUsingSpotdlMetadataAsync(string playlistPath)
     {
         // Load all required data upfront in parallel
-        var spotdlMetadataTask = Task.Run(() => _spotdlMetadataLoader.LoadSpotDLMetadata(playlistPath));
+        var spotdlMetadataTask = _spotdlMetadataLoader.LoadSpotDLMetadataAsync(playlistPath);
         var playlistSongsTask = Task.Run(() => _fileService.GetAllAudioFilesInFolder(playlistPath));
         var styleMappingsTask = Task.Run(() => _configService.LoadStyleMappingFile());
         var stylesToRemoveTask = Task.Run(() => _configService.LoadStylesToRemove());
 
         await Task.WhenAll(spotdlMetadataTask, playlistSongsTask, styleMappingsTask, stylesToRemoveTask);
-        
+
         var spotdlMetadata = spotdlMetadataTask.Result;
         var playlistSongs = playlistSongsTask.Result;
         var styleMappings = styleMappingsTask.Result;
         var stylesToRemove = stylesToRemoveTask.Result;
-        
-        var stopwatch = Stopwatch.StartNew();
 
         // Prepare all metadata updates first (CPU-bound work)
         var writeTasks = new List<Task>();
@@ -77,45 +74,50 @@ public class PlaylistProcessor: IPlaylistProcessor
 
             // Queue up the I/O work without awaiting
             var metadataHandler = _metadataHandlesFactory.GetHandler(song);
-            writeTasks.Add(metadataHandler.WriteMetadataAsync(song, songSpotDLMetadata));
+            writeTasks.Add(Task.Run(() => metadataHandler.WriteMetadata(song, songSpotDLMetadata)));
         }
-        
+
         // Execute all I/O operations concurrently
         await Task.WhenAll(writeTasks);
-
-        Console.WriteLine($"Finished in {stopwatch.ElapsedMilliseconds}ms");
     }
 
-    public void FixPlaylistGenresUsingCustomMetadata(string playlistPath, string metadataPath)
+    public async Task FixPlaylistGenresUsingCustomMetadataAsync(string playlistPath, string metadataPath)
     {
-        var jsonContent = File.ReadAllText(metadataPath);
+        // Load all required data upfront in parallel
+        var jsonContentTask = File.ReadAllTextAsync(metadataPath);
+        var playlistSongsTask = Task.Run(() => _fileService.GetAllAudioFilesInFolder(playlistPath));
+        var styleMappingsTask = Task.Run(() => _configService.LoadStyleMappingFile());
+        var stylesToRemoveTask = Task.Run(() => _configService.LoadStylesToRemove());
+
+        var jsonContent = jsonContentTask.Result;
         List<AudioMetadata> customMetadata = JsonSerializer.Deserialize<List<AudioMetadata>>(jsonContent, _jsonOptions)!;
-
         var metadataByPath = customMetadata.ToDictionary(m => m.FilePath, m => m);
-        var songs = _fileService.GetAllAudioFilesInFolder(playlistPath);
-        var styleMappings = _configService.LoadStyleMappingFile();
-        var stylesToRemove = _configService.LoadStylesToRemove();
 
-        Parallel.ForEach(
-            songs,
-            new ParallelOptions { MaxDegreeOfParallelism = 2 },
-            song =>
+        // Execute all loading tasks concurrently
+        await Task.WhenAll(jsonContentTask, playlistSongsTask, styleMappingsTask, stylesToRemoveTask);
+
+        var playlistSongs = playlistSongsTask.Result;
+        var styleMappings = styleMappingsTask.Result;
+        var stylesToRemove = stylesToRemoveTask.Result;
+
+        var writeTasks = new List<Task>();
+
+        foreach (var song in playlistSongs)
+        {
+            if (!metadataByPath.TryGetValue(song, out var songMetadata))
             {
-                if (metadataByPath.TryGetValue(song, out var songMetadata))
-                {
-                    PlaceGenresInStyles(songMetadata);
-                    ProcessSongMetadata(songMetadata, styleMappings, stylesToRemove);
+                SongsWithoutMetadata.TryAdd(Path.GetFileNameWithoutExtension(song), 1);
+                continue;
+            }
 
-                    var metadataHandler = _metadataHandlesFactory.GetHandler(song);
-                    metadataHandler.WriteMetadata(song, songMetadata);
-                }
-                else
-                {
-                    SongsWithoutMetadata.TryAdd(Path.GetFileNameWithoutExtension(song), 1);
-                }
-            });
+            PlaceGenresInStyles(songMetadata);
+            ProcessSongMetadata(songMetadata, styleMappings, stylesToRemove);
 
-        PrintProcessingResults();
+            var metadataHandler = _metadataHandlesFactory.GetHandler(song);
+            writeTasks.Add(Task.Run(() => metadataHandler.WriteMetadata(song, songMetadata)));
+        }
+
+        await Task.WhenAll(writeTasks);
     }
 
     private void PlaceGenresInStyles(AudioMetadata songSpotDLMetadata)
@@ -181,5 +183,4 @@ public class PlaylistProcessor: IPlaylistProcessor
             Console.WriteLine(style);
         }
     }
-    
 }

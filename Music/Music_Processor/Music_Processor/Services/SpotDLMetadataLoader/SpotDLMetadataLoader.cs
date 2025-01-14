@@ -23,7 +23,7 @@ public class SpotdlMetadataLoader
         };
     }
 
-    public Dictionary<string, AudioMetadata> LoadSpotDLMetadata(string playlistPath)
+    public async Task<Dictionary<string, AudioMetadata>> LoadSpotDLMetadataAsync(string playlistPath)
     {
         var metadataLookup = new Dictionary<string, AudioMetadata>();
 
@@ -36,7 +36,7 @@ public class SpotdlMetadataLoader
                 return metadataLookup;
             }
 
-            var jsonContent = File.ReadAllText(spotdlFile, Encoding.UTF8);
+            var jsonContent = await File.ReadAllTextAsync(spotdlFile, Encoding.UTF8);
             var playlistData = JsonSerializer.Deserialize<SpotDLPlaylist>(jsonContent, _jsonOptions);
 
             if (playlistData?.Songs == null || !playlistData.Songs.Any())

@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.Logging;
+﻿using System.Diagnostics;
+using Microsoft.Extensions.Logging;
 using Music_Processor.Interfaces;
 
 namespace Music_Processor.CLI.Commands;
@@ -52,7 +53,9 @@ public class FixGenresCustomMetadata : IMenuCommand
             return;
         }
 
+        var stopwatch = Stopwatch.StartNew();
         var playlistPath = Path.Combine(_fileService.GetPlaylistsDirectory(), playlistName);
-        _playlistProcessor.FixPlaylistGenresUsingCustomMetadata(playlistPath, metadataFile);
+        await _playlistProcessor.FixPlaylistGenresUsingCustomMetadataAsync(playlistPath, metadataFile);
+        Console.WriteLine($"Finished in {stopwatch.Elapsed.Milliseconds}ms");
     }
 }

@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.Logging;
+﻿using System.Diagnostics;
+using Microsoft.Extensions.Logging;
 using Music_Processor.Interfaces;
 
 namespace Music_Processor.CLI.Commands;
@@ -44,8 +45,10 @@ public class FixGenresSpotDLCommand : IMenuCommand
             Console.WriteLine("Playlist does not exist.");
             return;
         }
-
+        
+        var stopwatch = Stopwatch.StartNew();
         var playlistPath = Path.Combine(_fileService.GetPlaylistsDirectory(), playlistName);
         await _playlistProcessor.FixPlaylistGenresUsingSpotdlMetadataAsync(playlistPath);
+        Console.WriteLine($"Finished in {stopwatch.Elapsed.Milliseconds}ms");
     }
 }

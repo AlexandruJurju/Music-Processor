@@ -6,5 +6,4 @@ public interface IMetadataHandler
 {
     AudioMetadata ExtractMetadata(string filePath);
     void WriteMetadata(string filePath, AudioMetadata audioMetadata);
-    Task WriteMetadataAsync(string filePath, AudioMetadata audioMetadata);
 }
