@@ -69,6 +69,49 @@ public class FlacMetadataHandler : IMetadataHandler
         }
     }
 
+    public async Task WriteMetadataAsync(string filePath, AudioMetadata audioMetadata)
+    {
+        try
+        {
+            // File.Create is I/O bound, so wrap in Task.Run
+            using var file = await Task.Run(() => File.Create(filePath));
+            var tag = file.Tag;
+
+            await Task.Run(() =>
+            {
+                // Handle the combined tag first for genres
+                tag.Genres = audioMetadata.Genres.ToArray();
+
+                // Then specifically handle the Xiph tag for styles
+                if (file.TagTypes.HasFlag(TagTypes.Xiph))
+                {
+                    var xiphTag = file.GetTag(TagTypes.Xiph) as XiphComment;
+                    if (xiphTag != null)
+                    {
+                        // Clear existing style fields
+                        xiphTag.RemoveField("STYLE");
+                        xiphTag.RemoveField("Style");
+                        xiphTag.RemoveField("Styles");
+                        xiphTag.RemoveField("styles");
+
+                        // Add new styles
+                        if (audioMetadata.Styles.Any())
+                        {
+                            xiphTag.SetField("STYLE", audioMetadata.Styles.ToArray());
+                        }
+                    }
+                }
+            });
+
+            // File.Save is I/O bound, so wrap in Task.Run
+            await Task.Run(() => file.Save());
+        }
+        catch (Exception ex)
+        {
+            throw new Exception($"Error writing metadata to FLAC file {filePath}: {ex.Message}", ex);
+        }
+    }
+
     private List<string> ExtractStyles(File file)
     {
         var styles = new List<string>();

@@ -34,45 +34,56 @@ public class PlaylistProcessor: IPlaylistProcessor
 
     private readonly ConcurrentDictionary<string, byte> UnmappedStyles = new();
 
-    public void FixPlaylistGenresUsingSpotdlMetadata(string playlistPath)
+    public async Task FixPlaylistGenresUsingSpotdlMetadataAsync(string playlistPath)
     {
-        var spotdlMetadata = _spotdlMetadataLoader.LoadSpotDLMetadata(playlistPath);
-        var playlistSongs = _fileService.GetAllAudioFilesInFolder(playlistPath);
-        var styleMappings = _configService.LoadStyleMappingFile();
-        var stylesToRemove = _configService.LoadStylesToRemove();
+        // Load all required data upfront in parallel
+        var spotdlMetadataTask = Task.Run(() => _spotdlMetadataLoader.LoadSpotDLMetadata(playlistPath));
+        var playlistSongsTask = Task.Run(() => _fileService.GetAllAudioFilesInFolder(playlistPath));
+        var styleMappingsTask = Task.Run(() => _configService.LoadStyleMappingFile());
+        var stylesToRemoveTask = Task.Run(() => _configService.LoadStylesToRemove());
 
+        await Task.WhenAll(spotdlMetadataTask, playlistSongsTask, styleMappingsTask, stylesToRemoveTask);
+        
+        var spotdlMetadata = spotdlMetadataTask.Result;
+        var playlistSongs = playlistSongsTask.Result;
+        var styleMappings = styleMappingsTask.Result;
+        var stylesToRemove = stylesToRemoveTask.Result;
+        
         var stopwatch = Stopwatch.StartNew();
 
-        Parallel.ForEach(
-            playlistSongs,
-            new ParallelOptions { MaxDegreeOfParallelism = Environment.ProcessorCount },
-            song =>
+        // Prepare all metadata updates first (CPU-bound work)
+        var writeTasks = new List<Task>();
+
+        foreach (var song in playlistSongs)
+        {
+            var songName = Path.GetFileNameWithoutExtension(song);
+            var cleanedSongName = _spotdlMetadataLoader.CleanKeyName(songName);
+
+            if (!spotdlMetadata.TryGetValue(cleanedSongName, out var songSpotDLMetadata))
             {
-                var songName = Path.GetFileNameWithoutExtension(song);
-                var cleanedSongName = _spotdlMetadataLoader.CleanKeyName(songName);
+                SongsWithoutMetadata.TryAdd(songName, 1);
+                continue;
+            }
 
-                if (!spotdlMetadata.TryGetValue(cleanedSongName, out var songSpotDLMetadata))
-                {
-                    SongsWithoutMetadata.TryAdd(songName, 1);
-                    return;
-                }
+            // Do CPU-bound work synchronously since we're already in a loop
+            PlaceGenresInStyles(songSpotDLMetadata);
+            ProcessSongMetadata(songSpotDLMetadata, styleMappings, stylesToRemove);
 
-                PlaceGenresInStyles(songSpotDLMetadata);
-                ProcessSongMetadata(songSpotDLMetadata, styleMappings, stylesToRemove);
+            if (!songSpotDLMetadata.Styles.Any())
+            {
+                SongsWithoutStyles.TryAdd(songName, 1);
+                continue;
+            }
 
-                if (!songSpotDLMetadata.Styles.Any())
-                {
-                    SongsWithoutStyles.TryAdd(songName, 1);
-                    return;
-                }
-
-                var metadataHandler = _metadataHandlesFactory.GetHandler(song);
-                metadataHandler.WriteMetadata(song, songSpotDLMetadata);
-            });
+            // Queue up the I/O work without awaiting
+            var metadataHandler = _metadataHandlesFactory.GetHandler(song);
+            writeTasks.Add(metadataHandler.WriteMetadataAsync(song, songSpotDLMetadata));
+        }
+        
+        // Execute all I/O operations concurrently
+        await Task.WhenAll(writeTasks);
 
         Console.WriteLine($"Finished in {stopwatch.ElapsedMilliseconds}ms");
-
-        // PrintProcessingResults();
     }
 
     public void FixPlaylistGenresUsingCustomMetadata(string playlistPath, string metadataPath)

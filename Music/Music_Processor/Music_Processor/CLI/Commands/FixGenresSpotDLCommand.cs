@@ -46,6 +46,6 @@ public class FixGenresSpotDLCommand : IMenuCommand
         }
 
         var playlistPath = Path.Combine(_fileService.GetPlaylistsDirectory(), playlistName);
-        _playlistProcessor.FixPlaylistGenresUsingSpotdlMetadata(playlistPath);
+        await _playlistProcessor.FixPlaylistGenresUsingSpotdlMetadataAsync(playlistPath);
     }
 }

@@ -30,6 +30,64 @@ public class MP3MetadataHandler : IMetadataHandler
         };
     }
 
+    public async Task WriteMetadataAsync(string filePath, AudioMetadata audioMetadata)
+    {
+        try
+        {
+            // todo: fix memory problems
+            using var file = await Task.Run(() => File.Create(filePath));
+
+            // Get or create ID3v2 tag
+            var tag = await Task.Run(() => file.GetTag(TagTypes.Id3v2, true)) as TagLib.Id3v2.Tag;
+            if (tag == null)
+            {
+                throw new InvalidOperationException("Failed to create ID3v2 tag");
+            }
+
+            await Task.Run(() =>
+            {
+                // Remove existing genre frames
+                tag.RemoveFrames("TCON");
+
+                // Add new genre frame if there are genres
+                if (audioMetadata.Genres.Any())
+                {
+                    tag.Genres = audioMetadata.Genres.ToArray();
+                }
+
+                // Remove existing style frames first
+                var existingStyleFrames = tag.GetFrames("TXXX")
+                    .OfType<UserTextInformationFrame>()
+                    .Where(f => f.Description == "Styles")
+                    .ToList();
+
+                foreach (var frame in existingStyleFrames)
+                {
+                    tag.RemoveFrame(frame);
+                }
+
+                // Add new style frame if there are styles
+                if (audioMetadata.Styles.Any())
+                {
+                    var styleFrame = new UserTextInformationFrame("TXXX")
+                    {
+                        Description = "Styles",
+                        Text = audioMetadata.Styles.ToArray(),
+                        TextEncoding = StringType.UTF8
+                    };
+                    tag.AddFrame(styleFrame);
+                }
+            });
+
+            // todo: fix memory problems
+            await Task.Run(() => file.Save());
+        }
+        catch (Exception ex)
+        {
+            throw new Exception($"Error writing metadata to file {filePath}: {ex.Message}", ex);
+        }
+    }
+
     public void WriteMetadata(string filePath, AudioMetadata audioMetadata)
     {
         try
