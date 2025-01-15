@@ -46,6 +46,7 @@ public class WriteMetadataFileCommand : IMenuCommand
             return;
         }
 
+        // TODO: use hashing here as well, use a file for the playlist metadata, hash it if its the same read from that file; otherwise check each song hash
         try
         {
             var folderPath = Path.Combine(AppPaths.PlaylistsDirectory, playlistName);

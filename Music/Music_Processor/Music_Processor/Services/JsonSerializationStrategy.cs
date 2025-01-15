@@ -1,4 +1,5 @@
-﻿using System.Text.Json;
+﻿using System.Text.Encodings.Web;
+using System.Text.Json;
 using Microsoft.Extensions.Logging;
 using Music_Processor.Constants;
 using Music_Processor.Interfaces;
@@ -17,7 +18,8 @@ public class JsonSerializationStrategy : IMetadataSerializationStrategy
         _jsonOptions = new JsonSerializerOptions
         {
             WriteIndented = true,
-            PropertyNamingPolicy = JsonNamingPolicy.CamelCase
+            PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
+            Encoder = JavaScriptEncoder.UnsafeRelaxedJsonEscaping 
         };
     }
 

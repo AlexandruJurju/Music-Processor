@@ -37,7 +37,7 @@ public class MetadataService : IMetadataService
         {
             try
             {
-                var extractor = _metadataHandlesFactory.GetHandler(file);
+                IMetadataHandler extractor = _metadataHandlesFactory.GetHandler(file);
                 var audioMetadata = extractor.ExtractMetadata(file);
                 metadata.Add(audioMetadata);
             }

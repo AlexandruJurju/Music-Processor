@@ -13,28 +13,27 @@ public class MP3MetadataHandler : IMetadataHandler
     {
         using var file = File.Create(songPath);
         var tag = file.GetTag(TagTypes.Id3v2, true) as TagLib.Id3v2.Tag;
-        
-        return new AudioMetadata
-        {
-            FilePath = songPath,
-            FileType = "MP3",
-            Title = tag.Title ?? Path.GetFileNameWithoutExtension(songPath),
-            Artists = tag.Performers.ToList(),
-            Album = tag.Album ?? string.Empty,
-            Genres = tag.Genres.ToList(),
-            Styles = ExtractStyles(tag),
-            Year = (int)tag.Year,
-            Comment = tag.Comment ?? string.Empty,
-            TrackNumber = (int)tag.Track,
-            Duration = file.Properties.Duration
-        };
+
+        return new AudioMetadata(
+            filePath: songPath,
+            title: tag.Title ?? Path.GetFileNameWithoutExtension(songPath),
+            artists: tag.Performers.ToList(),
+            album: tag.Album ?? string.Empty,
+            genres: tag.Genres.ToList(),
+            styles: ExtractStyles(tag),
+            year: (int)tag.Year,
+            comment: tag.Comment ?? string.Empty,
+            trackNumber: (int)tag.Track,
+            duration: file.Properties.Duration,
+            fileType: "MP3"
+        );
     }
 
     public void WriteMetadata(string songPath, AudioMetadata audioMetadata)
     {
         // todo: fix memory problems
         using var file = File.Create(songPath);
-        
+
 
         // Get or create ID3v2 tag
         var tag = file.GetTag(TagTypes.Id3v2, true) as TagLib.Id3v2.Tag;
@@ -42,7 +41,7 @@ public class MP3MetadataHandler : IMetadataHandler
         {
             throw new InvalidOperationException("Failed to create ID3v2 tag");
         }
-        
+
         if (tag.Title == "Doomsday Codex")
         {
             Console.WriteLine();

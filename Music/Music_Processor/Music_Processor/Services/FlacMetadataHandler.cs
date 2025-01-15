@@ -12,23 +12,20 @@ public class FlacMetadataHandler : IMetadataHandler
     {
         using var file = File.Create(songPath);
         var tag = file.Tag;
-
-        var styles = ExtractStyles(file);
-
-        return new AudioMetadata
-        {
-            FilePath = songPath,
-            FileType = "FLAC",
-            Title = tag.Title ?? Path.GetFileNameWithoutExtension(songPath),
-            Artists = tag.Performers.ToList(),
-            Album = tag.Album ?? string.Empty,
-            Genres = tag.Genres.ToList(),
-            Styles = styles,
-            Year = (int)tag.Year,
-            Comment = tag.Comment ?? string.Empty,
-            TrackNumber = (int)tag.Track,
-            Duration = file.Properties.Duration
-        };
+        
+        return new AudioMetadata(
+            filePath: songPath,
+            title: tag.Title ?? Path.GetFileNameWithoutExtension(songPath),
+            artists: tag.Performers.ToList(),
+            album: tag.Album ?? string.Empty,
+            genres: tag.Genres.ToList(),
+            styles: ExtractStyles(file),
+            year: (int)tag.Year,
+            comment: tag.Comment ?? string.Empty,
+            trackNumber: (int)tag.Track,
+            duration: file.Properties.Duration,
+            fileType: "FLAC"
+        );
     }
 
     public void WriteMetadata(string songPath, AudioMetadata audioMetadata)

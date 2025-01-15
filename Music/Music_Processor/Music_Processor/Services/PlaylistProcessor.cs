@@ -31,6 +31,8 @@ public class PlaylistProcessor : IPlaylistProcessor
     private readonly ConcurrentDictionary<string, byte> SongsWithoutMetadata = new();
     private readonly ConcurrentDictionary<string, byte> SongsWithoutStyles = new();
     private readonly ConcurrentDictionary<string, byte> UnmappedStyles = new();
+    private readonly ConcurrentDictionary<string, byte> FileWritten = new();
+
 
     public async Task FixPlaylistGenresUsingSpotdlMetadataAsync(string playlistPath)
     {
@@ -60,7 +62,7 @@ public class PlaylistProcessor : IPlaylistProcessor
 
             // Do CPU-bound work synchronously since we're already in a loop
             PlaceGenresInStyles(songMetadata);
-            ProcessSongMetadata(songMetadata, styleMappings, stylesToRemove);
+            TryUpdateMetadataStylesAndGenres(songMetadata, styleMappings, stylesToRemove);
 
             if (!songMetadata.Styles.Any())
             {
@@ -93,22 +95,18 @@ public class PlaylistProcessor : IPlaylistProcessor
             }
 
             PlaceGenresInStyles(songMetadata);
-            ProcessSongMetadata(songMetadata, styleMappings, stylesToRemove);
-
-            _metadataService.WriteSongMetadata(song, songMetadata);
+            if (TryUpdateMetadataStylesAndGenres(songMetadata, styleMappings, stylesToRemove))
+            {
+                FileWritten.TryAdd(Path.GetFileNameWithoutExtension(song), 1);
+                _metadataService.WriteSongMetadata(song, songMetadata);
+            }
         }
     }
 
-    private void PlaceGenresInStyles(AudioMetadata songSpotDLMetadata)
+    private bool TryUpdateMetadataStylesAndGenres(AudioMetadata songMetadata, Dictionary<string, List<string>> styleMappings, List<string> stylesToRemove)
     {
-        var newGenres = songSpotDLMetadata.Genres.Where(genre => !songSpotDLMetadata.Styles.Contains(genre));
-        songSpotDLMetadata.Styles.AddRange(songSpotDLMetadata.Genres);
-        songSpotDLMetadata.Styles.AddRange(newGenres);
-        songSpotDLMetadata.Genres.Clear();
-    }
+        var originalHash = songMetadata.MetadataHash;
 
-    private void ProcessSongMetadata(AudioMetadata songMetadata, Dictionary<string, List<string>> styleMappings, List<string> stylesToRemove)
-    {
         var stylesToRemoveSet = new HashSet<string>(stylesToRemove);
         var stylesToKeep = new List<string>();
         var genresToAdd = new List<string>();
@@ -141,6 +139,23 @@ public class PlaylistProcessor : IPlaylistProcessor
         songMetadata.Genres.AddRange(genresToAdd);
         songMetadata.Styles.Clear();
         songMetadata.Styles.AddRange(stylesToKeep);
+
+        var newHash = songMetadata.ComputeHash();
+
+        if (originalHash != newHash)
+        {
+            Console.WriteLine(songMetadata.Title);
+        }
+
+        return originalHash != newHash;
+    }
+
+    private void PlaceGenresInStyles(AudioMetadata songSpotDLMetadata)
+    {
+        var newGenres = songSpotDLMetadata.Genres.Where(genre => !songSpotDLMetadata.Styles.Contains(genre));
+        songSpotDLMetadata.Styles.AddRange(songSpotDLMetadata.Genres);
+        songSpotDLMetadata.Styles.AddRange(newGenres);
+        songSpotDLMetadata.Genres.Clear();
     }
 
     private void PrintProcessingResults()
