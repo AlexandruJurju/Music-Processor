@@ -1,0 +1,1 @@
+﻿dotnet ef migrations add InitialCreate --project .\MusicProcessor.Infrastructure\MusicProcessor.Infrastructure.csproj --startup-project .\MusicProcessor.CLI\MusicProcessor.CLI.csproj --output-dir Persistence/Migrations
