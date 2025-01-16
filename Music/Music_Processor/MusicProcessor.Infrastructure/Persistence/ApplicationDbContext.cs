@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using MusicProcessor.Domain.Common;
-using MusicProcessor.Domain.Model;
+using MusicProcessor.Domain.Entities;
 
 namespace MusicProcessor.Infrastructure.Persistence;
 
@@ -10,7 +10,10 @@ public class ApplicationDbContext : DbContext
     {
     }
 
-    public DbSet<AudioMetadata> LibraryMetadata { get; set; }
+    public DbSet<Song> Songs { get; set; }
+    public DbSet<Genre> Genres { get; set; }
+    public DbSet<Style> Styles { get; set; }
+    public DbSet<Artist> Artists { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {

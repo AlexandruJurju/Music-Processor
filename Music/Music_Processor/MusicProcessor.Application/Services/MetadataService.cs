@@ -4,32 +4,24 @@ using MusicProcessor.Application.Abstractions.DataAccess;
 using MusicProcessor.Application.Abstractions.Interfaces;
 using MusicProcessor.Application.Factories;
 using MusicProcessor.Domain.Constants;
-using MusicProcessor.Domain.Model;
+using MusicProcessor.Domain.Entities;
 
 namespace MusicProcessor.Application.Services;
 
 public class MetadataService : IMetadataService
 {
-    private readonly JsonSerializerOptions _jsonOptions;
     private readonly ILogger<MetadataService> _logger;
     private readonly MetadataHandlerFactory _metadataHandlerFactory;
-    private readonly IMetadataSerializationStrategy _metadataSerializationStrategy;
 
-    public MetadataService(ILogger<MetadataService> logger, IMetadataSerializationStrategy metadataSerializationStrategy)
+    public MetadataService(ILogger<MetadataService> logger)
     {
         _metadataHandlerFactory = new MetadataHandlerFactory();
         _logger = logger;
-        _metadataSerializationStrategy = metadataSerializationStrategy;
-        _jsonOptions = new JsonSerializerOptions
-        {
-            WriteIndented = true,
-            PropertyNamingPolicy = JsonNamingPolicy.CamelCase
-        };
     }
 
-    public List<AudioMetadata> GetPlaylistSongsMetadata(string directoryPath, bool recursive = false)
+    public List<Song> GetPlaylistSongsMetadata(string directoryPath, bool recursive = false)
     {
-        var metadata = new List<AudioMetadata>();
+        var metadata = new List<Song>();
         var searchOption = recursive ? SearchOption.AllDirectories : SearchOption.TopDirectoryOnly;
 
         var files = Directory.GetFiles(directoryPath, "*.*", searchOption)
@@ -52,23 +44,14 @@ public class MetadataService : IMetadataService
         return metadata;
     }
 
-    public async Task SaveMetadataToFileAsync(List<AudioMetadata> metadata, string playlistName)
-    {
-        await _metadataSerializationStrategy.SaveMetadataAsync(metadata, playlistName);
-    }
 
-    public async Task<List<AudioMetadata>> LoadMetadataFromFileAsync(string playlistName)
-    {
-        return await _metadataSerializationStrategy.LoadMetadataAsync(playlistName);
-    }
-
-    public void WriteSongMetadata(string songPath, AudioMetadata audioMetadata)
+    public void WriteSongMetadata(string songPath, Song song)
     {
         var handle = _metadataHandlerFactory.GetHandler(songPath);
-        handle.WriteMetadata(songPath, audioMetadata);
+        handle.WriteMetadata(songPath, song);
     }
 
-    public AudioMetadata ExtractMetadataFromSong(string songPath)
+    public Song ExtractMetadataFromSong(string songPath)
     {
         var handle = _metadataHandlerFactory.GetHandler(songPath);
         return handle.ExtractMetadata(songPath);

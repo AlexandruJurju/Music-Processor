@@ -1,9 +1,9 @@
-﻿using MusicProcessor.Domain.Model;
+﻿using MusicProcessor.Domain.Entities;
 
 namespace MusicProcessor.Application.Abstractions.DataAccess;
 
 public interface ISpotDLMetadataLoader
 {
-    Task<Dictionary<string, AudioMetadata>> LoadSpotDLMetadataAsync(string playlistPath);
+    Task<Dictionary<string, Song>> LoadSpotDLMetadataAsync(string playlistPath);
     string CleanKeyName(string name);
 }

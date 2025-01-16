@@ -1,12 +1,12 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using MusicProcessor.Domain.Model;
+using MusicProcessor.Domain.Entities;
 
 namespace MusicProcessor.Infrastructure.Persistence.Configurations;
 
-public class AudioMetadataConfiguration : IEntityTypeConfiguration<AudioMetadata>
+public class AudioMetadataConfiguration : IEntityTypeConfiguration<Song>
 {
-    public void Configure(EntityTypeBuilder<AudioMetadata> builder)
+    public void Configure(EntityTypeBuilder<Song> builder)
     {
         builder.HasKey(e => e.Id);
 

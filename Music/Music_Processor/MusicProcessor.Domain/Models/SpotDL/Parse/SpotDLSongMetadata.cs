@@ -1,4 +1,4 @@
-namespace MusicProcessor.Infrastructure.SpotDL;
+namespace MusicProcessor.Domain.Models.SpotDL.Parse;
 
 public class SpotDLSongMetadata
 {

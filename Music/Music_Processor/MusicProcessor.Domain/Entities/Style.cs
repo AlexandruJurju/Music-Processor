@@ -1,6 +1,6 @@
 ﻿using MusicProcessor.Domain.Common;
 
-namespace MusicProcessor.Domain.Model;
+namespace MusicProcessor.Domain.Entities;
 
 public class Style : BaseEntity
 {
@@ -14,6 +14,7 @@ public class Style : BaseEntity
     }
 
     public string Name { get; set; } = string.Empty;
-    public ICollection<AudioMetadata> Tracks { get; set; } = new List<AudioMetadata>();
+    public ICollection<Song> Tracks { get; set; } = new List<Song>();
     public ICollection<Genre> Genres { get; set; } = new List<Genre>();
+    public bool RemoveFromSongs { get; set; }
 }

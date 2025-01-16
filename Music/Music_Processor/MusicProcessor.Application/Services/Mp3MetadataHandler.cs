@@ -1,5 +1,5 @@
 using MusicProcessor.Application.Abstractions.Interfaces;
-using MusicProcessor.Domain.Model;
+using MusicProcessor.Domain.Entities;
 using TagLib;
 using TagLib.Id3v2;
 using File = TagLib.File;
@@ -31,7 +31,7 @@ public class MP3MetadataHandler : BaseMetadataHandler
         return styles.Distinct().ToList();
     }
 
-    public override void WriteMetadata(string songPath, AudioMetadata audioMetadata)
+    public override void WriteMetadata(string songPath, Song song)
     {
         using var file = File.Create(songPath);
         var tag = file.GetTag(TagTypes.Id3v2, true) as Tag;
@@ -44,9 +44,9 @@ public class MP3MetadataHandler : BaseMetadataHandler
         tag.RemoveFrames("TCON");
 
         // Add new genre frame if there are genres
-        if (audioMetadata.Genres.Any())
+        if (song.Genres.Any())
         {
-            tag.Genres = audioMetadata.Genres.Select(g => g.Name).ToArray();
+            tag.Genres = song.Genres.Select(g => g.Name).ToArray();
         }
 
         // Remove existing style frames first
@@ -61,12 +61,12 @@ public class MP3MetadataHandler : BaseMetadataHandler
         }
 
         // Add new style frame if there are styles
-        if (audioMetadata.Styles.Any())
+        if (song.Styles.Any())
         {
             var styleFrame = new UserTextInformationFrame("TXXX")
             {
                 Description = "Styles",
-                Text = audioMetadata.Styles.Select(s => s.Name).ToArray(),
+                Text = song.Styles.Select(s => s.Name).ToArray(),
                 TextEncoding = StringType.UTF8
             };
             tag.AddFrame(styleFrame);

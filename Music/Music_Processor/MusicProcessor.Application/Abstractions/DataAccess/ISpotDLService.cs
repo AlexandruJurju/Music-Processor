@@ -1,7 +1,10 @@
-﻿namespace MusicProcessor.Application.Abstractions.DataAccess;
+﻿using MusicProcessor.Domain.Models.SpotDL;
+using MusicProcessor.Domain.Models.SpotDL.Download;
+
+namespace MusicProcessor.Application.Abstractions.DataAccess;
 
 public interface ISpotDLService
 {
-    Task NewSyncAsync(string playlistUrl, string playlistName, string baseDir);
-    Task UpdateSyncAsync(string playlistName, string baseDir);
+    IAsyncEnumerable<ProcessOutput> NewSyncAsync(string playlistUrl, string playlistDirPath);
+    IAsyncEnumerable<ProcessOutput> UpdateSyncAsync(string playlistDirPath);
 }

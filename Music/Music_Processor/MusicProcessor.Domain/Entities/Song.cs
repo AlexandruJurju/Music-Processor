@@ -2,15 +2,15 @@ using System.Security.Cryptography;
 using System.Text;
 using MusicProcessor.Domain.Common;
 
-namespace MusicProcessor.Domain.Model;
+namespace MusicProcessor.Domain.Entities;
 
-public class AudioMetadata : BaseEntity
+public class Song : BaseEntity
 {
-    public AudioMetadata()
+    public Song()
     {
     }
 
-    public AudioMetadata(
+    public Song(
         string filePath,
         string title,
         string album,

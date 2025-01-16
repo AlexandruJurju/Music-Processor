@@ -2,7 +2,9 @@ using System.Text;
 using System.Text.Json;
 using Microsoft.Extensions.Logging;
 using MusicProcessor.Application.Abstractions.DataAccess;
-using MusicProcessor.Domain.Model;
+using MusicProcessor.Domain.Entities;
+using MusicProcessor.Domain.Models.SpotDL;
+using MusicProcessor.Domain.Models.SpotDL.Parse;
 
 namespace MusicProcessor.Infrastructure.SpotDL;
 
@@ -23,53 +25,45 @@ public class SpotDLMetadataLoader : ISpotDLMetadataLoader
         };
     }
 
-    public async Task<Dictionary<string, AudioMetadata>> LoadSpotDLMetadataAsync(string playlistPath)
+    public async Task<Dictionary<string, Song>> LoadSpotDLMetadataAsync(string playlistPath)
     {
-        var metadataLookup = new Dictionary<string, AudioMetadata>();
+        var metadataLookup = new Dictionary<string, Song>();
 
-        try
+        var spotdlFile = _fileService.GetSpotDLFileInFolder(playlistPath);
+        if (spotdlFile is null)
         {
-            var spotdlFile = _fileService.GetSpotDLFileInFolder(playlistPath);
-            if (spotdlFile is null)
-            {
-                _logger.LogWarning("No spotdl file found in directory");
-                return metadataLookup;
-            }
-
-            var jsonContent = await File.ReadAllTextAsync(spotdlFile, Encoding.UTF8);
-            var playlistData = JsonSerializer.Deserialize<SpotDLPlaylist>(jsonContent, _jsonOptions);
-
-            if (playlistData?.Songs == null || !playlistData.Songs.Any())
-            {
-                _logger.LogWarning("No songs found in spotdl file");
-                return metadataLookup;
-            }
-
-            foreach (var song in playlistData.Songs)
-            {
-                var metadata = CreateMetadataFromSpotDLSong(song);
-                AddMetadataLookups(metadataLookup, metadata, song);
-            }
-
-            _logger.LogInformation("Loaded metadata for {Count} songs from spotdl file", metadataLookup.Count);
+            _logger.LogWarning("No spotdl file found in directory");
             return metadataLookup;
         }
-        catch (Exception e)
+
+        var jsonContent = await File.ReadAllTextAsync(spotdlFile, Encoding.UTF8);
+        var playlistData = JsonSerializer.Deserialize<SpotDLPlaylist>(jsonContent, _jsonOptions);
+
+        if (playlistData?.Songs == null || !playlistData.Songs.Any())
         {
-            Console.WriteLine(e);
-            throw;
+            _logger.LogWarning("No songs found in spotdl file");
+            return metadataLookup;
         }
+
+        foreach (var song in playlistData.Songs)
+        {
+            var metadata = CreateMetadataFromSpotDLSong(song);
+            AddMetadataLookups(metadataLookup, metadata, song);
+        }
+
+        _logger.LogInformation("Loaded metadata for {Count} songs from spotdl file", metadataLookup.Count);
+        return metadataLookup;
     }
 
-    private void AddMetadataLookups(Dictionary<string, AudioMetadata> metadataLookup, AudioMetadata metadata, SpotDLSongMetadata song)
+    private void AddMetadataLookups(Dictionary<string, Song> metadataLookup, Song metadata, SpotDLSongMetadata song)
     {
         var key = CreateLookupKey(song);
         metadataLookup[key] = metadata;
     }
 
-    private AudioMetadata CreateMetadataFromSpotDLSong(SpotDLSongMetadata song)
+    private Song CreateMetadataFromSpotDLSong(SpotDLSongMetadata song)
     {
-        return new AudioMetadata
+        return new Song
         {
             Title = song.Name,
             Artists = song.Artists.Select(artistName => new Artist(artistName)).ToList(),

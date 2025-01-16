@@ -1,24 +1,23 @@
 ﻿using Microsoft.Extensions.Logging;
 using MusicProcessor.Application.Abstractions.DataAccess;
 using MusicProcessor.Domain.Constants;
+using MusicProcessor.Domain.Enums;
 
 namespace MusicProcessor.CLI.MenuCommands;
 
 public class UpdateSyncCommand : IMenuCommand
 {
     private readonly IFileService _fileService;
-    private readonly ILogger<UpdateSyncCommand> _logger;
-    private readonly ISpotDLService _spotdlService;
+    private readonly ISpotDLService _spotDLService;
 
 
-    public UpdateSyncCommand(ILogger<UpdateSyncCommand> logger, ISpotDLService spotdlService, IFileService fileService)
+    public UpdateSyncCommand(ISpotDLService spotDlService, IFileService fileService)
     {
-        _logger = logger;
-        _spotdlService = spotdlService;
+        _spotDLService = spotDlService;
         _fileService = fileService;
     }
 
-    public string Name => "Update Sync";
+    public string Name => "SPOTDL: Update Sync";
 
     public async Task ExecuteAsync()
     {
@@ -54,15 +53,16 @@ public class UpdateSyncCommand : IMenuCommand
             Console.WriteLine("No spotdl file found.");
         }
 
-        try
+        var playlistDirPath = Path.Combine(_fileService.GetPlaylistsPath(), playlistName);
+
+        Console.ForegroundColor = ConsoleColor.Green;
+        Console.WriteLine("\nSpotDL Started");
+
+        await foreach (var output in _spotDLService.UpdateSyncAsync(playlistDirPath))
         {
-            Console.WriteLine("Calling SpotDL...");
-            await _spotdlService.UpdateSyncAsync(playlistName, _fileService.GetPlaylistsPath());
-        }
-        catch (Exception ex)
-        {
-            _logger.LogError(ex, "Failed to sync playlist");
-            Console.WriteLine($"\nError: {ex.Message}");
+            Console.ForegroundColor = output.Type == OutputType.Success ? ConsoleColor.Green : ConsoleColor.Red;
+            Console.WriteLine(output.Data);
+            Console.ResetColor();
         }
     }
 }

@@ -9,17 +9,15 @@ namespace MusicProcessor.CLI.MenuCommands;
 public class FixGenresSpotDLCommand : IMenuCommand
 {
     private readonly IFileService _fileService;
-    private readonly ILogger<FixGenresSpotDLCommand> _logger;
     private readonly IPlaylistProcessor _playlistProcessor;
 
-    public FixGenresSpotDLCommand(ILogger<FixGenresSpotDLCommand> logger, IFileService fileService, IPlaylistProcessor playlistProcessor)
+    public FixGenresSpotDLCommand(IFileService fileService, IPlaylistProcessor playlistProcessor)
     {
-        _logger = logger;
         _fileService = fileService;
         _playlistProcessor = playlistProcessor;
     }
 
-    public string Name => "Fix Genres SpotDL";
+    public string Name => "Fix Genres SpotDL using SPOTDL";
 
     public async Task ExecuteAsync()
     {

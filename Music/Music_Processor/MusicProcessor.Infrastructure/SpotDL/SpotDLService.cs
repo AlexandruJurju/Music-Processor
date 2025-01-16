@@ -1,43 +1,51 @@
-﻿using System.Diagnostics;
+﻿using System.Collections.Concurrent;
+using System.Diagnostics;
+using System.Text;
 using Microsoft.Extensions.Logging;
 using MusicProcessor.Application.Abstractions.DataAccess;
+using MusicProcessor.Domain.Enums;
+using MusicProcessor.Domain.Models.SpotDL.Download;
 
 namespace MusicProcessor.Infrastructure.SpotDL;
 
 public class SpotDLService : ISpotDLService
 {
-    private readonly List<string> _downloadErrors = new();
     private readonly ILogger<SpotDLService> _logger;
-    private readonly List<string> _lookupErrors = new();
+
+    private const string LookupErrorPrefix = "LookupError: No results found for song:";
+    private const string AudioProviderErrorPrefix = "AudioProviderError: YT-DLP download error";
+    private const string YoutubeUrlPrefix = "https://music.youtube.com/watch?v=";
+    private const string GeneratedException = "generated";
 
     public SpotDLService(ILogger<SpotDLService> logger)
     {
         _logger = logger;
     }
 
-
-    public async Task NewSyncAsync(string playlistUrl, string playlistName, string baseDir)
+    public async IAsyncEnumerable<ProcessOutput> NewSyncAsync(string playlistUrl, string playlistDirPath)
     {
-        var playlistDir = Path.Combine(baseDir, playlistName);
-        Directory.CreateDirectory(playlistDir);
+        Directory.CreateDirectory(playlistDirPath);
 
         var command = new[]
         {
             "sync",
             playlistUrl,
             "--output",
-            playlistDir,
+            playlistDirPath,
             "--save-file",
-            Path.Combine(playlistDir, $"{playlistName}.spotdl")
+            Path.Combine(playlistDirPath, $"{playlistDirPath}.spotdl")
         };
 
-
-        await RunCommandAsync(command);
+        await foreach (var output in RunCommandAsync(command))
+        {
+            yield return output;
+        }
     }
 
-    public async Task UpdateSyncAsync(string playlistName, string baseDir)
+    public async IAsyncEnumerable<ProcessOutput> UpdateSyncAsync(string playlistDirPath)
     {
-        var syncFile = Path.Combine(baseDir, playlistName, $"{playlistName}.spotdl");
+        var syncFile = $"{playlistDirPath}.spotdl";
+        var playlistName = Path.GetFileNameWithoutExtension(syncFile);
 
         if (!File.Exists(syncFile))
         {
@@ -49,139 +57,146 @@ public class SpotDLService : ISpotDLService
             "sync",
             syncFile,
             "--output",
-            Path.Combine(baseDir, playlistName)
+            playlistDirPath
         };
 
-        await RunCommandAsync(command);
-    }
-
-    private void ProcessStandardOutput(string data)
-    {
-        if (string.IsNullOrEmpty(data)) return;
-
-        if (IsErrorOutput(data))
+        await foreach (var output in RunCommandAsync(command))
         {
-            WriteErrorOutput(data);
-            ProcessErrorData(data);
-        }
-        else
-        {
-            WriteSuccessOutput(data);
+            yield return output;
         }
     }
 
-    private bool IsErrorOutput(string data)
+    private ProcessOutput ProcessStandardOutput(string data, SyncSummary summary)
     {
-        return data.Contains("LookupError: No results found for song:") ||
-               data.Contains("AudioProviderError: YT-DLP download error") ||
-               data.Trim().StartsWith("https://music.youtube.com/watch?v=");
-    }
+        if (string.IsNullOrEmpty(data))
+            return new ProcessOutput(string.Empty, OutputType.Success);
 
-    private void WriteSuccessOutput(string data)
-    {
-        Console.ForegroundColor = ConsoleColor.Green;
-        Console.WriteLine(data);
-        Console.ResetColor();
-    }
 
-    private void WriteErrorOutput(string data)
-    {
-        Console.ForegroundColor = ConsoleColor.Red;
-        Console.WriteLine(data);
-        Console.ResetColor();
-    }
-
-    private void ProcessErrorData(string data)
-    {
-        if (data.Contains("LookupError: No results found for song:"))
+        if (IsStandardErrorOutput(data))
         {
-            var songName = data.Replace("LookupError: No results found for song:", "").Trim();
-            _lookupErrors.Add(songName);
+            ProcessErrorData(data, summary);
+            return new ProcessOutput(data.Trim(), OutputType.Error);
         }
-        // else if (data.Contains("AudioProviderError: YT-DLP download error"))
-        // {
-        //     var nextLine = data.Split('\n').LastOrDefault();
-        //     if (!string.IsNullOrEmpty(nextLine))
-        //     {
-        //         _downloadErrors.Add(nextLine.Trim());
-        //     }
-        // }
-        else if (data.Trim().StartsWith("https://music.youtube.com/watch?v="))
+
+        return new ProcessOutput(data, OutputType.Success);
+    }
+
+    private bool IsStandardErrorOutput(ReadOnlySpan<char> data)
+    {
+        return data.Contains(LookupErrorPrefix, StringComparison.Ordinal) ||
+               data.Contains(AudioProviderErrorPrefix, StringComparison.Ordinal) ||
+               data.TrimStart().StartsWith(YoutubeUrlPrefix, StringComparison.Ordinal) ||
+               data.Contains(GeneratedException, StringComparison.Ordinal);
+    }
+
+
+    private void ProcessErrorData(string data, SyncSummary summary)
+    {
+        if (data.Contains(LookupErrorPrefix, StringComparison.Ordinal))
         {
-            _downloadErrors.Add(data.Trim());
+            var songName = data.Substring(LookupErrorPrefix.Length).Trim();
+            summary.LookupErrors.Add(songName);
+        }
+        else if (data.TrimStart().StartsWith(YoutubeUrlPrefix, StringComparison.Ordinal))
+        {
+            summary.DownloadErrors.Add(data.Trim());
+        }
+        else if (data.Trim().Contains(GeneratedException, StringComparison.Ordinal))
+        {
+            var songName = data.Split(GeneratedException)[0];
+            summary.DownloadErrors.Add(songName);
         }
     }
 
-    private void PrintMissingSongs()
+    private void HandleStandardOutputData(DataReceivedEventArgs args, ConcurrentQueue<ProcessOutput> outputQueue, SyncSummary summary)
     {
-        if (_lookupErrors.Count == 0 && _downloadErrors.Count == 0) return;
+        if (args.Data == null) return;
+        var output = ProcessStandardOutput(args.Data, summary);
+        outputQueue.Enqueue(output);
+    }
 
-        Console.ForegroundColor = ConsoleColor.Red;
+    private async IAsyncEnumerable<ProcessOutput> RunCommandAsync(string[] command)
+    {
+        var summary = new SyncSummary();
+        var outputQueue = new ConcurrentQueue<ProcessOutput>();
+        var processingComplete = new TaskCompletionSource<bool>();
 
-        Console.WriteLine("\n=== Missing Songs Summary ===");
-
-        if (_lookupErrors.Count > 0)
+        using var process = new Process();
+        process.StartInfo = new ProcessStartInfo
         {
-            Console.WriteLine("\nSongs not found:");
-            foreach (var song in _lookupErrors)
+            FileName = "spotdl",
+            Arguments = string.Join(" ", command),
+            RedirectStandardOutput = true,
+            RedirectStandardError = true,
+            UseShellExecute = false,
+            CreateNoWindow = true,
+            StandardOutputEncoding = Encoding.UTF8,
+            StandardErrorEncoding = Encoding.UTF8,
+            EnvironmentVariables =
             {
-                Console.WriteLine($"- {song}");
+                ["COLS"] = "500",
+                ["COLUMNS"] = "500",
+                ["LINES"] = "50"
             }
-        }
+        };
+        process.EnableRaisingEvents = true;
 
-        if (_downloadErrors.Count > 0)
+        // Handle standard output
+        process.OutputDataReceived += (sender, args) =>
         {
-            Console.WriteLine("\nSongs with download errors:");
-            foreach (var url in _downloadErrors)
+            if (args.Data != null)
             {
-                Console.WriteLine($"- {url}");
+                var output = ProcessStandardOutput(args.Data, summary);
+                outputQueue.Enqueue(output);
             }
-        }
+        };
 
-        Console.WriteLine($"\nTotal missing songs: {_lookupErrors.Count + _downloadErrors.Count}");
-        Console.WriteLine("=========================");
-
-        Console.ResetColor();
-    }
-
-    private async Task RunCommandAsync(string[] command)
-    {
-        try
+        // Handle standard error
+        process.ErrorDataReceived += (sender, args) =>
         {
-            _lookupErrors.Clear();
-            _downloadErrors.Clear();
-
-            using var process = new Process();
-            process.StartInfo = new ProcessStartInfo
+            if (args.Data != null)
             {
-                FileName = "spotdl",
-                Arguments = string.Join(" ", command),
-                RedirectStandardOutput = true,
-                RedirectStandardError = true,
-                UseShellExecute = false,
-                CreateNoWindow = true
-            };
-
-            process.OutputDataReceived += (sender, args) => ProcessStandardOutput(args.Data!);
-            // errors arent processed
-            // process.ErrorDataReceived += (sender, args) => ProcessStandardError(args.Data);
-
-            process.Start();
-            process.BeginOutputReadLine();
-            process.BeginErrorReadLine();
-
-            await process.WaitForExitAsync();
-            PrintMissingSongs();
-
-            if (process.ExitCode != 0)
-            {
-                throw new Exception($"spotdl command failed with exit code {process.ExitCode}");
+                var output = ProcessStandardOutput(args.Data, summary);
+                outputQueue.Enqueue(output);
             }
-        }
-        catch (Exception ex)
+        };
+
+        process.Exited += (sender, args) => processingComplete.SetResult(true);
+
+        // Start the process
+        process.Start();
+        process.BeginOutputReadLine();
+        // process.BeginErrorReadLine();
+
+        // Monitor and yield outputs
+        while (!processingComplete.Task.IsCompleted || !outputQueue.IsEmpty)
         {
-            _logger.LogError(ex, "Error running spotdl command");
-            throw;
+            if (outputQueue.TryDequeue(out var output))
+            {
+                yield return output;
+            }
+
+            // await Task.Delay(50);
+        }
+
+        // Wait for process completion
+        await process.WaitForExitAsync();
+
+        if (process.ExitCode != 0)
+        {
+            _logger.LogError($"spotdl process failed with exit code {process.ExitCode}");
+            throw new Exception($"spotdl command failed with exit code {process.ExitCode}");
+        }
+
+        if (summary.TotalMissingSongs > 0)
+        {
+            yield return new ProcessOutput(
+                $"\n=== Missing Songs Summary ===\n" +
+                $"Lookup Errors: {summary.LookupErrors.Count}\n" +
+                $"Download Errors: {summary.DownloadErrors.Count}\n" +
+                $"Total Missing: {summary.TotalMissingSongs}",
+                OutputType.Error
+            );
         }
     }
 }

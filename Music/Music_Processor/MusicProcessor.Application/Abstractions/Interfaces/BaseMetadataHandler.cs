@@ -1,4 +1,4 @@
-﻿using MusicProcessor.Domain.Model;
+﻿using MusicProcessor.Domain.Entities;
 using File = TagLib.File;
 
 namespace MusicProcessor.Application.Abstractions.Interfaces;
@@ -7,12 +7,12 @@ public abstract class BaseMetadataHandler : IMetadataHandler
 {
     protected abstract string FileType { get; }
 
-    public AudioMetadata ExtractMetadata(string songPath)
+    public Song ExtractMetadata(string songPath)
     {
         using var file = File.Create(songPath);
         var tag = file.Tag;
 
-        var metadata = new AudioMetadata(
+        var metadata = new Song(
             songPath,
             tag.Title ?? Path.GetFileNameWithoutExtension(songPath),
             tag.Album ?? string.Empty,
@@ -44,6 +44,6 @@ public abstract class BaseMetadataHandler : IMetadataHandler
         return metadata;
     }
 
-    public abstract void WriteMetadata(string songPath, AudioMetadata audioMetadata);
+    public abstract void WriteMetadata(string songPath, Song song);
     protected abstract List<string> ExtractStyles(File file);
 }

@@ -10,7 +10,6 @@ public static class DependencyInjection
         services.AddTransient<IMenuCommand, FirstTimeSyncCommand>();
         services.AddTransient<IMenuCommand, UpdateSyncCommand>();
         services.AddTransient<IMenuCommand, FixGenresSpotDLCommand>();
-        services.AddTransient<IMenuCommand, WriteMetadataFileCommand>();
         services.AddTransient<IMenuCommand, FixGenresCustomMetadata>();
         services.AddTransient<IMenuCommand, ExitCommand>();
 

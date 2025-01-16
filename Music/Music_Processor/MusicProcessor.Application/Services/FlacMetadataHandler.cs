@@ -1,5 +1,5 @@
 using MusicProcessor.Application.Abstractions.Interfaces;
-using MusicProcessor.Domain.Model;
+using MusicProcessor.Domain.Entities;
 using TagLib;
 using TagLib.Ogg;
 using File = TagLib.File;
@@ -27,7 +27,7 @@ public class FlacMetadataHandler : BaseMetadataHandler
         return styles.Distinct().ToList();
     }
 
-    public override void WriteMetadata(string songPath, AudioMetadata audioMetadata)
+    public override void WriteMetadata(string songPath, Song song)
     {
         try
         {
@@ -35,7 +35,7 @@ public class FlacMetadataHandler : BaseMetadataHandler
             var tag = file.Tag;
 
             // Handle the combined tag first for genres
-            tag.Genres = audioMetadata.Genres.Select(g => g.Name).ToArray();
+            tag.Genres = song.Genres.Select(g => g.Name).ToArray();
 
             // Then specifically handle the Xiph tag for styles
             if (file.TagTypes.HasFlag(TagTypes.Xiph))
@@ -50,9 +50,9 @@ public class FlacMetadataHandler : BaseMetadataHandler
                     xiphTag.RemoveField("styles");
 
                     // Add new styles
-                    if (audioMetadata.Styles.Any())
+                    if (song.Styles.Any())
                     {
-                        xiphTag.SetField("STYLE", audioMetadata.Styles.Select(s => s.Name).ToArray());
+                        xiphTag.SetField("STYLE", song.Styles.Select(s => s.Name).ToArray());
                     }
                 }
             }

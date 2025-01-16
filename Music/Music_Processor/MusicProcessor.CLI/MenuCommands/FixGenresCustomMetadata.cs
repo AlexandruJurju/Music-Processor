@@ -9,12 +9,10 @@ namespace MusicProcessor.CLI.MenuCommands;
 public class FixGenresCustomMetadata : IMenuCommand
 {
     private readonly IFileService _fileService;
-    private readonly ILogger<FixGenresCustomMetadata> _logger;
     private readonly IPlaylistProcessor _playlistProcessor;
 
-    public FixGenresCustomMetadata(ILogger<FixGenresCustomMetadata> logger, IFileService fileService, IPlaylistProcessor playlistProcessor)
+    public FixGenresCustomMetadata( IFileService fileService, IPlaylistProcessor playlistProcessor)
     {
-        _logger = logger;
         _fileService = fileService;
         _playlistProcessor = playlistProcessor;
     }

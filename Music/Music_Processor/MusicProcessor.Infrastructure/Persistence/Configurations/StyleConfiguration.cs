@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using MusicProcessor.Domain.Model;
+using MusicProcessor.Domain.Entities;
 
 namespace MusicProcessor.Infrastructure.Persistence.Configurations;
 
@@ -14,9 +14,13 @@ public class StyleConfiguration : IEntityTypeConfiguration<Style>
             .IsRequired()
             .HasMaxLength(100);
 
+        builder.Property(e => e.RemoveFromSongs)
+            .IsRequired()
+            .HasDefaultValue(false);
+
         builder.HasIndex(e => e.Name)
             .IsUnique();
-        
+
         // The many-to-many relationship is configured in GenreConfiguration
     }
 }
