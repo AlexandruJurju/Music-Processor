@@ -1,6 +1,6 @@
 namespace MusicProcessor.Domain.Models.SpotDL.Parse;
 
-public class SpotDLSongMetadata
+public sealed class SpotDLSongMetadata
 {
     public string Name { get; set; } = string.Empty;
     public string[] Artists { get; set; } = Array.Empty<string>();

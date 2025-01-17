@@ -12,9 +12,10 @@ public static class DependencyInjection
         services.AddTransient<IMenuCommand, FixGenresSpotDLCommand>();
         services.AddTransient<IMenuCommand, FixGenresCustomMetadata>();
         services.AddTransient<IMenuCommand, ExitCommand>();
+        services.AddTransient<IMenuCommand, SyncDbCommand>();
 
-        services.AddSingleton<CommandLine>();
-        services.AddSingleton<MenuCommandFactory>();
+        services.AddScoped<CommandLine>();
+        services.AddScoped<MenuCommandFactory>();
 
         return services;
     }

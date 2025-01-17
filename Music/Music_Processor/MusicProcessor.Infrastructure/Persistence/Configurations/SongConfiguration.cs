@@ -4,19 +4,18 @@ using MusicProcessor.Domain.Entities;
 
 namespace MusicProcessor.Infrastructure.Persistence.Configurations;
 
-public class AudioMetadataConfiguration : IEntityTypeConfiguration<Song>
+public class SongConfiguration : IEntityTypeConfiguration<Song>
 {
     public void Configure(EntityTypeBuilder<Song> builder)
     {
         builder.HasKey(e => e.Id);
 
-        builder.Property(e => e.FilePath)
-            .IsRequired()
-            .HasMaxLength(500);
-
         builder.Property(e => e.Title)
             .IsRequired()
             .HasMaxLength(200);
+
+        builder.HasIndex(e => e.Title)
+            .IsUnique();
 
         builder.Property(e => e.Album)
             .HasMaxLength(200);

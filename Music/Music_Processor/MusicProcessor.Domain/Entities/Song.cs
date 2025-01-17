@@ -4,14 +4,13 @@ using MusicProcessor.Domain.Common;
 
 namespace MusicProcessor.Domain.Entities;
 
-public class Song : BaseEntity
+public sealed class Song : BaseEntity
 {
     public Song()
     {
     }
 
     public Song(
-        string filePath,
         string title,
         string album,
         int? year,
@@ -20,7 +19,6 @@ public class Song : BaseEntity
         TimeSpan duration,
         string fileType)
     {
-        FilePath = filePath;
         Title = title;
         Album = album;
         Year = year;
@@ -31,7 +29,6 @@ public class Song : BaseEntity
         MetadataHash = ComputeHash();
     }
 
-    public string FilePath { get; set; } = string.Empty;
     public string Title { get; set; } = string.Empty;
     public string Album { get; set; } = string.Empty;
     public int? Year { get; set; }

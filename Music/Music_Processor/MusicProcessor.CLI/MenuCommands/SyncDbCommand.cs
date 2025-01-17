@@ -1,28 +1,27 @@
 ﻿using System.Diagnostics;
-using Microsoft.Extensions.Logging;
 using MusicProcessor.Application.Abstractions.DataAccess;
 using MusicProcessor.Application.Abstractions.Interfaces;
-using MusicProcessor.Domain.Constants;
 
 namespace MusicProcessor.CLI.MenuCommands;
 
-public class FixGenresSpotDLCommand : IMenuCommand
+public class SyncDbCommand : IMenuCommand
 {
     private readonly IFileService _fileService;
     private readonly IPlaylistProcessor _playlistProcessor;
 
-    public FixGenresSpotDLCommand(IFileService fileService, IPlaylistProcessor playlistProcessor)
+    public SyncDbCommand(IFileService fileService, IPlaylistProcessor playlistProcessor)
     {
         _fileService = fileService;
         _playlistProcessor = playlistProcessor;
     }
 
-    public string Name => "Fix Genres SpotDL using SPOTDL";
+    public string Name => "Sync Db";
 
     public async Task ExecuteAsync()
     {
         var baseDirectory = _fileService.GetPlaylistsPath();
         string[] availablePlaylists = _fileService.GetAllFoldersInPath(baseDirectory);
+
 
         foreach (var playlist in availablePlaylists)
         {
@@ -46,7 +45,9 @@ public class FixGenresSpotDLCommand : IMenuCommand
             return;
         }
 
-        // var playlistPath = Path.Combine(_fileService.GetPlaylistsPath(), playlistName);
-        // await _playlistProcessor.FixPlaylistGenresUsingSpotdlMetadataAsync(playlistPath);
+        var stopwatch = Stopwatch.StartNew();
+        var playlistPath = Path.Combine(_fileService.GetPlaylistsPath(), playlistName);
+        await _playlistProcessor.WriteSongsToDbAsync(playlistPath);
+        Console.WriteLine(stopwatch.Elapsed);
     }
 }

@@ -14,9 +14,6 @@
         <None Update="spotdl.exe">
             <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
         </None>
-        <None Update="music-db.sqlite">
-          <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-        </None>
     </ItemGroup>
 
     <ItemGroup>

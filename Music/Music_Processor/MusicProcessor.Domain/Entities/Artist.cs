@@ -2,7 +2,7 @@
 
 namespace MusicProcessor.Domain.Entities;
 
-public class Artist : BaseEntity
+public sealed class Artist : BaseEntity
 {
     public Artist()
     {

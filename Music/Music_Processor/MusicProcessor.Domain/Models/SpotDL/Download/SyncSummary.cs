@@ -1,6 +1,6 @@
 ﻿namespace MusicProcessor.Domain.Models.SpotDL.Download;
 
-public record SyncSummary
+public sealed record SyncSummary
 {
     public List<string> LookupErrors { get; } = new();
     public List<string> DownloadErrors { get; } = new();

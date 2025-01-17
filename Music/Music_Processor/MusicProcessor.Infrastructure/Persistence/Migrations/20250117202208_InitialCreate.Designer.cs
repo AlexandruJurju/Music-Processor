@@ -11,7 +11,7 @@ using MusicProcessor.Infrastructure.Persistence;
 namespace MusicProcessor.Infrastructure.Persistence.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20250117105930_InitialCreate")]
+    [Migration("20250117202208_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -137,11 +137,6 @@ namespace MusicProcessor.Infrastructure.Persistence.Migrations
                     b.Property<long>("Duration")
                         .HasColumnType("INTEGER");
 
-                    b.Property<string>("FilePath")
-                        .IsRequired()
-                        .HasMaxLength(500)
-                        .HasColumnType("TEXT");
-
                     b.Property<string>("FileType")
                         .IsRequired()
                         .HasMaxLength(10)
@@ -167,6 +162,9 @@ namespace MusicProcessor.Infrastructure.Persistence.Migrations
                         .HasColumnType("INTEGER");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("Title")
+                        .IsUnique();
 
                     b.ToTable("Songs");
                 });

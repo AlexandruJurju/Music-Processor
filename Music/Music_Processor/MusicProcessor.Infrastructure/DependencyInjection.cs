@@ -16,10 +16,7 @@ public static class DependencyInjection
         services.AddTransient<IFileService, FileService>();
         services.AddTransient<ISpotDLMetadataLoader, SpotDLMetadataLoader>();
 
-        var dbPath = Path.Combine(
-            Directory.GetParent(Environment.CurrentDirectory)!.FullName, 
-            "MusicProcessor.Infrastructure", 
-            "music-db.sqlite");
+        var dbPath = Path.Combine(Environment.CurrentDirectory, "music.sqlite");
 
         services.AddDbContext<ApplicationDbContext>(options =>
             options.UseSqlite($"Data Source={dbPath}"));

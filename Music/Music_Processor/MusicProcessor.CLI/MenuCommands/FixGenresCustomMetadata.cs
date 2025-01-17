@@ -53,9 +53,7 @@ public class FixGenresCustomMetadata : IMenuCommand
             return;
         }
 
-        var stopwatch = Stopwatch.StartNew();
         var playlistPath = Path.Combine(_fileService.GetPlaylistsPath(), playlistName);
-        await _playlistProcessor.FixPlaylistGenresUsingCustomMetadataAsync(playlistPath);
-        Console.WriteLine($"Finished in {stopwatch.Elapsed.Milliseconds}ms");
+        // await _playlistProcessor.FixPlaylistGenresUsingCustomMetadataAsync(playlistPath);
     }
 }

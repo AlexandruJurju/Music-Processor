@@ -2,7 +2,7 @@
 
 namespace MusicProcessor.Domain.Models.SpotDL.Download;
 
-public record ProcessOutput(
+public sealed record ProcessOutput(
     string Data,
     OutputType Type
 );

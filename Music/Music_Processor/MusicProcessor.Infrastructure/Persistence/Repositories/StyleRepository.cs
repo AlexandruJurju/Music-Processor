@@ -1,11 +1,27 @@
-﻿using MusicProcessor.Application.Abstractions.DataAccess;
+﻿using Microsoft.EntityFrameworkCore;
+using MusicProcessor.Application.Abstractions.DataAccess;
 using MusicProcessor.Domain.Entities;
 
 namespace MusicProcessor.Infrastructure.Persistence.Repositories;
 
-public class StyleRepository : Repository<Style>, IStyleRepository
+public class StyleRepository : IStyleRepository
 {
-    public StyleRepository(ApplicationDbContext context) : base(context)
+    private readonly ApplicationDbContext _context;
+
+    public StyleRepository(ApplicationDbContext context)
     {
+        _context = context;
+    }
+
+    public async Task<List<Style>> GetAllAsync()
+    {
+        return await _context.Styles.ToListAsync();
+    }
+
+    public async Task<int> AddAsync(Style newStyle)
+    {
+        _context.Styles.Add(newStyle);
+        await _context.SaveChangesAsync();
+        return newStyle.Id;
     }
 }

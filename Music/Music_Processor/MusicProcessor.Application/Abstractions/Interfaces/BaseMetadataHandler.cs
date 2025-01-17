@@ -13,7 +13,6 @@ public abstract class BaseMetadataHandler : IMetadataHandler
         var tag = file.Tag;
 
         var metadata = new Song(
-            songPath,
             tag.Title ?? Path.GetFileNameWithoutExtension(songPath),
             tag.Album ?? string.Empty,
             (int)tag.Year,

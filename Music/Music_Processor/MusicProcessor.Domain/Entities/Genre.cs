@@ -2,7 +2,7 @@
 
 namespace MusicProcessor.Domain.Entities;
 
-public class Genre : BaseEntity
+public sealed class Genre : BaseEntity
 {
     public Genre()
     {

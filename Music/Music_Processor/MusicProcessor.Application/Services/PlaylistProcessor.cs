@@ -1,6 +1,7 @@
 using System.Collections.Concurrent;
 using MusicProcessor.Application.Abstractions.DataAccess;
 using MusicProcessor.Application.Abstractions.Interfaces;
+using MusicProcessor.Application.Factories;
 using MusicProcessor.Domain.Entities;
 
 namespace MusicProcessor.Application.Services;
@@ -8,178 +9,156 @@ namespace MusicProcessor.Application.Services;
 public class PlaylistProcessor : IPlaylistProcessor
 {
     private readonly IFileService _fileService;
-    private readonly IMetadataService _metadataService;
-    private readonly ISpotDLMetadataLoader _spotdlMetadataLoader;
-    private readonly ConcurrentDictionary<string, byte> FileWritten = new();
-    private readonly ConcurrentDictionary<string, byte> SongsWithoutMetadata = new();
-    private readonly ConcurrentDictionary<string, byte> SongsWithoutStyles = new();
-    private readonly ConcurrentDictionary<string, byte> UnmappedStyles = new();
+    private readonly MetadataHandlerFactory _metadataHandlerFactory;
+
+    private readonly ISongRepository _songRepository;
+    private readonly IGenreRepository _genreRepository;
+    private readonly IStyleRepository _styleRepository;
+    private readonly IArtistRepository _artistRepository;
 
     public PlaylistProcessor(
         IFileService fileService,
-        ISpotDLMetadataLoader spotdlMetadataLoader,
-        IMetadataService metadataService)
+        ISongRepository songRepository,
+        MetadataHandlerFactory metadataHandlerFactory,
+        IArtistRepository artistRepository,
+        IStyleRepository styleRepository,
+        IGenreRepository genreRepository)
     {
         _fileService = fileService;
-        _spotdlMetadataLoader = spotdlMetadataLoader;
-        _metadataService = metadataService;
+        _songRepository = songRepository;
+        _metadataHandlerFactory = metadataHandlerFactory;
+        _artistRepository = artistRepository;
+        _styleRepository = styleRepository;
+        _genreRepository = genreRepository;
     }
 
-    public async Task FixPlaylistGenresUsingSpotdlMetadataAsync(string playlistPath)
+    public async Task WriteSongsToDbAsync(string playlistPath)
     {
-        throw new NotImplementedException();
-        // // Load all required data upfront in parallel
-        // var spotdlMetadataTask = _spotdlMetadataLoader.LoadSpotDLMetadataAsync(playlistPath);
-        // var playlistSongsTask = Task.Run(() => _fileService.GetAllAudioFilesInFolder(playlistPath));
-        // var styleMappingsTask = Task.Run(() => _configService.LoadStyleMappingFile());
-        // var stylesToRemoveTask = Task.Run(() => _configService.LoadStylesToRemove());
-        //
-        // await Task.WhenAll(spotdlMetadataTask, playlistSongsTask, styleMappingsTask, stylesToRemoveTask);
-        //
-        // var spotdlMetadata = spotdlMetadataTask.Result;
-        // var playlistSongs = playlistSongsTask.Result;
-        // var styleMappings = styleMappingsTask.Result;
-        // var stylesToRemove = stylesToRemoveTask.Result;
-        //
-        // foreach (var song in playlistSongs)
-        // {
-        //     var songName = Path.GetFileNameWithoutExtension(song);
-        //     var cleanedSongName = _spotdlMetadataLoader.CleanKeyName(songName);
-        //
-        //     if (!spotdlMetadata.TryGetValue(cleanedSongName, out var songMetadata))
-        //     {
-        //         SongsWithoutMetadata.TryAdd(songName, 1);
-        //         continue;
-        //     }
-        //
-        //     PlaceGenresInStyles(songMetadata);
-        //     TryUpdateMetadataStylesAndGenres(songMetadata, styleMappings, stylesToRemove);
-        //
-        //     if (!songMetadata.Styles.Any())
-        //     {
-        //         SongsWithoutStyles.TryAdd(songName, 1);
-        //         continue;
-        //     }
-        //
-        //     _metadataService.WriteSongMetadata(song, songMetadata);
-        // }
-    }
+        var playlistSongs = _fileService.GetAllAudioFilesInFolder(playlistPath);
+        var existingTitles = _songRepository.GetAll().Select(s => s.Title).ToList();
+        var songsToAdd = new List<Song>();
 
-    public async Task FixPlaylistGenresUsingCustomMetadataAsync(string playlistPath)
-    {
-        throw new NotImplementedException();
+        // Load all existing entities
+        var existingArtists = await _artistRepository.GetAllAsync();
+        var existingGenres = await _genreRepository.GetAllAsync();
+        var existingStyles = await _styleRepository.GetAllAsync();
 
-        // var playlistName = Path.GetFileNameWithoutExtension(playlistPath);
-        //
-        // var customMetadata = await _metadataService.LoadMetadataFromFileAsync(playlistName);
-        // var metadataByPath = customMetadata.ToDictionary(m => m.FilePath, m => m);
-        // var playlistSongs = _fileService.GetAllAudioFilesInFolder(playlistPath);
-        // var styleMappings = _configService.LoadStyleMappingFile();
-        // var stylesToRemove = _configService.LoadStylesToRemove();
-        //
-        // foreach (var song in playlistSongs)
-        // {
-        //     if (!metadataByPath.TryGetValue(song, out var songMetadata))
-        //     {
-        //         SongsWithoutMetadata.TryAdd(Path.GetFileNameWithoutExtension(song), 1);
-        //         continue;
-        //     }
-        //
-        //     PlaceGenresInStyles(songMetadata);
-        //     if (TryUpdateMetadataStylesAndGenres(songMetadata, styleMappings, stylesToRemove))
-        //     {
-        //         FileWritten.TryAdd(Path.GetFileNameWithoutExtension(song), 1);
-        //         _metadataService.WriteSongMetadata(song, songMetadata);
-        //     }
-        // }
-    }
-
-    private bool TryUpdateMetadataStylesAndGenres(Song songMetadata, Dictionary<string, List<string>> styleMappings, List<string> stylesToRemove)
-    {
-        var originalHash = songMetadata.MetadataHash;
-
-        var stylesToRemoveSet = new HashSet<string>(stylesToRemove);
-        var stylesToKeep = new List<Style>();
-        var genresToAdd = new List<Genre>();
-        var genreSet = new HashSet<string>();
-
-        foreach (var style in songMetadata.Styles)
+        // Process each song
+        foreach (var songFile in playlistSongs)
         {
-            if (styleMappings.TryGetValue(style.Name, out var mappedGenres))
-            {
-                foreach (var genreName in mappedGenres)
-                {
-                    if (genreSet.Add(genreName))
-                    {
-                        genresToAdd.Add(new Genre { Name = genreName });
-                    }
-                }
+            var handler = _metadataHandlerFactory.GetHandler(songFile);
+            var metadata = handler.ExtractMetadata(songFile);
 
-                if (!stylesToRemoveSet.Contains(style.Name))
-                {
-                    stylesToKeep.Add(style);
-                }
+            if (existingTitles.Contains(metadata.Title))
+            {
+                continue;
+            }
+
+            var song = new Song(
+                metadata.Title,
+                metadata.Album,
+                metadata.Year,
+                metadata.Comment,
+                metadata.TrackNumber,
+                metadata.Duration,
+                metadata.FileType
+            );
+
+            // Process each type of metadata
+            existingTitles.Add(song.Title);
+
+            song.Artists = ProcessArtists(metadata.Artists, existingArtists);
+            existingArtists.AddRange(song.Artists);
+
+            song.Genres = ProcessGenres(metadata.Genres, existingGenres);
+            existingGenres.AddRange(song.Genres);
+
+            song.Styles = ProcessStyles(metadata.Styles, existingStyles);
+            existingStyles.AddRange(song.Styles);
+
+            songsToAdd.Add(song);
+
+            if (songsToAdd.Count >= 100)
+            {
+                await _songRepository.AddRangeAsync(songsToAdd);
+                songsToAdd.Clear();
+            }
+        }
+
+        if (songsToAdd.Any())
+        {
+            await _songRepository.AddRangeAsync(songsToAdd);
+        }
+    }
+
+    private ICollection<Artist> ProcessArtists(IEnumerable<Artist> newArtists, List<Artist> existingArtists)
+    {
+        var processedArtists = new List<Artist>();
+
+        foreach (var artist in newArtists)
+        {
+            var existingArtist = existingArtists.FirstOrDefault(a => string.Equals(a.Name, artist.Name, StringComparison.OrdinalIgnoreCase));
+
+            if (existingArtist != null)
+            {
+                processedArtists.Add(existingArtist);
             }
             else
             {
-                UnmappedStyles.TryAdd(style.Name, 0);
-                stylesToKeep.Add(style);
+                var newArtist = new Artist { Name = artist.Name };
+                existingArtists.Add(newArtist);
+                processedArtists.Add(newArtist);
             }
         }
 
-        songMetadata.Genres = genresToAdd;
-        songMetadata.Styles = stylesToKeep;
-
-        var newHash = songMetadata.ComputeHash();
-
-        if (originalHash != newHash)
-        {
-            Console.WriteLine(songMetadata.Title);
-        }
-
-        return originalHash != newHash;
+        return processedArtists;
     }
 
-    private void PlaceGenresInStyles(Song songMetadata)
+    private ICollection<Genre> ProcessGenres(IEnumerable<Genre> newGenres, List<Genre> discoveredGenres)
     {
-        var currentGenres = songMetadata.Genres.ToList();
-        var genreNames = currentGenres.Select(g => g.Name);
-        var styleNames = songMetadata.Styles.Select(s => s.Name);
-
-        var newGenres = currentGenres.Where(genre => !styleNames.Contains(genre.Name));
-
-        foreach (var genre in currentGenres)
-        {
-            songMetadata.Styles.Add(new Style { Name = genre.Name });
-        }
+        var processedGenres = new List<Genre>();
 
         foreach (var genre in newGenres)
         {
-            songMetadata.Styles.Add(new Style { Name = genre.Name });
+            var existingGenre = discoveredGenres.FirstOrDefault(g =>
+                string.Equals(g.Name, genre.Name, StringComparison.OrdinalIgnoreCase));
+
+            if (existingGenre != null)
+            {
+                processedGenres.Add(existingGenre);
+            }
+            else
+            {
+                var newGenre = new Genre { Name = genre.Name };
+                discoveredGenres.Add(newGenre);
+                processedGenres.Add(newGenre);
+            }
         }
 
-        songMetadata.Genres.Clear();
+        return processedGenres;
     }
 
-
-    private void PrintProcessingResults()
+    private ICollection<Style> ProcessStyles(IEnumerable<Style> newStyles, List<Style> discoveredStyles)
     {
-        Console.WriteLine("\nSongs without metadata:");
-        foreach (var song in SongsWithoutMetadata.Keys)
+        var processedStyles = new List<Style>();
+
+        foreach (var style in newStyles)
         {
-            Console.WriteLine(song);
+            var existingStyle = discoveredStyles.FirstOrDefault(s =>
+                string.Equals(s.Name, style.Name, StringComparison.OrdinalIgnoreCase));
+
+            if (existingStyle != null)
+            {
+                processedStyles.Add(existingStyle);
+            }
+            else
+            {
+                var newStyle = new Style { Name = style.Name };
+                discoveredStyles.Add(newStyle);
+                processedStyles.Add(newStyle);
+            }
         }
 
-        Console.WriteLine("\nSongs without styles:");
-        foreach (var song in SongsWithoutStyles.Keys)
-        {
-            Console.WriteLine(song);
-        }
-
-        Console.WriteLine("\nUnmapped styles found:");
-        foreach (var style in UnmappedStyles.Keys)
-        {
-            Console.WriteLine(style);
-        }
+        return processedStyles;
     }
 }

@@ -9,7 +9,6 @@ public static class DependencyInjection
 {
     public static IServiceCollection RegisterApplication(this IServiceCollection services)
     {
-        services.AddTransient<IMetadataService, MetadataService>();
         services.AddTransient<IPlaylistProcessor, PlaylistProcessor>();
         services.AddSingleton<MetadataHandlerFactory>();
 

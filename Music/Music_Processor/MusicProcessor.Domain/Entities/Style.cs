@@ -2,7 +2,7 @@
 
 namespace MusicProcessor.Domain.Entities;
 
-public class Style : BaseEntity
+public sealed class Style : BaseEntity
 {
     public Style()
     {

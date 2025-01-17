@@ -1,11 +1,27 @@
-﻿using MusicProcessor.Application.Abstractions.DataAccess;
+﻿using Microsoft.EntityFrameworkCore;
+using MusicProcessor.Application.Abstractions.DataAccess;
 using MusicProcessor.Domain.Entities;
 
 namespace MusicProcessor.Infrastructure.Persistence.Repositories;
 
-public class GenreRepository : Repository<Genre>, IGenreRepository
+public class GenreRepository : IGenreRepository
 {
-    public GenreRepository(ApplicationDbContext context) : base(context)
+    private readonly ApplicationDbContext _context;
+
+    public GenreRepository(ApplicationDbContext context)
     {
+        _context = context;
+    }
+
+    public Task<List<Genre>> GetAllAsync()
+    {
+        return _context.Genres.ToListAsync();
+    }
+
+    public async Task<int> AddAsync(Genre newGenre)
+    {
+        _context.Genres.Add(newGenre);
+        await _context.SaveChangesAsync();
+        return newGenre.Id;
     }
 }

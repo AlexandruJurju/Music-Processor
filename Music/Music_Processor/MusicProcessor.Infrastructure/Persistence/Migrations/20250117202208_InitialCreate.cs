@@ -47,7 +47,6 @@ namespace MusicProcessor.Infrastructure.Persistence.Migrations
                 {
                     Id = table.Column<int>(type: "INTEGER", nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
-                    FilePath = table.Column<string>(type: "TEXT", maxLength: 500, nullable: false),
                     Title = table.Column<string>(type: "TEXT", maxLength: 200, nullable: false),
                     Album = table.Column<string>(type: "TEXT", maxLength: 200, nullable: false),
                     Year = table.Column<int>(type: "INTEGER", nullable: true),
@@ -202,6 +201,12 @@ namespace MusicProcessor.Infrastructure.Persistence.Migrations
                 name: "IX_GenreStyles_StyleId",
                 table: "GenreStyles",
                 column: "StyleId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Songs_Title",
+                table: "Songs",
+                column: "Title",
+                unique: true);
 
             migrationBuilder.CreateIndex(
                 name: "IX_SongStyle_TracksId",
