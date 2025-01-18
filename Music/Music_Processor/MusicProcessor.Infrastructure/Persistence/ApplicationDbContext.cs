@@ -27,8 +27,9 @@ public class ApplicationDbContext : DbContext
             switch (entry.State)
             {
                 case EntityState.Added:
-                    entry.Entity.DateCreated = DateTime.UtcNow;
-                    entry.Entity.DateModified = DateTime.UtcNow;
+                    var date = DateTime.UtcNow;
+                    entry.Entity.DateCreated = date;
+                    entry.Entity.DateModified = date;
                     break;
                 case EntityState.Modified:
                     entry.Entity.DateModified = DateTime.UtcNow;

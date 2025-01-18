@@ -9,7 +9,6 @@ public static class DependencyInjection
     {
         services.AddTransient<IMenuOption, FirstTimeSyncOption>();
         services.AddTransient<IMenuOption, UpdateSyncOption>();
-        services.AddTransient<IMenuOption, SyncDbMenuOption>();
         services.AddTransient<IMenuOption, ExitOption>();
 
         services.AddScoped<CommandLine>();

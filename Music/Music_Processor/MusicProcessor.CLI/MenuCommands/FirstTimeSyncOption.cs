@@ -1,4 +1,6 @@
-﻿using MusicProcessor.Application.Abstractions.DataAccess;
+﻿using MediatR;
+using MusicProcessor.Application.Abstractions.DataAccess;
+using MusicProcessor.Application.SyncCommand;
 using MusicProcessor.Domain.Enums;
 
 namespace MusicProcessor.CLI.MenuCommands;
@@ -7,11 +9,13 @@ public class FirstTimeSyncOption : IMenuOption
 {
     private readonly IFileService _fileService;
     private readonly ISpotDLService _spotdlService;
+    private readonly IMediator _mediator;
 
-    public FirstTimeSyncOption(ISpotDLService spotdlService, IFileService fileService)
+    public FirstTimeSyncOption(ISpotDLService spotdlService, IFileService fileService, IMediator mediator)
     {
         _spotdlService = spotdlService;
         _fileService = fileService;
+        _mediator = mediator;
     }
 
     public string Name => "SPOTDL: First Time Sync";
@@ -46,5 +50,9 @@ public class FirstTimeSyncOption : IMenuOption
             Console.WriteLine(output.Data);
             Console.ResetColor();
         }
+
+        Console.WriteLine("\nSpot DL Finished");
+        Console.WriteLine("\nAdding new songs to db");
+        await _mediator.Send(new SyncDbCommand(playlistDirPath));
     }
 }

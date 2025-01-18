@@ -19,7 +19,6 @@ public sealed class SyncDbCommandHandler : IRequestHandler<SyncDbCommand>
     private List<Artist> _existingArtists = new();
     private List<Genre> _existingGenres = new();
     private List<Style> _existingStyles = new();
-    private Dictionary<string, Song> _spotDLMetadata = new();
 
     public SyncDbCommandHandler(
         IFileService fileService,
@@ -48,6 +47,8 @@ public sealed class SyncDbCommandHandler : IRequestHandler<SyncDbCommand>
 
         foreach (var songFile in playlistSongs)
         {
+            var songName = Path.GetFileNameWithoutExtension(songFile);
+            var cleanedSongName = _spotDlMetadataLoader.CleanKeyName(songName);
             await ProcessSongFile(songFile, songsToAdd);
 
             // Add the songs in batches
@@ -71,7 +72,6 @@ public sealed class SyncDbCommandHandler : IRequestHandler<SyncDbCommand>
                 s => s.Title,
                 s => s.DateModified
             );
-        _spotDLMetadata = await _spotDlMetadataLoader.LoadSpotDLMetadataAsync(request.PlaylistPath);
         _existingArtists = await _artistRepository.GetAllAsync();
         _existingGenres = await _genreRepository.GetAllAsync();
         _existingStyles = await _styleRepository.GetAllAsync();
@@ -94,23 +94,12 @@ public sealed class SyncDbCommandHandler : IRequestHandler<SyncDbCommand>
             }
         }
 
-        var song = new Song(
-            metadata.Title,
-            metadata.Album,
-            metadata.Year,
-            metadata.Comment,
-            metadata.TrackNumber,
-            metadata.Duration,
-            metadata.FileType
-        );
+        _existingSongs.Add(metadata.Title, DateTime.UtcNow);
+        metadata.Artists = ProcessArtists(metadata.Artists);
+        metadata.Styles = ProcessStyles(metadata.Styles);
+        metadata.Genres = ProcessGenres(metadata.Genres);
 
-        _existingSongs.Add(song.Title, DateTime.UtcNow);
-
-        song.Artists = ProcessArtists(metadata.Artists);
-        song.Genres = ProcessGenres(metadata.Genres);
-        song.Styles = ProcessStyles(metadata.Styles);
-
-        songsToAdd.Add(song);
+        songsToAdd.Add(metadata);
     }
 
     private ICollection<Artist> ProcessArtists(IEnumerable<Artist> newArtists)

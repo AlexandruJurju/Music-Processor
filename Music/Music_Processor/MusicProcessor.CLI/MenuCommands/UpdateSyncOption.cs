@@ -1,4 +1,6 @@
-﻿using MusicProcessor.Application.Abstractions.DataAccess;
+﻿using MediatR;
+using MusicProcessor.Application.Abstractions.DataAccess;
+using MusicProcessor.Application.SyncCommand;
 using MusicProcessor.Domain.Enums;
 
 namespace MusicProcessor.CLI.MenuCommands;
@@ -7,12 +9,14 @@ public class UpdateSyncOption : IMenuOption
 {
     private readonly IFileService _fileService;
     private readonly ISpotDLService _spotDLService;
+    private readonly IMediator _mediator;
 
 
-    public UpdateSyncOption(ISpotDLService spotDlService, IFileService fileService)
+    public UpdateSyncOption(ISpotDLService spotDlService, IFileService fileService, IMediator mediator)
     {
         _spotDLService = spotDlService;
         _fileService = fileService;
+        _mediator = mediator;
     }
 
     public string Name => "SPOTDL: Update Sync";
@@ -62,5 +66,9 @@ public class UpdateSyncOption : IMenuOption
             Console.WriteLine(output.Data);
             Console.ResetColor();
         }
+
+        Console.WriteLine("\nSpot DL Finished");
+        Console.WriteLine("\nAdding new songs to db");
+        await _mediator.Send(new SyncDbCommand(playlistDirPath));
     }
 }

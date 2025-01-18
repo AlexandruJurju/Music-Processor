@@ -77,7 +77,7 @@ public class SpotDLService : ISpotDLService
             return new ProcessOutput(data.Trim(), OutputType.Error);
         }
 
-        return new ProcessOutput(data, OutputType.Success);
+        return new ProcessOutput(data.Trim(), OutputType.Success);
     }
 
     private bool IsStandardErrorOutput(ReadOnlySpan<char> data)

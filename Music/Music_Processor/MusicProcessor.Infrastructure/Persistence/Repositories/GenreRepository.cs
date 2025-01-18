@@ -15,7 +15,9 @@ public class GenreRepository : IGenreRepository
 
     public Task<List<Genre>> GetAllAsync()
     {
-        return _context.Genres.ToListAsync();
+        return _context.Genres
+            .Include(g => g.Styles)
+            .ToListAsync();
     }
 
     public async Task<int> AddAsync(Genre newGenre)

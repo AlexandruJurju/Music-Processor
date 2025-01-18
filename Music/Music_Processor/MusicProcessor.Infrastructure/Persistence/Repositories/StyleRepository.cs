@@ -15,7 +15,9 @@ public class StyleRepository : IStyleRepository
 
     public async Task<List<Style>> GetAllAsync()
     {
-        return await _context.Styles.ToListAsync();
+        return await _context.Styles
+            .Include(s => s.Genres)
+            .ToListAsync();
     }
 
     public async Task<int> AddAsync(Style newStyle)
