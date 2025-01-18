@@ -17,7 +17,7 @@ public class ArtistRepository : IArtistRepository
     {
         return await _context.Artists.ToListAsync();
     }
-    
+
     public async Task<int> AddAsync(Artist newArtist)
     {
         _context.Artists.Add(newArtist);

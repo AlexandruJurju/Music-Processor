@@ -1,16 +1,14 @@
-﻿using Microsoft.Extensions.Logging;
-using MusicProcessor.Application.Abstractions.DataAccess;
-using MusicProcessor.Domain.Constants;
+﻿using MusicProcessor.Application.Abstractions.DataAccess;
 using MusicProcessor.Domain.Enums;
 
 namespace MusicProcessor.CLI.MenuCommands;
 
-public class FirstTimeSyncCommand : IMenuCommand
+public class FirstTimeSyncOption : IMenuOption
 {
     private readonly IFileService _fileService;
     private readonly ISpotDLService _spotdlService;
 
-    public FirstTimeSyncCommand( ISpotDLService spotdlService, IFileService fileService)
+    public FirstTimeSyncOption(ISpotDLService spotdlService, IFileService fileService)
     {
         _spotdlService = spotdlService;
         _fileService = fileService;

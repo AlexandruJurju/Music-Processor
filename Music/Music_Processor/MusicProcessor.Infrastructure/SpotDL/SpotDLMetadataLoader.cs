@@ -3,7 +3,6 @@ using System.Text.Json;
 using Microsoft.Extensions.Logging;
 using MusicProcessor.Application.Abstractions.DataAccess;
 using MusicProcessor.Domain.Entities;
-using MusicProcessor.Domain.Models.SpotDL;
 using MusicProcessor.Domain.Models.SpotDL.Parse;
 
 namespace MusicProcessor.Infrastructure.SpotDL;
@@ -29,7 +28,7 @@ public class SpotDLMetadataLoader : ISpotDLMetadataLoader
     {
         var metadataLookup = new Dictionary<string, Song>();
 
-        var spotdlFile = _fileService.GetSpotDLFileInFolder(playlistPath);
+        var spotdlFile = _fileService.GetSpotDLFile(playlistPath);
         if (spotdlFile is null)
         {
             _logger.LogWarning("No spotdl file found in directory");
@@ -53,6 +52,16 @@ public class SpotDLMetadataLoader : ISpotDLMetadataLoader
 
         _logger.LogInformation("Loaded metadata for {Count} songs from spotdl file", metadataLookup.Count);
         return metadataLookup;
+    }
+
+    public string CleanKeyName(string name)
+    {
+        if (string.IsNullOrEmpty(name))
+            return string.Empty;
+
+        return name.ToLower()
+            .Trim()
+            .Replace("  ", " ");
     }
 
     private void AddMetadataLookups(Dictionary<string, Song> metadataLookup, Song metadata, SpotDLSongMetadata song)
@@ -80,16 +89,6 @@ public class SpotDLMetadataLoader : ISpotDLMetadataLoader
         var cleanArtists = string.Join(", ", song.Artists.Select(CleanKeyName));
         var cleanTitle = CleanKeyName(song.Name);
         return $"{cleanArtists} - {cleanTitle}";
-    }
-
-    public string CleanKeyName(string name)
-    {
-        if (string.IsNullOrEmpty(name))
-            return string.Empty;
-
-        return name.ToLower()
-            .Trim()
-            .Replace("  ", " ");
     }
 
     private string CapitalizeGenre(string genre)

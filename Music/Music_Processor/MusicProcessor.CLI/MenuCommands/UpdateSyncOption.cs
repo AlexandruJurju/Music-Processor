@@ -1,17 +1,15 @@
-﻿using Microsoft.Extensions.Logging;
-using MusicProcessor.Application.Abstractions.DataAccess;
-using MusicProcessor.Domain.Constants;
+﻿using MusicProcessor.Application.Abstractions.DataAccess;
 using MusicProcessor.Domain.Enums;
 
 namespace MusicProcessor.CLI.MenuCommands;
 
-public class UpdateSyncCommand : IMenuCommand
+public class UpdateSyncOption : IMenuOption
 {
     private readonly IFileService _fileService;
     private readonly ISpotDLService _spotDLService;
 
 
-    public UpdateSyncCommand(ISpotDLService spotDlService, IFileService fileService)
+    public UpdateSyncOption(ISpotDLService spotDlService, IFileService fileService)
     {
         _spotDLService = spotDlService;
         _fileService = fileService;

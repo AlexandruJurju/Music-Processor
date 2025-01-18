@@ -1,5 +1,4 @@
-﻿using MusicProcessor.Domain.Models.SpotDL;
-using MusicProcessor.Domain.Models.SpotDL.Download;
+﻿using MusicProcessor.Domain.Models.SpotDL.Download;
 
 namespace MusicProcessor.Application.Abstractions.DataAccess;
 

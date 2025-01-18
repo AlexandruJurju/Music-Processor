@@ -39,14 +39,17 @@ public class FileService : IFileService
         return files.Where(file => audioFileFormats.Contains(Path.GetExtension(file).ToLower())).ToArray();
     }
 
-    public string? GetSpotDLFileInFolder(string path)
+    public string? GetSpotDLFile(string playlistPath)
     {
-        if (string.IsNullOrWhiteSpace(path))
+        var playlistName = Path.GetFileNameWithoutExtension(playlistPath);
+
+        if (string.IsNullOrWhiteSpace(playlistPath))
         {
-            throw new ArgumentException("The path cannot be null or empty.", nameof(path));
+            throw new ArgumentException("The path cannot be null or empty.", nameof(playlistName));
         }
 
-        var spotdlFile = Directory.GetFiles(path, "*.spotdl", SearchOption.AllDirectories).FirstOrDefault();
+        var spotdlFile = Directory.GetFiles(DirectoryPaths.PlaylistsDirectory, "*.spotdl", SearchOption.TopDirectoryOnly)
+            .FirstOrDefault(f => Path.GetFileNameWithoutExtension(f).Equals(playlistName, StringComparison.OrdinalIgnoreCase));
 
         return spotdlFile;
     }

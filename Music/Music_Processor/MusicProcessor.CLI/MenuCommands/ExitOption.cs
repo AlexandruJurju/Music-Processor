@@ -1,6 +1,6 @@
 ﻿namespace MusicProcessor.CLI.MenuCommands;
 
-public class ExitCommand : IMenuCommand
+public class ExitOption : IMenuOption
 {
     public string Name => "Exit";
 

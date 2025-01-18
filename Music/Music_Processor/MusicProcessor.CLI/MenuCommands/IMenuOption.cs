@@ -1,6 +1,6 @@
 ﻿namespace MusicProcessor.CLI.MenuCommands;
 
-public interface IMenuCommand
+public interface IMenuOption
 {
     string Name { get; }
     Task ExecuteAsync();

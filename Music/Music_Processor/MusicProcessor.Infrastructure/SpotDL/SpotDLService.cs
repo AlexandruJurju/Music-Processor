@@ -10,12 +10,11 @@ namespace MusicProcessor.Infrastructure.SpotDL;
 
 public class SpotDLService : ISpotDLService
 {
-    private readonly ILogger<SpotDLService> _logger;
-
     private const string LookupErrorPrefix = "LookupError: No results found for song:";
     private const string AudioProviderErrorPrefix = "AudioProviderError: YT-DLP download error";
     private const string YoutubeUrlPrefix = "https://music.youtube.com/watch?v=";
     private const string GeneratedException = "generated";
+    private readonly ILogger<SpotDLService> _logger;
 
     public SpotDLService(ILogger<SpotDLService> logger)
     {

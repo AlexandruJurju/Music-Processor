@@ -1,6 +1,6 @@
 ﻿namespace MusicProcessor.Domain.Enums;
 
-public enum OutputType 
+public enum OutputType
 {
     Success,
     Error

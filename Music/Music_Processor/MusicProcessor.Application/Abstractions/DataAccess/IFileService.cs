@@ -6,5 +6,5 @@ public interface IFileService
     string GetDataAccessFolderPath();
     string[] GetAllFoldersInPath(string path);
     string[] GetAllAudioFilesInFolder(string path);
-    string? GetSpotDLFileInFolder(string path);
+    string? GetSpotDLFile(string playlistPath);
 }

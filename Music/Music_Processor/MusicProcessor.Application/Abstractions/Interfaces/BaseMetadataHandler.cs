@@ -13,13 +13,13 @@ public abstract class BaseMetadataHandler : IMetadataHandler
         var tag = file.Tag;
 
         var metadata = new Song(
-            tag.Title ?? Path.GetFileNameWithoutExtension(songPath),
-            tag.Album ?? string.Empty,
-            (int)tag.Year,
-            tag.Comment ?? string.Empty,
-            (int)tag.Track,
-            file.Properties.Duration,
-            FileType
+            title: tag.Title ?? Path.GetFileNameWithoutExtension(songPath),
+            album: tag.Album ?? string.Empty,
+            year: (int)tag.Year,
+            comment: tag.Comment ?? string.Empty,
+            trackNumber: (int)tag.Track,
+            duration: file.Properties.Duration,
+            fileType: FileType
         );
 
         // Create Artist entities

@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using System.Collections;
+using Microsoft.EntityFrameworkCore;
 using MusicProcessor.Application.Abstractions.DataAccess;
 using MusicProcessor.Domain.Entities;
 
@@ -20,16 +21,7 @@ public class SongRepository : ISongRepository
         return true;
     }
 
-    public async Task<Song?> GetByIdAsync(int id)
-    {
-        return await _context.Songs
-            .Include(s => s.Genres)
-            .Include(s => s.Styles)
-            .Include(s => s.Artists)
-            .FirstOrDefaultAsync(s => s.Id == id);
-    }
-
-    public async Task<List<Song>> GetAllAsync()
+    public async Task<ICollection<Song>> GetAllAsync()
     {
         return await _context.Songs
             .Include(s => s.Genres)
@@ -47,6 +39,23 @@ public class SongRepository : ISongRepository
     {
         await _context.Songs.AddRangeAsync(songsToAdd);
         await _context.SaveChangesAsync();
+    }
+
+    public IQueryable<Song> GetAll()
+    {
+        return _context.Songs
+            .Include(s => s.Genres)
+            .Include(s => s.Styles)
+            .Include(s => s.Artists);
+    }
+
+    public async Task<Song?> GetByIdAsync(int id)
+    {
+        return await _context.Songs
+            .Include(s => s.Genres)
+            .Include(s => s.Styles)
+            .Include(s => s.Artists)
+            .FirstOrDefaultAsync(s => s.Id == id);
     }
 
     public async Task UpdateAsync(Song song)
@@ -82,13 +91,5 @@ public class SongRepository : ISongRepository
             _context.Songs.Remove(song);
             await _context.SaveChangesAsync();
         }
-    }
-
-    public IQueryable<Song> GetAll()
-    {
-        return _context.Songs
-            .Include(s => s.Genres)
-            .Include(s => s.Styles)
-            .Include(s => s.Artists);
     }
 }

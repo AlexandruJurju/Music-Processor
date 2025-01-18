@@ -1,11 +1,8 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using MusicProcessor.CLI;
 using MusicProcessor.Application;
-using MusicProcessor.Application.Abstractions.Interfaces;
-using MusicProcessor.Application.Services;
+using MusicProcessor.CLI;
 using MusicProcessor.Infrastructure;
-using MusicProcessor.Infrastructure.FileAccess;
 
 var host = Host.CreateDefaultBuilder(args)
     .ConfigureServices((context, services) =>

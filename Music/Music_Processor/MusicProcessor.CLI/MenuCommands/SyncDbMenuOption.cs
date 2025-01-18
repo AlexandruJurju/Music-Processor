@@ -1,18 +1,18 @@
-﻿using System.Diagnostics;
+﻿using MediatR;
 using MusicProcessor.Application.Abstractions.DataAccess;
-using MusicProcessor.Application.Abstractions.Interfaces;
+using MusicProcessor.Application.SyncCommand;
 
 namespace MusicProcessor.CLI.MenuCommands;
 
-public class SyncDbCommand : IMenuCommand
+public class SyncDbMenuOption : IMenuOption
 {
     private readonly IFileService _fileService;
-    private readonly IPlaylistProcessor _playlistProcessor;
+    private readonly IMediator _mediator;
 
-    public SyncDbCommand(IFileService fileService, IPlaylistProcessor playlistProcessor)
+    public SyncDbMenuOption(IFileService fileService, IMediator mediator)
     {
         _fileService = fileService;
-        _playlistProcessor = playlistProcessor;
+        _mediator = mediator;
     }
 
     public string Name => "Sync Db";
@@ -45,9 +45,7 @@ public class SyncDbCommand : IMenuCommand
             return;
         }
 
-        var stopwatch = Stopwatch.StartNew();
         var playlistPath = Path.Combine(_fileService.GetPlaylistsPath(), playlistName);
-        await _playlistProcessor.WriteSongsToDbAsync(playlistPath);
-        Console.WriteLine(stopwatch.Elapsed);
+        await _mediator.Send(new SyncDbCommand(playlistPath));
     }
 }

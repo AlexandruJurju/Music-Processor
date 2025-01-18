@@ -8,22 +8,22 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <ProjectReference Include="..\MusicProcessor.Application\MusicProcessor.Application.csproj" />
-        <ProjectReference Include="..\MusicProcessor.Infrastructure\MusicProcessor.Infrastructure.csproj" />
+        <ProjectReference Include="..\MusicProcessor.Application\MusicProcessor.Application.csproj"/>
+        <ProjectReference Include="..\MusicProcessor.Infrastructure\MusicProcessor.Infrastructure.csproj"/>
     </ItemGroup>
 
     <ItemGroup>
         <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="9.0.1">
-          <PrivateAssets>all</PrivateAssets>
-          <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+            <PrivateAssets>all</PrivateAssets>
+            <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
         </PackageReference>
         <PackageReference Include="Microsoft.Extensions.Hosting" Version="9.0.0"/>
     </ItemGroup>
 
     <ItemGroup>
-      <None Update="music.sqlite">
-        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-      </None>
+        <None Update="music.sqlite">
+            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </None>
     </ItemGroup>
 
 </Project>

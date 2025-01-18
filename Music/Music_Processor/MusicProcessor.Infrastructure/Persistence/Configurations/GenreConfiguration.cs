@@ -16,7 +16,7 @@ public class GenreConfiguration : IEntityTypeConfiguration<Genre>
 
         builder.HasIndex(e => e.Name)
             .IsUnique();
-        
+
         builder.HasMany(e => e.Styles)
             .WithMany(e => e.Genres)
             .UsingEntity(

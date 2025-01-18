@@ -6,7 +6,7 @@ public interface ISongRepository
 {
     Task<bool> AddAsync(Song songMetadata);
     IQueryable<Song> GetAll();
-    Task<List<Song>> GetAllAsync();
+    Task<ICollection<Song>> GetAllAsync();
     Task<IEnumerable<string>> GetSongTitlesAsync();
     Task AddRangeAsync(List<Song> songsToAdd);
 }
