@@ -1,8 +1,12 @@
 ﻿using Microsoft.Extensions.Logging;
-using MusicProcessor.CLI.MenuCommands;
+using MusicProcessor.CLI.MenuOptions;
+using MusicProcessor.CLI.MenuOptions.Abstractions;
 
 namespace MusicProcessor.CLI;
 
+/// <summary>
+/// Command line class that shows the available options for the user
+/// </summary>
 public class CommandLine
 {
     private readonly ILogger<CommandLine> _logger;

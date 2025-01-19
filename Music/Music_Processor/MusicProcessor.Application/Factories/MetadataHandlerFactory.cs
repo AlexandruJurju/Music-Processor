@@ -16,9 +16,9 @@ public class MetadataHandlerFactory
         };
     }
 
-    public IMetadataHandler GetHandler(string filePath)
+    public IMetadataHandler GetHandler(string songFilePath)
     {
-        var extension = Path.GetExtension(filePath);
+        var extension = Path.GetExtension(songFilePath);
         if (_handlers.TryGetValue(extension, out var extractor))
         {
             return extractor;

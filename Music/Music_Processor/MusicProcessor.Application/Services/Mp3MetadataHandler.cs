@@ -31,9 +31,9 @@ public class MP3MetadataHandler : BaseMetadataHandler
         return styles.Distinct().ToList();
     }
 
-    public override void WriteMetadata(string songPath, Song song)
+    public override void UpdateMetadata( Song song)
     {
-        using var file = File.Create(songPath);
+        using var file = File.Create(song.FilePath);
         var tag = file.GetTag(TagTypes.Id3v2, true) as Tag;
         if (tag == null)
         {

@@ -14,6 +14,6 @@ public sealed class Genre : BaseEntity
     }
 
     public string Name { get; set; } = string.Empty;
-    public ICollection<Song> Tracks { get; set; } = new List<Song>();
+    public ICollection<Song> Songs { get; set; } = new List<Song>();
     public ICollection<Style> Styles { get; set; } = new List<Style>();
 }

@@ -15,7 +15,7 @@ public static class SeedDataExtensions
         var context = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
 
         // Ensure database is created
-        await context.Database.MigrateAsync();
+        // await context.Database.MigrateAsync();
 
         // Seed default genres
         if (!await context.Genres.AnyAsync())

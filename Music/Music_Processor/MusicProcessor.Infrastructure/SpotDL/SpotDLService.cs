@@ -107,13 +107,6 @@ public class SpotDLService : ISpotDLService
         }
     }
 
-    private void HandleStandardOutputData(DataReceivedEventArgs args, ConcurrentQueue<ProcessOutput> outputQueue, SyncSummary summary)
-    {
-        if (args.Data == null) return;
-        var output = ProcessStandardOutput(args.Data, summary);
-        outputQueue.Enqueue(output);
-    }
-
     private async IAsyncEnumerable<ProcessOutput> RunCommandAsync(string[] command)
     {
         var summary = new SyncSummary();
@@ -126,11 +119,8 @@ public class SpotDLService : ISpotDLService
             FileName = "spotdl",
             Arguments = string.Join(" ", command),
             RedirectStandardOutput = true,
-            RedirectStandardError = true,
             UseShellExecute = false,
             CreateNoWindow = true,
-            StandardOutputEncoding = Encoding.UTF8,
-            StandardErrorEncoding = Encoding.UTF8,
             EnvironmentVariables =
             {
                 ["COLS"] = "500",
@@ -145,7 +135,7 @@ public class SpotDLService : ISpotDLService
         {
             if (args.Data != null)
             {
-                var output = ProcessStandardOutput(args.Data, summary);
+                var output = ProcessStandardOutput(args.Data.Trim(), summary);
                 outputQueue.Enqueue(output);
             }
         };
@@ -165,7 +155,6 @@ public class SpotDLService : ISpotDLService
         // Start the process
         process.Start();
         process.BeginOutputReadLine();
-        // process.BeginErrorReadLine();
 
         // Monitor and yield outputs
         while (!processingComplete.Task.IsCompleted || !outputQueue.IsEmpty)
@@ -187,15 +176,12 @@ public class SpotDLService : ISpotDLService
             throw new Exception($"spotdl command failed with exit code {process.ExitCode}");
         }
 
-        if (summary.TotalMissingSongs > 0)
-        {
-            yield return new ProcessOutput(
-                $"\n=== Missing Songs Summary ===\n" +
-                $"Lookup Errors: {summary.LookupErrors.Count}\n" +
-                $"Download Errors: {summary.DownloadErrors.Count}\n" +
-                $"Total Missing: {summary.TotalMissingSongs}",
-                OutputType.Error
-            );
-        }
+        yield return new ProcessOutput(
+            $"\n=== Missing Songs Summary ===\n" +
+            $"Lookup Errors: {summary.LookupErrors.Count}\n" +
+            $"Download Errors: {summary.DownloadErrors.Count}\n" +
+            $"Total Missing: {summary.TotalMissingSongs}",
+            OutputType.Error
+        );
     }
 }

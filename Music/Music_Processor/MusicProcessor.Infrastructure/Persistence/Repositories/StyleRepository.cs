@@ -26,4 +26,15 @@ public class StyleRepository : IStyleRepository
         await _context.SaveChangesAsync();
         return newStyle.Id;
     }
+
+    public Task<Style?> GetByNameAsync(string styleName)
+    {
+        return _context.Styles.FirstOrDefaultAsync(s => s.Name == styleName);
+    }
+
+    public async Task DeleteAsync(Style style)
+    {
+        _context.Styles.Remove(style);
+        await _context.SaveChangesAsync();
+    }
 }

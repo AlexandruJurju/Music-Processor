@@ -1,5 +1,6 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
-using MusicProcessor.CLI.MenuCommands;
+using MusicProcessor.CLI.MenuOptions;
+using MusicProcessor.CLI.MenuOptions.Abstractions;
 
 namespace MusicProcessor.CLI;
 
@@ -9,7 +10,10 @@ public static class DependencyInjection
     {
         services.AddTransient<IMenuOption, FirstTimeSyncOption>();
         services.AddTransient<IMenuOption, UpdateSyncOption>();
+        services.AddTransient<IMenuOption, FixPlaylistMetadataOption>();
         services.AddTransient<IMenuOption, ExitOption>();
+        services.AddTransient<IMenuOption, TestWriteToDBWithSpotdlMeta>();
+        services.AddTransient<IMenuOption, CommitChangesToLibraryOption>();
 
         services.AddScoped<CommandLine>();
         services.AddScoped<MenuCommandFactory>();

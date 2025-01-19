@@ -19,7 +19,10 @@ public static class DependencyInjection
         var dbPath = Path.Combine(Environment.CurrentDirectory, "music.sqlite");
 
         services.AddDbContext<ApplicationDbContext>(options =>
-            options.UseSqlite($"Data Source={dbPath}"));
+        {
+            options.UseSqlite($"Data Source={dbPath}");
+            options.UseSnakeCaseNamingConvention();
+        });
 
         services.AddTransient<ISongRepository, SongRepository>();
         services.AddTransient<IStyleRepository, StyleRepository>();

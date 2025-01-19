@@ -27,11 +27,11 @@ public class FlacMetadataHandler : BaseMetadataHandler
         return styles.Distinct().ToList();
     }
 
-    public override void WriteMetadata(string songPath, Song song)
+    public override void UpdateMetadata(Song song)
     {
         try
         {
-            using var file = File.Create(songPath);
+            using var file = File.Create(song.FilePath);
             var tag = file.Tag;
 
             // Handle the combined tag first for genres
@@ -61,7 +61,7 @@ public class FlacMetadataHandler : BaseMetadataHandler
         }
         catch (Exception ex)
         {
-            throw new Exception($"Error writing metadata to FLAC file {songPath}: {ex.Message}", ex);
+            throw new Exception($"Error writing metadata to FLAC file {song.FilePath}: {ex.Message}", ex);
         }
     }
 }

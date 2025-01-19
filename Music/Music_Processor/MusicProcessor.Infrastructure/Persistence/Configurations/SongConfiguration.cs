@@ -14,8 +14,7 @@ public class SongConfiguration : IEntityTypeConfiguration<Song>
             .IsRequired()
             .HasMaxLength(200);
 
-        builder.HasIndex(e => e.Title)
-            .IsUnique();
+        builder.HasIndex(e => e.Title);
 
         builder.Property(e => e.Album)
             .HasMaxLength(200);
@@ -34,16 +33,18 @@ public class SongConfiguration : IEntityTypeConfiguration<Song>
         builder.Property(e => e.Duration)
             .HasConversion(
                 v => v.Ticks,
-                v => TimeSpan.FromTicks(v));
+                v => TimeSpan.FromSeconds(v));
 
-        // Many-to-many relationships
         builder.HasMany(e => e.Artists)
-            .WithMany(e => e.Tracks);
+            .WithMany(e => e.Songs)
+            .UsingEntity(j => j.ToTable("song_artists"));
 
         builder.HasMany(e => e.Genres)
-            .WithMany(e => e.Tracks);
+            .WithMany(e => e.Songs)
+            .UsingEntity(j => j.ToTable("song_genres"));
 
         builder.HasMany(e => e.Styles)
-            .WithMany(e => e.Tracks);
+            .WithMany(e => e.Songs)
+            .UsingEntity(j => j.ToTable("song_styles"));
     }
 }

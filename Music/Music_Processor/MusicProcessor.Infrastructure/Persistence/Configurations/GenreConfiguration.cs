@@ -19,9 +19,6 @@ public class GenreConfiguration : IEntityTypeConfiguration<Genre>
 
         builder.HasMany(e => e.Styles)
             .WithMany(e => e.Genres)
-            .UsingEntity(
-                "GenreStyles",
-                l => l.HasOne(typeof(Style)).WithMany().HasForeignKey("StyleId"),
-                r => r.HasOne(typeof(Genre)).WithMany().HasForeignKey("GenreId"));
+            .UsingEntity("GenreStyles");
     }
 }

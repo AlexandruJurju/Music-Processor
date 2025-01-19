@@ -6,4 +6,6 @@ public interface IStyleRepository
 {
     Task<List<Style>> GetAllAsync();
     Task<int> AddAsync(Style newStyle);
+    Task<Style?> GetByNameAsync(string styleName);
+    Task DeleteAsync(Style style);
 }

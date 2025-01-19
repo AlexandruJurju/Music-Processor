@@ -13,6 +13,7 @@ public abstract class BaseMetadataHandler : IMetadataHandler
         var tag = file.Tag;
 
         var metadata = new Song(
+            filePath: songPath,
             title: tag.Title ?? Path.GetFileNameWithoutExtension(songPath),
             album: tag.Album ?? string.Empty,
             year: (int)tag.Year,
@@ -21,11 +22,16 @@ public abstract class BaseMetadataHandler : IMetadataHandler
             duration: file.Properties.Duration,
             fileType: FileType
         );
-
+        
         // Create Artist entities
-        foreach (var performerName in tag.Performers)
+        foreach (var performer in tag.Performers)
         {
-            metadata.Artists.Add(new Artist { Name = performerName });
+            // because of spotdl data -> reads performers with / between their names
+            var splitPerformers = performer.Split('/', StringSplitOptions.TrimEntries | StringSplitOptions.RemoveEmptyEntries);
+            foreach (var performerName in splitPerformers)
+            {
+                metadata.Artists.Add(new Artist { Name = performerName });
+            }
         }
 
         // Create Genre entities
@@ -43,6 +49,6 @@ public abstract class BaseMetadataHandler : IMetadataHandler
         return metadata;
     }
 
-    public abstract void WriteMetadata(string songPath, Song song);
+    public abstract void UpdateMetadata(Song song);
     protected abstract List<string> ExtractStyles(File file);
 }

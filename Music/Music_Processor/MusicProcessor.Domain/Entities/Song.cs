@@ -11,6 +11,7 @@ public sealed class Song : BaseEntity
     }
 
     public Song(
+        string filePath,
         string title,
         string album,
         int? year,
@@ -19,6 +20,7 @@ public sealed class Song : BaseEntity
         TimeSpan duration,
         string fileType)
     {
+        FilePath = filePath;
         Title = title;
         Album = album;
         Year = year;
@@ -28,7 +30,7 @@ public sealed class Song : BaseEntity
         FileType = fileType;
         MetadataHash = ComputeHash();
     }
-    
+
     public string Title { get; set; } = string.Empty;
     public string Album { get; set; } = string.Empty;
     public int? Year { get; set; }
@@ -37,6 +39,7 @@ public sealed class Song : BaseEntity
     public TimeSpan Duration { get; set; }
     public string FileType { get; set; } = string.Empty;
     public string MetadataHash { get; set; } = string.Empty;
+    public string FilePath { get; set; } = string.Empty;
 
     public ICollection<Artist> Artists { get; set; } = new List<Artist>();
     public ICollection<Genre> Genres { get; set; } = new List<Genre>();
@@ -45,6 +48,7 @@ public sealed class Song : BaseEntity
     public string ComputeHash()
     {
         var hashString = string.Join("|",
+            FilePath,
             Title,
             string.Join(",", Artists.Select(a => a.Name).OrderBy(a => a)),
             Album,

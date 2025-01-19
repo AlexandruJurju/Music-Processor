@@ -4,9 +4,11 @@ namespace MusicProcessor.Application.Abstractions.DataAccess;
 
 public interface ISongRepository
 {
-    Task<bool> AddAsync(Song songMetadata);
-    IQueryable<Song> GetAll();
     Task<ICollection<Song>> GetAllAsync();
     Task<IEnumerable<string>> GetSongTitlesAsync();
-    Task AddRangeAsync(List<Song> songsToAdd);
+    IQueryable<Song> GetAll();
+    Task<Song?> GetByIdAsync(int id);
+    Task UpdateAsync(Song song);
+    Task DeleteAsync(int id);
+    Task AddRangeAsync(List<Song> songsList);
 }

@@ -3,9 +3,9 @@ namespace MusicProcessor.Domain.Models.SpotDL.Parse;
 public sealed class SpotDLSongMetadata
 {
     public string Name { get; set; } = string.Empty;
-    public string[] Artists { get; set; } = Array.Empty<string>();
+    public string[] Artists { get; set; } = [];
     public string Artist { get; set; } = string.Empty;
-    public string[] Genres { get; set; } = Array.Empty<string>();
+    public string[] Genres { get; set; } = [];
     public int DiscNumber { get; set; }
     public int DiscCount { get; set; }
     public string AlbumName { get; set; } = string.Empty;

@@ -16,7 +16,6 @@ public class GenreRepository : IGenreRepository
     public Task<List<Genre>> GetAllAsync()
     {
         return _context.Genres
-            .Include(g => g.Styles)
             .ToListAsync();
     }
 
@@ -25,5 +24,16 @@ public class GenreRepository : IGenreRepository
         _context.Genres.Add(newGenre);
         await _context.SaveChangesAsync();
         return newGenre.Id;
+    }
+
+    public async Task<Genre?> GetByNameAsync(string genreName)
+    {
+        return await _context.Genres.FirstOrDefaultAsync(g => g.Name == genreName);
+    }
+
+    public async Task DeleteAsync(Genre genre)
+    {
+        _context.Genres.Remove(genre);
+        await _context.SaveChangesAsync();
     }
 }

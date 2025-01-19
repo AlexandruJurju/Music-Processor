@@ -1,10 +1,11 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using MusicProcessor.Application.Abstractions.DataAccess;
 using MusicProcessor.Domain.Common;
 using MusicProcessor.Domain.Entities;
 
 namespace MusicProcessor.Infrastructure.Persistence;
 
-public class ApplicationDbContext : DbContext
+public class ApplicationDbContext : DbContext, IUnitOfWork
 {
     public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)
     {
@@ -14,7 +15,7 @@ public class ApplicationDbContext : DbContext
     public DbSet<Genre> Genres { get; set; }
     public DbSet<Style> Styles { get; set; }
     public DbSet<Artist> Artists { get; set; }
-
+    
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.ApplyConfigurationsFromAssembly(typeof(ApplicationDbContext).Assembly);
