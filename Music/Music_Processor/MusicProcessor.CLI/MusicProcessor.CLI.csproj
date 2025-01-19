@@ -19,6 +19,7 @@
             <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
         </PackageReference>
         <PackageReference Include="Microsoft.Extensions.Hosting" Version="9.0.0"/>
+        <PackageReference Include="Redpoint.ThirdParty.System.CommandLine" Version="2025.1018.374" />
         <PackageReference Include="Serilog.Sinks.File" Version="6.0.0" />
     </ItemGroup>
 

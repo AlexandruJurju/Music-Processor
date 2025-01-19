@@ -14,5 +14,10 @@ builder.Services.RegisterCLI();
 
 var host = builder.Build();
 
-var cli = host.Services.GetRequiredService<CommandLine>();
-await cli.RunAsync();
+var cli = host.Services.GetRequiredService<CommandLineApp>();
+
+while(true)
+{
+    var newArgs = Console.ReadLine()?.Split(' ') ?? [];
+    await cli.RunAsync(newArgs);
+}

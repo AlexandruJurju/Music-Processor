@@ -10,6 +10,12 @@ public class FileService : IFileService
         return DirectoryPaths.PlaylistsDirectory;
     }
 
+    public string[] GetAllPlaylistsNames()
+    {
+        var directoriesPaths = Directory.GetDirectories(DirectoryPaths.PlaylistsDirectory);
+        return directoriesPaths.Select(Path.GetFileName).ToArray()!;
+    }
+
     public string GetDataAccessFolderPath()
     {
         return DirectoryPaths.BaseDirectory;
