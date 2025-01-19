@@ -6,7 +6,7 @@ using MusicProcessor.Domain.Entities;
 
 namespace MusicProcessor.Application.UseCases.WriteLibraryToDb;
 
-public sealed class WriteMetadataToDbCommandHandler(
+public sealed class WriteMetadataToDbHandler(
     IFileService fileService,
     MetadataHandlerFactory metadataHandlerFactory,
     ISongProcessor songProcessor)

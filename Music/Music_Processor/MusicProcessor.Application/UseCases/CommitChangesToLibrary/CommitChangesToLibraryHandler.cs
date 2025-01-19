@@ -4,7 +4,7 @@ using MusicProcessor.Application.Factories;
 
 namespace MusicProcessor.Application.UseCases.CommitChangesToLibrary;
 
-public sealed class CommitChangesToLibraryCommandHandler(
+public sealed class CommitChangesToLibraryHandler(
     MetadataHandlerFactory metadataHandlerFactory,
     ISongRepository songRepository
 ) : IRequestHandler<CommitChangesToLibraryCommand>

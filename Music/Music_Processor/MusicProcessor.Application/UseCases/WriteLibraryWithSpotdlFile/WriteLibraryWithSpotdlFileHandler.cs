@@ -7,11 +7,11 @@ using MusicProcessor.Domain.Entities;
 
 namespace MusicProcessor.Application.UseCases.WriteLibraryWithSpotdlFile;
 
-public class WriteLibraryWithSpotdlFileCommandHandler(
+public class WriteLibraryWithSpotdlFileHandler(
     ISpotDLMetadataLoader spotDlMetadataLoader,
     MetadataHandlerFactory metadataHandlerFactory,
     IFileService fileService,
-    ILogger<WriteLibraryWithSpotdlFileCommandHandler> logger,
+    ILogger<WriteLibraryWithSpotdlFileHandler> logger,
     ISongProcessor songProcessor)
     : IRequestHandler<WriteLibraryWithSpotdlFileCommand>
 {

@@ -5,11 +5,11 @@ using MusicProcessor.Domain.Entities;
 
 namespace MusicProcessor.Application.UseCases.FixMetadata;
 
-public sealed class FixMetadataCommandHandler(
+public sealed class FixMetadataHandler(
     IStyleRepository styleRepository,
     IGenreRepository genreRepository,
     ISongRepository songRepository,
-    ILogger<FixMetadataCommandHandler> logger)
+    ILogger<FixMetadataHandler> logger)
     : IRequestHandler<FixMetadataCommand>
 {
     public async Task Handle(FixMetadataCommand request, CancellationToken cancellationToken)

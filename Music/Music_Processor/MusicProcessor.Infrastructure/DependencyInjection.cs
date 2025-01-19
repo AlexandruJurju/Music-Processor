@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using MusicProcessor.Application.Abstractions.DataAccess;
+using MusicProcessor.Infrastructure.Config;
 using MusicProcessor.Infrastructure.FileAccess;
 using MusicProcessor.Infrastructure.Persistence;
 using MusicProcessor.Infrastructure.Persistence.Repositories;
@@ -15,6 +16,7 @@ public static class DependencyInjection
         services.AddTransient<ISpotDLService, SpotDLService>();
         services.AddTransient<IFileService, FileService>();
         services.AddTransient<ISpotDLMetadataLoader, SpotDLMetadataLoader>();
+        services.AddTransient<IConfigRepository, ConfigRepository>();
 
         var dbPath = Path.Combine(Environment.CurrentDirectory, "music.sqlite");
 

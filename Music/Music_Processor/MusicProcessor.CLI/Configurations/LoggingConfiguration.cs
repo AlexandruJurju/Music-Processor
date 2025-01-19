@@ -26,8 +26,8 @@ public static class LoggingConfiguration
                 outputTemplate: "[{Timestamp:HH:mm:ss} {Level:u3}] {Message:lj}{NewLine}",
                 theme: AnsiConsoleTheme.Literate);
 
-        AddHandlerLogger(configuration, nameof(WriteLibraryWithSpotdlFileCommandHandler), LogEventLevel.Warning, timestamp);
-        AddHandlerLogger(configuration, nameof(FixMetadataCommandHandler), LogEventLevel.Information, timestamp);
+        AddHandlerLogger(configuration, nameof(WriteLibraryWithSpotdlFileHandler), LogEventLevel.Warning, timestamp);
+        AddHandlerLogger(configuration, nameof(FixMetadataHandler), LogEventLevel.Information, timestamp);
 
         return configuration.CreateLogger();
     }
