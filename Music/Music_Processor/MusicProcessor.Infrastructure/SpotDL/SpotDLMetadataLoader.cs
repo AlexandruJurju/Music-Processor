@@ -24,7 +24,7 @@ public class SpotDLMetadataLoader(ILogger<SpotDLMetadataLoader> logger, IFileSer
         }
 
         var playlistData = await JsonSerializer.DeserializeAsync<SpotDLPlaylist>(File.OpenRead(spotdlFile), _jsonOptions);
-
+        
         if (playlistData?.Songs is not { Count: > 0 })
         {
             logger.LogWarning("No songs found in spotdl file");
