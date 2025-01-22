@@ -13,7 +13,14 @@ public sealed class Style : BaseEntity
         Name = name;
     }
 
-    public string Name { get; set; } = string.Empty;
+    public Style(string name, bool removeFromSongs)
+    {
+        Name = name;
+        RemoveFromSongs = removeFromSongs;
+    }
+
+
+    public string Name { get; set; } = String.Empty;
     public ICollection<Song> Songs { get; set; } = new List<Song>();
     public ICollection<Genre> Genres { get; set; } = new List<Genre>();
     public bool RemoveFromSongs { get; set; }

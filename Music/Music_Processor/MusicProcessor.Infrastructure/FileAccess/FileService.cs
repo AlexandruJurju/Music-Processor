@@ -23,20 +23,14 @@ public class FileService : IFileService
 
     public string[] GetAllFoldersInPath(string path)
     {
-        if (string.IsNullOrWhiteSpace(path))
-        {
-            throw new ArgumentException("The path cannot be null or empty.", nameof(path));
-        }
+        if (string.IsNullOrWhiteSpace(path)) throw new ArgumentException("The path cannot be null or empty.", nameof(path));
 
         return Directory.GetDirectories(path);
     }
 
     public string[] GetAllAudioFilesInFolder(string path)
     {
-        if (string.IsNullOrWhiteSpace(path))
-        {
-            throw new ArgumentException("The path cannot be null or empty.", nameof(path));
-        }
+        if (string.IsNullOrWhiteSpace(path)) throw new ArgumentException("The path cannot be null or empty.", nameof(path));
 
         string[] audioFileFormats = Constants.AudioFileFormats;
 
@@ -49,10 +43,7 @@ public class FileService : IFileService
     {
         var playlistName = Path.GetFileNameWithoutExtension(playlistPath);
 
-        if (string.IsNullOrWhiteSpace(playlistPath))
-        {
-            throw new ArgumentException("The path cannot be null or empty.", nameof(playlistName));
-        }
+        if (string.IsNullOrWhiteSpace(playlistPath)) throw new ArgumentException("The path cannot be null or empty.", nameof(playlistName));
 
         var spotdlFile = Directory.GetFiles(DirectoryPaths.PlaylistsDirectory, "*.spotdl", SearchOption.TopDirectoryOnly)
             .FirstOrDefault(f => Path.GetFileNameWithoutExtension(f).Equals(playlistName, StringComparison.OrdinalIgnoreCase));

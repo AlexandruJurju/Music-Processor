@@ -1,6 +1,5 @@
 ﻿using System.Collections.Concurrent;
 using System.Diagnostics;
-using System.Text;
 using Microsoft.Extensions.Logging;
 using MusicProcessor.Application.Abstractions.DataAccess;
 using MusicProcessor.Domain.Enums;
@@ -35,10 +34,7 @@ public class SpotDLService : ISpotDLService
             Path.Combine(playlistDirPath, $"{playlistDirPath}.spotdl")
         };
 
-        await foreach (var output in RunCommandAsync(command))
-        {
-            yield return output;
-        }
+        await foreach (var output in RunCommandAsync(command)) yield return output;
     }
 
     public async IAsyncEnumerable<ProcessOutput> UpdateSyncAsync(string playlistDirPath)
@@ -46,10 +42,7 @@ public class SpotDLService : ISpotDLService
         var syncFile = $"{playlistDirPath}.spotdl";
         var playlistName = Path.GetFileNameWithoutExtension(syncFile);
 
-        if (!File.Exists(syncFile))
-        {
-            throw new FileNotFoundException($"Sync file not found for playlist {playlistName}");
-        }
+        if (!File.Exists(syncFile)) throw new FileNotFoundException($"Sync file not found for playlist {playlistName}");
 
         var command = new[]
         {
@@ -59,10 +52,7 @@ public class SpotDLService : ISpotDLService
             playlistDirPath
         };
 
-        await foreach (var output in RunCommandAsync(command))
-        {
-            yield return output;
-        }
+        await foreach (var output in RunCommandAsync(command)) yield return output;
     }
 
     private ProcessOutput ProcessStandardOutput(string data, SyncSummary summary)
@@ -158,15 +148,10 @@ public class SpotDLService : ISpotDLService
 
         // Monitor and yield outputs
         while (!processingComplete.Task.IsCompleted || !outputQueue.IsEmpty)
-        {
             if (outputQueue.TryDequeue(out var output))
-            {
                 yield return output;
-            }
 
-            // await Task.Delay(50);
-        }
-
+        // await Task.Delay(50);
         // Wait for process completion
         await process.WaitForExitAsync();
 

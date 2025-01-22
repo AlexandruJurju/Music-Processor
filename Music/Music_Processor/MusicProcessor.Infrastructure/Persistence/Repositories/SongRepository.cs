@@ -6,20 +6,28 @@ namespace MusicProcessor.Infrastructure.Persistence.Repositories;
 
 public class SongRepository(ApplicationDbContext context) : ISongRepository
 {
-    public async Task<ICollection<Song>> GetAllAsync() =>
-        await GetAll().ToListAsync();
+    public async Task<ICollection<Song>> GetAllAsync()
+    {
+        return await GetAll().ToListAsync();
+    }
 
-    public async Task<IEnumerable<string>> GetSongTitlesAsync() =>
-        await context.Songs.Select(s => s.Title).ToListAsync();
+    public async Task<IEnumerable<string>> GetSongTitlesAsync()
+    {
+        return await context.Songs.Select(s => s.Title).ToListAsync();
+    }
 
-    public IQueryable<Song> GetAll() =>
-        context.Songs
+    public IQueryable<Song> GetAll()
+    {
+        return context.Songs
             .Include(s => s.Genres)
             .Include(s => s.Styles)
             .Include(s => s.Artists);
+    }
 
-    public async Task<Song?> GetByIdAsync(int id) =>
-        await GetAll().FirstOrDefaultAsync(s => s.Id == id);
+    public async Task<Song?> GetByIdAsync(int id)
+    {
+        return await GetAll().FirstOrDefaultAsync(s => s.Id == id);
+    }
 
     public async Task UpdateAsync(Song song)
     {

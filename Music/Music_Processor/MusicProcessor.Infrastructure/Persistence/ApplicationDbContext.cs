@@ -15,16 +15,10 @@ public class ApplicationDbContext : DbContext, IUnitOfWork
     public DbSet<Genre> Genres { get; set; }
     public DbSet<Style> Styles { get; set; }
     public DbSet<Artist> Artists { get; set; }
-    
-    protected override void OnModelCreating(ModelBuilder modelBuilder)
-    {
-        modelBuilder.ApplyConfigurationsFromAssembly(typeof(ApplicationDbContext).Assembly);
-    }
 
     public override Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
     {
         foreach (var entry in ChangeTracker.Entries<BaseEntity>())
-        {
             switch (entry.State)
             {
                 case EntityState.Added:
@@ -36,8 +30,12 @@ public class ApplicationDbContext : DbContext, IUnitOfWork
                     entry.Entity.DateModified = DateTime.UtcNow;
                     break;
             }
-        }
 
         return base.SaveChangesAsync(cancellationToken);
+    }
+
+    protected override void OnModelCreating(ModelBuilder modelBuilder)
+    {
+        modelBuilder.ApplyConfigurationsFromAssembly(typeof(ApplicationDbContext).Assembly);
     }
 }

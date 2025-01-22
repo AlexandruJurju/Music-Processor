@@ -1,12 +1,13 @@
 ﻿using MediatR;
 using MusicProcessor.Application.Abstractions.DataAccess;
-using MusicProcessor.Application.Factories;
+using MusicProcessor.Application.Abstractions.Interfaces;
+using MusicProcessor.Application.Services;
 
 namespace MusicProcessor.Application.UseCases.CommitChangesToLibrary;
 
 public sealed class CommitChangesToLibraryHandler(
-    MetadataHandlerFactory metadataHandlerFactory,
-    ISongRepository songRepository
+    ISongRepository songRepository,
+    MetadataService metadataService
 ) : IRequestHandler<CommitChangesToLibraryCommand>
 {
     public async Task Handle(CommitChangesToLibraryCommand request, CancellationToken cancellationToken)
@@ -18,8 +19,8 @@ public sealed class CommitChangesToLibraryHandler(
             // todo: optimize later
             // var lastCommitedDate = File.GetLastWriteTime(song.FilePath);
 
-            var handler = metadataHandlerFactory.GetHandler(song.FilePath);
-            handler.UpdateMetadata(song);
+            var strategy = metadataService.GetStrategy(song.FilePath);
+            strategy.UpdateMetadata(song);
         }
     }
 }

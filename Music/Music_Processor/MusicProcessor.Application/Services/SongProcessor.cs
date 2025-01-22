@@ -1,7 +1,7 @@
-﻿using MusicProcessor.Application.Abstractions.DataAccess;
+﻿using Microsoft.Extensions.Logging;
+using MusicProcessor.Application.Abstractions.DataAccess;
 using MusicProcessor.Application.Abstractions.Interfaces;
 using MusicProcessor.Domain.Entities;
-using Microsoft.Extensions.Logging;
 
 namespace MusicProcessor.Application.Services;
 
@@ -51,7 +51,6 @@ public class SongProcessor(
         var artistsList = song.Artists.ToList();
         song.Artists.Clear();
         foreach (var artist in artistsList)
-        {
             if (_existingArtists.TryGetValue(artist.Name, out var existingArtist))
             {
                 song.Artists.Add(existingArtist);
@@ -63,13 +62,11 @@ public class SongProcessor(
                 song.Artists.Add(artist);
                 logger.LogDebug($"Adding new artist: {artist.Name}");
             }
-        }
 
         // Process Genres
         var genresList = song.Genres.ToList();
         song.Genres.Clear();
         foreach (var genre in genresList)
-        {
             if (_existingGenres.TryGetValue(genre.Name, out var existingGenre))
             {
                 song.Genres.Add(existingGenre);
@@ -81,13 +78,11 @@ public class SongProcessor(
                 song.Genres.Add(genre);
                 logger.LogDebug($"Adding new genre: {genre.Name}");
             }
-        }
 
         // Process Styles
         var stylesList = song.Styles.ToList();
         song.Styles.Clear();
         foreach (var style in stylesList)
-        {
             if (_existingStyles.TryGetValue(style.Name, out var existingStyle))
             {
                 song.Styles.Add(existingStyle);
@@ -99,6 +94,5 @@ public class SongProcessor(
                 song.Styles.Add(style);
                 logger.LogDebug($"Adding new style: {style.Name}");
             }
-        }
     }
 }

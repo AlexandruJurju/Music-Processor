@@ -5,5 +5,5 @@ namespace MusicProcessor.Application.Abstractions.DataAccess;
 public interface IConfigRepository
 {
     Task WriteStyleMappingAsync();
-    Task<List<Style>> ReadStyleMappingAsync();
+    Task<IEnumerable<Style>> ReadStyleMappingAsync();
 }

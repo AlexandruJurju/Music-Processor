@@ -1,14 +1,14 @@
 ﻿using MediatR;
 using MusicProcessor.Application.Abstractions.DataAccess;
 using MusicProcessor.Application.Abstractions.Interfaces;
-using MusicProcessor.Application.Factories;
+using MusicProcessor.Application.Services;
 using MusicProcessor.Domain.Entities;
 
 namespace MusicProcessor.Application.UseCases.WriteLibraryToDb;
 
 public sealed class WriteMetadataToDbHandler(
     IFileService fileService,
-    MetadataHandlerFactory metadataHandlerFactory,
+    MetadataService metadataService,
     ISongProcessor songProcessor)
     : IRequestHandler<WriteMetadataToDbCommand>
 {
@@ -19,14 +19,11 @@ public sealed class WriteMetadataToDbHandler(
 
         foreach (var songFile in playlistSongs)
         {
-            var handler = metadataHandlerFactory.GetHandler(songFile);
+            var handler = metadataService.GetStrategy(songFile);
             var metadata = handler.ExtractMetadata(songFile);
             songsToAdd.Add(metadata);
         }
 
-        if (songsToAdd.Any())
-        {
-            await songProcessor.AddRawSongToDbAsync(songsToAdd);
-        }
+        if (songsToAdd.Any()) await songProcessor.AddRawSongToDbAsync(songsToAdd);
     }
 }

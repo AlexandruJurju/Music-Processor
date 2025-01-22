@@ -4,37 +4,42 @@ using MusicProcessor.Domain.Entities;
 
 namespace MusicProcessor.Infrastructure.Persistence.Repositories;
 
-public class StyleRepository : IStyleRepository
+public class StyleRepository(ApplicationDbContext context) : IStyleRepository
 {
-    private readonly ApplicationDbContext _context;
-
-    public StyleRepository(ApplicationDbContext context)
-    {
-        _context = context;
-    }
-
     public async Task<List<Style>> GetAllAsync()
     {
-        return await _context.Styles
+        return await context.Styles
             .Include(s => s.Genres)
             .ToListAsync();
     }
 
     public async Task<int> AddAsync(Style newStyle)
     {
-        _context.Styles.Add(newStyle);
-        await _context.SaveChangesAsync();
+        context.Styles.Add(newStyle);
+        await context.SaveChangesAsync();
         return newStyle.Id;
     }
 
     public Task<Style?> GetByNameAsync(string styleName)
     {
-        return _context.Styles.FirstOrDefaultAsync(s => s.Name == styleName);
+        return context.Styles.FirstOrDefaultAsync(s => s.Name == styleName);
     }
 
     public async Task DeleteAsync(Style style)
     {
-        _context.Styles.Remove(style);
-        await _context.SaveChangesAsync();
+        context.Styles.Remove(style);
+        await context.SaveChangesAsync();
+    }
+
+    public async Task<bool> ExistsAsync(string styleName)
+    {
+        return await context.Styles.AnyAsync(s => s.Name == styleName);
+    }
+
+    public async Task<Style> UpdateAsync(Style style)
+    {
+        context.Styles.Update(style);
+        await context.SaveChangesAsync();
+        return style;
     }
 }

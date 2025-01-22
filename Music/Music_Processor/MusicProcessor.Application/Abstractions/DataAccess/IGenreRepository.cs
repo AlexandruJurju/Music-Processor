@@ -5,7 +5,7 @@ namespace MusicProcessor.Application.Abstractions.DataAccess;
 public interface IGenreRepository
 {
     Task<List<Genre>> GetAllAsync();
-    Task<int> AddAsync(Genre newGenre);
+    Task<Genre> AddAsync(Genre newGenre);
     Task<Genre?> GetByNameAsync(string genreName);
     Task DeleteAsync(Genre genre);
 }

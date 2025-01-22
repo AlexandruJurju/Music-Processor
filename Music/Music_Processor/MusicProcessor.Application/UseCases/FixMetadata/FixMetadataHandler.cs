@@ -45,13 +45,11 @@ public sealed class FixMetadataHandler(
 
                 // Process genres from the style
                 foreach (var styleGenre in existingStyle.Genres)
-                {
                     if (existingGenreNames.TryGetValue(styleGenre.Name, out var matchingGenre))
                     {
                         genresToAdd.Add(matchingGenre);
                         logger.LogInformation("{Message}", $"Adding genre from style {style.Name}: {matchingGenre.Name}");
                     }
-                }
 
                 // Mark style for removal if it's flagged for removal or matches a genre name
                 if (existingStyle.RemoveFromSongs || existingGenreNames.ContainsKey(existingStyle.Name))
@@ -69,7 +67,7 @@ public sealed class FixMetadataHandler(
                 }
             }
 
-            bool songModified = false;
+            var songModified = false;
 
             // Remove marked styles from the song
             foreach (var style in stylesToRemove)
@@ -80,19 +78,17 @@ public sealed class FixMetadataHandler(
 
             // Add new genres to the song, avoiding duplicates
             foreach (var genre in genresToAdd)
-            {
                 if (!song.Genres.Any(g => string.Equals(g.Name, genre.Name, StringComparison.OrdinalIgnoreCase)))
                 {
                     song.Genres.Add(genre);
                     songModified = true;
                 }
-            }
 
             // Update the song in repository if changes were made
             if (songModified)
             {
                 // todo: readd update
-                // await songRepository.UpdateAsync(song);
+                await songRepository.UpdateAsync(song);
                 logger.LogInformation("{Message}", $"Song modified: {song.Title}");
                 logger.LogInformation("{Message}", $"Final styles: {string.Join(", ", song.Styles.Select(s => s.Name))}");
                 logger.LogInformation("{Message}", $"Final genres: {string.Join(", ", song.Genres.Select(g => g.Name))}");

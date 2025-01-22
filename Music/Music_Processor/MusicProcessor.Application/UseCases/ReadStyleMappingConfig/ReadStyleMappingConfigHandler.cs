@@ -12,16 +12,16 @@ public class ReadStyleMappingConfigHandler(
 {
     public async Task<IEnumerable<Style>> Handle(GetStyleMappingConfigQuery request, CancellationToken cancellationToken)
     {
-        logger.LogInformation("{Message}", $"Starting to read style mapping configuration");
+        logger.LogInformation("{Message}", "Starting to read style mapping configuration");
         try
         {
             var styles = await configRepository.ReadStyleMappingAsync();
-            logger.LogInformation("{Message}", $"Successfully read style mapping configuration");
+            logger.LogInformation("{Message}", "Successfully read style mapping configuration");
             return styles;
         }
         catch (Exception ex)
         {
-            logger.LogError(ex, "{Message}", $"Error reading style mapping configuration");
+            logger.LogError(ex, "{Message}", "Error reading style mapping configuration");
             throw;
         }
     }

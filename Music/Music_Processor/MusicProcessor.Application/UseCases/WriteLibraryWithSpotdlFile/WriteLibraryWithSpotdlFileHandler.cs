@@ -2,14 +2,14 @@
 using Microsoft.Extensions.Logging;
 using MusicProcessor.Application.Abstractions.DataAccess;
 using MusicProcessor.Application.Abstractions.Interfaces;
-using MusicProcessor.Application.Factories;
+using MusicProcessor.Application.Services;
 using MusicProcessor.Domain.Entities;
 
 namespace MusicProcessor.Application.UseCases.WriteLibraryWithSpotdlFile;
 
 public class WriteLibraryWithSpotdlFileHandler(
     ISpotDLMetadataLoader spotDlMetadataLoader,
-    MetadataHandlerFactory metadataHandlerFactory,
+    MetadataService metadataService,
     IFileService fileService,
     ILogger<WriteLibraryWithSpotdlFileHandler> logger,
     ISongProcessor songProcessor)
@@ -30,7 +30,7 @@ public class WriteLibraryWithSpotdlFileHandler(
         {
             logger.LogInformation("{Message}", $"Processing file: {Path.GetFileName(songFile)}");
 
-            var handler = metadataHandlerFactory.GetHandler(songFile);
+            var handler = metadataService.GetStrategy(songFile);
             var songMetadata = handler.ExtractMetadata(songFile);
             var spotdlSongKey = spotDlMetadataLoader.CreateLookupKey(songMetadata.Artists, songMetadata.Title);
 

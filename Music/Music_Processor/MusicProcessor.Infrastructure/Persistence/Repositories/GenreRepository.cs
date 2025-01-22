@@ -19,11 +19,11 @@ public class GenreRepository : IGenreRepository
             .ToListAsync();
     }
 
-    public async Task<int> AddAsync(Genre newGenre)
+    public async Task<Genre> AddAsync(Genre newGenre)
     {
         _context.Genres.Add(newGenre);
         await _context.SaveChangesAsync();
-        return newGenre.Id;
+        return newGenre;
     }
 
     public async Task<Genre?> GetByNameAsync(string genreName)

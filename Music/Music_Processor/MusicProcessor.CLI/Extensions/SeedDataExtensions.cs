@@ -18,16 +18,10 @@ public static class SeedDataExtensions
         // await context.Database.MigrateAsync();
 
         // Seed default genres
-        if (!await context.Genres.AnyAsync())
-        {
-            await InitGenres(context);
-        }
+        if (!await context.Genres.AnyAsync()) await InitGenres(context);
 
         // Seed default styles with genre mappings
-        if (!await context.Styles.AnyAsync())
-        {
-            await InitStylesWithGenres(context);
-        }
+        if (!await context.Styles.AnyAsync()) await InitStylesWithGenres(context);
     }
 
 
@@ -62,7 +56,7 @@ public static class SeedDataExtensions
         var genres = new List<Genre>
         {
             new("Rock"),
-            new("Synthwave"),
+            new("Synthwave")
         };
 
         await context.Genres.AddRangeAsync(genres);

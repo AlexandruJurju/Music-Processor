@@ -8,4 +8,6 @@ public interface IStyleRepository
     Task<int> AddAsync(Style newStyle);
     Task<Style?> GetByNameAsync(string styleName);
     Task DeleteAsync(Style style);
+    Task<bool> ExistsAsync(string styleName);
+    Task<Style> UpdateAsync(Style style);
 }

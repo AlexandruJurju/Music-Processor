@@ -2,4 +2,4 @@
 
 namespace MusicProcessor.Application.UseCases.WriteStyleMappingConfig;
 
-public sealed record WriteStyleMappingConfigCommand() : IRequest;
+public sealed record WriteStyleMappingConfigCommand : IRequest;
