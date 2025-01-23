@@ -4,7 +4,7 @@ using CliFx.Infrastructure;
 using MediatR;
 using MusicProcessor.Application.Abstractions.DataAccess;
 
-namespace MusicProcessor.CLI.Commands;
+namespace MusicProcessor.CLI.MenuCommands;
 
 [Command("fix-metadata", Description = "Fix metadata for a playlist")]
 public class FixMetadataCommand(IFileService fileService, IMediator mediator) : BaseCommand(fileService, mediator)

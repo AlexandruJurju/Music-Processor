@@ -3,6 +3,7 @@ using Microsoft.Extensions.Logging;
 using MusicProcessor.Application.Abstractions.DataAccess;
 using MusicProcessor.Application.Abstractions.Interfaces;
 using MusicProcessor.Application.Services;
+using MusicProcessor.Domain.Constants;
 using MusicProcessor.Domain.Entities;
 
 namespace MusicProcessor.Application.UseCases.WriteLibraryWithSpotdlFile;
@@ -43,6 +44,7 @@ public class WriteLibraryWithSpotdlFileHandler(
             }
 
             spotdlSongMetadata.FilePath = songFile;
+            spotdlSongMetadata.FileType = FileTypes.GetFileType(Path.GetExtension(songFile)) ?? "";
             songsToAdd.Add(spotdlSongMetadata);
 
             logger.LogInformation("{Message}", $"Added song: {spotdlSongMetadata.Title}");

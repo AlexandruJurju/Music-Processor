@@ -11,7 +11,7 @@ public class SpotDLMetadataLoader(ILogger<SpotDLMetadataLoader> logger, IFileSer
     private readonly JsonSerializerOptions _jsonOptions = new()
     {
         PropertyNameCaseInsensitive = true,
-        PropertyNamingPolicy = JsonNamingPolicy.CamelCase
+        PropertyNamingPolicy = JsonNamingPolicy.SnakeCaseLower
     };
 
     public async Task<Dictionary<string, Song>> LoadSpotDLMetadataAsync(string playlistPath)

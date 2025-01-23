@@ -3,7 +3,7 @@ using MediatR;
 using MusicProcessor.Application.Abstractions.DataAccess;
 using ICommand = CliFx.ICommand;
 
-namespace MusicProcessor.CLI.Commands;
+namespace MusicProcessor.CLI.MenuCommands;
 
 public abstract class BaseCommand : ICommand
 {

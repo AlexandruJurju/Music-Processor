@@ -4,7 +4,7 @@ using MediatR;
 using MusicProcessor.Application.Abstractions.DataAccess;
 using MusicProcessor.Application.UseCases.WriteStyleMappingConfig;
 
-namespace MusicProcessor.CLI.Commands;
+namespace MusicProcessor.CLI.MenuCommands;
 
 [Command("write-mapping", Description = "Write current mapping file to json")]
 public class WriteStyleMappingCommand(IFileService fileService, IMediator mediator) : BaseCommand(fileService, mediator)

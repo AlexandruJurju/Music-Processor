@@ -1,6 +1,7 @@
 using System.Security.Cryptography;
 using System.Text;
 using MusicProcessor.Domain.Common;
+using MusicProcessor.Domain.Constants;
 
 namespace MusicProcessor.Domain.Entities;
 
@@ -27,7 +28,7 @@ public sealed class Song : BaseEntity
         Comment = comment;
         TrackNumber = trackNumber;
         Duration = duration;
-        FileType = fileType;
+        FileType = ValidateFileType(fileType);
         MetadataHash = ComputeHash();
     }
 
@@ -44,7 +45,7 @@ public sealed class Song : BaseEntity
     public ICollection<Artist> Artists { get; set; } = new List<Artist>();
     public ICollection<Style> Styles { get; set; } = new List<Style>();
 
-    public string ComputeHash()
+    private string ComputeHash()
     {
         var hashString = string.Join("|",
             FilePath,
@@ -62,5 +63,16 @@ public sealed class Song : BaseEntity
         using var sha256 = SHA256.Create();
         var hashBytes = sha256.ComputeHash(Encoding.UTF8.GetBytes(hashString));
         return Convert.ToBase64String(hashBytes);
+    }
+
+    private string ValidateFileType(string fileType)
+    {
+        var allowedFileTypes = new[] { FileTypes.MP3, FileTypes.FLAC };
+        if (!allowedFileTypes.Contains(fileType))
+        {
+            throw new ArgumentException($"Invalid file type. Allowed values are: {string.Join(", ", allowedFileTypes)}");
+        }
+
+        return fileType;
     }
 }

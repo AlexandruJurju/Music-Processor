@@ -13,11 +13,23 @@ public static class DependencyInjection
 {
     public static IServiceCollection AddInfrastructure(this IServiceCollection services)
     {
+        AddExternalFileServices(services);
+        AddDb(services);
+        AddRepositories(services);
+
+        return services;
+    }
+
+    private static void AddExternalFileServices(IServiceCollection services)
+    {
         services.AddTransient<ISpotDLService, SpotDLService>();
         services.AddTransient<IFileService, FileService>();
         services.AddTransient<ISpotDLMetadataLoader, SpotDLMetadataLoader>();
         services.AddTransient<IConfigRepository, ConfigRepository>();
+    }
 
+    private static void AddDb(IServiceCollection services)
+    {
         var dbPath = Path.Combine(Environment.CurrentDirectory, "music.sqlite");
 
         services.AddDbContext<ApplicationDbContext>(options =>
@@ -25,12 +37,13 @@ public static class DependencyInjection
             options.UseSqlite($"Data Source={dbPath}");
             options.UseSnakeCaseNamingConvention();
         });
+    }
 
+    private static void AddRepositories(IServiceCollection services)
+    {
         services.AddTransient<ISongRepository, SongRepository>();
         services.AddTransient<IStyleRepository, StyleRepository>();
         services.AddTransient<IGenreRepository, GenreRepository>();
         services.AddTransient<IArtistRepository, ArtistRepository>();
-
-        return services;
     }
 }

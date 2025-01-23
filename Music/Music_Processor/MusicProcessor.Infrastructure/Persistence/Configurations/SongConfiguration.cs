@@ -32,8 +32,8 @@ public class SongConfiguration : IEntityTypeConfiguration<Song>
 
         builder.Property(e => e.Duration)
             .HasConversion(
-                v => v.Ticks,
-                v => TimeSpan.FromTicks(v));
+                v => v.TotalSeconds,
+                v => TimeSpan.FromSeconds(v));
 
         // Many-to-many relationship with Artist
         builder.HasMany(e => e.Artists)

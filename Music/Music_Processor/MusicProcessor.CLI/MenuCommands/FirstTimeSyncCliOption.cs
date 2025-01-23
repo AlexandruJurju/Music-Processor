@@ -1,19 +1,18 @@
 ﻿using CliFx.Attributes;
-using CliFx.Exceptions;
 using CliFx.Infrastructure;
 using MediatR;
 using MusicProcessor.Application.Abstractions.DataAccess;
 using MusicProcessor.Application.UseCases.WriteLibraryWithSpotdlFile;
 using MusicProcessor.Domain.Enums;
 
-namespace MusicProcessor.CLI.Commands;
+namespace MusicProcessor.CLI.MenuCommands;
 
-[Command("sync-update", Description = "Update sync with existing playlist")]
-public class UpdateSyncCommand : BaseCommand
+[Command("sync-new", Description = "First time sync with Spotify playlist")]
+public class FirstTimeSyncCommand : BaseCommand
 {
     private readonly ISpotDLService _spotDlService;
 
-    public UpdateSyncCommand(
+    public FirstTimeSyncCommand(
         ISpotDLService spotDlService,
         IFileService fileService,
         IMediator mediator)
@@ -22,14 +21,11 @@ public class UpdateSyncCommand : BaseCommand
         _spotDlService = spotDlService;
     }
 
+    [CommandOption("url", 'u', IsRequired = true, Description = "The Spotify playlist URL")]
+    public string Url { get; init; } = "";
+
     [CommandOption("playlist", 'p', IsRequired = true, Description = "The playlist name")]
     public string PlaylistName { get; init; } = "";
-
-    public void Validate()
-    {
-        if (!FileService.GetAllPlaylistsNames().Contains(PlaylistName))
-            throw new CommandException($"Invalid playlist: {PlaylistName}");
-    }
 
     public override async ValueTask ExecuteAsync(IConsole console)
     {
@@ -38,9 +34,9 @@ public class UpdateSyncCommand : BaseCommand
 
         var playlistPath = GetPlaylistPath(PlaylistName);
 
-        console.Output.WriteLine("\nSpotDL Started", ConsoleColor.Green);
+        console.Output.WriteLine("\nSpotDL Started");
 
-        await foreach (var output in _spotDlService.UpdateSyncAsync(playlistPath))
+        await foreach (var output in _spotDlService.NewSyncAsync(Url, playlistPath))
         {
             var color = output.Type == OutputType.Success ? ConsoleColor.Green : ConsoleColor.Red;
             console.Output.WriteLine(output.Data, color);

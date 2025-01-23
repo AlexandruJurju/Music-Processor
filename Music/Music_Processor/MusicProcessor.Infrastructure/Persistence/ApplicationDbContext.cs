@@ -5,7 +5,7 @@ using MusicProcessor.Domain.Entities;
 
 namespace MusicProcessor.Infrastructure.Persistence;
 
-public class ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : DbContext(options), IUnitOfWork
+public class ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : DbContext(options)
 {
     public DbSet<Song> Songs { get; set; }
     public DbSet<Genre> Genres { get; set; }

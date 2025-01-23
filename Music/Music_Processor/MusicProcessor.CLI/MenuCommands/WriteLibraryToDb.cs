@@ -4,7 +4,7 @@ using MediatR;
 using MusicProcessor.Application.Abstractions.DataAccess;
 using MusicProcessor.Application.UseCases.WriteLibraryWithSpotdlFile;
 
-namespace MusicProcessor.CLI.Commands;
+namespace MusicProcessor.CLI.MenuCommands;
 
 [Command("write-db", Description = "Write a library metadata a database")]
 public class WriteLibraryToDb(IFileService fileService, IMediator mediator) : BaseCommand(fileService, mediator)
