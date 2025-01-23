@@ -8,19 +8,11 @@ using MusicProcessor.Domain.Enums;
 namespace MusicProcessor.CLI.MenuCommands;
 
 [Command("sync-new", Description = "First time sync with Spotify playlist")]
-public class FirstTimeSyncCommand : BaseCommand
+public class FirstTimeSyncMenuCommand(
+    ISpotDLService spotDlService,
+    IFileService fileService,
+    IMediator mediator) : BaseMenuCommand(fileService, mediator)
 {
-    private readonly ISpotDLService _spotDlService;
-
-    public FirstTimeSyncCommand(
-        ISpotDLService spotDlService,
-        IFileService fileService,
-        IMediator mediator)
-        : base(fileService, mediator)
-    {
-        _spotDlService = spotDlService;
-    }
-
     [CommandOption("url", 'u', IsRequired = true, Description = "The Spotify playlist URL")]
     public string Url { get; init; } = "";
 
@@ -30,13 +22,15 @@ public class FirstTimeSyncCommand : BaseCommand
     public override async ValueTask ExecuteAsync(IConsole console)
     {
         if (!ValidatePlaylist(PlaylistName, console))
+        {
             return;
+        }
 
         var playlistPath = GetPlaylistPath(PlaylistName);
 
         console.Output.WriteLine("\nSpotDL Started");
 
-        await foreach (var output in _spotDlService.NewSyncAsync(Url, playlistPath))
+        await foreach (var output in spotDlService.NewSyncAsync(Url, playlistPath))
         {
             var color = output.Type == OutputType.Success ? ConsoleColor.Green : ConsoleColor.Red;
             console.Output.WriteLine(output.Data, color);

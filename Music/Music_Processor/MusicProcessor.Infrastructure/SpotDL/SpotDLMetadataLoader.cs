@@ -53,7 +53,7 @@ public class SpotDLMetadataLoader(ILogger<SpotDLMetadataLoader> logger, IFileSer
         {
             Title = song.Name,
             Artists = song.Artists.Select(name => new Artist(name)).ToList(),
-            Album = song.AlbumName,
+            Album = new Album(song.AlbumName),
             Styles = song.Genres.Select(genre => new Style(CapitalizeFirstLetter(genre))).ToList(),
             Year = int.TryParse(song.Year, out var year) ? year : null,
             TrackNumber = song.TrackNumber,

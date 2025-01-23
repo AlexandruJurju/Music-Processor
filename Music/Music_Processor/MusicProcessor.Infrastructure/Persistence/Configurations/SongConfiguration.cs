@@ -15,10 +15,7 @@ public class SongConfiguration : IEntityTypeConfiguration<Song>
             .HasMaxLength(200);
 
         builder.HasIndex(e => e.Title);
-
-        builder.Property(e => e.Album)
-            .HasMaxLength(200);
-
+        
         builder.Property(e => e.Comment)
             .HasMaxLength(1000);
 
@@ -26,14 +23,15 @@ public class SongConfiguration : IEntityTypeConfiguration<Song>
             .IsRequired()
             .HasMaxLength(10);
 
-        builder.Property(e => e.MetadataHash)
-            .IsRequired()
-            .HasMaxLength(44);
-
         builder.Property(e => e.Duration)
             .HasConversion(
                 v => v.TotalSeconds,
                 v => TimeSpan.FromSeconds(v));
+        
+        builder.HasOne(e => e.Album)
+            .WithMany(a => a.Songs)
+            .HasForeignKey(e => e.AlbumId)
+            .OnDelete(DeleteBehavior.Cascade);
 
         // Many-to-many relationship with Artist
         builder.HasMany(e => e.Artists)

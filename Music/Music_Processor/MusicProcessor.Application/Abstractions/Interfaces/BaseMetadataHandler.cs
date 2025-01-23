@@ -18,7 +18,7 @@ public abstract class BaseMetadataStrategy(ILogger logger) : IMetadataStrategy
         var metadata = new Song(
             songPath,
             tag.Title ?? Path.GetFileNameWithoutExtension(songPath),
-            tag.Album ?? string.Empty,
+            tag.Album != null ? new Album(tag.Album) : null,
             (int)tag.Year,
             tag.Comment ?? string.Empty,
             (int)tag.Track,

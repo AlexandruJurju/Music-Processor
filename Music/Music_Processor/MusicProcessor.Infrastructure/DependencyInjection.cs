@@ -45,5 +45,6 @@ public static class DependencyInjection
         services.AddTransient<IStyleRepository, StyleRepository>();
         services.AddTransient<IGenreRepository, GenreRepository>();
         services.AddTransient<IArtistRepository, ArtistRepository>();
+        services.AddTransient<IAlbumRepository, AlbumRepository>();
     }
 }

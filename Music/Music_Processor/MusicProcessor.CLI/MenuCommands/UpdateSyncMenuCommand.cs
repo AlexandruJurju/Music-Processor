@@ -9,19 +9,11 @@ using MusicProcessor.Domain.Enums;
 namespace MusicProcessor.CLI.MenuCommands;
 
 [Command("sync-update", Description = "Update sync with existing playlist")]
-public class UpdateSyncCommand : BaseCommand
+public class UpdateSyncMenuCommand(
+    ISpotDLService spotDlService,
+    IFileService fileService,
+    IMediator mediator) : BaseMenuCommand(fileService, mediator)
 {
-    private readonly ISpotDLService _spotDlService;
-
-    public UpdateSyncCommand(
-        ISpotDLService spotDlService,
-        IFileService fileService,
-        IMediator mediator)
-        : base(fileService, mediator)
-    {
-        _spotDlService = spotDlService;
-    }
-
     [CommandOption("playlist", 'p', IsRequired = true, Description = "The playlist name")]
     public string PlaylistName { get; init; } = "";
 
@@ -40,7 +32,7 @@ public class UpdateSyncCommand : BaseCommand
 
         console.Output.WriteLine("\nSpotDL Started", ConsoleColor.Green);
 
-        await foreach (var output in _spotDlService.UpdateSyncAsync(playlistPath))
+        await foreach (var output in spotDlService.UpdateSyncAsync(playlistPath))
         {
             var color = output.Type == OutputType.Success ? ConsoleColor.Green : ConsoleColor.Red;
             console.Output.WriteLine(output.Data, color);

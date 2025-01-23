@@ -5,9 +5,9 @@ namespace MusicProcessor.Application.UseCases.WriteStyleMappingConfig;
 
 internal sealed class WriteStyleMappingConfigHandler(
     IConfigRepository configRepository)
-    : IRequestHandler<WriteStyleMappingConfigCommand>
+    : IRequestHandler<WriteStyleMappingsCommand>
 {
-    public async Task Handle(WriteStyleMappingConfigCommand request, CancellationToken cancellationToken)
+    public async Task Handle(WriteStyleMappingsCommand request, CancellationToken cancellationToken)
     {
         await configRepository.WriteStyleMappingAsync();
     }

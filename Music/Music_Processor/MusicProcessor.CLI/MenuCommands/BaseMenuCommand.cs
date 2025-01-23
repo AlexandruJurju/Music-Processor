@@ -5,16 +5,10 @@ using ICommand = CliFx.ICommand;
 
 namespace MusicProcessor.CLI.MenuCommands;
 
-public abstract class BaseCommand : ICommand
+public abstract class BaseMenuCommand(IFileService fileService, IMediator mediator) : ICommand
 {
-    protected readonly IFileService FileService;
-    protected readonly IMediator Mediator;
-
-    protected BaseCommand(IFileService fileService, IMediator mediator)
-    {
-        FileService = fileService;
-        Mediator = mediator;
-    }
+    protected readonly IFileService FileService = fileService;
+    protected readonly IMediator Mediator = mediator;
 
     public abstract ValueTask ExecuteAsync(IConsole console);
 
@@ -22,13 +16,13 @@ public abstract class BaseCommand : ICommand
     {
         if (string.IsNullOrEmpty(playlistName))
         {
-            console.Error.WriteLineAsync("Please provide a valid playlist name.");
+            console.Error.WriteLine("Please provide a valid playlist name.");
             return false;
         }
 
         if (!PlaylistExists(playlistName))
         {
-            console.Error.WriteLineAsync("Playlist does not exist.");
+            console.Error.WriteLine("Playlist does not exist.");
             DisplayAvailablePlaylists(console);
             return false;
         }
@@ -36,14 +30,14 @@ public abstract class BaseCommand : ICommand
         return true;
     }
 
-    protected void DisplayAvailablePlaylists(IConsole console)
+    private void DisplayAvailablePlaylists(IConsole console)
     {
         var playlists = FileService.GetAllPlaylistsNames();
-        console.Output.WriteLineAsync("Available playlists:");
+        console.Output.WriteLine("Available playlists:");
         foreach (var playlist in playlists) console.Output.WriteLineAsync($"  {playlist}");
     }
 
-    protected bool PlaylistExists(string playlistName)
+    private bool PlaylistExists(string playlistName)
     {
         return FileService.GetAllPlaylistsNames().Contains(playlistName);
     }

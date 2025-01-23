@@ -9,11 +9,10 @@ namespace MusicProcessor.CLI.Configurations;
 
 public static class LoggingConfiguration
 {
-    public static IHostApplicationBuilder ConfigureLogging(this IHostApplicationBuilder builder)
+    public static void ConfigureLogging(this IHostApplicationBuilder builder)
     {
         Log.Logger = CreateLogger();
         builder.Services.AddSerilog();
-        return builder;
     }
 
     private static ILogger CreateLogger()
@@ -26,13 +25,12 @@ public static class LoggingConfiguration
                 outputTemplate: "[{Timestamp:HH:mm:ss} {Level:u3}] {Message:lj}{NewLine}",
                 theme: AnsiConsoleTheme.Literate);
 
-        AddHandlerLogger(configuration, nameof(WriteLibraryWithSpotdlFileHandler), LogEventLevel.Warning, timestamp);
-        AddHandlerLogger(configuration, nameof(FixMetadataHandler), LogEventLevel.Information, timestamp);
+        AddCQRSHandlerLogger(configuration, nameof(WriteLibraryWithSpotdlFileHandler), LogEventLevel.Warning, timestamp);
 
         return configuration.CreateLogger();
     }
 
-    private static void AddHandlerLogger(LoggerConfiguration configuration, string handlerName, LogEventLevel logLevel, string timestamp)
+    private static void AddCQRSHandlerLogger(LoggerConfiguration configuration, string handlerName, LogEventLevel logLevel, string timestamp)
     {
         configuration.WriteTo.Logger(lc => lc
             .Filter.ByIncludingOnly(evt =>

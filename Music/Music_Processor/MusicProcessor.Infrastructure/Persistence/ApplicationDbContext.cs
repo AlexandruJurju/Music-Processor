@@ -11,6 +11,7 @@ public class ApplicationDbContext(DbContextOptions<ApplicationDbContext> options
     public DbSet<Genre> Genres { get; set; }
     public DbSet<Style> Styles { get; set; }
     public DbSet<Artist> Artists { get; set; }
+    public DbSet<Album> Albums { get; set; }
 
     public override Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
     {
