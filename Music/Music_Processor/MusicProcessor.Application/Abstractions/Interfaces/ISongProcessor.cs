@@ -4,5 +4,5 @@ namespace MusicProcessor.Application.Abstractions.Interfaces;
 
 public interface ISongProcessor
 {
-    Task AddRawSongToDbAsync(IEnumerable<Song> songs);
+    Task AddRawSongsToDbAsync(IEnumerable<Song> songs);
 }

@@ -8,4 +8,5 @@ public interface IGenreRepository
     Task<Genre> AddAsync(Genre newGenre);
     Task<Genre?> GetByNameAsync(string genreName);
     Task DeleteAsync(Genre genre);
+    Task AddRangeAsync(List<Genre> genresToAdd);
 }

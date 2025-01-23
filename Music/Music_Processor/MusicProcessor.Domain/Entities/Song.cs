@@ -42,7 +42,6 @@ public sealed class Song : BaseEntity
     public string FilePath { get; set; } = string.Empty;
 
     public ICollection<Artist> Artists { get; set; } = new List<Artist>();
-    public ICollection<Genre> Genres { get; set; } = new List<Genre>();
     public ICollection<Style> Styles { get; set; } = new List<Style>();
 
     public string ComputeHash()
@@ -52,7 +51,6 @@ public sealed class Song : BaseEntity
             Title,
             string.Join(",", Artists.Select(a => a.Name).OrderBy(a => a)),
             Album,
-            string.Join(",", Genres.Select(g => g.Name).OrderBy(g => g)),
             string.Join(",", Styles.Select(s => s.Name).OrderBy(s => s)),
             Year?.ToString() ?? "",
             Comment,

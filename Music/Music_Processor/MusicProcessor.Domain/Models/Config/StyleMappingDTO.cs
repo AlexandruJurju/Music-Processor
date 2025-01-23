@@ -1,7 +1,7 @@
 ﻿namespace MusicProcessor.Domain.Models.Config;
 
 public record StyleMappingDTO(
-    string SongName,
+    string StyleName,
     bool RemoveFromSongs,
     List<string> GenreNames
 );

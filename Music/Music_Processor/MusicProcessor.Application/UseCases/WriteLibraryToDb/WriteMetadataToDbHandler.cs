@@ -24,6 +24,6 @@ public sealed class WriteMetadataToDbHandler(
             songsToAdd.Add(metadata);
         }
 
-        if (songsToAdd.Any()) await songProcessor.AddRawSongToDbAsync(songsToAdd);
+        if (songsToAdd.Any()) await songProcessor.AddRawSongsToDbAsync(songsToAdd);
     }
 }

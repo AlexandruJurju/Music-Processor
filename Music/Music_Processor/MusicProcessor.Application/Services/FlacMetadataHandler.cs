@@ -46,7 +46,7 @@ public class FlacMetadataHandler(ILogger<FlacMetadataHandler> logger) : BaseMeta
             using var file = File.Create(song.FilePath);
             var tag = file.Tag;
 
-            var genres = song.Genres.Select(g => g.Name).ToArray();
+            var genres = song.Styles.SelectMany(s => s.Genres.Select(g => g.Name)).ToArray();
             logger.LogDebug("Setting {Count} genres: {Genres}", genres.Length, string.Join(", ", genres));
             tag.Genres = genres;
 

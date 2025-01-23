@@ -50,7 +50,7 @@ public class ConfigRepository(
         var styleDTOs = await JsonSerializer.DeserializeAsync<List<StyleMappingDTO>>(File.OpenRead(jsonPath), _jsonOptions);
 
         if (styleDTOs is not null)
-            return styleDTOs.Select(dto => new Style(dto.SongName)
+            return styleDTOs.Select(dto => new Style(dto.StyleName)
             {
                 RemoveFromSongs = dto.RemoveFromSongs,
                 Genres = dto.GenreNames.Select(name => new Genre(name)).ToList()

@@ -34,8 +34,9 @@ public abstract class BaseMetadataStrategy(ILogger logger) : IMetadataStrategy
             foreach (var performerName in splitPerformers) metadata.Artists.Add(new Artist { Name = performerName });
         }
 
+        // cant read genres like this, they have to be tied to a style
         // Create Genre entities
-        foreach (var genreName in tag.Genres) metadata.Genres.Add(new Genre { Name = genreName });
+        // foreach (var genreName in tag.Genres) metadata.Genres.Add(new Genre { Name = genreName });
 
         // Create Style entities
         foreach (var styleName in ExtractStyles(file)) metadata.Styles.Add(new Style { Name = styleName });

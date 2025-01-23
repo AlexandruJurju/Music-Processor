@@ -21,6 +21,14 @@ public class StyleConfiguration : IEntityTypeConfiguration<Style>
         builder.HasIndex(e => e.Name)
             .IsUnique();
 
-        // The many-to-many relationship is configured in GenreConfiguration
+        // Many-to-many relationship with Genre
+        builder.HasMany(e => e.Genres)
+            .WithMany(e => e.Styles)
+            .UsingEntity("genre_styles");
+
+        // Many-to-many relationship with Song
+        builder.HasMany(e => e.Songs)
+            .WithMany(e => e.Styles)
+            .UsingEntity("song_styles");
     }
 }

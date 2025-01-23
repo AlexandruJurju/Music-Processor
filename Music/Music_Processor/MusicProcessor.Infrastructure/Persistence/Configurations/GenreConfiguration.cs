@@ -17,8 +17,9 @@ public class GenreConfiguration : IEntityTypeConfiguration<Genre>
         builder.HasIndex(e => e.Name)
             .IsUnique();
 
+        // Many-to-many relationship with Style
         builder.HasMany(e => e.Styles)
             .WithMany(e => e.Genres)
-            .UsingEntity("GenreStyles");
+            .UsingEntity("genre_styles");
     }
 }

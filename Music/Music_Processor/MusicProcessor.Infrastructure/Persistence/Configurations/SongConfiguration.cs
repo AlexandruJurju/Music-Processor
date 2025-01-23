@@ -33,18 +33,16 @@ public class SongConfiguration : IEntityTypeConfiguration<Song>
         builder.Property(e => e.Duration)
             .HasConversion(
                 v => v.Ticks,
-                v => TimeSpan.FromSeconds(v));
+                v => TimeSpan.FromTicks(v));
 
+        // Many-to-many relationship with Artist
         builder.HasMany(e => e.Artists)
             .WithMany(e => e.Songs)
-            .UsingEntity(j => j.ToTable("song_artists"));
+            .UsingEntity("song_artists");
 
-        builder.HasMany(e => e.Genres)
-            .WithMany(e => e.Songs)
-            .UsingEntity(j => j.ToTable("song_genres"));
-
+        // Many-to-many relationship with Style
         builder.HasMany(e => e.Styles)
             .WithMany(e => e.Songs)
-            .UsingEntity(j => j.ToTable("song_styles"));
+            .UsingEntity("song_styles");
     }
 }

@@ -47,14 +47,14 @@ public class WriteLibraryWithSpotdlFileHandler(
 
             logger.LogInformation("{Message}", $"Added song: {spotdlSongMetadata.Title}");
             logger.LogInformation("{Message}", $"Artists: {string.Join(", ", spotdlSongMetadata.Artists.Select(a => a.Name))}");
-            logger.LogInformation("{Message}", $"Genres: {string.Join(", ", spotdlSongMetadata.Genres.Select(g => g.Name))}");
             logger.LogInformation("{Message}", $"Styles: {string.Join(", ", spotdlSongMetadata.Styles.Select(s => s.Name))}");
+            logger.LogInformation("{Message}", $"Genres: {string.Join(", ", spotdlSongMetadata.Styles.SelectMany(s => s.Genres.Select(g => g.Name)))}");
         }
 
-        if (songsToAdd.Any())
+        if (songsToAdd.Count != 0)
         {
             logger.LogInformation("{Message}", $"Saving {songsToAdd.Count} songs to database");
-            await songProcessor.AddRawSongToDbAsync(songsToAdd);
+            await songProcessor.AddRawSongsToDbAsync(songsToAdd);
             logger.LogInformation("{Message}", "Successfully saved songs to database");
         }
         else

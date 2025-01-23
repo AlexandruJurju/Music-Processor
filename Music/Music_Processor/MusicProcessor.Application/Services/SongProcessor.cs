@@ -16,23 +16,20 @@ public class SongProcessor(
     private Dictionary<string, Genre> _existingGenres = new();
     private Dictionary<string, Style> _existingStyles = new();
 
-    public async Task AddRawSongToDbAsync(IEnumerable<Song> songs)
+    public async Task AddRawSongsToDbAsync(IEnumerable<Song> songs)
     {
         // Materialize songs collection once
         var songsList = songs.ToList();
         logger.LogInformation($"Processing {songsList.Count} songs");
 
         // Load all existing entities once
-        _existingArtists = (await artistRepository.GetAllAsync())
-            .ToDictionary(a => a.Name, StringComparer.OrdinalIgnoreCase);
+        _existingArtists = (await artistRepository.GetAllAsync()).ToDictionary(a => a.Name, StringComparer.OrdinalIgnoreCase);
         logger.LogInformation($"Loaded {_existingArtists.Count} existing artists");
 
-        _existingGenres = (await genreRepository.GetAllAsync())
-            .ToDictionary(g => g.Name, StringComparer.OrdinalIgnoreCase);
+        _existingGenres = (await genreRepository.GetAllAsync()).ToDictionary(g => g.Name, StringComparer.OrdinalIgnoreCase);
         logger.LogInformation($"Loaded {_existingGenres.Count} existing genres");
 
-        _existingStyles = (await styleRepository.GetAllAsync())
-            .ToDictionary(s => s.Name, StringComparer.OrdinalIgnoreCase);
+        _existingStyles = (await styleRepository.GetAllAsync()).ToDictionary(s => s.Name, StringComparer.OrdinalIgnoreCase);
         logger.LogInformation($"Loaded {_existingStyles.Count} existing styles");
 
         foreach (var song in songsList)
@@ -62,23 +59,7 @@ public class SongProcessor(
                 song.Artists.Add(artist);
                 logger.LogDebug($"Adding new artist: {artist.Name}");
             }
-
-        // Process Genres
-        var genresList = song.Genres.ToList();
-        song.Genres.Clear();
-        foreach (var genre in genresList)
-            if (_existingGenres.TryGetValue(genre.Name, out var existingGenre))
-            {
-                song.Genres.Add(existingGenre);
-                logger.LogDebug($"Using existing genre: {genre.Name}");
-            }
-            else
-            {
-                _existingGenres[genre.Name] = genre;
-                song.Genres.Add(genre);
-                logger.LogDebug($"Adding new genre: {genre.Name}");
-            }
-
+        
         // Process Styles
         var stylesList = song.Styles.ToList();
         song.Styles.Clear();

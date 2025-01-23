@@ -58,9 +58,9 @@ public class MP3MetadataHandler(ILogger<MP3MetadataHandler> logger) : BaseMetada
             logger.LogDebug("Removing existing genre frames");
             tag.RemoveFrames("TCON");
 
-            if (song.Genres.Any())
+            if (song.Styles.SelectMany(s => s.Genres).Any())
             {
-                var genres = song.Genres.Select(g => g.Name).ToArray();
+                var genres = song.Styles.SelectMany(s => s.Genres.Select(g => g.Name)).ToArray();
                 logger.LogDebug("Setting {Count} genres: {Genres}", genres.Length, string.Join(", ", genres));
                 tag.Genres = genres;
             }
@@ -82,6 +82,7 @@ public class MP3MetadataHandler(ILogger<MP3MetadataHandler> logger) : BaseMetada
 
             if (song.Styles.Any())
             {
+                // only write the styles that shouldn't be removed from the songs
                 var styles = song.Styles.Where(s => !s.RemoveFromSongs).Select(s => s.Name).ToArray();
                 logger.LogDebug("Setting {Count} styles: {Styles}", styles.Length, string.Join(", ", styles));
                 var styleFrame = new UserTextInformationFrame("TXXX")

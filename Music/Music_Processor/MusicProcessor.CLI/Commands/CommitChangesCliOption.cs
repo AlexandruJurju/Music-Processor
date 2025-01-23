@@ -11,6 +11,6 @@ public class CommitChangesCommand(IFileService fileService, IMediator mediator) 
 {
     public override async ValueTask ExecuteAsync(IConsole console)
     {
-        await mediator.Send(new CommitChangesToLibraryCommand());
+        await Mediator.Send(new CommitChangesToLibraryCommand());
     }
 }

@@ -11,4 +11,5 @@ public interface ISongRepository
     Task UpdateAsync(Song song);
     Task DeleteAsync(int id);
     Task AddRangeAsync(List<Song> songsList);
+    Task UpdateRangeAsync(List<Song> modifiedSongs);
 }

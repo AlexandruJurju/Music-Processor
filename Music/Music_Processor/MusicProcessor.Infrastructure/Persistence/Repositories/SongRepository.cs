@@ -19,7 +19,6 @@ public class SongRepository(ApplicationDbContext context) : ISongRepository
     public IQueryable<Song> GetAll()
     {
         return context.Songs
-            .Include(s => s.Genres)
             .Include(s => s.Styles)
             .Include(s => s.Artists);
     }
@@ -48,6 +47,12 @@ public class SongRepository(ApplicationDbContext context) : ISongRepository
     public async Task AddRangeAsync(List<Song> songsList)
     {
         context.Songs.AddRange(songsList);
+        await context.SaveChangesAsync();
+    }
+
+    public async Task UpdateRangeAsync(List<Song> modifiedSongs)
+    {
+        context.Songs.UpdateRange(modifiedSongs);
         await context.SaveChangesAsync();
     }
 }

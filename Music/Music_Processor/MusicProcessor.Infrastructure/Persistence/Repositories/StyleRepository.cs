@@ -42,4 +42,22 @@ public class StyleRepository(ApplicationDbContext context) : IStyleRepository
         await context.SaveChangesAsync();
         return style;
     }
+
+    public async Task AddRangeAsync(List<Style> stylesToAdd)
+    {
+        context.AddRange(stylesToAdd);
+        await context.SaveChangesAsync();
+    }
+
+    public async Task UpdateRangeAsync(List<Style> stylesToUpdate)
+    {
+        context.UpdateRange(stylesToUpdate);
+        await context.SaveChangesAsync();
+    }
+
+    public async Task RemoveRangeAsync(List<Style> stylesToRemove)
+    {
+        context.Styles.RemoveRange(stylesToRemove);
+        await context.SaveChangesAsync();
+    }
 }
