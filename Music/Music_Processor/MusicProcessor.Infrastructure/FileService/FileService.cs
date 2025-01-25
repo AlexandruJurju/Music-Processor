@@ -1,4 +1,4 @@
-﻿using MusicProcessor.Application.Abstractions.DataAccess;
+﻿using MusicProcessor.Application.Abstractions.Infrastructure;
 using MusicProcessor.Domain.Constants;
 
 namespace MusicProcessor.Infrastructure.FileAccess;

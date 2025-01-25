@@ -1,14 +1,14 @@
 ﻿using MediatR;
-using MusicProcessor.Application.Abstractions.DataAccess;
+using MusicProcessor.Application.Abstractions.Infrastructure;
 
 namespace MusicProcessor.Application.UseCases.WriteStyleMappingConfig;
 
 internal sealed class WriteStyleMappingConfigHandler(
-    IConfigRepository configRepository)
+    IStyleConfigRepository styleConfigRepository)
     : IRequestHandler<WriteStyleMappingsCommand>
 {
     public async Task Handle(WriteStyleMappingsCommand request, CancellationToken cancellationToken)
     {
-        await configRepository.WriteStyleMappingAsync();
+        await styleConfigRepository.WriteStyleMappingAsync();
     }
 }

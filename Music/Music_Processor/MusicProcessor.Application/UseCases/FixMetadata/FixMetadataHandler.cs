@@ -1,6 +1,6 @@
 ﻿using MediatR;
 using Microsoft.Extensions.Logging;
-using MusicProcessor.Application.Abstractions.DataAccess;
+using MusicProcessor.Application.Abstractions.Infrastructure;
 using MusicProcessor.Domain.Entities;
 
 

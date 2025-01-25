@@ -1,12 +1,12 @@
 ﻿using MediatR;
 using Microsoft.Extensions.Logging;
-using MusicProcessor.Application.Abstractions.DataAccess;
+using MusicProcessor.Application.Abstractions.Infrastructure;
 using MusicProcessor.Domain.Entities;
 
 namespace MusicProcessor.Application.UseCases.LoadMappings;
 
 public class LoadMappingsHandler(
-    IConfigRepository configRepository,
+    IStyleConfigRepository styleConfigRepository,
     IStyleRepository styleRepository,
     IGenreRepository genreRepository,
     ILogger<LoadMappingsHandler> logger
@@ -17,7 +17,7 @@ public class LoadMappingsHandler(
         logger.LogInformation("{Message}", "Starting style mappings load");
 
         // Fetch all style mappings and existing styles/genres
-        var mappedStyles = (await configRepository.ReadStyleMappingAsync()).ToList();
+        var mappedStyles = (await styleConfigRepository.ReadStyleMappingAsync()).ToList();
         var existingStyles = (await styleRepository.GetAllAsync()).ToDictionary(s => s.Name);
         var existingGenres = (await genreRepository.GetAllAsync()).ToDictionary(g => g.Name);
 

@@ -5,9 +5,11 @@ namespace MusicProcessor.CLI.Configurations;
 
 public static class DependencyInjection
 {
-    public static void RegisterCLI(this IServiceCollection services)
+    public static IServiceCollection RegisterCLI(this IServiceCollection services)
     {
         RegisterCliConfiguration(services);
+        
+        return services;
     }
 
     private static void RegisterCliConfiguration(IServiceCollection services)

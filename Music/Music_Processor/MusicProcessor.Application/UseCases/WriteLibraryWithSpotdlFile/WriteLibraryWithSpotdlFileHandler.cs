@@ -1,6 +1,6 @@
 ﻿using MediatR;
 using Microsoft.Extensions.Logging;
-using MusicProcessor.Application.Abstractions.DataAccess;
+using MusicProcessor.Application.Abstractions.Infrastructure;
 using MusicProcessor.Application.Abstractions.Interfaces;
 using MusicProcessor.Application.Services;
 using MusicProcessor.Domain.Constants;
@@ -10,10 +10,10 @@ namespace MusicProcessor.Application.UseCases.WriteLibraryWithSpotdlFile;
 
 public class WriteLibraryWithSpotdlFileHandler(
     ISpotDLMetadataLoader spotDlMetadataLoader,
-    MetadataService metadataService,
+    IMetadataService metadataService,
     IFileService fileService,
-    ILogger<WriteLibraryWithSpotdlFileHandler> logger,
-    ISongProcessor songProcessor)
+    ISongProcessor songProcessor,
+    ILogger<WriteLibraryWithSpotdlFileHandler> logger)
     : IRequestHandler<WriteLibraryWithSpotdlFileCommand>
 {
     public async Task Handle(WriteLibraryWithSpotdlFileCommand request, CancellationToken cancellationToken)
@@ -31,8 +31,7 @@ public class WriteLibraryWithSpotdlFileHandler(
         {
             logger.LogInformation("{Message}", $"Processing file: {Path.GetFileName(songFile)}");
 
-            var handler = metadataService.GetStrategy(songFile);
-            var songMetadata = handler.ExtractMetadata(songFile);
+            var songMetadata = metadataService.ReadMetadata(songFile);
             var spotdlSongKey = spotDlMetadataLoader.CreateLookupKey(songMetadata.Artists, songMetadata.Title);
 
             logger.LogInformation("{Message}", $"Looking up song with key: {spotdlSongKey}");

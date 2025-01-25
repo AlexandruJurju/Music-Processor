@@ -1,7 +1,7 @@
 ﻿using CliFx.Attributes;
 using CliFx.Infrastructure;
 using MediatR;
-using MusicProcessor.Application.Abstractions.DataAccess;
+using MusicProcessor.Application.Abstractions.Infrastructure;
 using MusicProcessor.Application.UseCases.WriteLibraryWithSpotdlFile;
 
 namespace MusicProcessor.CLI.MenuCommands;

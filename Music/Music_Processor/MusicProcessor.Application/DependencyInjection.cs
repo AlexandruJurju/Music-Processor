@@ -9,12 +9,23 @@ public static class DependencyInjection
 {
     public static IServiceCollection RegisterApplication(this IServiceCollection services)
     {
-        services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(Assembly.GetExecutingAssembly()));
+        RegisterMediatR(services);
+
+        RegisterServices(services);
+
+        return services;
+    }
+
+    private static void RegisterServices(IServiceCollection services)
+    {
         services.AddTransient<ISongProcessor, SongProcessor>();
         services.AddTransient<IMetadataStrategy, FlacMetadataHandler>();
         services.AddTransient<IMetadataStrategy, MP3MetadataHandler>();
-        services.AddTransient<MetadataService>();
+        services.AddTransient<IMetadataService, MetadataService>();
+    }
 
-        return services;
+    private static void RegisterMediatR(IServiceCollection services)
+    {
+        services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(Assembly.GetExecutingAssembly()));
     }
 }

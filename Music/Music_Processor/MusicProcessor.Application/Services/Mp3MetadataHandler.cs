@@ -42,7 +42,7 @@ public class MP3MetadataHandler(ILogger<MP3MetadataHandler> logger) : BaseMetada
         return styles.Distinct().ToList();
     }
 
-    public override void UpdateMetadata(Song song)
+    public override void WriteMetadata(Song song)
     {
         logger.LogInformation("Updating metadata for MP3 file: {FilePath}", song.FilePath);
         try
@@ -100,6 +100,16 @@ public class MP3MetadataHandler(ILogger<MP3MetadataHandler> logger) : BaseMetada
 
             file.Save();
             logger.LogInformation("Successfully updated metadata for MP3 file: {FilePath}", song.FilePath);
+        }
+        catch (FileNotFoundException ex)
+        {
+            logger.LogError(ex, "File not found: {FilePath}", song.FilePath);
+            throw;
+        }
+        catch (UnauthorizedAccessException ex)
+        {
+            logger.LogError(ex, "Access denied to file: {FilePath}", song.FilePath);
+            throw;
         }
         catch (Exception ex)
         {

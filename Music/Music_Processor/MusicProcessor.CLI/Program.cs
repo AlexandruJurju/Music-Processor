@@ -8,9 +8,10 @@ using MusicProcessor.Infrastructure;
 var builder = Host.CreateApplicationBuilder(args);
 
 builder.ConfigureLogging();
-builder.Services.RegisterApplication();
-builder.Services.AddInfrastructure();
-builder.Services.RegisterCLI();
+builder.Services
+    .RegisterApplication()
+    .RegisterInfrastructure()
+    .RegisterCLI();
 
 var host = builder.Build();
 

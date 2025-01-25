@@ -1,11 +1,12 @@
 ﻿using Microsoft.Extensions.Logging;
 using MusicProcessor.Application.Abstractions.Interfaces;
+using MusicProcessor.Domain.Entities;
 
 namespace MusicProcessor.Application.Services;
 
 public class MetadataService(
     IEnumerable<IMetadataStrategy> strategies,
-    ILogger<MetadataService> logger)
+    ILogger<MetadataService> logger) : IMetadataService
 {
     public IMetadataStrategy GetStrategy(string filePath)
     {
@@ -19,5 +20,17 @@ public class MetadataService(
         }
 
         return strategy;
+    }
+
+    public void WriteMetadata(Song song)
+    {
+        var strategy = GetStrategy(song.FilePath);
+        strategy.WriteMetadata(song);
+    }
+
+    public Song ReadMetadata(string filePath)
+    {
+        var strategy = GetStrategy(filePath);
+        return strategy.ReadMetadata(filePath);
     }
 }

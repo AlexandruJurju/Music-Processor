@@ -10,7 +10,7 @@ public abstract class BaseMetadataStrategy(ILogger logger) : IMetadataStrategy
     protected readonly ILogger _logger = logger;
     protected abstract string FileType { get; }
 
-    public Song ExtractMetadata(string songPath)
+    public Song ReadMetadata(string songPath)
     {
         using var file = File.Create(songPath);
         var tag = file.Tag;
@@ -44,7 +44,7 @@ public abstract class BaseMetadataStrategy(ILogger logger) : IMetadataStrategy
         return metadata;
     }
 
-    public abstract void UpdateMetadata(Song song);
+    public abstract void WriteMetadata(Song song);
 
     public bool CanHandle(string filePath)
     {

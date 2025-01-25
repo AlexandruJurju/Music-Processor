@@ -38,7 +38,7 @@ public class FlacMetadataHandler(ILogger<FlacMetadataHandler> logger) : BaseMeta
         return styles.Distinct().ToList();
     }
 
-    public override void UpdateMetadata(Song song)
+    public override void WriteMetadata(Song song)
     {
         logger.LogInformation("Updating metadata for FLAC file: {FilePath}", song.FilePath);
         try

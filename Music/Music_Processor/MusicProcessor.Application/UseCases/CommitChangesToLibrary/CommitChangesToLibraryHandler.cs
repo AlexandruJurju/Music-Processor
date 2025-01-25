@@ -1,5 +1,6 @@
 ﻿using MediatR;
-using MusicProcessor.Application.Abstractions.DataAccess;
+using Microsoft.Extensions.Logging;
+using MusicProcessor.Application.Abstractions.Infrastructure;
 using MusicProcessor.Application.Abstractions.Interfaces;
 using MusicProcessor.Application.Services;
 
@@ -7,7 +8,8 @@ namespace MusicProcessor.Application.UseCases.CommitChangesToLibrary;
 
 public sealed class CommitChangesToLibraryHandler(
     ISongRepository songRepository,
-    MetadataService metadataService
+    IMetadataService metadataService,
+    ILogger<CommitChangesToLibraryHandler> logger
 ) : IRequestHandler<CommitChangesToLibraryCommand>
 {
     public async Task Handle(CommitChangesToLibraryCommand request, CancellationToken cancellationToken)
@@ -16,11 +18,31 @@ public sealed class CommitChangesToLibraryHandler(
 
         foreach (var song in songs)
         {
-            // todo: optimize later
-            // var lastCommitedDate = File.GetLastWriteTime(song.FilePath);
+            var lastCommitedDate = File.GetLastWriteTime(song.FilePath);
+            if (song.DateModified > lastCommitedDate)
+            {
+                logger.LogInformation("{Message}", $"Skipping writing song {song.Title}, it has the latest changes");
+                continue;
+            }
 
-            var strategy = metadataService.GetStrategy(song.FilePath);
-            strategy.UpdateMetadata(song);
+            try
+            {
+                metadataService.WriteMetadata(song);
+            }
+            catch (TagLib.CorruptFileException ex)
+            {
+                logger.LogError(ex, "Corrupt file detected: {FilePath}", song.FilePath);
+            }
+            catch (UnauthorizedAccessException ex)
+            {
+                logger.LogError(ex, "Access denied to file: {FilePath}", song.FilePath);
+            }
+            catch (Exception ex)
+            {
+                logger.LogError(ex, "Failed to update metadata for file: {FilePath}", song.FilePath);
+            }
         }
+
+        logger.LogInformation("{Message}", "CommitChangesToLibrary completed successfully");
     }
 }

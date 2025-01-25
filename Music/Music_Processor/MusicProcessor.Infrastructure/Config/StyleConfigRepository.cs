@@ -1,16 +1,16 @@
 ﻿using System.Text.Json;
 using Microsoft.Extensions.Logging;
-using MusicProcessor.Application.Abstractions.DataAccess;
+using MusicProcessor.Application.Abstractions.Infrastructure;
 using MusicProcessor.Domain.Entities;
 using MusicProcessor.Domain.Models.Config;
 
 namespace MusicProcessor.Infrastructure.Config;
 
-public class ConfigRepository(
-    ILogger<ConfigRepository> logger,
+public class StyleConfigRepository(
     IFileService fileService,
-    IStyleRepository styleRepository
-) : IConfigRepository
+    IStyleRepository styleRepository,
+    ILogger<StyleConfigRepository> logger
+) : IStyleConfigRepository
 {
     private readonly JsonSerializerOptions _jsonOptions = new()
     {

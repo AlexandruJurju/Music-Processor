@@ -4,7 +4,7 @@ namespace MusicProcessor.Application.Abstractions.Interfaces;
 
 public interface IMetadataStrategy
 {
-    Song ExtractMetadata(string songPath);
-    void UpdateMetadata(Song song);
+    Song ReadMetadata(string songPath);
+    void WriteMetadata(Song song);
     bool CanHandle(string filePath);
 }
