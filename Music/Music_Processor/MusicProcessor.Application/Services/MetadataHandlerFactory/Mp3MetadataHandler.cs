@@ -31,7 +31,7 @@ public class MP3MetadataHandler(ILogger<MP3MetadataHandler> logger) : BaseMetada
 
         return genres.Distinct().ToList();
     }
-
+    
     private List<string> ExtractGenresFromFrame(Tag id3v2, string frameId)
     {
         var genres = new List<string>();
@@ -95,11 +95,10 @@ public class MP3MetadataHandler(ILogger<MP3MetadataHandler> logger) : BaseMetada
         }
     }
 
-
     private void WriteGenres(Tag tag, List<Genre> genres)
     {
         tag.RemoveFrames("TCON");
-        
+
         if (genres.Any())
         {
             var genreNames = genres
@@ -108,7 +107,12 @@ public class MP3MetadataHandler(ILogger<MP3MetadataHandler> logger) : BaseMetada
                 .ToArray();
 
             logger.LogDebug("Setting {Count} genres: {Genres}", genreNames.Length, string.Join(", ", genreNames));
-            tag.Genres = genreNames;
+            var genreFrame = new TextInformationFrame("TCON", StringType.UTF8)
+            {
+                Text = genreNames
+            };
+
+            tag.AddFrame(genreFrame);
         }
         else
         {

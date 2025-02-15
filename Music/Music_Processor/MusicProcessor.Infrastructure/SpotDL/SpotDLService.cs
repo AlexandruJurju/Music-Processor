@@ -7,18 +7,12 @@ using MusicProcessor.Domain.Models.SpotDL.Download;
 
 namespace MusicProcessor.Infrastructure.SpotDL;
 
-public class SpotDLService : ISpotDLService
+public class SpotDLService(ILogger<SpotDLService> logger) : ISpotDLService
 {
     private const string LookupErrorPrefix = "LookupError: No results found for song:";
     private const string AudioProviderErrorPrefix = "AudioProviderError: YT-DLP download error";
     private const string YoutubeUrlPrefix = "https://music.youtube.com/watch?v=";
     private const string GeneratedException = "generated";
-    private readonly ILogger<SpotDLService> _logger;
-
-    public SpotDLService(ILogger<SpotDLService> logger)
-    {
-        _logger = logger;
-    }
 
     public async IAsyncEnumerable<ProcessOutput> NewSyncAsync(string playlistUrl, string playlistDirPath)
     {
@@ -78,22 +72,24 @@ public class SpotDLService : ISpotDLService
                data.Contains(GeneratedException, StringComparison.Ordinal);
     }
 
-
     private void ProcessErrorData(string data, SyncSummary summary)
     {
         if (data.Contains(LookupErrorPrefix, StringComparison.Ordinal))
         {
             var songName = data.Substring(LookupErrorPrefix.Length).Trim();
             summary.LookupErrors.Add(songName);
+            logger.LogWarning("{Message}", $"Lookup error: {songName}");
         }
         else if (data.TrimStart().StartsWith(YoutubeUrlPrefix, StringComparison.Ordinal))
         {
             summary.DownloadErrors.Add(data.Trim());
+            logger.LogWarning("{Message}", $"Download error: {data.Trim()}");
         }
         else if (data.Trim().Contains(GeneratedException, StringComparison.Ordinal))
         {
             var songName = data.Split(GeneratedException)[0];
             summary.DownloadErrors.Add(songName);
+            logger.LogWarning("{Message}", $"Download error: {songName}");
         }
     }
 
@@ -157,16 +153,18 @@ public class SpotDLService : ISpotDLService
 
         if (process.ExitCode != 0)
         {
-            _logger.LogError($"spotdl process failed with exit code {process.ExitCode}");
+            logger.LogError($"spotdl process failed with exit code {process.ExitCode}");
             throw new Exception($"spotdl command failed with exit code {process.ExitCode}");
         }
 
-        yield return new ProcessOutput(
+        var processOutput = new ProcessOutput(
             $"\n=== Missing Songs Summary ===\n" +
             $"Lookup Errors: {summary.LookupErrors.Count}\n" +
             $"Download Errors: {summary.DownloadErrors.Count}\n" +
             $"Total Missing: {summary.TotalMissingSongs}",
             OutputType.Error
         );
+        
+        yield return processOutput;
     }
 }

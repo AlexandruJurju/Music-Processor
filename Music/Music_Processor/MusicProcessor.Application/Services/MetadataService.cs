@@ -16,7 +16,7 @@ public class MetadataService(IEnumerable<IMetadataHandler> metadataHandlers) : I
         var handler = GetMetadataHandler(songFile);
         return handler.ReadMetadata(songFile);
     }
-
+    
     private IMetadataHandler GetMetadataHandler(string songPath)
     {
         return metadataHandlers.First(handler => handler.CanHandle(songPath));
