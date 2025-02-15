@@ -5,8 +5,12 @@ namespace MusicProcessor.Application.Interfaces.Infrastructure;
 public interface IGenreRepository
 {
     Task<List<Genre>> GetAllAsync();
-    Task<Genre> AddAsync(Genre newGenre);
-    Task<Genre?> GetByNameAsync(string genreName);
+    Task<int> AddAsync(Genre newGenre);
+    Task<Genre?> GetByNameAsync(string styleName);
     Task DeleteAsync(Genre genre);
-    Task AddRangeAsync(List<Genre> genresToAdd);
+    Task<bool> ExistsAsync(string styleName);
+    Task<Genre> UpdateAsync(Genre genre);
+    Task AddRangeAsync(List<Genre> stylesToAdd);
+    Task UpdateRangeAsync(List<Genre> stylesToUpdate);
+    Task RemoveRangeAsync(List<Genre> stylesToRemove);
 }

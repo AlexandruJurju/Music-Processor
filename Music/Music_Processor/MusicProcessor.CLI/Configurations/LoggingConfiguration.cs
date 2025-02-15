@@ -17,7 +17,7 @@ public static class LoggingConfiguration
     {
         var timestamp = DateTime.Now.ToString("yyyy-MM-dd_HH-mm-ss");
         var configuration = new LoggerConfiguration()
-            .MinimumLevel.Information()
+            .MinimumLevel.Debug()
             .MinimumLevel.Override("Microsoft.EntityFrameworkCore", LogEventLevel.Warning)
             .WriteTo.Console(
                 outputTemplate: "[{Timestamp:HH:mm:ss} {Level:u3}] {Message:lj}{NewLine}",

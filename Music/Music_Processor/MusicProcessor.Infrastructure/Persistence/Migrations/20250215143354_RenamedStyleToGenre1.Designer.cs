@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using MusicProcessor.Infrastructure.Persistence;
 
@@ -10,9 +11,11 @@ using MusicProcessor.Infrastructure.Persistence;
 namespace MusicProcessor.Infrastructure.Persistence.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250215143354_RenamedStyleToGenre1")]
+    partial class RenamedStyleToGenre1
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "9.0.1");
@@ -103,13 +106,13 @@ namespace MusicProcessor.Infrastructure.Persistence.Migrations
                         .HasColumnName("remove_from_songs");
 
                     b.HasKey("Id")
-                        .HasName("pk_genres");
+                        .HasName("pk_styles");
 
                     b.HasIndex("Name")
                         .IsUnique()
-                        .HasDatabaseName("ix_genres_name");
+                        .HasDatabaseName("ix_styles_name");
 
-                    b.ToTable("genres", (string)null);
+                    b.ToTable("styles", (string)null);
                 });
 
             modelBuilder.Entity("MusicProcessor.Domain.Entities.GenreCategory", b =>
@@ -134,13 +137,13 @@ namespace MusicProcessor.Infrastructure.Persistence.Migrations
                         .HasColumnName("name");
 
                     b.HasKey("Id")
-                        .HasName("pk_genre_categories");
+                        .HasName("pk_genres");
 
                     b.HasIndex("Name")
                         .IsUnique()
-                        .HasDatabaseName("ix_genre_categories_name");
+                        .HasDatabaseName("ix_genres_name");
 
-                    b.ToTable("genre_categories", (string)null);
+                    b.ToTable("genres", (string)null);
                 });
 
             modelBuilder.Entity("MusicProcessor.Domain.Entities.Song", b =>
@@ -254,7 +257,7 @@ namespace MusicProcessor.Infrastructure.Persistence.Migrations
                     b.ToTable("song_artists", (string)null);
                 });
 
-            modelBuilder.Entity("song_genres", b =>
+            modelBuilder.Entity("song_styles", b =>
                 {
                     b.Property<int>("GenresId")
                         .HasColumnType("INTEGER")
@@ -265,12 +268,12 @@ namespace MusicProcessor.Infrastructure.Persistence.Migrations
                         .HasColumnName("songs_id");
 
                     b.HasKey("GenresId", "SongsId")
-                        .HasName("pk_song_genres");
+                        .HasName("pk_song_styles");
 
                     b.HasIndex("SongsId")
-                        .HasDatabaseName("ix_song_genres_songs_id");
+                        .HasDatabaseName("ix_song_styles_songs_id");
 
-                    b.ToTable("song_genres", (string)null);
+                    b.ToTable("song_styles", (string)null);
                 });
 
             modelBuilder.Entity("MusicProcessor.Domain.Entities.Song", b =>
@@ -284,7 +287,7 @@ namespace MusicProcessor.Infrastructure.Persistence.Migrations
                     b.HasOne("MusicProcessor.Domain.Entities.GenreCategory", null)
                         .WithMany("Songs")
                         .HasForeignKey("GenreCategoryId")
-                        .HasConstraintName("fk_songs_genre_categories_genre_category_id");
+                        .HasConstraintName("fk_songs_genres_genre_category_id");
 
                     b.Navigation("Album");
                 });
@@ -296,14 +299,14 @@ namespace MusicProcessor.Infrastructure.Persistence.Migrations
                         .HasForeignKey("GenreCategoriesId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired()
-                        .HasConstraintName("fk_genre_genre_category_genre_categories_genre_categories_id");
+                        .HasConstraintName("fk_genre_genre_category_genres_genre_categories_id");
 
                     b.HasOne("MusicProcessor.Domain.Entities.Genre", null)
                         .WithMany()
                         .HasForeignKey("GenresId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired()
-                        .HasConstraintName("fk_genre_genre_category_genres_genres_id");
+                        .HasConstraintName("fk_genre_genre_category_styles_genres_id");
                 });
 
             modelBuilder.Entity("song_artists", b =>
@@ -323,21 +326,21 @@ namespace MusicProcessor.Infrastructure.Persistence.Migrations
                         .HasConstraintName("fk_song_artists_songs_songs_id");
                 });
 
-            modelBuilder.Entity("song_genres", b =>
+            modelBuilder.Entity("song_styles", b =>
                 {
                     b.HasOne("MusicProcessor.Domain.Entities.Genre", null)
                         .WithMany()
                         .HasForeignKey("GenresId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired()
-                        .HasConstraintName("fk_song_genres_genres_genres_id");
+                        .HasConstraintName("fk_song_styles_styles_genres_id");
 
                     b.HasOne("MusicProcessor.Domain.Entities.Song", null)
                         .WithMany()
                         .HasForeignKey("SongsId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired()
-                        .HasConstraintName("fk_song_genres_songs_songs_id");
+                        .HasConstraintName("fk_song_styles_songs_songs_id");
                 });
 
             modelBuilder.Entity("MusicProcessor.Domain.Entities.Album", b =>

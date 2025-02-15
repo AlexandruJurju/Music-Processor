@@ -18,48 +18,48 @@ public static class SeedDataExtensions
         // await context.Database.MigrateAsync();
 
         // Seed default genres
-        if (!await context.Genres.AnyAsync()) await InitGenres(context);
+        if (!await context.GenreCategories.AnyAsync()) await InitGenres(context);
 
         // Seed default styles with genre mappings
-        if (!await context.Styles.AnyAsync()) await InitStylesWithGenres(context);
+        if (!await context.Genres.AnyAsync()) await InitStylesWithGenres(context);
     }
 
 
     private static async Task InitStylesWithGenres(ApplicationDbContext context)
     {
-        var rockGenre = await context.Genres.FirstAsync(g => g.Name == "Rock");
-        var synthwaveGenre = await context.Genres.FirstAsync(g => g.Name == "Synthwave");
+        var rockGenre = await context.GenreCategories.FirstAsync(g => g.Name == "Rock");
+        var synthwaveGenre = await context.GenreCategories.FirstAsync(g => g.Name == "Synthwave");
 
-        var styles = new List<Style>
+        var styles = new List<Genre>
         {
             new("Hard Rock")
             {
-                Genres = { rockGenre }
+                GenreCategories = { rockGenre }
             },
             new("Spacewave")
             {
-                Genres = { synthwaveGenre }
+                GenreCategories = { synthwaveGenre }
             },
             new("Canadian Rock")
             {
-                Genres = { rockGenre },
+                GenreCategories = { rockGenre },
                 RemoveFromSongs = true
             }
         };
 
-        await context.Styles.AddRangeAsync(styles);
+        await context.Genres.AddRangeAsync(styles);
         await context.SaveChangesAsync();
     }
 
     private static async Task InitGenres(ApplicationDbContext context)
     {
-        var genres = new List<Genre>
+        var genres = new List<GenreCategory>
         {
             new("Rock"),
             new("Synthwave")
         };
 
-        await context.Genres.AddRangeAsync(genres);
+        await context.GenreCategories.AddRangeAsync(genres);
         await context.SaveChangesAsync();
     }
 }

@@ -6,17 +6,17 @@ using MusicProcessor.Domain.Entities;
 namespace MusicProcessor.Application.Services;
 
 public class SongProcessor(
-    IGenreRepository genreRepository,
+    IGenreCategoryRepository genreCategoryRepository,
     IArtistRepository artistRepository,
-    IStyleRepository styleRepository,
+    IGenreRepository genreRepository,
     ISongRepository songRepository,
     IAlbumRepository albumRepository,
     ILogger<SongProcessor> logger) : ISongProcessor
 {
     private Dictionary<string, Album> _existingAlbums = new();
     private Dictionary<string, Artist> _existingArtists = new();
-    private Dictionary<string, Genre> _existingGenres = new();
-    private Dictionary<string, Style> _existingStyles = new();
+    private Dictionary<string, GenreCategory> _existingGenres = new();
+    private Dictionary<string, Genre> _existingStyles = new();
 
     public async Task AddRawSongsToDbAsync(IEnumerable<Song> songs)
     {
@@ -41,10 +41,10 @@ public class SongProcessor(
         _existingArtists = (await artistRepository.GetAllAsync()).ToDictionary(a => a.Name, StringComparer.OrdinalIgnoreCase);
         logger.LogInformation($"Loaded {_existingArtists.Count} existing artists");
 
-        _existingGenres = (await genreRepository.GetAllAsync()).ToDictionary(g => g.Name, StringComparer.OrdinalIgnoreCase);
+        _existingGenres = (await genreCategoryRepository.GetAllAsync()).ToDictionary(g => g.Name, StringComparer.OrdinalIgnoreCase);
         logger.LogInformation($"Loaded {_existingGenres.Count} existing genres");
 
-        _existingStyles = (await styleRepository.GetAllAsync()).ToDictionary(s => s.Name, StringComparer.OrdinalIgnoreCase);
+        _existingStyles = (await genreRepository.GetAllAsync()).ToDictionary(s => s.Name, StringComparer.OrdinalIgnoreCase);
         logger.LogInformation($"Loaded {_existingStyles.Count} existing styles");
 
         _existingAlbums = (await albumRepository.GetAllAlbumsAsync()).ToDictionary(a => a.Name, StringComparer.OrdinalIgnoreCase);
@@ -55,7 +55,7 @@ public class SongProcessor(
     {
         ProcessAlbums(song);
         ProcessArtists(song);
-        ProcessStyles(song);
+        ProcessGenres(song);
     }
 
     private void ProcessAlbums(Song song)
@@ -74,20 +74,20 @@ public class SongProcessor(
         }
     }
 
-    private void ProcessStyles(Song song)
+    private void ProcessGenres(Song song)
     {
-        var stylesList = song.Styles.ToList();
-        song.Styles.Clear();
-        foreach (var style in stylesList)
-            if (_existingStyles.TryGetValue(style.Name, out var existingStyle))
+        var genreList = song.Genres.ToList();
+        song.Genres.Clear();
+        foreach (var style in genreList)
+            if (_existingStyles.TryGetValue(style.Name, out var existingGenre))
             {
-                song.Styles.Add(existingStyle);
+                song.Genres.Add(existingGenre);
                 logger.LogDebug($"Using existing style: {style.Name}");
             }
             else
             {
                 _existingStyles[style.Name] = style;
-                song.Styles.Add(style);
+                song.Genres.Add(style);
                 logger.LogDebug($"Adding new style: {style.Name}");
             }
     }

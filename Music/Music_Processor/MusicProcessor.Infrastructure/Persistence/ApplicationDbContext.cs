@@ -7,8 +7,8 @@ namespace MusicProcessor.Infrastructure.Persistence;
 public class ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : DbContext(options)
 {
     public DbSet<Song> Songs { get; set; }
+    public DbSet<GenreCategory> GenreCategories { get; set; }
     public DbSet<Genre> Genres { get; set; }
-    public DbSet<Style> Styles { get; set; }
     public DbSet<Artist> Artists { get; set; }
     public DbSet<Album> Albums { get; set; }
 

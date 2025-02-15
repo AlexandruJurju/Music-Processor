@@ -6,8 +6,8 @@ using MusicProcessor.Domain.Entities;
 namespace MusicProcessor.Application.UseCases.FixMetadata;
 
 public sealed class FixMetadataHandler(
-    IStyleRepository styleRepository,
     IGenreRepository genreRepository,
+    IGenreCategoryRepository genreCategoryRepository,
     ISongRepository songRepository,
     ILogger<FixMetadataHandler> logger)
     : IRequestHandler<FixMetadataCommand>
@@ -16,8 +16,8 @@ public sealed class FixMetadataHandler(
     {
         // Fetch all data upfront
         var songs = (await songRepository.GetAllAsync()).ToList();
-        var existingGenres = (await genreRepository.GetAllAsync()).ToDictionary(g => g.Name, g => g, StringComparer.OrdinalIgnoreCase);
-        var existingStyles = (await styleRepository.GetAllAsync()).ToDictionary(s => s.Name, s => s, StringComparer.OrdinalIgnoreCase);
+        var existingGenres = (await genreCategoryRepository.GetAllAsync()).ToDictionary(g => g.Name, g => g, StringComparer.OrdinalIgnoreCase);
+        var existingStyles = (await genreRepository.GetAllAsync()).ToDictionary(s => s.Name, s => s, StringComparer.OrdinalIgnoreCase);
 
         logger.LogInformation("Processing {SongCount} songs...", songs.Count);
 
@@ -25,14 +25,14 @@ public sealed class FixMetadataHandler(
 
         foreach (var song in songs)
         {
-            var stylesToRemove = new HashSet<Style>();
+            var stylesToRemove = new HashSet<Genre>();
 
             // Process styles and genres for the song
-            foreach (var style in song.Styles.ToList())
+            foreach (var style in song.Genres.ToList())
             {
                 if (!existingStyles.TryGetValue(style.Name, out var existingStyle))
                 {
-                    logger.LogWarning("Style not found in repository: {StyleName}", style.Name);
+                    logger.LogWarning("Genre not found in repository: {genreName}", style.Name);
                     continue;
                 }
 
@@ -40,7 +40,7 @@ public sealed class FixMetadataHandler(
                 if (existingStyle.RemoveFromSongs || existingGenres.ContainsKey(existingStyle.Name))
                 {
                     stylesToRemove.Add(style);
-                    logger.LogInformation("Marking style for removal: {StyleName} ({Reason})", style.Name, existingStyle.RemoveFromSongs ? "flagged for removal" : "matches genre name");
+                    logger.LogInformation("Marking style for removal: {genreName} ({Reason})", style.Name, existingStyle.RemoveFromSongs ? "flagged for removal" : "matches genre name");
                 }
             }
 
@@ -48,7 +48,7 @@ public sealed class FixMetadataHandler(
             if (stylesToRemove.Count > 0)
             {
                 // Remove styles marked for removal
-                foreach (var style in stylesToRemove) song.Styles.Remove(style);
+                foreach (var style in stylesToRemove) song.Genres.Remove(style);
 
                 modifiedSongs.Add(song);
                 logger.LogInformation("Song modified: {SongTitle}", song.Title);

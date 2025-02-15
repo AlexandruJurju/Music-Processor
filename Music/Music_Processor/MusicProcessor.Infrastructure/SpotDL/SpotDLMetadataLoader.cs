@@ -54,7 +54,7 @@ public class SpotDLMetadataLoader(ILogger<SpotDLMetadataLoader> logger, IFileSer
             Title = song.Name,
             Artists = song.Artists.Select(name => new Artist(name)).ToList(),
             Album = new Album(song.AlbumName),
-            Styles = song.Genres.Select(genre => new Style(CapitalizeFirstLetter(genre))).ToList(),
+            Genres = song.Genres.Select(genre => new Genre(CapitalizeFirstLetter(genre))).ToList(),
             Year = int.TryParse(song.Year, out var year) ? year : null,
             TrackNumber = song.TrackNumber,
             Duration = TimeSpan.FromSeconds(song.Duration)

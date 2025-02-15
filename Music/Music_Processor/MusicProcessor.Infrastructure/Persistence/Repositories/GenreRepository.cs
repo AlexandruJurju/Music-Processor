@@ -6,22 +6,23 @@ namespace MusicProcessor.Infrastructure.Persistence.Repositories;
 
 public class GenreRepository(ApplicationDbContext context) : IGenreRepository
 {
-    public Task<List<Genre>> GetAllAsync()
+    public async Task<List<Genre>> GetAllAsync()
     {
-        return context.Genres
+        return await context.Genres
+            .Include(s => s.GenreCategories)
             .ToListAsync();
     }
 
-    public async Task<Genre> AddAsync(Genre newGenre)
+    public async Task<int> AddAsync(Genre newGenre)
     {
         context.Genres.Add(newGenre);
         await context.SaveChangesAsync();
-        return newGenre;
+        return newGenre.Id;
     }
 
-    public async Task<Genre?> GetByNameAsync(string genreName)
+    public Task<Genre?> GetByNameAsync(string styleName)
     {
-        return await context.Genres.FirstOrDefaultAsync(g => g.Name == genreName);
+        return context.Genres.FirstOrDefaultAsync(s => s.Name == styleName);
     }
 
     public async Task DeleteAsync(Genre genre)
@@ -30,9 +31,33 @@ public class GenreRepository(ApplicationDbContext context) : IGenreRepository
         await context.SaveChangesAsync();
     }
 
-    public async Task AddRangeAsync(List<Genre> genresToAdd)
+    public async Task<bool> ExistsAsync(string styleName)
     {
-        context.Genres.AddRange(genresToAdd);
+        return await context.Genres.AnyAsync(s => s.Name == styleName);
+    }
+
+    public async Task<Genre> UpdateAsync(Genre genre)
+    {
+        context.Genres.Update(genre);
+        await context.SaveChangesAsync();
+        return genre;
+    }
+
+    public async Task AddRangeAsync(List<Genre> stylesToAdd)
+    {
+        context.AddRange(stylesToAdd);
+        await context.SaveChangesAsync();
+    }
+
+    public async Task UpdateRangeAsync(List<Genre> stylesToUpdate)
+    {
+        context.UpdateRange(stylesToUpdate);
+        await context.SaveChangesAsync();
+    }
+
+    public async Task RemoveRangeAsync(List<Genre> stylesToRemove)
+    {
+        context.Genres.RemoveRange(stylesToRemove);
         await context.SaveChangesAsync();
     }
 }

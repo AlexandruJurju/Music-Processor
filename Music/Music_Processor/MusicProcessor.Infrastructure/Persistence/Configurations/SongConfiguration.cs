@@ -38,9 +38,9 @@ public class SongConfiguration : IEntityTypeConfiguration<Song>
             .WithMany(e => e.Songs)
             .UsingEntity("song_artists");
 
-        // Many-to-many relationship with Style
-        builder.HasMany(e => e.Styles)
+        // Many-to-many relationship with GenreConfiguration
+        builder.HasMany(e => e.Genres)
             .WithMany(e => e.Songs)
-            .UsingEntity("song_styles");
+            .UsingEntity("song_genres");
     }
 }

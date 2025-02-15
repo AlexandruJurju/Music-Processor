@@ -24,7 +24,7 @@ public static class DependencyInjection
         services.AddTransient<ISpotDLService, SpotDLService>();
         services.AddTransient<IFileService, FileService.FileService>();
         services.AddTransient<ISpotDLMetadataLoader, SpotDLMetadataLoader>();
-        services.AddTransient<IStyleSyncService, StyleSyncService>();
+        services.AddTransient<IGenreSyncService, GenreSyncService>();
     }
 
     private static void AddDb(IServiceCollection services)
@@ -41,8 +41,8 @@ public static class DependencyInjection
     private static void AddRepositories(IServiceCollection services)
     {
         services.AddTransient<ISongRepository, SongRepository>();
-        services.AddTransient<IStyleRepository, StyleRepository>();
         services.AddTransient<IGenreRepository, GenreRepository>();
+        services.AddTransient<IGenreCategoryRepository, GenreCategoryRepository>();
         services.AddTransient<IArtistRepository, ArtistRepository>();
         services.AddTransient<IAlbumRepository, AlbumRepository>();
     }

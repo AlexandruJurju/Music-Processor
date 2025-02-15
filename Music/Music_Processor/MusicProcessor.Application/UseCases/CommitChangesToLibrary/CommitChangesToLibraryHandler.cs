@@ -19,31 +19,16 @@ public sealed class CommitChangesToLibraryHandler(
 
         foreach (var song in songs)
         {
-            var lastCommitedDate = File.GetLastWriteTime(song.FilePath);
-            if (song.DateModified > lastCommitedDate)
-            {
-                logger.LogInformation("{Message}", $"Skipping writing song {song.Title}, it has the latest changes");
-                continue;
-            }
+            // var lastCommitedDate = File.GetLastWriteTime(song.FilePath);
+            // if (song.DateModified > lastCommitedDate)
+            // {
+            //     logger.LogInformation("{Message}", $"Skipping writing song {song.Title}, it has the latest changes");
+            //     continue;
+            // }
 
-            try
-            {
-                metadataService.WriteMetadata(song);
-            }
-            catch (CorruptFileException ex)
-            {
-                logger.LogError(ex, "Corrupt file detected: {FilePath}", song.FilePath);
-            }
-            catch (UnauthorizedAccessException ex)
-            {
-                logger.LogError(ex, "Access denied to file: {FilePath}", song.FilePath);
-            }
-            catch (Exception ex)
-            {
-                logger.LogError(ex, "Failed to update metadata for file: {FilePath}", song.FilePath);
-            }
+            metadataService.WriteMetadata(song);
         }
 
-        logger.LogInformation("{Message}", "CommitChangesToLibrary completed successfully");
+        logger.LogInformation("{Message}", "CommitChanges completed successfully");
     }
 }

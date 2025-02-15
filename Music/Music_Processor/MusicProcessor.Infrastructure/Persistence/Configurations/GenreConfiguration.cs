@@ -14,12 +14,21 @@ public class GenreConfiguration : IEntityTypeConfiguration<Genre>
             .IsRequired()
             .HasMaxLength(100);
 
+        builder.Property(e => e.RemoveFromSongs)
+            .IsRequired()
+            .HasDefaultValue(false);
+
         builder.HasIndex(e => e.Name)
             .IsUnique();
 
-        // Many-to-many relationship with Style
-        builder.HasMany(e => e.Styles)
+        // Many-to-many relationship with GenreCategory
+        builder.HasMany(e => e.GenreCategories)
             .WithMany(e => e.Genres)
-            .UsingEntity("genre_styles");
+            .UsingEntity("genre_genre_category");
+
+        // Many-to-many relationship with Song
+        builder.HasMany(e => e.Songs)
+            .WithMany(e => e.Genres)
+            .UsingEntity("song_genres");
     }
 }

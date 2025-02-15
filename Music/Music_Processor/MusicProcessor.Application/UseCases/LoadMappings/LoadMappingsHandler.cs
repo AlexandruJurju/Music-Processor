@@ -6,9 +6,9 @@ using MusicProcessor.Domain.Entities;
 namespace MusicProcessor.Application.UseCases.LoadMappings;
 
 public class LoadMappingsHandler(
-    IStyleSyncService styleSyncService,
-    IStyleRepository styleRepository,
+    IGenreSyncService genreSyncService,
     IGenreRepository genreRepository,
+    IGenreCategoryRepository genreCategoryRepository,
     ILogger<LoadMappingsHandler> logger
 ) : IRequestHandler<LoadMappingsCommand>
 {
@@ -17,94 +17,94 @@ public class LoadMappingsHandler(
         logger.LogInformation("{Message}", "Starting style mappings load");
 
         // Fetch all style mappings and existing styles/genres
-        var mappedStyles = (await styleSyncService.ReadStyleMappingAsync()).ToList();
-        var existingStyles = (await styleRepository.GetAllAsync()).ToDictionary(s => s.Name);
-        var existingGenres = (await genreRepository.GetAllAsync()).ToDictionary(g => g.Name);
+        var mappedGenres = (await genreSyncService.ReadStyleMappingAsync()).ToList();
+        var existingGenres = (await genreRepository.GetAllAsync()).ToDictionary(s => s.Name);
+        var existingGenreCategories = (await genreCategoryRepository.GetAllAsync()).ToDictionary(g => g.Name);
 
-        logger.LogInformation("{Message}", $"Found {mappedStyles.Count} style mappings to process");
+        logger.LogInformation("{Message}", $"Found {mappedGenres.Count} genre mappings to process");
 
-        var stylesToAdd = new List<Style>();
-        var stylesToUpdate = new List<Style>();
         var genresToAdd = new List<Genre>();
+        var genresToUpdate = new List<Genre>();
+        var genreCategoriesToAdd = new List<GenreCategory>();
 
         // Process each style in the mapped configuration
-        foreach (var style in mappedStyles)
+        foreach (var genre in mappedGenres)
         {
-            logger.LogInformation("{Message}", $"Processing style: '{style.Name}'");
+            logger.LogInformation("{Message}", $"Processing genre: '{genre.Name}'");
 
             // Check if the style already exists
-            if (!existingStyles.TryGetValue(style.Name, out var existingStyle))
+            if (!existingGenres.TryGetValue(genre.Name, out var existingStyle))
             {
                 // Create a new style if it doesn't exist
-                logger.LogInformation("{Message}", $"Creating new style: '{style.Name}'");
-                existingStyle = new Style(style.Name, style.RemoveFromSongs);
-                stylesToAdd.Add(existingStyle);
+                logger.LogInformation("{Message}", $"Creating new genre: '{genre.Name}'");
+                existingStyle = new Genre(genre.Name, genre.RemoveFromSongs);
+                genresToAdd.Add(existingStyle);
             }
             else
             {
                 // Update the existing style if necessary
-                if (existingStyle.RemoveFromSongs != style.RemoveFromSongs)
+                if (existingStyle.RemoveFromSongs != genre.RemoveFromSongs)
                 {
-                    logger.LogInformation("{Message}", $"Updating existing style: '{style.Name}'");
-                    existingStyle.RemoveFromSongs = style.RemoveFromSongs;
-                    stylesToUpdate.Add(existingStyle);
+                    logger.LogInformation("{Message}", $"Updating existing genre: '{genre.Name}'");
+                    existingStyle.RemoveFromSongs = genre.RemoveFromSongs;
+                    genresToUpdate.Add(existingStyle);
                 }
             }
 
             // // Process genres for the current style
-            // var genresToRemove = existingStyle.Genres
-            //     .Where(g => !style.Genres.Any(mappedGenre => mappedGenre.Name == g.Name))
+            // var genresToRemove = existingStyle.GenreCategories
+            //     .Where(g => !style.GenreCategories.Any(mappedGenre => mappedGenre.Name == g.Name))
             //     .ToList();
             //
             // // Remove genres that are no longer in the mapped configuration
             // foreach (var genre in genresToRemove)
             // {
-            //     existingStyle.Genres.Remove(genre);
+            //     existingStyle.GenreCategories.Remove(genre);
             //     logger.LogInformation("{Message}", $"Removed genre '{genre.Name}' from style '{style.Name}'");
             // }
 
             // remove existing genres from the style
-            existingStyle.Genres.Clear();
+            existingStyle.GenreCategories.Clear();
 
             // Add or update genres for the current style
-            foreach (var genre in style.Genres)
+            foreach (var genreCategory in genre.GenreCategories)
             {
-                if (!existingGenres.TryGetValue(genre.Name, out var existingGenre))
+                if (!existingGenreCategories.TryGetValue(genreCategory.Name, out var existingGenre))
                 {
                     // Create a new genre if it doesn't exist
-                    logger.LogInformation("{Message}", $"Creating new genre: '{genre.Name}'");
-                    existingGenre = new Genre(genre.Name);
-                    genresToAdd.Add(existingGenre);
+                    logger.LogInformation("{Message}", $"Creating new genre category: '{genreCategory.Name}'");
+                    existingGenre = new GenreCategory(genreCategory.Name);
+                    genreCategoriesToAdd.Add(existingGenre);
                     // Add to lookup for subsequent iterations
-                    existingGenres[genre.Name] = existingGenre;
+                    existingGenreCategories[genreCategory.Name] = existingGenre;
                 }
 
                 // Add the genre to the style if not already present
-                if (!existingStyle.Genres.Any(g => g.Name == genre.Name))
+                if (!existingStyle.GenreCategories.Any(g => g.Name == genreCategory.Name))
                 {
-                    existingStyle.Genres.Add(existingGenre);
-                    logger.LogInformation("{Message}", $"Added genre '{genre.Name}' to style '{style.Name}'");
+                    existingStyle.GenreCategories.Add(existingGenre);
+                    logger.LogInformation("{Message}", $"Added genre category '{genreCategory.Name}' to style '{genreCategory.Name}'");
                 }
             }
         }
 
         // Perform bulk operations for genres and styles
+        if (genreCategoriesToAdd.Any())
+        {
+            await genreCategoryRepository.AddRangeAsync(genreCategoriesToAdd);
+            logger.LogInformation("{Message}", $"Added {genreCategoriesToAdd.Count} new genres");
+        }
+
         if (genresToAdd.Any())
         {
             await genreRepository.AddRangeAsync(genresToAdd);
-            logger.LogInformation("{Message}", $"Added {genresToAdd.Count} new genres");
+            logger.LogInformation("{Message}", $"Added {genresToAdd.Count} new styles");
         }
 
-        if (stylesToAdd.Any())
+        if (genresToUpdate.Any())
         {
-            await styleRepository.AddRangeAsync(stylesToAdd);
-            logger.LogInformation("{Message}", $"Added {stylesToAdd.Count} new styles");
-        }
-
-        if (stylesToUpdate.Any())
-        {
-            await styleRepository.UpdateRangeAsync(stylesToUpdate);
-            logger.LogInformation("{Message}", $"Updated {stylesToUpdate.Count} styles");
+            await genreRepository.UpdateRangeAsync(genresToUpdate);
+            logger.LogInformation("{Message}", $"Updated {genresToUpdate.Count} styles");
         }
 
         logger.LogInformation("{Message}", "Completed style mappings load");

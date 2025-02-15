@@ -19,7 +19,7 @@ public class SongRepository(ApplicationDbContext context) : ISongRepository
     public IQueryable<Song> GetAll()
     {
         return context.Songs
-            .Include(s => s.Styles)
+            .Include(s => s.Genres)
             .Include(s => s.Artists);
     }
 

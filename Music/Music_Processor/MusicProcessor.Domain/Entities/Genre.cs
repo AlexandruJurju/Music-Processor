@@ -13,7 +13,15 @@ public sealed class Genre : BaseEntity
         Name = name;
     }
 
+    public Genre(string name, bool removeFromSongs)
+    {
+        Name = name;
+        RemoveFromSongs = removeFromSongs;
+    }
+
+
     public string Name { get; set; } = string.Empty;
     public ICollection<Song> Songs { get; set; } = new List<Song>();
-    public ICollection<Style> Styles { get; set; } = new List<Style>();
+    public ICollection<GenreCategory> GenreCategories { get; set; } = new List<GenreCategory>();
+    public bool RemoveFromSongs { get; set; }
 }

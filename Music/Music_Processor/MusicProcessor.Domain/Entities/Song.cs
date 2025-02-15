@@ -42,7 +42,7 @@ public sealed class Song : BaseEntity
     public Album? Album { get; set; }
 
     public ICollection<Artist> Artists { get; set; } = new List<Artist>();
-    public ICollection<Style> Styles { get; set; } = new List<Style>();
+    public ICollection<Genre> Genres { get; set; } = new List<Genre>();
 
     private string ValidateFileType(string fileType)
     {

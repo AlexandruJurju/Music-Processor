@@ -2,8 +2,8 @@
 
 namespace MusicProcessor.Application.Interfaces.Infrastructure;
 
-public interface IStyleSyncService
+public interface IGenreSyncService
 {
     Task WriteStyleMappingAsync();
-    Task<IEnumerable<Style>> ReadStyleMappingAsync();
+    Task<IEnumerable<Genre>> ReadStyleMappingAsync();
 }

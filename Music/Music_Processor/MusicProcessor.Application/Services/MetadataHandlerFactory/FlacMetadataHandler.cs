@@ -7,22 +7,23 @@ using FileTypes = MusicProcessor.Domain.Constants.FileTypes;
 
 namespace MusicProcessor.Application.Services.MetadataHandlerFactory;
 
+// todo: update for rename
 public class FlacMetadataHandler(ILogger<FlacMetadataHandler> logger) : BaseMetadataHandler(logger)
 {
     protected override string FileType => FileTypes.FLAC;
 
-    protected override List<string> ExtractStyles(File file)
+    protected override List<string> ExtractGenres(File file)
     {
-        var styles = new List<string>();
+        var genres = new List<string>();
 
         if (file.TagTypes.HasFlag(TagTypes.Xiph))
         {
             var xiphTag = file.GetTag(TagTypes.Xiph) as XiphComment;
             if (xiphTag != null)
             {
-                var styleFields = xiphTag.GetField("STYLE");
-                styles.AddRange(styleFields);
-                logger.LogDebug("Extracted {Count} styles from FLAC file", styleFields.Length);
+                var genreFields = xiphTag.GetField("GENRE");
+                genres.AddRange(genreFields);
+                logger.LogDebug("Extracted {Count} genres from FLAC file", genreFields.Length);
             }
             else
             {
@@ -34,9 +35,10 @@ public class FlacMetadataHandler(ILogger<FlacMetadataHandler> logger) : BaseMeta
             logger.LogDebug("No Xiph tags found in FLAC file");
         }
 
-        return styles.Distinct().ToList();
+        return genres.Distinct().ToList();
     }
 
+    // todo; this is wrong
     public override void WriteMetadata(Song song)
     {
         logger.LogInformation("Updating metadata for FLAC file: {FilePath}", song.FilePath);
@@ -45,8 +47,8 @@ public class FlacMetadataHandler(ILogger<FlacMetadataHandler> logger) : BaseMeta
             using var file = File.Create(song.FilePath);
             var tag = file.Tag;
 
-            var genres = song.Styles.SelectMany(s => s.Genres.Select(g => g.Name)).ToArray();
-            logger.LogDebug("Setting {Count} genres: {Genres}", genres.Length, string.Join(", ", genres));
+            var genres = song.Genres.SelectMany(s => s.GenreCategories.Select(g => g.Name)).ToArray();
+            logger.LogDebug("Setting {Count} genre categories: {GenreCategories}", genres.Length, string.Join(", ", genres));
             tag.Genres = genres;
 
             if (file.TagTypes.HasFlag(TagTypes.Xiph))
@@ -55,15 +57,13 @@ public class FlacMetadataHandler(ILogger<FlacMetadataHandler> logger) : BaseMeta
                 if (xiphTag != null)
                 {
                     logger.LogDebug("Clearing existing style fields");
-                    xiphTag.RemoveField("STYLE");
-                    xiphTag.RemoveField("Style");
-                    xiphTag.RemoveField("Styles");
-                    xiphTag.RemoveField("styles");
+                    xiphTag.RemoveField("Genre");
+                    xiphTag.RemoveField("GenreCategories");
 
-                    if (song.Styles.Any())
+                    if (song.Genres.Any())
                     {
-                        var styles = song.Styles.Where(s => !s.RemoveFromSongs).Select(s => s.Name).ToArray();
-                        logger.LogDebug("Setting {Count} styles: {Styles}", styles.Length, string.Join(", ", styles));
+                        var styles = song.Genres.Where(s => !s.RemoveFromSongs).Select(s => s.Name).ToArray();
+                        logger.LogDebug("Setting {Count} styles: {GenreCategories}", styles.Length, string.Join(", ", styles));
                         xiphTag.SetField("STYLE", styles);
                     }
                     else

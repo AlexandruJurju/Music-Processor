@@ -31,15 +31,24 @@ public abstract class BaseMetadataHandler(ILogger logger) : IMetadataHandler
         {
             // because of spotdl data -> reads performers with / between their names
             var splitPerformers = performer.Split('/', StringSplitOptions.TrimEntries | StringSplitOptions.RemoveEmptyEntries);
-            foreach (var performerName in splitPerformers) metadata.Artists.Add(new Artist { Name = performerName });
+            foreach (var performerName in splitPerformers)
+            {
+                metadata.Artists.Add(new Artist
+                    { Name = performerName }
+                );
+            }
         }
 
         // cant read genres like this, they have to be tied to a style
-        // Create Genre entities
-        // foreach (var genreName in tag.Genres) metadata.Genres.Add(new Genre { Name = genreName });
+        // Create GenreCategory entities
+        // foreach (var genreName in tag.GenreCategories) metadata.GenreCategories.Add(new GenreCategory { Name = genreName });
 
-        // Create Style entities
-        foreach (var styleName in ExtractStyles(file)) metadata.Styles.Add(new Style { Name = styleName });
+        foreach (var genreName in ExtractGenres(file))
+        {
+            metadata.Genres.Add(new Genre
+                { Name = genreName }
+            );
+        }
 
         return metadata;
     }
@@ -51,5 +60,5 @@ public abstract class BaseMetadataHandler(ILogger logger) : IMetadataHandler
         return Path.GetExtension(filePath).Equals(FileType, StringComparison.OrdinalIgnoreCase);
     }
 
-    protected abstract List<string> ExtractStyles(File file);
+    protected abstract List<string> ExtractGenres(File file);
 }

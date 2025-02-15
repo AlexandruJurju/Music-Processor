@@ -47,8 +47,8 @@ public class WriteLibraryWithSpotdlFileHandler(
 
             logger.LogInformation("{Message}", $"Added song: {spotdlSongMetadata.Title}");
             logger.LogInformation("{Message}", $"Artists: {string.Join(", ", spotdlSongMetadata.Artists.Select(a => a.Name))}");
-            logger.LogInformation("{Message}", $"Styles: {string.Join(", ", spotdlSongMetadata.Styles.Select(s => s.Name))}");
-            logger.LogInformation("{Message}", $"Genres: {string.Join(", ", spotdlSongMetadata.Styles.SelectMany(s => s.Genres.Select(g => g.Name)))}");
+            logger.LogInformation("{Message}", $"Genres: {string.Join(", ", spotdlSongMetadata.Genres.Select(genre => genre.Name))}");
+            logger.LogInformation("{Message}", $"GenreCategories: {string.Join(", ", spotdlSongMetadata.Genres.SelectMany(genreCategory => genreCategory.GenreCategories.Select(g => g.Name)))}");
         }
 
         if (songsToAdd.Count != 0)
