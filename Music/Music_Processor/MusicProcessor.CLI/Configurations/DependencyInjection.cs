@@ -8,7 +8,7 @@ public static class DependencyInjection
     public static IServiceCollection RegisterCLI(this IServiceCollection services)
     {
         RegisterCliConfiguration(services);
-        
+
         return services;
     }
 

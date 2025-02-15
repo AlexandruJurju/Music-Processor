@@ -1,9 +1,9 @@
 using MusicProcessor.Domain.Entities;
 
-namespace MusicProcessor.Application.Abstractions.Interfaces;
+namespace MusicProcessor.Application.Interfaces.Application;
 
 public interface IMetadataService
 {
     void WriteMetadata(Song song);
-    Song ReadMetadata(string filePath);
+    Song ReadMetadata(string songFile);
 }

@@ -1,6 +1,6 @@
 ﻿using Microsoft.Extensions.Logging;
-using MusicProcessor.Application.Abstractions.Infrastructure;
-using MusicProcessor.Application.Abstractions.Interfaces;
+using MusicProcessor.Application.Interfaces.Application;
+using MusicProcessor.Application.Interfaces.Infrastructure;
 using MusicProcessor.Domain.Entities;
 
 namespace MusicProcessor.Application.Services;
@@ -13,10 +13,10 @@ public class SongProcessor(
     IAlbumRepository albumRepository,
     ILogger<SongProcessor> logger) : ISongProcessor
 {
+    private Dictionary<string, Album> _existingAlbums = new();
     private Dictionary<string, Artist> _existingArtists = new();
     private Dictionary<string, Genre> _existingGenres = new();
     private Dictionary<string, Style> _existingStyles = new();
-    private Dictionary<string, Album> _existingAlbums = new();
 
     public async Task AddRawSongsToDbAsync(IEnumerable<Song> songs)
     {
@@ -60,10 +60,7 @@ public class SongProcessor(
 
     private void ProcessAlbums(Song song)
     {
-        if (song.Album is null)
-        {
-            return;
-        }
+        if (song.Album is null) return;
 
         if (_existingAlbums.TryGetValue(song.Album.Name, out var album))
         {

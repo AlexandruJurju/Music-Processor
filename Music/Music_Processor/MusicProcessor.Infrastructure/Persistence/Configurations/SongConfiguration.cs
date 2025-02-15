@@ -15,7 +15,7 @@ public class SongConfiguration : IEntityTypeConfiguration<Song>
             .HasMaxLength(200);
 
         builder.HasIndex(e => e.Title);
-        
+
         builder.Property(e => e.Comment)
             .HasMaxLength(1000);
 
@@ -27,7 +27,7 @@ public class SongConfiguration : IEntityTypeConfiguration<Song>
             .HasConversion(
                 v => v.TotalSeconds,
                 v => TimeSpan.FromSeconds(v));
-        
+
         builder.HasOne(e => e.Album)
             .WithMany(a => a.Songs)
             .HasForeignKey(e => e.AlbumId)

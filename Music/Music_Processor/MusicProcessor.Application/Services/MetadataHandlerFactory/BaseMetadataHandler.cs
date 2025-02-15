@@ -1,11 +1,11 @@
 ﻿using Microsoft.Extensions.Logging;
-using MusicProcessor.Domain.Constants;
+using MusicProcessor.Application.Interfaces.Application;
 using MusicProcessor.Domain.Entities;
 using File = TagLib.File;
 
-namespace MusicProcessor.Application.Abstractions.Interfaces;
+namespace MusicProcessor.Application.Services.MetadataHandlerFactory;
 
-public abstract class BaseMetadataStrategy(ILogger logger) : IMetadataStrategy
+public abstract class BaseMetadataHandler(ILogger logger) : IMetadataHandler
 {
     protected readonly ILogger _logger = logger;
     protected abstract string FileType { get; }

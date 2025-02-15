@@ -1,7 +1,7 @@
 ﻿using CliFx.Attributes;
 using CliFx.Infrastructure;
 using MediatR;
-using MusicProcessor.Application.Abstractions.Infrastructure;
+using MusicProcessor.Application.Interfaces.Infrastructure;
 using MusicProcessor.Application.UseCases.LoadMappings;
 
 namespace MusicProcessor.CLI.MenuCommands;

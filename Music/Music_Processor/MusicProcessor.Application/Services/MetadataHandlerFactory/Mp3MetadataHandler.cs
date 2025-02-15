@@ -1,5 +1,4 @@
 using Microsoft.Extensions.Logging;
-using MusicProcessor.Application.Abstractions.Interfaces;
 using MusicProcessor.Domain.Entities;
 using TagLib;
 using TagLib.Id3v2;
@@ -7,9 +6,9 @@ using File = TagLib.File;
 using FileTypes = MusicProcessor.Domain.Constants.FileTypes;
 using Tag = TagLib.Id3v2.Tag;
 
-namespace MusicProcessor.Application.Services;
+namespace MusicProcessor.Application.Services.MetadataHandlerFactory;
 
-public class MP3MetadataHandler(ILogger<MP3MetadataHandler> logger) : BaseMetadataStrategy(logger)
+public class MP3MetadataHandler(ILogger<MP3MetadataHandler> logger) : BaseMetadataHandler(logger)
 {
     protected override string FileType => FileTypes.MP3;
 
@@ -75,10 +74,7 @@ public class MP3MetadataHandler(ILogger<MP3MetadataHandler> logger) : BaseMetada
                 .ToList();
 
             logger.LogDebug("Removing {Count} existing style frames", existingStyleFrames.Count);
-            foreach (var frame in existingStyleFrames)
-            {
-                tag.RemoveFrame(frame);
-            }
+            foreach (var frame in existingStyleFrames) tag.RemoveFrame(frame);
 
             if (song.Styles.Any())
             {

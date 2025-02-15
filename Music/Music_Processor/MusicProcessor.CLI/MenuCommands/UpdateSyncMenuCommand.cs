@@ -2,7 +2,7 @@
 using CliFx.Exceptions;
 using CliFx.Infrastructure;
 using MediatR;
-using MusicProcessor.Application.Abstractions.Infrastructure;
+using MusicProcessor.Application.Interfaces.Infrastructure;
 using MusicProcessor.Application.UseCases.WriteLibraryWithSpotdlFile;
 using MusicProcessor.Domain.Enums;
 

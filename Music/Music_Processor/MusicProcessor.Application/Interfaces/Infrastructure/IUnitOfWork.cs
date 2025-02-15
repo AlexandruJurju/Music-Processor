@@ -1,4 +1,4 @@
-﻿namespace MusicProcessor.Application.Abstractions.Infrastructure;
+﻿namespace MusicProcessor.Application.Interfaces.Infrastructure;
 
 public interface IUnitOfWork
 {

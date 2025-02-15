@@ -1,7 +1,7 @@
 ﻿using CliFx.Attributes;
 using CliFx.Infrastructure;
 using MediatR;
-using MusicProcessor.Application.Abstractions.Infrastructure;
+using MusicProcessor.Application.Interfaces.Infrastructure;
 using MusicProcessor.Application.UseCases.WriteLibraryWithSpotdlFile;
 
 namespace MusicProcessor.CLI.MenuCommands;
@@ -18,10 +18,7 @@ public class WriteLibraryToDbMenuCommand(IFileService fileService, IMediator med
 
     public override async ValueTask ExecuteAsync(IConsole console)
     {
-        if (!ValidatePlaylist(PlaylistName, console))
-        {
-            return;
-        }
+        if (!ValidatePlaylist(PlaylistName, console)) return;
 
         // todo: fix, just send the name
         var playlistPath = Path.Combine(FileService.GetPlaylistsPath(), PlaylistName);

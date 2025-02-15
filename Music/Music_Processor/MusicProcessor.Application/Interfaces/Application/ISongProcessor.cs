@@ -1,6 +1,6 @@
 ﻿using MusicProcessor.Domain.Entities;
 
-namespace MusicProcessor.Application.Abstractions.Interfaces;
+namespace MusicProcessor.Application.Interfaces.Application;
 
 public interface ISongProcessor
 {

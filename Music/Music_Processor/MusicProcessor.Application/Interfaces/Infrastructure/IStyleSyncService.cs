@@ -1,8 +1,8 @@
 ﻿using MusicProcessor.Domain.Entities;
 
-namespace MusicProcessor.Application.Abstractions.Infrastructure;
+namespace MusicProcessor.Application.Interfaces.Infrastructure;
 
-public interface IStyleConfigRepository
+public interface IStyleSyncService
 {
     Task WriteStyleMappingAsync();
     Task<IEnumerable<Style>> ReadStyleMappingAsync();

@@ -7,10 +7,10 @@ public static class FileTypes
 
     public static string? GetFileType(string extension)
     {
-        if (extension.EndsWith(FileTypes.MP3))
-            return nameof(FileTypes.MP3);
-        if (extension.EndsWith(FileTypes.FLAC))
-            return nameof(FileTypes.FLAC);
+        if (extension.EndsWith(MP3))
+            return nameof(MP3);
+        if (extension.EndsWith(FLAC))
+            return nameof(FLAC);
         return null;
     }
 }

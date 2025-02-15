@@ -1,4 +1,4 @@
-﻿namespace MusicProcessor.Infrastructure.FileAccess;
+﻿namespace MusicProcessor.Infrastructure.FileService;
 
 public static class DirectoryPaths
 {

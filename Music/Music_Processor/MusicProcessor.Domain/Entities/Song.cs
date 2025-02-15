@@ -1,5 +1,3 @@
-using System.Security.Cryptography;
-using System.Text;
 using MusicProcessor.Domain.Common;
 using MusicProcessor.Domain.Constants;
 
@@ -45,14 +43,11 @@ public sealed class Song : BaseEntity
 
     public ICollection<Artist> Artists { get; set; } = new List<Artist>();
     public ICollection<Style> Styles { get; set; } = new List<Style>();
-    
+
     private string ValidateFileType(string fileType)
     {
         var allowedFileTypes = new[] { FileTypes.MP3, FileTypes.FLAC };
-        if (!allowedFileTypes.Contains(fileType))
-        {
-            throw new ArgumentException($"Invalid file type. Allowed values are: {string.Join(", ", allowedFileTypes)}");
-        }
+        if (!allowedFileTypes.Contains(fileType)) throw new ArgumentException($"Invalid file type. Allowed values are: {string.Join(", ", allowedFileTypes)}");
 
         return fileType;
     }

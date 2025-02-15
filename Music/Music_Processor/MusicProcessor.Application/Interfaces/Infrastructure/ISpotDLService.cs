@@ -1,6 +1,6 @@
 ﻿using MusicProcessor.Domain.Models.SpotDL.Download;
 
-namespace MusicProcessor.Application.Abstractions.Infrastructure;
+namespace MusicProcessor.Application.Interfaces.Infrastructure;
 
 public interface ISpotDLService
 {

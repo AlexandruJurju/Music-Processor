@@ -1,7 +1,7 @@
 ﻿using CliFx.Attributes;
 using CliFx.Infrastructure;
 using MediatR;
-using MusicProcessor.Application.Abstractions.Infrastructure;
+using MusicProcessor.Application.Interfaces.Infrastructure;
 using MusicProcessor.Application.UseCases.WriteLibraryWithSpotdlFile;
 using MusicProcessor.Domain.Enums;
 
@@ -21,10 +21,7 @@ public class FirstTimeSyncMenuCommand(
 
     public override async ValueTask ExecuteAsync(IConsole console)
     {
-        if (!ValidatePlaylist(PlaylistName, console))
-        {
-            return;
-        }
+        if (!ValidatePlaylist(PlaylistName, console)) return;
 
         var playlistPath = GetPlaylistPath(PlaylistName);
 

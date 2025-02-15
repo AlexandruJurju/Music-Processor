@@ -1,14 +1,13 @@
 using Microsoft.Extensions.Logging;
-using MusicProcessor.Application.Abstractions.Interfaces;
 using MusicProcessor.Domain.Entities;
 using TagLib;
 using TagLib.Ogg;
 using File = TagLib.File;
 using FileTypes = MusicProcessor.Domain.Constants.FileTypes;
 
-namespace MusicProcessor.Application.Services;
+namespace MusicProcessor.Application.Services.MetadataHandlerFactory;
 
-public class FlacMetadataHandler(ILogger<FlacMetadataHandler> logger) : BaseMetadataStrategy(logger)
+public class FlacMetadataHandler(ILogger<FlacMetadataHandler> logger) : BaseMetadataHandler(logger)
 {
     protected override string FileType => FileTypes.FLAC;
 

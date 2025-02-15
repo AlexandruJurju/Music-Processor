@@ -1,8 +1,7 @@
 ﻿using CliFx.Attributes;
-using CliFx.Exceptions;
 using CliFx.Infrastructure;
 using MediatR;
-using MusicProcessor.Application.Abstractions.Infrastructure;
+using MusicProcessor.Application.Interfaces.Infrastructure;
 using MusicProcessor.Application.UseCases.FixMetadata;
 
 namespace MusicProcessor.CLI.MenuCommands;
@@ -15,11 +14,8 @@ public class FixMetadataMenuMenuCommand(IFileService fileService, IMediator medi
 
     public override async ValueTask ExecuteAsync(IConsole console)
     {
-        if (!ValidatePlaylist(PlaylistName, console))
-        {
-            return;
-        }
-        
+        if (!ValidatePlaylist(PlaylistName, console)) return;
+
         var playlistPath = GetPlaylistPath(PlaylistName);
         await Mediator.Send(new FixMetadataCommand(playlistPath));
     }

@@ -1,7 +1,7 @@
-﻿using MusicProcessor.Application.Abstractions.Infrastructure;
+﻿using MusicProcessor.Application.Interfaces.Infrastructure;
 using MusicProcessor.Domain.Constants;
 
-namespace MusicProcessor.Infrastructure.FileAccess;
+namespace MusicProcessor.Infrastructure.FileService;
 
 public class FileService : IFileService
 {

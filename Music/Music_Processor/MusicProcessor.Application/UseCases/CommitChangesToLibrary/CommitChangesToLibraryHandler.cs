@@ -1,8 +1,9 @@
 ﻿using MediatR;
 using Microsoft.Extensions.Logging;
-using MusicProcessor.Application.Abstractions.Infrastructure;
-using MusicProcessor.Application.Abstractions.Interfaces;
-using MusicProcessor.Application.Services;
+using MusicProcessor.Application.Interfaces.Application;
+using MusicProcessor.Application.Interfaces.Infrastructure;
+using TagLib;
+using File = System.IO.File;
 
 namespace MusicProcessor.Application.UseCases.CommitChangesToLibrary;
 
@@ -29,7 +30,7 @@ public sealed class CommitChangesToLibraryHandler(
             {
                 metadataService.WriteMetadata(song);
             }
-            catch (TagLib.CorruptFileException ex)
+            catch (CorruptFileException ex)
             {
                 logger.LogError(ex, "Corrupt file detected: {FilePath}", song.FilePath);
             }

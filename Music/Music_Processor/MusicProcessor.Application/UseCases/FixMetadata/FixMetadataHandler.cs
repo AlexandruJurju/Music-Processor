@@ -1,8 +1,7 @@
 ﻿using MediatR;
 using Microsoft.Extensions.Logging;
-using MusicProcessor.Application.Abstractions.Infrastructure;
+using MusicProcessor.Application.Interfaces.Infrastructure;
 using MusicProcessor.Domain.Entities;
-
 
 namespace MusicProcessor.Application.UseCases.FixMetadata;
 
@@ -49,10 +48,7 @@ public sealed class FixMetadataHandler(
             if (stylesToRemove.Count > 0)
             {
                 // Remove styles marked for removal
-                foreach (var style in stylesToRemove)
-                {
-                    song.Styles.Remove(style);
-                }
+                foreach (var style in stylesToRemove) song.Styles.Remove(style);
 
                 modifiedSongs.Add(song);
                 logger.LogInformation("Song modified: {SongTitle}", song.Title);

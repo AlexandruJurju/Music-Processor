@@ -1,7 +1,9 @@
 ﻿using System.Reflection;
 using Microsoft.Extensions.DependencyInjection;
-using MusicProcessor.Application.Abstractions.Interfaces;
+using Microsoft.Extensions.DependencyInjection.Extensions;
+using MusicProcessor.Application.Interfaces.Application;
 using MusicProcessor.Application.Services;
+using MusicProcessor.Application.Services.MetadataHandlerFactory;
 
 namespace MusicProcessor.Application;
 
@@ -19,9 +21,10 @@ public static class DependencyInjection
     private static void RegisterServices(IServiceCollection services)
     {
         services.AddTransient<ISongProcessor, SongProcessor>();
-        services.AddTransient<IMetadataStrategy, FlacMetadataHandler>();
-        services.AddTransient<IMetadataStrategy, MP3MetadataHandler>();
         services.AddTransient<IMetadataService, MetadataService>();
+        
+        services.AddTransient<IMetadataHandler, MP3MetadataHandler>();
+        services.AddTransient<IMetadataHandler, FlacMetadataHandler>();
     }
 
     private static void RegisterMediatR(IServiceCollection services)

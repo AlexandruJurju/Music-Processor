@@ -2,5 +2,4 @@
 
 namespace MusicProcessor.Application.UseCases.LoadMappings;
 
-public record LoadMappingsCommand(
-) : IRequest;
+public record LoadMappingsCommand : IRequest;
