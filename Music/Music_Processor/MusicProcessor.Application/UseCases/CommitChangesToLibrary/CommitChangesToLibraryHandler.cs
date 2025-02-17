@@ -2,8 +2,6 @@
 using Microsoft.Extensions.Logging;
 using MusicProcessor.Application.Interfaces.Application;
 using MusicProcessor.Application.Interfaces.Infrastructure;
-using TagLib;
-using File = System.IO.File;
 
 namespace MusicProcessor.Application.UseCases.CommitChangesToLibrary;
 
@@ -15,20 +13,17 @@ public sealed class CommitChangesToLibraryHandler(
 {
     public async Task Handle(CommitChangesToLibraryCommand request, CancellationToken cancellationToken)
     {
+        var startTime = DateTime.UtcNow;
+        logger.LogInformation("CommitChanges started at {StartTime}", startTime);
+
         var songs = await songRepository.GetAllAsync();
 
         foreach (var song in songs)
         {
-            // var lastCommitedDate = File.GetLastWriteTime(song.FilePath);
-            // if (song.DateModified > lastCommitedDate)
-            // {
-            //     logger.LogInformation("{Message}", $"Skipping writing song {song.Title}, it has the latest changes");
-            //     continue;
-            // }
-
             metadataService.WriteMetadata(song);
         }
 
-        logger.LogInformation("{Message}", "CommitChanges completed successfully");
+        var endTime = DateTime.UtcNow;
+        logger.LogInformation("CommitChanges completed at {EndTime}, total duration: {TotalMilliseconds} ms", endTime, (endTime - startTime).TotalSeconds);
     }
 }
