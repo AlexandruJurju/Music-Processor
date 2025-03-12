@@ -9,17 +9,21 @@ using MusicProcessor.Domain.Enums;
 namespace MusicProcessor.CLI.MenuCommands;
 
 [Command("sync-update", Description = "Update sync with existing playlist")]
-public class UpdateSyncMenuCommand(
-    ISpotDLService spotDlService,
-    IFileService fileService,
-    IMediator mediator) : BaseMenuCommand(fileService, mediator)
+public class UpdateSyncMenuCommand : BaseMenuCommand
 {
+    private readonly ISpotDLService _spotDlService;
+
+    public UpdateSyncMenuCommand(IFileService fileService, IMediator mediator, ISpotDLService spotDlService) : base(fileService, mediator)
+    {
+        _spotDlService = spotDlService;
+    }
+
     [CommandOption("playlist", 'p', IsRequired = true, Description = "The playlist name")]
-    public string PlaylistName { get; init; } = "";
+    public string PlaylistName { get; init; } = String.Empty;
 
     public void Validate()
     {
-        if (!FileService.GetAllPlaylistsNames().Contains(PlaylistName))
+        if (!_fileService.GetAllPlaylistsNames().Contains(PlaylistName))
             throw new CommandException($"Invalid playlist: {PlaylistName}");
     }
 
@@ -32,7 +36,7 @@ public class UpdateSyncMenuCommand(
 
         console.Output.WriteLine("\nSpotDL Started", ConsoleColor.Green);
 
-        await foreach (var output in spotDlService.UpdateSyncAsync(playlistPath))
+        await foreach (var output in _spotDlService.UpdateSyncAsync(playlistPath))
         {
             var color = output.Type == OutputType.Success ? ConsoleColor.Green : ConsoleColor.Red;
             console.Output.WriteLine(output.Data, color);
@@ -40,6 +44,6 @@ public class UpdateSyncMenuCommand(
 
         await console.Output.WriteLineAsync("\nSpot DL Finished");
         await console.Output.WriteLineAsync("\nAdding new songs to db");
-        await Mediator.Send(new WriteLibraryWithSpotdlFileCommand(playlistPath));
+        await _mediator.Send(new WriteLibraryWithSpotdlFileCommand(playlistPath));
     }
 }

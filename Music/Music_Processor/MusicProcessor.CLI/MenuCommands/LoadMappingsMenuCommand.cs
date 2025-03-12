@@ -7,10 +7,14 @@ using MusicProcessor.Application.UseCases.LoadMappings;
 namespace MusicProcessor.CLI.MenuCommands;
 
 [Command("load-mappings", Description = "Loads mapping files from the current directory")]
-public class LoadMappingsMenuCommand(IFileService fileService, IMediator mediator) : BaseMenuCommand(fileService, mediator)
+public class LoadMappingsMenuCommand : BaseMenuCommand
 {
+    public LoadMappingsMenuCommand(IFileService fileService, IMediator mediator) : base(fileService, mediator)
+    {
+    }
+
     public override async ValueTask ExecuteAsync(IConsole console)
     {
-        await Mediator.Send(new LoadMappingsCommand());
+        await _mediator.Send(new LoadMappingsCommand());
     }
 }

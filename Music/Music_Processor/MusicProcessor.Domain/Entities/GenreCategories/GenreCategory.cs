@@ -1,6 +1,8 @@
 ﻿using MusicProcessor.Domain.Common;
+using MusicProcessor.Domain.Entities.Genres;
+using MusicProcessor.Domain.Entities.Songs;
 
-namespace MusicProcessor.Domain.Entities;
+namespace MusicProcessor.Domain.Entities.GenreCategories;
 
 public sealed class GenreCategory : BaseEntity
 {

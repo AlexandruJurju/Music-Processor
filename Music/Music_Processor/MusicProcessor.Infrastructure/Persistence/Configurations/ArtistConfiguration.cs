@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using MusicProcessor.Domain.Entities;
+using MusicProcessor.Domain.Entities.Artits;
 
 namespace MusicProcessor.Infrastructure.Persistence.Configurations;
 

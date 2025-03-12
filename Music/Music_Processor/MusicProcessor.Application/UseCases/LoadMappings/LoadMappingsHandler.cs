@@ -2,26 +2,39 @@
 using Microsoft.Extensions.Logging;
 using MusicProcessor.Application.Interfaces.Infrastructure;
 using MusicProcessor.Domain.Entities;
+using MusicProcessor.Domain.Entities.GenreCategories;
+using MusicProcessor.Domain.Entities.Genres;
 
 namespace MusicProcessor.Application.UseCases.LoadMappings;
 
-public class LoadMappingsHandler(
-    IGenreSyncService genreSyncService,
-    IGenreRepository genreRepository,
-    IGenreCategoryRepository genreCategoryRepository,
-    ILogger<LoadMappingsHandler> logger
-) : IRequestHandler<LoadMappingsCommand>
+public class LoadMappingsHandler : IRequestHandler<LoadMappingsCommand>
 {
+    private readonly IGenreSyncService _genreSyncService;
+    private readonly IGenreRepository _genreRepository;
+    private readonly IGenreCategoryRepository _genreCategoryRepository;
+    private readonly ILogger<LoadMappingsHandler> _logger;
+
+    public LoadMappingsHandler(IGenreSyncService genreSyncService,
+        IGenreRepository genreRepository,
+        IGenreCategoryRepository genreCategoryRepository,
+        ILogger<LoadMappingsHandler> logger)
+    {
+        _genreSyncService = genreSyncService;
+        _genreRepository = genreRepository;
+        _genreCategoryRepository = genreCategoryRepository;
+        _logger = logger;
+    }
+
     public async Task Handle(LoadMappingsCommand request, CancellationToken cancellationToken)
     {
-        logger.LogInformation("{Message}", "Starting style mappings load");
+        _logger.LogInformation("{Message}", "Starting style mappings load");
 
         // Fetch all style mappings and existing styles/genres
-        var mappedGenres = (await genreSyncService.ReadStyleMappingAsync()).ToList();
-        var existingGenres = (await genreRepository.GetAllAsync()).ToDictionary(s => s.Name);
-        var existingGenreCategories = (await genreCategoryRepository.GetAllAsync()).ToDictionary(g => g.Name);
+        var mappedGenres = (await _genreSyncService.ReadStyleMappingAsync()).ToList();
+        var existingGenres = (await _genreRepository.GetAllAsync()).ToDictionary(s => s.Name);
+        var existingGenreCategories = (await _genreCategoryRepository.GetAllAsync()).ToDictionary(g => g.Name);
 
-        logger.LogInformation("{Message}", $"Found {mappedGenres.Count} genre mappings to process");
+        _logger.LogInformation("{Message}", $"Found {mappedGenres.Count} genre mappings to process");
 
         var genresToAdd = new List<Genre>();
         var genresToUpdate = new List<Genre>();
@@ -30,13 +43,13 @@ public class LoadMappingsHandler(
         // Process each style in the mapped configuration
         foreach (var genre in mappedGenres)
         {
-            logger.LogInformation("{Message}", $"Processing genre: '{genre.Name}'");
+            _logger.LogInformation("{Message}", $"Processing genre: '{genre.Name}'");
 
             // Check if the style already exists
             if (!existingGenres.TryGetValue(genre.Name, out var existingStyle))
             {
                 // Create a new style if it doesn't exist
-                logger.LogInformation("{Message}", $"Creating new genre: '{genre.Name}'");
+                _logger.LogInformation("{Message}", $"Creating new genre: '{genre.Name}'");
                 existingStyle = new Genre(genre.Name, genre.RemoveFromSongs);
                 genresToAdd.Add(existingStyle);
             }
@@ -45,7 +58,7 @@ public class LoadMappingsHandler(
                 // Update the existing style if necessary
                 if (existingStyle.RemoveFromSongs != genre.RemoveFromSongs)
                 {
-                    logger.LogInformation("{Message}", $"Updating existing genre: '{genre.Name}'");
+                    _logger.LogInformation("{Message}", $"Updating existing genre: '{genre.Name}'");
                     existingStyle.RemoveFromSongs = genre.RemoveFromSongs;
                     genresToUpdate.Add(existingStyle);
                 }
@@ -72,7 +85,7 @@ public class LoadMappingsHandler(
                 if (!existingGenreCategories.TryGetValue(genreCategory.Name, out var existingGenre))
                 {
                     // Create a new genre if it doesn't exist
-                    logger.LogInformation("{Message}", $"Creating new genre category: '{genreCategory.Name}'");
+                    _logger.LogInformation("{Message}", $"Creating new genre category: '{genreCategory.Name}'");
                     existingGenre = new GenreCategory(genreCategory.Name);
                     genreCategoriesToAdd.Add(existingGenre);
                     // Add to lookup for subsequent iterations
@@ -83,7 +96,7 @@ public class LoadMappingsHandler(
                 if (!existingStyle.GenreCategories.Any(g => g.Name == genreCategory.Name))
                 {
                     existingStyle.GenreCategories.Add(existingGenre);
-                    logger.LogInformation("{Message}", $"Added genre category '{genreCategory.Name}' to style '{genreCategory.Name}'");
+                    _logger.LogInformation("{Message}", $"Added genre category '{genreCategory.Name}' to style '{genreCategory.Name}'");
                 }
             }
         }
@@ -91,22 +104,22 @@ public class LoadMappingsHandler(
         // Perform bulk operations for genres and styles
         if (genreCategoriesToAdd.Any())
         {
-            await genreCategoryRepository.AddRangeAsync(genreCategoriesToAdd);
-            logger.LogInformation("{Message}", $"Added {genreCategoriesToAdd.Count} new genres");
+            await _genreCategoryRepository.AddRangeAsync(genreCategoriesToAdd);
+            _logger.LogInformation("{Message}", $"Added {genreCategoriesToAdd.Count} new genres");
         }
 
         if (genresToAdd.Any())
         {
-            await genreRepository.AddRangeAsync(genresToAdd);
-            logger.LogInformation("{Message}", $"Added {genresToAdd.Count} new styles");
+            await _genreRepository.AddRangeAsync(genresToAdd);
+            _logger.LogInformation("{Message}", $"Added {genresToAdd.Count} new styles");
         }
 
         if (genresToUpdate.Any())
         {
-            await genreRepository.UpdateRangeAsync(genresToUpdate);
-            logger.LogInformation("{Message}", $"Updated {genresToUpdate.Count} styles");
+            await _genreRepository.UpdateRangeAsync(genresToUpdate);
+            _logger.LogInformation("{Message}", $"Updated {genresToUpdate.Count} styles");
         }
 
-        logger.LogInformation("{Message}", "Completed style mappings load");
+        _logger.LogInformation("{Message}", "Completed style mappings load");
     }
 }

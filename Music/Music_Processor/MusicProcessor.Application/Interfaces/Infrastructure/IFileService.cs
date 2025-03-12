@@ -8,4 +8,5 @@ public interface IFileService
     string[] GetAllFoldersInPath(string path);
     string[] GetAllAudioFilesInFolder(string path);
     string? GetSpotDLFile(string playlistPath);
+    string[] GetAllAudioFilesInPlaylist(string playlist);
 }

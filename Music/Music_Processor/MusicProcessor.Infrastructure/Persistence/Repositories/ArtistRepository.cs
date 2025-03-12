@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using MusicProcessor.Application.Interfaces.Infrastructure;
 using MusicProcessor.Domain.Entities;
+using MusicProcessor.Domain.Entities.Artits;
 
 namespace MusicProcessor.Infrastructure.Persistence.Repositories;
 

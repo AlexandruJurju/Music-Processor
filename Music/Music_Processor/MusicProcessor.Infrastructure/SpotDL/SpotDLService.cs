@@ -7,8 +7,15 @@ using MusicProcessor.Domain.Models.SpotDL.Download;
 
 namespace MusicProcessor.Infrastructure.SpotDL;
 
-public class SpotDLService(ILogger<SpotDLService> logger) : ISpotDLService
+public class SpotDLService : ISpotDLService
 {
+    private readonly ILogger<SpotDLService> _logger;
+
+    public SpotDLService(ILogger<SpotDLService> logger)
+    {
+        _logger = logger;
+    }
+
     private const string LookupErrorPrefix = "LookupError: No results found for song:";
     private const string AudioProviderErrorPrefix = "AudioProviderError: YT-DLP download error";
     private const string YoutubeUrlPrefix = "https://music.youtube.com/watch?v=";
@@ -78,18 +85,18 @@ public class SpotDLService(ILogger<SpotDLService> logger) : ISpotDLService
         {
             var songName = data.Substring(LookupErrorPrefix.Length).Trim();
             summary.LookupErrors.Add(songName);
-            logger.LogWarning("{Message}", $"Lookup error: {songName}");
+            _logger.LogWarning("{Message}", $"Lookup error: {songName}");
         }
         else if (data.TrimStart().StartsWith(YoutubeUrlPrefix, StringComparison.Ordinal))
         {
             summary.DownloadErrors.Add(data.Trim());
-            logger.LogWarning("{Message}", $"Download error: {data.Trim()}");
+            _logger.LogWarning("{Message}", $"Download error: {data.Trim()}");
         }
         else if (data.Trim().Contains(GeneratedException, StringComparison.Ordinal))
         {
             var songName = data.Split(GeneratedException)[0];
             summary.DownloadErrors.Add(songName);
-            logger.LogWarning("{Message}", $"Download error: {songName}");
+            _logger.LogWarning("{Message}", $"Download error: {songName}");
         }
     }
 
@@ -153,7 +160,7 @@ public class SpotDLService(ILogger<SpotDLService> logger) : ISpotDLService
 
         if (process.ExitCode != 0)
         {
-            logger.LogError($"spotdl process failed with exit code {process.ExitCode}");
+            _logger.LogError($"spotdl process failed with exit code {process.ExitCode}");
             throw new Exception($"spotdl command failed with exit code {process.ExitCode}");
         }
 

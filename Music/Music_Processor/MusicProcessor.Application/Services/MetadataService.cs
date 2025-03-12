@@ -2,12 +2,23 @@ using ATL;
 using Microsoft.Extensions.Logging;
 using MusicProcessor.Application.Interfaces.Application;
 using MusicProcessor.Domain.Entities;
+using MusicProcessor.Domain.Entities.Albums;
+using MusicProcessor.Domain.Entities.Artits;
+using MusicProcessor.Domain.Entities.Genres;
+using MusicProcessor.Domain.Entities.Songs;
 using Constants = MusicProcessor.Domain.Constants.Constants;
 
 namespace MusicProcessor.Application.Services;
 
-public class MetadataService(ILogger<MetadataService> logger) : IMetadataService
+public class MetadataService : IMetadataService
 {
+    private readonly ILogger<MetadataService> _logger;
+
+    public MetadataService(ILogger<MetadataService> logger)
+    {
+        _logger = logger;
+    }
+
     public void WriteMetadata(Song song)
     {
         try
@@ -15,26 +26,28 @@ public class MetadataService(ILogger<MetadataService> logger) : IMetadataService
             var track = new Track(song.FilePath);
             UpdateMetadata(track, song);
             track.Save();
-            logger.LogInformation("Successfully updated metadata for file: {FilePath}", song.FilePath);
+            _logger.LogDebug("Successfully updated metadata for file: {FilePath}", song.FilePath);
         }
         catch (Exception ex)
         {
-            logger.LogError(ex, "Error updating metadata for file: {FilePath}", song.FilePath);
-            throw;
+            _logger.LogError(ex, "Error updating metadata for file: {FilePath}", song.FilePath);
+            throw new Exception($"Error updating metadata for file {song.FilePath}: {ex.Message}", ex);
         }
     }
 
-    public Song ReadMetadata(string songFile)
+    public Song ReadMetadata(string songPath)
     {
         try
         {
-            var track = new Track(songFile);
-            return ExtractMetadata(track, songFile);
+            var track = new Track(songPath);
+            var metadata = ExtractMetadata(track, songPath);
+            _logger.LogDebug("Successfully read metadata from file: {FilePath}", songPath);
+            return metadata;
         }
         catch (Exception ex)
         {
-            logger.LogError(ex, "Error reading metadata from file: {FilePath}", songFile);
-            throw;
+            _logger.LogError(ex, "Error reading metadata from file: {FilePath}", songPath);
+            throw new Exception($"Error reading metadata from file {songPath}: {ex.Message}", ex);
         }
     }
 
@@ -51,6 +64,8 @@ public class MetadataService(ILogger<MetadataService> logger) : IMetadataService
             Path.GetExtension(songPath).ToLowerInvariant()
         );
 
+        metadata.MainArtist = new Artist(track.Artist);
+
         foreach (var performer in track.Artist.Split('/'))
         {
             var performerName = performer.Trim();
@@ -60,30 +75,29 @@ public class MetadataService(ILogger<MetadataService> logger) : IMetadataService
             }
         }
 
-        foreach (var genreName in ExtractGenres(track))
+        var genres = ExtractGenres(track);
+        foreach (var genreName in genres)
         {
             metadata.Genres.Add(new Genre { Name = genreName });
         }
 
+        _logger.LogDebug("Extracted {Count} genres from file: {FilePath}", genres.Count, songPath);
         return metadata;
     }
 
     private void UpdateMetadata(Track track, Song song)
     {
+        _logger.LogDebug("Updating metadata for file: {FilePath}", song.FilePath);
         track.Title = song.Title;
         track.Album = song.Album?.Name;
         track.Year = song.Year;
         track.Comment = song.Comment;
-
-        track.Artist = string.Join("/", song.Artists.Select(a => a.Name));
-
-        track.Genre = string.Join(";", song.Genres.Select(g => g.Name));
-        
         UpdateAdditionalMetadata(track, song);
     }
 
     private void UpdateAdditionalMetadata(Track track, Song song)
     {
+        _logger.LogDebug("Updating additional metadata for file: {FilePath}", song.FilePath);
         var genreCategories = song.Genres
             .SelectMany(g => g.GenreCategories.Select(c => c.Name))
             .Distinct()
@@ -91,6 +105,7 @@ public class MetadataService(ILogger<MetadataService> logger) : IMetadataService
 
         if (genreCategories.Any())
         {
+            _logger.LogDebug("Setting {Count} genre categories: {GenreCategories}", genreCategories.Length, string.Join(", ", genreCategories));
             track.AdditionalFields[Constants.GENRE_CATEGORY] = string.Join(";", genreCategories);
         }
 
@@ -99,11 +114,20 @@ public class MetadataService(ILogger<MetadataService> logger) : IMetadataService
             .Select(g => g.Name)
             .ToArray();
 
-        track.Genre = string.Join(";", genres);
+        if (genres.Any())
+        {
+            _logger.LogDebug("Setting {Count} genres: {Genres}", genres.Length, string.Join(", ", genres));
+            track.Genre = string.Join(";", genres);
+        }
+        else
+        {
+            _logger.LogDebug("No genres to set for file: {FilePath}", song.FilePath);
+        }
     }
 
     private List<string> ExtractGenres(Track track)
     {
+        _logger.LogDebug("Extracting genres from file");
         var genres = new List<string>();
 
         genres.AddRange(track.Genre

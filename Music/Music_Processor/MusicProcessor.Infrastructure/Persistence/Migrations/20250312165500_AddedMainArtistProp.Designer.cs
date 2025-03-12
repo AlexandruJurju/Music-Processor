@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using MusicProcessor.Infrastructure.Persistence;
 
@@ -10,24 +11,21 @@ using MusicProcessor.Infrastructure.Persistence;
 namespace MusicProcessor.Infrastructure.Persistence.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250312165500_AddedMainArtistProp")]
+    partial class AddedMainArtistProp
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "9.0.1");
 
-            modelBuilder.Entity("MusicProcessor.Domain.Entities.Albums.Album", b =>
+            modelBuilder.Entity("MusicProcessor.Domain.Entities.Album", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER")
                         .HasColumnName("id");
-
-                    b.Property<string>("AlbumType")
-                        .IsRequired()
-                        .HasColumnType("TEXT")
-                        .HasColumnName("album_type");
 
                     b.Property<DateTime>("DateCreated")
                         .HasColumnType("TEXT")
@@ -49,7 +47,7 @@ namespace MusicProcessor.Infrastructure.Persistence.Migrations
                     b.ToTable("albums", (string)null);
                 });
 
-            modelBuilder.Entity("MusicProcessor.Domain.Entities.Artits.Artist", b =>
+            modelBuilder.Entity("MusicProcessor.Domain.Entities.Artist", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -80,38 +78,7 @@ namespace MusicProcessor.Infrastructure.Persistence.Migrations
                     b.ToTable("artists", (string)null);
                 });
 
-            modelBuilder.Entity("MusicProcessor.Domain.Entities.GenreCategories.GenreCategory", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER")
-                        .HasColumnName("id");
-
-                    b.Property<DateTime>("DateCreated")
-                        .HasColumnType("TEXT")
-                        .HasColumnName("date_created");
-
-                    b.Property<DateTime?>("DateModified")
-                        .HasColumnType("TEXT")
-                        .HasColumnName("date_modified");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("TEXT")
-                        .HasColumnName("name");
-
-                    b.HasKey("Id")
-                        .HasName("pk_genre_categories");
-
-                    b.HasIndex("Name")
-                        .IsUnique()
-                        .HasDatabaseName("ix_genre_categories_name");
-
-                    b.ToTable("genre_categories", (string)null);
-                });
-
-            modelBuilder.Entity("MusicProcessor.Domain.Entities.Genres.Genre", b =>
+            modelBuilder.Entity("MusicProcessor.Domain.Entities.Genre", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -148,7 +115,38 @@ namespace MusicProcessor.Infrastructure.Persistence.Migrations
                     b.ToTable("genres", (string)null);
                 });
 
-            modelBuilder.Entity("MusicProcessor.Domain.Entities.Songs.Song", b =>
+            modelBuilder.Entity("MusicProcessor.Domain.Entities.GenreCategory", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER")
+                        .HasColumnName("id");
+
+                    b.Property<DateTime>("DateCreated")
+                        .HasColumnType("TEXT")
+                        .HasColumnName("date_created");
+
+                    b.Property<DateTime?>("DateModified")
+                        .HasColumnType("TEXT")
+                        .HasColumnName("date_modified");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("TEXT")
+                        .HasColumnName("name");
+
+                    b.HasKey("Id")
+                        .HasName("pk_genre_categories");
+
+                    b.HasIndex("Name")
+                        .IsUnique()
+                        .HasDatabaseName("ix_genre_categories_name");
+
+                    b.ToTable("genre_categories", (string)null);
+                });
+
+            modelBuilder.Entity("MusicProcessor.Domain.Entities.Song", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -285,20 +283,20 @@ namespace MusicProcessor.Infrastructure.Persistence.Migrations
                     b.ToTable("song_genres", (string)null);
                 });
 
-            modelBuilder.Entity("MusicProcessor.Domain.Entities.Songs.Song", b =>
+            modelBuilder.Entity("MusicProcessor.Domain.Entities.Song", b =>
                 {
-                    b.HasOne("MusicProcessor.Domain.Entities.Albums.Album", "Album")
+                    b.HasOne("MusicProcessor.Domain.Entities.Album", "Album")
                         .WithMany("Songs")
                         .HasForeignKey("AlbumId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .HasConstraintName("fk_songs_albums_album_id");
 
-                    b.HasOne("MusicProcessor.Domain.Entities.GenreCategories.GenreCategory", null)
+                    b.HasOne("MusicProcessor.Domain.Entities.GenreCategory", null)
                         .WithMany("Songs")
                         .HasForeignKey("GenreCategoryId")
                         .HasConstraintName("fk_songs_genre_categories_genre_category_id");
 
-                    b.HasOne("MusicProcessor.Domain.Entities.Artits.Artist", "MainArtist")
+                    b.HasOne("MusicProcessor.Domain.Entities.Artist", "MainArtist")
                         .WithMany()
                         .HasForeignKey("MainArtistId")
                         .OnDelete(DeleteBehavior.Restrict)
@@ -312,14 +310,14 @@ namespace MusicProcessor.Infrastructure.Persistence.Migrations
 
             modelBuilder.Entity("genre_genre_category", b =>
                 {
-                    b.HasOne("MusicProcessor.Domain.Entities.GenreCategories.GenreCategory", null)
+                    b.HasOne("MusicProcessor.Domain.Entities.GenreCategory", null)
                         .WithMany()
                         .HasForeignKey("GenreCategoriesId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired()
                         .HasConstraintName("fk_genre_genre_category_genre_categories_genre_categories_id");
 
-                    b.HasOne("MusicProcessor.Domain.Entities.Genres.Genre", null)
+                    b.HasOne("MusicProcessor.Domain.Entities.Genre", null)
                         .WithMany()
                         .HasForeignKey("GenresId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -329,14 +327,14 @@ namespace MusicProcessor.Infrastructure.Persistence.Migrations
 
             modelBuilder.Entity("song_artists", b =>
                 {
-                    b.HasOne("MusicProcessor.Domain.Entities.Artits.Artist", null)
+                    b.HasOne("MusicProcessor.Domain.Entities.Artist", null)
                         .WithMany()
                         .HasForeignKey("ArtistsId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired()
                         .HasConstraintName("fk_song_artists_artists_artists_id");
 
-                    b.HasOne("MusicProcessor.Domain.Entities.Songs.Song", null)
+                    b.HasOne("MusicProcessor.Domain.Entities.Song", null)
                         .WithMany()
                         .HasForeignKey("SongsId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -346,14 +344,14 @@ namespace MusicProcessor.Infrastructure.Persistence.Migrations
 
             modelBuilder.Entity("song_genres", b =>
                 {
-                    b.HasOne("MusicProcessor.Domain.Entities.Genres.Genre", null)
+                    b.HasOne("MusicProcessor.Domain.Entities.Genre", null)
                         .WithMany()
                         .HasForeignKey("GenresId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired()
                         .HasConstraintName("fk_song_genres_genres_genres_id");
 
-                    b.HasOne("MusicProcessor.Domain.Entities.Songs.Song", null)
+                    b.HasOne("MusicProcessor.Domain.Entities.Song", null)
                         .WithMany()
                         .HasForeignKey("SongsId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -361,12 +359,12 @@ namespace MusicProcessor.Infrastructure.Persistence.Migrations
                         .HasConstraintName("fk_song_genres_songs_songs_id");
                 });
 
-            modelBuilder.Entity("MusicProcessor.Domain.Entities.Albums.Album", b =>
+            modelBuilder.Entity("MusicProcessor.Domain.Entities.Album", b =>
                 {
                     b.Navigation("Songs");
                 });
 
-            modelBuilder.Entity("MusicProcessor.Domain.Entities.GenreCategories.GenreCategory", b =>
+            modelBuilder.Entity("MusicProcessor.Domain.Entities.GenreCategory", b =>
                 {
                     b.Navigation("Songs");
                 });

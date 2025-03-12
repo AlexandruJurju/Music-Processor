@@ -1,4 +1,5 @@
 using MusicProcessor.Domain.Entities;
+using MusicProcessor.Domain.Entities.Albums;
 
 namespace MusicProcessor.Application.Interfaces.Infrastructure;
 

@@ -2,15 +2,13 @@
 using Microsoft.Extensions.Logging;
 using MusicProcessor.Application.Interfaces.Infrastructure;
 using MusicProcessor.Domain.Entities;
+using MusicProcessor.Domain.Entities.GenreCategories;
+using MusicProcessor.Domain.Entities.Genres;
 using MusicProcessor.Domain.Models.Config;
 
 namespace MusicProcessor.Infrastructure.DataSyncService;
 
-public class GenreSyncService(
-    IFileService fileService,
-    IGenreRepository genreRepository,
-    ILogger<GenreSyncService> logger
-) : IGenreSyncService
+public class GenreSyncService : IGenreSyncService
 {
     private readonly JsonSerializerOptions _jsonOptions = new()
     {
@@ -19,18 +17,31 @@ public class GenreSyncService(
         WriteIndented = true
     };
 
+    private readonly IFileService _fileService;
+    private readonly IGenreRepository _genreRepository;
+    private readonly ILogger<GenreSyncService> _logger;
+
+    public GenreSyncService(IFileService fileService,
+        IGenreRepository genreRepository,
+        ILogger<GenreSyncService> logger)
+    {
+        _fileService = fileService;
+        _genreRepository = genreRepository;
+        _logger = logger;
+    }
+
     public async Task WriteStyleMappingAsync()
     {
-        var jsonPath = Path.Combine(fileService.GetPlaylistsPath(), "genre-mappings.json");
+        var jsonPath = Path.Combine(_fileService.GetPlaylistsPath(), "genre-mappings.json");
 
         if (File.Exists(jsonPath))
         {
             File.Delete(jsonPath);
-            logger.LogInformation("{Message}", $"Deleted existing mapping file at {jsonPath}");
+            _logger.LogInformation("{Message}", $"Deleted existing mapping file at {jsonPath}");
         }
 
-        var genres = await genreRepository.GetAllAsync();
-        logger.LogInformation("{Message}", $"Loaded {genres.Count} genres");
+        var genres = await _genreRepository.GetAllAsync();
+        _logger.LogInformation("{Message}", $"Loaded {genres.Count} genres");
 
         var styleMappings = genres.Select(genre => new GenreMappingDTO(
             genre.Name,
@@ -40,14 +51,14 @@ public class GenreSyncService(
 
         var jsonString = JsonSerializer.Serialize(styleMappings, _jsonOptions);
         await File.WriteAllTextAsync(jsonPath, jsonString);
-        logger.LogInformation("{Message}", $"Written the mapping file to {jsonPath}");
+        _logger.LogInformation("{Message}", $"Written the mapping file to {jsonPath}");
     }
 
     public async Task<IEnumerable<Genre>> ReadStyleMappingAsync()
     {
         try
         {
-            var jsonPath = Path.Combine(fileService.GetPlaylistsPath(), "genre-mappings.json");
+            var jsonPath = Path.Combine(_fileService.GetPlaylistsPath(), "genre-mappings.json");
 
             var genreDTOs = await JsonSerializer.DeserializeAsync<List<GenreMappingDTO>>(File.OpenRead(jsonPath), _jsonOptions);
 
@@ -61,12 +72,12 @@ public class GenreSyncService(
                 });
             }
 
-            logger.LogWarning("{Message}", "Genre mapping file not found");
+            _logger.LogWarning("{Message}", "Genre mapping file not found");
             throw new FileNotFoundException("Genre mapping file not found");
         }
         catch (Exception ex)
         {
-            logger.LogInformation("{Message}", "Error reading genre mapping file");
+            _logger.LogInformation("{Message}", "Error reading genre mapping file");
             throw;
         }
     }

@@ -1,6 +1,7 @@
 ﻿using MusicProcessor.Domain.Common;
+using MusicProcessor.Domain.Entities.Songs;
 
-namespace MusicProcessor.Domain.Entities;
+namespace MusicProcessor.Domain.Entities.Artits;
 
 public sealed class Artist : BaseEntity
 {

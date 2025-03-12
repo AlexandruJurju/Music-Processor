@@ -2,6 +2,8 @@
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using MusicProcessor.Domain.Entities;
+using MusicProcessor.Domain.Entities.GenreCategories;
+using MusicProcessor.Domain.Entities.Genres;
 using MusicProcessor.Infrastructure.Persistence;
 
 namespace MusicProcessor.CLI.Extensions;

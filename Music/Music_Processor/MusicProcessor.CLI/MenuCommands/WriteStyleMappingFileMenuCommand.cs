@@ -7,10 +7,14 @@ using MusicProcessor.Application.UseCases.WriteStyleMappingConfig;
 namespace MusicProcessor.CLI.MenuCommands;
 
 [Command("write-mappings", Description = "Write current style mappings file to json")]
-public class WriteStyleMappingsMenuCommand(IFileService fileService, IMediator mediator) : BaseMenuCommand(fileService, mediator)
+public class WriteStyleMappingsMenuCommand : BaseMenuCommand
 {
+    public WriteStyleMappingsMenuCommand(IFileService fileService, IMediator mediator) : base(fileService, mediator)
+    {
+    }
+
     public override async ValueTask ExecuteAsync(IConsole console)
     {
-        await Mediator.Send(new WriteStyleMappingsCommand());
+        await _mediator.Send(new WriteStyleMappingsCommand());
     }
 }

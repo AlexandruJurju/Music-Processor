@@ -28,22 +28,35 @@ public class FileService : IFileService
         return Directory.GetDirectories(path);
     }
 
+    public string[] GetAllAudioFilesInPlaylist(string playlist)
+    {
+        if (string.IsNullOrWhiteSpace(playlist))
+            throw new ArgumentException("The playlist cannot be null or empty.", nameof(playlist));
+
+        var files = Directory.EnumerateFiles(
+            Path.Combine(DirectoryPaths.PlaylistsDirectory, playlist),
+            "*.*",
+            SearchOption.AllDirectories);
+
+        return files.Where(file => Constants.AudioFileFormats.Contains(Path.GetExtension(file).ToLower())).ToArray();
+    }
+
     public string[] GetAllAudioFilesInFolder(string path)
     {
-        if (string.IsNullOrWhiteSpace(path)) throw new ArgumentException("The path cannot be null or empty.", nameof(path));
+        if (string.IsNullOrWhiteSpace(path))
+            throw new ArgumentException("The path cannot be null or empty.", nameof(path));
 
-        string[] audioFileFormats = Constants.AudioFileFormats;
+        var files = Directory.EnumerateFiles(path, "*.*", SearchOption.AllDirectories);
 
-        string[] files = Directory.GetFiles(path, "*.*", SearchOption.AllDirectories);
-
-        return files.Where(file => audioFileFormats.Contains(Path.GetExtension(file).ToLower())).ToArray();
+        return files.Where(file => Constants.AudioFileFormats.Contains(Path.GetExtension(file).ToLower())).ToArray();
     }
 
     public string? GetSpotDLFile(string playlistPath)
     {
         var playlistName = Path.GetFileNameWithoutExtension(playlistPath);
 
-        if (string.IsNullOrWhiteSpace(playlistPath)) throw new ArgumentException("The path cannot be null or empty.", nameof(playlistName));
+        if (string.IsNullOrWhiteSpace(playlistPath))
+            throw new ArgumentException("The path cannot be null or empty.", nameof(playlistName));
 
         var spotdlFile = Directory.GetFiles(DirectoryPaths.PlaylistsDirectory, "*.spotdl", SearchOption.TopDirectoryOnly)
             .FirstOrDefault(f => Path.GetFileNameWithoutExtension(f).Equals(playlistName, StringComparison.OrdinalIgnoreCase));

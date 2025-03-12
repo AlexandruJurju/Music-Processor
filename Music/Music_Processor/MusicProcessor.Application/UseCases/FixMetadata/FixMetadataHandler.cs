@@ -2,24 +2,37 @@
 using Microsoft.Extensions.Logging;
 using MusicProcessor.Application.Interfaces.Infrastructure;
 using MusicProcessor.Domain.Entities;
+using MusicProcessor.Domain.Entities.Genres;
+using MusicProcessor.Domain.Entities.Songs;
 
 namespace MusicProcessor.Application.UseCases.FixMetadata;
 
-public sealed class FixMetadataHandler(
-    IGenreRepository genreRepository,
-    IGenreCategoryRepository genreCategoryRepository,
-    ISongRepository songRepository,
-    ILogger<FixMetadataHandler> logger)
-    : IRequestHandler<FixMetadataCommand>
+public sealed class FixMetadataHandler : IRequestHandler<FixMetadataCommand>
 {
+    private readonly IGenreRepository _genreRepository;
+    private readonly IGenreCategoryRepository _genreCategoryRepository;
+    private readonly ISongRepository _songRepository;
+    private readonly ILogger<FixMetadataHandler> _logger;
+
+    public FixMetadataHandler(IGenreRepository genreRepository,
+        IGenreCategoryRepository genreCategoryRepository,
+        ISongRepository songRepository,
+        ILogger<FixMetadataHandler> logger)
+    {
+        _genreRepository = genreRepository;
+        _genreCategoryRepository = genreCategoryRepository;
+        _songRepository = songRepository;
+        _logger = logger;
+    }
+
     public async Task Handle(FixMetadataCommand request, CancellationToken cancellationToken)
     {
         // Fetch all data upfront
-        var songs = (await songRepository.GetAllAsync()).ToList();
-        var existingGenres = (await genreCategoryRepository.GetAllAsync()).ToDictionary(g => g.Name, g => g, StringComparer.OrdinalIgnoreCase);
-        var existingStyles = (await genreRepository.GetAllAsync()).ToDictionary(s => s.Name, s => s, StringComparer.OrdinalIgnoreCase);
+        var songs = (await _songRepository.GetAllAsync()).ToList();
+        var existingGenres = (await _genreCategoryRepository.GetAllAsync()).ToDictionary(g => g.Name, g => g, StringComparer.OrdinalIgnoreCase);
+        var existingStyles = (await _genreRepository.GetAllAsync()).ToDictionary(s => s.Name, s => s, StringComparer.OrdinalIgnoreCase);
 
-        logger.LogInformation("Processing {SongCount} songs...", songs.Count);
+        _logger.LogInformation("Processing {SongCount} songs...", songs.Count);
 
         var modifiedSongs = new List<Song>();
 
@@ -32,7 +45,7 @@ public sealed class FixMetadataHandler(
             {
                 if (!existingStyles.TryGetValue(style.Name, out var existingStyle))
                 {
-                    logger.LogWarning("Genre not found in repository: {genreName}", style.Name);
+                    _logger.LogWarning("Genre not found in repository: {genreName}", style.Name);
                     continue;
                 }
 
@@ -40,7 +53,7 @@ public sealed class FixMetadataHandler(
                 if (existingStyle.RemoveFromSongs || existingGenres.ContainsKey(existingStyle.Name))
                 {
                     stylesToRemove.Add(style);
-                    logger.LogInformation("Marking style for removal: {genreName} ({Reason})", style.Name, existingStyle.RemoveFromSongs ? "flagged for removal" : "matches genre name");
+                    _logger.LogInformation("Marking style for removal: {genreName} ({Reason})", style.Name, existingStyle.RemoveFromSongs ? "flagged for removal" : "matches genre name");
                 }
             }
 
@@ -51,23 +64,23 @@ public sealed class FixMetadataHandler(
                 foreach (var style in stylesToRemove) song.Genres.Remove(style);
 
                 modifiedSongs.Add(song);
-                logger.LogInformation("Song modified: {SongTitle}", song.Title);
+                _logger.LogInformation("Song modified: {SongTitle}", song.Title);
             }
             else
             {
-                logger.LogInformation("No modifications needed for song: {SongTitle}", song.Title);
+                _logger.LogInformation("No modifications needed for song: {SongTitle}", song.Title);
             }
         }
 
         // Perform bulk updates for modified songs
         if (modifiedSongs.Count > 0)
         {
-            await songRepository.UpdateRangeAsync(modifiedSongs);
-            logger.LogInformation("Updated {ModifiedSongCount} songs.", modifiedSongs.Count);
+            await _songRepository.UpdateRangeAsync(modifiedSongs);
+            _logger.LogInformation("Updated {ModifiedSongCount} songs.", modifiedSongs.Count);
         }
         else
         {
-            logger.LogInformation("No songs were modified.");
+            _logger.LogInformation("No songs were modified.");
         }
     }
 }

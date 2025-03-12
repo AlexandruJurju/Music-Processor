@@ -1,11 +1,19 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using MusicProcessor.Application.Interfaces.Infrastructure;
 using MusicProcessor.Domain.Entities;
+using MusicProcessor.Domain.Entities.Songs;
 
 namespace MusicProcessor.Infrastructure.Persistence.Repositories;
 
-public class SongRepository(ApplicationDbContext context) : ISongRepository
+public class SongRepository : ISongRepository
 {
+    private readonly ApplicationDbContext _context;
+
+    public SongRepository(ApplicationDbContext context)
+    {
+        _context = context;
+    }
+
     public async Task<ICollection<Song>> GetAllAsync()
     {
         return await GetAll().ToListAsync();
@@ -13,14 +21,16 @@ public class SongRepository(ApplicationDbContext context) : ISongRepository
 
     public async Task<IEnumerable<string>> GetSongTitlesAsync()
     {
-        return await context.Songs.Select(s => s.Title).ToListAsync();
+        return await _context.Songs.Select(s => s.Title).ToListAsync();
     }
 
     public IQueryable<Song> GetAll()
     {
-        return context.Songs
+        return _context.Songs
             .Include(s => s.Genres)
-            .Include(s => s.Artists);
+            .ThenInclude(s => s.GenreCategories)
+            .Include(s => s.Artists)
+            .AsSplitQuery();
     }
 
     public async Task<Song?> GetByIdAsync(int id)
@@ -30,29 +40,29 @@ public class SongRepository(ApplicationDbContext context) : ISongRepository
 
     public async Task UpdateAsync(Song song)
     {
-        context.Songs.Update(song);
-        await context.SaveChangesAsync();
+        _context.Songs.Update(song);
+        await _context.SaveChangesAsync();
     }
 
     public async Task DeleteAsync(int id)
     {
-        var song = await context.Songs.FindAsync(id);
+        var song = await _context.Songs.FindAsync(id);
         if (song != null)
         {
-            context.Songs.Remove(song);
-            await context.SaveChangesAsync();
+            _context.Songs.Remove(song);
+            await _context.SaveChangesAsync();
         }
     }
 
     public async Task AddRangeAsync(List<Song> songsList)
     {
-        context.Songs.AddRange(songsList);
-        await context.SaveChangesAsync();
+        _context.Songs.AddRange(songsList);
+        await _context.SaveChangesAsync();
     }
 
     public async Task UpdateRangeAsync(List<Song> modifiedSongs)
     {
-        context.Songs.UpdateRange(modifiedSongs);
-        await context.SaveChangesAsync();
+        _context.Songs.UpdateRange(modifiedSongs);
+        await _context.SaveChangesAsync();
     }
 }

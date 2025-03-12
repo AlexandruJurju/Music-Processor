@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using MusicProcessor.Domain.Entities;
+using MusicProcessor.Domain.Entities.Songs;
 
 namespace MusicProcessor.Infrastructure.Persistence.Configurations;
 
@@ -27,6 +28,12 @@ public class SongConfiguration : IEntityTypeConfiguration<Song>
             .HasConversion(
                 v => v.TotalSeconds,
                 v => TimeSpan.FromSeconds(v));
+
+        // Main artist one to many
+        builder.HasOne(e => e.MainArtist)
+            .WithMany()
+            .HasForeignKey(e => e.MainArtistId)
+            .OnDelete(DeleteBehavior.Restrict);
 
         builder.HasOne(e => e.Album)
             .WithMany(a => a.Songs)

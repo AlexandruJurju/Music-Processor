@@ -1,3 +1,0 @@
-﻿dotnet ef migrations add RenamedStyleToGenre2 --project .\MusicProcessor.Infrastructure\MusicProcessor.Infrastructure.csproj --startup-project .\MusicProcessor.CLI\MusicProcessor.CLI.csproj --output-dir Persistence/Migrations
-
-dotnet ef database update --project .\MusicProcessor.Infrastructure\MusicProcessor.Infrastructure.csproj --startup-project .\MusicProcessor.CLI\MusicProcessor.CLI.csproj

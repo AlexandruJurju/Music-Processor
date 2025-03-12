@@ -1,7 +1,10 @@
 using MusicProcessor.Domain.Common;
 using MusicProcessor.Domain.Constants;
+using MusicProcessor.Domain.Entities.Albums;
+using MusicProcessor.Domain.Entities.Artits;
+using MusicProcessor.Domain.Entities.Genres;
 
-namespace MusicProcessor.Domain.Entities;
+namespace MusicProcessor.Domain.Entities.Songs;
 
 public sealed class Song : BaseEntity
 {
@@ -40,7 +43,8 @@ public sealed class Song : BaseEntity
 
     public int? AlbumId { get; set; }
     public Album? Album { get; set; }
-
+    public Artist MainArtist { get; set; }
+    public int MainArtistId { get; set; }
     public ICollection<Artist> Artists { get; set; } = new List<Artist>();
     public ICollection<Genre> Genres { get; set; } = new List<Genre>();
 

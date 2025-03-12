@@ -3,12 +3,17 @@ using MusicProcessor.Application.Interfaces.Infrastructure;
 
 namespace MusicProcessor.Application.UseCases.WriteStyleMappingConfig;
 
-internal sealed class WriteStyleMappingConfigHandler(
-    IGenreSyncService genreSyncService)
-    : IRequestHandler<WriteStyleMappingsCommand>
+internal sealed class WriteStyleMappingConfigHandler : IRequestHandler<WriteStyleMappingsCommand>
 {
+    private readonly IGenreSyncService _genreSyncService;
+
+    public WriteStyleMappingConfigHandler(IGenreSyncService genreSyncService)
+    {
+        _genreSyncService = genreSyncService;
+    }
+
     public async Task Handle(WriteStyleMappingsCommand request, CancellationToken cancellationToken)
     {
-        await genreSyncService.WriteStyleMappingAsync();
+        await _genreSyncService.WriteStyleMappingAsync();
     }
 }
