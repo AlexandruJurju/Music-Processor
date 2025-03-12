@@ -1,7 +1,6 @@
 ﻿using MediatR;
 using Microsoft.Extensions.Logging;
 using MusicProcessor.Application.Interfaces.Infrastructure;
-using MusicProcessor.Domain.Entities;
 using MusicProcessor.Domain.Entities.Genres;
 using MusicProcessor.Domain.Entities.Songs;
 
@@ -9,10 +8,10 @@ namespace MusicProcessor.Application.UseCases.FixMetadata;
 
 public sealed class FixMetadataHandler : IRequestHandler<FixMetadataCommand>
 {
-    private readonly IGenreRepository _genreRepository;
     private readonly IGenreCategoryRepository _genreCategoryRepository;
-    private readonly ISongRepository _songRepository;
+    private readonly IGenreRepository _genreRepository;
     private readonly ILogger<FixMetadataHandler> _logger;
+    private readonly ISongRepository _songRepository;
 
     public FixMetadataHandler(IGenreRepository genreRepository,
         IGenreCategoryRepository genreCategoryRepository,
@@ -64,11 +63,11 @@ public sealed class FixMetadataHandler : IRequestHandler<FixMetadataCommand>
                 foreach (var style in stylesToRemove) song.Genres.Remove(style);
 
                 modifiedSongs.Add(song);
-                _logger.LogInformation("Song modified: {SongTitle}", song.Title);
+                _logger.LogInformation("Song modified: {SongTitle}", song.Name);
             }
             else
             {
-                _logger.LogInformation("No modifications needed for song: {SongTitle}", song.Title);
+                _logger.LogInformation("No modifications needed for song: {SongTitle}", song.Name);
             }
         }
 

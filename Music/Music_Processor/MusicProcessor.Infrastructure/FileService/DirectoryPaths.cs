@@ -4,4 +4,5 @@ public static class DirectoryPaths
 {
     public static string BaseDirectory => Environment.CurrentDirectory;
     public static string PlaylistsDirectory => Path.Combine(BaseDirectory, "Playlists");
+    public static string MusicFolderDirectory => @"X:\Music";
 }

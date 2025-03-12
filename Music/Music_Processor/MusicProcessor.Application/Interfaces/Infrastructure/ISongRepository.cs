@@ -1,5 +1,4 @@
-﻿using MusicProcessor.Domain.Entities;
-using MusicProcessor.Domain.Entities.Songs;
+﻿using MusicProcessor.Domain.Entities.Songs;
 
 namespace MusicProcessor.Application.Interfaces.Infrastructure;
 
@@ -12,5 +11,6 @@ public interface ISongRepository
     Task UpdateAsync(Song song);
     Task DeleteAsync(int id);
     Task AddRangeAsync(List<Song> songsList);
+    Task AddAsync(Song song);
     Task UpdateRangeAsync(List<Song> modifiedSongs);
 }

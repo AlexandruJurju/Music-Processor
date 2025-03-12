@@ -1,10 +1,18 @@
-﻿using MusicProcessor.Application.Interfaces.Infrastructure;
+﻿using Microsoft.Extensions.Options;
+using MusicProcessor.Application.Interfaces.Infrastructure;
 using MusicProcessor.Domain.Constants;
 
 namespace MusicProcessor.Infrastructure.FileService;
 
-public class FileService : IFileService
+public class PhysicalFileService : IFileService
 {
+    private readonly PathsOptions _pathsOptions;
+
+    public PhysicalFileService(IOptions<PathsOptions> pathsOptions)
+    {
+        _pathsOptions = pathsOptions.Value;
+    }
+
     public string GetPlaylistsPath()
     {
         return DirectoryPaths.PlaylistsDirectory;
@@ -40,6 +48,33 @@ public class FileService : IFileService
 
         return files.Where(file => Constants.AudioFileFormats.Contains(Path.GetExtension(file).ToLower())).ToArray();
     }
+
+    public IEnumerable<string> GetAllAudioFilesInPath(string playlist)
+    {
+        if (string.IsNullOrWhiteSpace(playlist))
+            throw new ArgumentException("The playlist cannot be null or empty.", nameof(playlist));
+
+        string playlistPath = Path.Combine(DirectoryPaths.PlaylistsDirectory, playlist);
+
+        if (!Directory.Exists(playlistPath))
+            throw new DirectoryNotFoundException($"The playlist directory '{playlistPath}' does not exist.");
+
+        return GetAudioFiles(playlistPath);
+    }
+
+    private static IEnumerable<string> GetAudioFiles(string path)
+    {
+        try
+        {
+            return Directory.EnumerateFiles(path, "*.*", SearchOption.AllDirectories)
+                .Where(file => Constants.AudioFileFormats.Contains(Path.GetExtension(file).ToLowerInvariant()));
+        }
+        catch (Exception ex)
+        {
+            throw new IOException($"Failed to retrieve audio files from '{path}'.", ex);
+        }
+    }
+
 
     public string[] GetAllAudioFilesInFolder(string path)
     {

@@ -1,6 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using MusicProcessor.Domain.Common;
-using MusicProcessor.Domain.Entities;
 using MusicProcessor.Domain.Entities.Albums;
 using MusicProcessor.Domain.Entities.Artits;
 using MusicProcessor.Domain.Entities.GenreCategories;

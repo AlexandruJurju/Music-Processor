@@ -9,17 +9,13 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <ProjectReference Include="..\MusicProcessor.Application\MusicProcessor.Application.csproj"/>
-        <ProjectReference Include="..\MusicProcessor.Infrastructure\MusicProcessor.Infrastructure.csproj"/>
-    </ItemGroup>
-
-    <ItemGroup>
         <PackageReference Include="CliFx" Version="2.3.5"/>
         <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="9.0.1">
             <PrivateAssets>all</PrivateAssets>
             <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
         </PackageReference>
         <PackageReference Include="Microsoft.Extensions.Hosting" Version="9.0.0"/>
+        <PackageReference Include="Microsoft.Extensions.Options" Version="9.0.3" />
         <PackageReference Include="Serilog.Sinks.File" Version="6.0.0"/>
     </ItemGroup>
 
@@ -33,6 +29,15 @@
         <None Update="music.sqlite">
             <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
         </None>
+        <None Update="appsettings.json">
+          <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </None>
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\MusicProcessor.Application\MusicProcessor.Application.csproj" />
+      <ProjectReference Include="..\MusicProcessor.Domain\MusicProcessor.Domain.csproj" />
+      <ProjectReference Include="..\MusicProcessor.Infrastructure\MusicProcessor.Infrastructure.csproj" />
     </ItemGroup>
 
 </Project>

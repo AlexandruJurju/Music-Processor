@@ -1,6 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using MusicProcessor.Application.Interfaces.Infrastructure;
-using MusicProcessor.Domain.Entities;
 using MusicProcessor.Domain.Entities.Songs;
 
 namespace MusicProcessor.Infrastructure.Persistence.Repositories;
@@ -21,7 +20,7 @@ public class SongRepository : ISongRepository
 
     public async Task<IEnumerable<string>> GetSongTitlesAsync()
     {
-        return await _context.Songs.Select(s => s.Title).ToListAsync();
+        return await _context.Songs.Select(s => s.Name).ToListAsync();
     }
 
     public IQueryable<Song> GetAll()
@@ -56,7 +55,13 @@ public class SongRepository : ISongRepository
 
     public async Task AddRangeAsync(List<Song> songsList)
     {
-        _context.Songs.AddRange(songsList);
+        await _context.Songs.AddRangeAsync(songsList);
+        await _context.SaveChangesAsync();
+    }
+
+    public async Task AddAsync(Song song)
+    {
+        await _context.Songs.AddAsync(song);
         await _context.SaveChangesAsync();
     }
 

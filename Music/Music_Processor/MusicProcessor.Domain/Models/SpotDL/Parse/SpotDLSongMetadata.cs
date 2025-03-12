@@ -1,3 +1,8 @@
+using MusicProcessor.Domain.Entities.Albums;
+using MusicProcessor.Domain.Entities.Artits;
+using MusicProcessor.Domain.Entities.Genres;
+using MusicProcessor.Domain.Entities.Songs;
+
 namespace MusicProcessor.Domain.Models.SpotDL.Parse;
 
 public sealed class SpotDLSongMetadata
@@ -32,4 +37,38 @@ public sealed class SpotDLSongMetadata
     public int ListLength { get; set; }
     public string ArtistId { get; set; } = string.Empty;
     public string AlbumType { get; set; } = string.Empty;
+
+    public Song ToSong()
+    {
+        var artists = Artists.Select(x => new Artist(x)).ToList();
+
+        var genres = Genres.Select(x => new Genre(x)).ToList();
+
+        DateOnly.TryParse(Date, out var date);
+
+        var spotifyInfo = new SpotifyInfo(
+            SongId,
+            Url,
+            CoverUrl,
+            AlbumId,
+            ArtistId
+        );
+
+        return new Song(
+            Name,
+            ISRC,
+            artists,
+            new Artist(Artist),
+            genres,
+            DiscNumber,
+            DiscCount,
+            new Album(AlbumName, new Artist(AlbumArtist)),
+            Duration,
+            int.Parse(Year),
+            date,
+            TrackNumber,
+            TracksCount,
+            spotifyInfo
+        );
+    }
 }

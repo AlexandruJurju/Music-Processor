@@ -1,7 +1,6 @@
 using ATL;
 using Microsoft.Extensions.Logging;
 using MusicProcessor.Application.Interfaces.Application;
-using MusicProcessor.Domain.Entities;
 using MusicProcessor.Domain.Entities.Albums;
 using MusicProcessor.Domain.Entities.Artits;
 using MusicProcessor.Domain.Entities.Genres;
@@ -51,64 +50,24 @@ public class MetadataService : IMetadataService
         }
     }
 
-    private Song ExtractMetadata(Track track, string songPath)
-    {
-        var metadata = new Song(
-            songPath,
-            track.Title ?? Path.GetFileNameWithoutExtension(songPath),
-            track.Album != null ? new Album(track.Album) : null,
-            track.Year,
-            track.Comment,
-            track.TrackNumber ?? 0,
-            TimeSpan.FromMilliseconds(track.DurationMs),
-            Path.GetExtension(songPath).ToLowerInvariant()
-        );
-
-        metadata.MainArtist = new Artist(track.Artist);
-
-        foreach (var performer in track.Artist.Split('/'))
-        {
-            var performerName = performer.Trim();
-            if (!string.IsNullOrWhiteSpace(performerName))
-            {
-                metadata.Artists.Add(new Artist { Name = performerName });
-            }
-        }
-
-        var genres = ExtractGenres(track);
-        foreach (var genreName in genres)
-        {
-            metadata.Genres.Add(new Genre { Name = genreName });
-        }
-
-        _logger.LogDebug("Extracted {Count} genres from file: {FilePath}", genres.Count, songPath);
-        return metadata;
-    }
-
     private void UpdateMetadata(Track track, Song song)
     {
         _logger.LogDebug("Updating metadata for file: {FilePath}", song.FilePath);
-        track.Title = song.Title;
+        track.Title = song.Name;
         track.Album = song.Album?.Name;
         track.Year = song.Year;
-        track.Comment = song.Comment;
         UpdateAdditionalMetadata(track, song);
     }
 
     private void UpdateAdditionalMetadata(Track track, Song song)
     {
-        _logger.LogDebug("Updating additional metadata for file: {FilePath}", song.FilePath);
-        var genreCategories = song.Genres
-            .SelectMany(g => g.GenreCategories.Select(c => c.Name))
-            .Distinct()
-            .ToArray();
+        WriteGenreCategories(track, song);
 
-        if (genreCategories.Any())
-        {
-            _logger.LogDebug("Setting {Count} genre categories: {GenreCategories}", genreCategories.Length, string.Join(", ", genreCategories));
-            track.AdditionalFields[Constants.GENRE_CATEGORY] = string.Join(";", genreCategories);
-        }
+        WriteGenres(track, song);
+    }
 
+    private void WriteGenres(Track track, Song song)
+    {
         var genres = song.Genres
             .Where(g => !g.RemoveFromSongs)
             .Select(g => g.Name)
@@ -125,9 +84,54 @@ public class MetadataService : IMetadataService
         }
     }
 
+    private void WriteGenreCategories(Track track, Song song)
+    {
+        _logger.LogDebug("Updating additional metadata for file: {FilePath}", song.FilePath);
+        var genreCategories = song.Genres
+            .SelectMany(g => g.GenreCategories.Select(c => c.Name))
+            .Distinct()
+            .ToArray();
+
+        if (genreCategories.Any())
+        {
+            _logger.LogDebug("Setting {Count} genre categories: {GenreCategories}", genreCategories.Length, string.Join(", ", genreCategories));
+            track.AdditionalFields[Constants.GENRE_CATEGORY] = string.Join(";", genreCategories);
+        }
+    }
+
+    private Song ExtractMetadata(Track track, string songPath)
+    {
+        var genres = ExtractGenres(track).Select(genreName => new Genre { Name = genreName }).ToList();
+
+        // Log genres extracted
+        _logger.LogDebug("Extracted {Count} genres from file: {FilePath}", genres.Count, songPath);
+
+        var metadata = new Song(
+            track.Title,
+            track.ISRC,
+            ExtractArtists(track),
+            new Artist(track.Artist),
+            genres,
+            track.DiscNumber ?? 0,
+            track.DiscTotal ?? 0,
+            track.Album != null ? new Album(track.Album, new Artist(track.AlbumArtist)) : null,
+            track.Duration,
+            track.Year ?? 0,
+            track.OriginalReleaseDate != null ? DateOnly.FromDateTime(track.OriginalReleaseDate.Value) : null,
+            track.TrackNumber ?? 0,
+            track.TrackTotal ?? 0
+        )
+        {
+            FilePath = songPath,
+            FileType = Path.GetExtension(songPath).ToLowerInvariant()
+        };
+
+        return metadata;
+    }
+
     private List<string> ExtractGenres(Track track)
     {
-        _logger.LogDebug("Extracting genres from file");
+        _logger.LogDebug("Extracting genres from track");
         var genres = new List<string>();
 
         genres.AddRange(track.Genre
@@ -136,5 +140,14 @@ public class MetadataService : IMetadataService
             .Where(g => !string.IsNullOrWhiteSpace(g)));
 
         return genres.Distinct().ToList();
+    }
+
+    private ICollection<Artist> ExtractArtists(Track track)
+    {
+        _logger.LogDebug("Extracting artists from track");
+
+        var artists = new List<Artist>();
+
+        return artists;
     }
 }

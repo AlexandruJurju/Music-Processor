@@ -1,7 +1,9 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using MusicProcessor.Application.Interfaces.Infrastructure;
 using MusicProcessor.Infrastructure.DataSyncService;
+using MusicProcessor.Infrastructure.FileService;
 using MusicProcessor.Infrastructure.Persistence;
 using MusicProcessor.Infrastructure.Persistence.Repositories;
 using MusicProcessor.Infrastructure.SpotDL;
@@ -10,8 +12,10 @@ namespace MusicProcessor.Infrastructure;
 
 public static class DependencyInjection
 {
-    public static IServiceCollection RegisterInfrastructure(this IServiceCollection services)
+    public static IServiceCollection RegisterInfrastructure(this IServiceCollection services, IConfiguration configuration)
     {
+        services.Configure<PathsOptions>(configuration.GetSection("PathsSettings"));
+
         AddExternalFileServices(services);
         AddDb(services);
         AddRepositories(services);
@@ -22,7 +26,7 @@ public static class DependencyInjection
     private static void AddExternalFileServices(IServiceCollection services)
     {
         services.AddTransient<ISpotDLService, SpotDLService>();
-        services.AddTransient<IFileService, FileService.FileService>();
+        services.AddTransient<IFileService, PhysicalFileService>();
         services.AddTransient<ISpotDLMetadataLoader, SpotDLMetadataLoader>();
         services.AddTransient<IGenreSyncService, GenreSyncService>();
     }

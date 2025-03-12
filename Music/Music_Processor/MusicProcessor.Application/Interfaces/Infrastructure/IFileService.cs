@@ -9,4 +9,5 @@ public interface IFileService
     string[] GetAllAudioFilesInFolder(string path);
     string? GetSpotDLFile(string playlistPath);
     string[] GetAllAudioFilesInPlaylist(string playlist);
+    IEnumerable<string> GetAllAudioFilesInPath(string playlist);
 }

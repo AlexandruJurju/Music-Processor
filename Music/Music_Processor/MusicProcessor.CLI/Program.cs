@@ -10,7 +10,7 @@ var builder = Host.CreateApplicationBuilder(args);
 builder.ConfigureLogging();
 builder.Services
     .RegisterApplication()
-    .RegisterInfrastructure()
+    .RegisterInfrastructure(builder.Configuration)
     .RegisterCLI();
 
 var host = builder.Build();

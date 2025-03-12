@@ -9,17 +9,16 @@ namespace MusicProcessor.Infrastructure.SpotDL;
 
 public class SpotDLService : ISpotDLService
 {
+    private const string LookupErrorPrefix = "LookupError: No results found for song:";
+    private const string AudioProviderErrorPrefix = "AudioProviderError: YT-DLP download error";
+    private const string YoutubeUrlPrefix = "https://music.youtube.com/watch?v=";
+    private const string GeneratedException = "generated";
     private readonly ILogger<SpotDLService> _logger;
 
     public SpotDLService(ILogger<SpotDLService> logger)
     {
         _logger = logger;
     }
-
-    private const string LookupErrorPrefix = "LookupError: No results found for song:";
-    private const string AudioProviderErrorPrefix = "AudioProviderError: YT-DLP download error";
-    private const string YoutubeUrlPrefix = "https://music.youtube.com/watch?v=";
-    private const string GeneratedException = "generated";
 
     public async IAsyncEnumerable<ProcessOutput> NewSyncAsync(string playlistUrl, string playlistDirPath)
     {
@@ -85,18 +84,18 @@ public class SpotDLService : ISpotDLService
         {
             var songName = data.Substring(LookupErrorPrefix.Length).Trim();
             summary.LookupErrors.Add(songName);
-            _logger.LogWarning("{Message}", $"Lookup error: {songName}");
+            _logger.LogWarning($"Lookup error: {songName}");
         }
         else if (data.TrimStart().StartsWith(YoutubeUrlPrefix, StringComparison.Ordinal))
         {
             summary.DownloadErrors.Add(data.Trim());
-            _logger.LogWarning("{Message}", $"Download error: {data.Trim()}");
+            _logger.LogWarning($"Download error: {data.Trim()}");
         }
         else if (data.Trim().Contains(GeneratedException, StringComparison.Ordinal))
         {
             var songName = data.Split(GeneratedException)[0];
             summary.DownloadErrors.Add(songName);
-            _logger.LogWarning("{Message}", $"Download error: {songName}");
+            _logger.LogWarning($"Download error: {songName}");
         }
     }
 
@@ -171,7 +170,7 @@ public class SpotDLService : ISpotDLService
             $"Total Missing: {summary.TotalMissingSongs}",
             OutputType.Error
         );
-        
+
         yield return processOutput;
     }
 }

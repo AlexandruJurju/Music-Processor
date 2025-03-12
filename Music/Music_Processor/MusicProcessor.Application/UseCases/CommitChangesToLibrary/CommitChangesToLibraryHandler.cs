@@ -7,9 +7,9 @@ namespace MusicProcessor.Application.UseCases.CommitChangesToLibrary;
 
 public sealed class CommitChangesToLibraryHandler : IRequestHandler<CommitChangesToLibraryCommand>
 {
-    private readonly ISongRepository _songRepository;
-    private readonly IMetadataService _metadataService;
     private readonly ILogger<CommitChangesToLibraryHandler> _logger;
+    private readonly IMetadataService _metadataService;
+    private readonly ISongRepository _songRepository;
 
     public CommitChangesToLibraryHandler(ISongRepository songRepository,
         IMetadataService metadataService,

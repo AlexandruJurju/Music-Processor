@@ -8,45 +8,61 @@ namespace MusicProcessor.Domain.Entities.Songs;
 
 public sealed class Song : BaseEntity
 {
-    public Song()
+    private Song()
     {
     }
 
     public Song(
-        string filePath,
-        string title,
+        string name,
+        string isrc,
+        ICollection<Artist> artists,
+        Artist mainArtist,
+        ICollection<Genre> genres,
+        int discNumber,
+        int discCount,
         Album? album,
-        int? year,
-        string comment,
+        int duration,
+        int year,
+        DateOnly? date,
         int trackNumber,
-        TimeSpan duration,
-        string fileType)
+        int tracksCount,
+        SpotifyInfo? spotifyInfo = null
+    )
     {
-        FilePath = filePath;
-        Title = title;
+        Name = name;
+        ISRC = isrc;
+        Artists = artists;
+        MainArtist = mainArtist;
+        Genres = genres;
+        DiscNumber = discNumber;
+        DiscCount = discCount;
         Album = album;
-        AlbumId = album?.Id;
-        Year = year;
-        Comment = comment;
-        TrackNumber = trackNumber;
         Duration = duration;
-        FileType = ValidateFileType(fileType);
+        Year = year;
+        Date = date;
+        TrackNumber = trackNumber;
+        TracksCount = tracksCount;
+        SpotifyInfo = spotifyInfo;
     }
 
-    public string Title { get; set; } = string.Empty;
+    public string Name { get; set; }
+    public string ISRC { get; set; }
     public int? Year { get; set; }
-    public string Comment { get; set; } = string.Empty;
+    public DateOnly? Date { get; set; }
     public int TrackNumber { get; set; }
-    public TimeSpan Duration { get; set; }
-    public string FileType { get; set; } = string.Empty;
-    public string FilePath { get; set; } = string.Empty;
-
+    public int TracksCount { get; set; }
+    public int DiscNumber { get; set; }
+    public int DiscCount { get; set; }
+    public int Duration { get; set; }
     public int? AlbumId { get; set; }
     public Album? Album { get; set; }
     public Artist MainArtist { get; set; }
     public int MainArtistId { get; set; }
-    public ICollection<Artist> Artists { get; set; } = new List<Artist>();
-    public ICollection<Genre> Genres { get; set; } = new List<Genre>();
+    public ICollection<Artist> Artists { get; init; } = new List<Artist>();
+    public ICollection<Genre> Genres { get; init; } = new List<Genre>();
+    public SpotifyInfo? SpotifyInfo { get; init; }
+    public string FileType { get; set; } = string.Empty;
+    public string FilePath { get; set; } = string.Empty;
 
     private string ValidateFileType(string fileType)
     {

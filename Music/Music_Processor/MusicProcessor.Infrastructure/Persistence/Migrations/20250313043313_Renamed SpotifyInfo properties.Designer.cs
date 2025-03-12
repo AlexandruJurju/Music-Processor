@@ -11,8 +11,8 @@ using MusicProcessor.Infrastructure.Persistence;
 namespace MusicProcessor.Infrastructure.Persistence.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20250312174623_Added AlbumType Enum")]
-    partial class AddedAlbumTypeEnum
+    [Migration("20250313043313_Renamed SpotifyInfo properties")]
+    partial class RenamedSpotifyInfoproperties
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -27,10 +27,9 @@ namespace MusicProcessor.Infrastructure.Persistence.Migrations
                         .HasColumnType("INTEGER")
                         .HasColumnName("id");
 
-                    b.Property<string>("AlbumType")
-                        .IsRequired()
-                        .HasColumnType("TEXT")
-                        .HasColumnName("album_type");
+                    b.Property<int>("ArtistId")
+                        .HasColumnType("INTEGER")
+                        .HasColumnName("artist_id");
 
                     b.Property<DateTime>("DateCreated")
                         .HasColumnType("TEXT")
@@ -46,8 +45,16 @@ namespace MusicProcessor.Infrastructure.Persistence.Migrations
                         .HasColumnType("TEXT")
                         .HasColumnName("name");
 
+                    b.Property<string>("Type")
+                        .IsRequired()
+                        .HasColumnType("TEXT")
+                        .HasColumnName("type");
+
                     b.HasKey("Id")
                         .HasName("pk_albums");
+
+                    b.HasIndex("ArtistId")
+                        .HasDatabaseName("ix_albums_artist_id");
 
                     b.ToTable("albums", (string)null);
                 });
@@ -162,11 +169,9 @@ namespace MusicProcessor.Infrastructure.Persistence.Migrations
                         .HasColumnType("INTEGER")
                         .HasColumnName("album_id");
 
-                    b.Property<string>("Comment")
-                        .IsRequired()
-                        .HasMaxLength(1000)
+                    b.Property<DateOnly?>("Date")
                         .HasColumnType("TEXT")
-                        .HasColumnName("comment");
+                        .HasColumnName("date");
 
                     b.Property<DateTime>("DateCreated")
                         .HasColumnType("TEXT")
@@ -176,12 +181,21 @@ namespace MusicProcessor.Infrastructure.Persistence.Migrations
                         .HasColumnType("TEXT")
                         .HasColumnName("date_modified");
 
-                    b.Property<double>("Duration")
-                        .HasColumnType("REAL")
+                    b.Property<int>("DiscCount")
+                        .HasColumnType("INTEGER")
+                        .HasColumnName("disc_count");
+
+                    b.Property<int>("DiscNumber")
+                        .HasColumnType("INTEGER")
+                        .HasColumnName("disc_number");
+
+                    b.Property<int>("Duration")
+                        .HasColumnType("INTEGER")
                         .HasColumnName("duration");
 
                     b.Property<string>("FilePath")
                         .IsRequired()
+                        .HasMaxLength(500)
                         .HasColumnType("TEXT")
                         .HasColumnName("file_path");
 
@@ -195,19 +209,29 @@ namespace MusicProcessor.Infrastructure.Persistence.Migrations
                         .HasColumnType("INTEGER")
                         .HasColumnName("genre_category_id");
 
+                    b.Property<string>("ISRC")
+                        .IsRequired()
+                        .HasMaxLength(12)
+                        .HasColumnType("TEXT")
+                        .HasColumnName("isrc");
+
                     b.Property<int>("MainArtistId")
                         .HasColumnType("INTEGER")
                         .HasColumnName("main_artist_id");
 
-                    b.Property<string>("Title")
+                    b.Property<string>("Name")
                         .IsRequired()
                         .HasMaxLength(200)
                         .HasColumnType("TEXT")
-                        .HasColumnName("title");
+                        .HasColumnName("name");
 
                     b.Property<int>("TrackNumber")
                         .HasColumnType("INTEGER")
                         .HasColumnName("track_number");
+
+                    b.Property<int>("TracksCount")
+                        .HasColumnType("INTEGER")
+                        .HasColumnName("tracks_count");
 
                     b.Property<int?>("Year")
                         .HasColumnType("INTEGER")
@@ -225,8 +249,8 @@ namespace MusicProcessor.Infrastructure.Persistence.Migrations
                     b.HasIndex("MainArtistId")
                         .HasDatabaseName("ix_songs_main_artist_id");
 
-                    b.HasIndex("Title")
-                        .HasDatabaseName("ix_songs_title");
+                    b.HasIndex("Name")
+                        .HasDatabaseName("ix_songs_name");
 
                     b.ToTable("songs", (string)null);
                 });
@@ -288,6 +312,18 @@ namespace MusicProcessor.Infrastructure.Persistence.Migrations
                     b.ToTable("song_genres", (string)null);
                 });
 
+            modelBuilder.Entity("MusicProcessor.Domain.Entities.Albums.Album", b =>
+                {
+                    b.HasOne("MusicProcessor.Domain.Entities.Artits.Artist", "Artist")
+                        .WithMany()
+                        .HasForeignKey("ArtistId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired()
+                        .HasConstraintName("fk_albums_artists_artist_id");
+
+                    b.Navigation("Artist");
+                });
+
             modelBuilder.Entity("MusicProcessor.Domain.Entities.Songs.Song", b =>
                 {
                     b.HasOne("MusicProcessor.Domain.Entities.Albums.Album", "Album")
@@ -308,9 +344,56 @@ namespace MusicProcessor.Infrastructure.Persistence.Migrations
                         .IsRequired()
                         .HasConstraintName("fk_songs_artists_main_artist_id");
 
+                    b.OwnsOne("MusicProcessor.Domain.Entities.Songs.SpotifyInfo", "SpotifyInfo", b1 =>
+                        {
+                            b1.Property<int>("SongId")
+                                .HasColumnType("INTEGER")
+                                .HasColumnName("id");
+
+                            b1.Property<string>("SpotifyAlbumId")
+                                .IsRequired()
+                                .HasMaxLength(50)
+                                .HasColumnType("TEXT")
+                                .HasColumnName("spotify_info_spotify_album_id");
+
+                            b1.Property<string>("SpotifyArtistId")
+                                .IsRequired()
+                                .HasMaxLength(50)
+                                .HasColumnType("TEXT")
+                                .HasColumnName("spotify_info_spotify_artist_id");
+
+                            b1.Property<string>("SpotifyCoverUrl")
+                                .IsRequired()
+                                .HasMaxLength(500)
+                                .HasColumnType("TEXT")
+                                .HasColumnName("spotify_info_spotify_cover_url");
+
+                            b1.Property<string>("SpotifySongId")
+                                .IsRequired()
+                                .HasMaxLength(50)
+                                .HasColumnType("TEXT")
+                                .HasColumnName("spotify_info_spotify_song_id");
+
+                            b1.Property<string>("SpotifySongUrl")
+                                .IsRequired()
+                                .HasMaxLength(500)
+                                .HasColumnType("TEXT")
+                                .HasColumnName("spotify_info_spotify_song_url");
+
+                            b1.HasKey("SongId");
+
+                            b1.ToTable("songs");
+
+                            b1.WithOwner()
+                                .HasForeignKey("SongId")
+                                .HasConstraintName("fk_songs_songs_id");
+                        });
+
                     b.Navigation("Album");
 
                     b.Navigation("MainArtist");
+
+                    b.Navigation("SpotifyInfo");
                 });
 
             modelBuilder.Entity("genre_genre_category", b =>

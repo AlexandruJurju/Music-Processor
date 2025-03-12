@@ -1,7 +1,6 @@
 ﻿using MediatR;
 using MusicProcessor.Application.Interfaces.Application;
 using MusicProcessor.Application.Interfaces.Infrastructure;
-using MusicProcessor.Domain.Entities;
 using MusicProcessor.Domain.Entities.Songs;
 
 namespace MusicProcessor.Application.UseCases.WriteLibraryToDb;

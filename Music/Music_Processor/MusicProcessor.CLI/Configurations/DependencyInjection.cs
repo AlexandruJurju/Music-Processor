@@ -1,4 +1,5 @@
 ﻿using CliFx;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace MusicProcessor.CLI.Configurations;
@@ -8,11 +9,12 @@ public static class DependencyInjection
     public static IServiceCollection RegisterCLI(this IServiceCollection services)
     {
         RegisterCliConfiguration(services);
+        RegisterAppSettings(services);
 
         return services;
     }
 
-    private static void RegisterCliConfiguration(IServiceCollection services)
+    private static void RegisterCliConfiguration(this IServiceCollection services)
     {
         services.AddSingleton(serviceProvider =>
         {
@@ -24,5 +26,13 @@ public static class DependencyInjection
         });
 
         services.AddScoped<InteractiveCli>();
+    }
+
+    private static void RegisterAppSettings(this IServiceCollection services)
+    {
+        var configuration = new ConfigurationBuilder()
+            .SetBasePath(Directory.GetCurrentDirectory())
+            .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
+            .Build();
     }
 }

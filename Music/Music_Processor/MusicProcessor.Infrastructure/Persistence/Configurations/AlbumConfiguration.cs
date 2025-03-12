@@ -1,6 +1,5 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using MusicProcessor.Domain.Entities;
 using MusicProcessor.Domain.Entities.Albums;
 
 namespace MusicProcessor.Infrastructure.Persistence.Configurations;
@@ -15,8 +14,13 @@ public class AlbumConfiguration : IEntityTypeConfiguration<Album>
             .IsRequired()
             .HasMaxLength(100);
 
-        builder.Property(a => a.AlbumType)
+        builder.Property(a => a.Type)
             .HasConversion<string>();
+
+        builder.HasOne(a => a.Artist)
+            .WithMany()
+            .HasForeignKey(a => a.ArtistId)
+            .OnDelete(DeleteBehavior.Restrict);
 
         builder.HasMany(a => a.Songs)
             .WithOne(s => s.Album)

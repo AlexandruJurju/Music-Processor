@@ -1,16 +1,25 @@
 using MusicProcessor.Domain.Common;
+using MusicProcessor.Domain.Entities.Artits;
 using MusicProcessor.Domain.Entities.Songs;
 
 namespace MusicProcessor.Domain.Entities.Albums;
 
 public class Album : BaseEntity
 {
-    public Album(string name)
+    // For EF
+    public Album()
     {
-        Name = name;
     }
 
-    public string Name { get; init; }
-    public AlbumType AlbumType { get; init; }
+    public Album(string name, Artist artist)
+    {
+        Name = name;
+        Artist = artist;
+    }
+
+    public string Name { get; set; }
+    public AlbumType Type { get; set; }
+    public Artist Artist { get; set; }
+    public int ArtistId { get; set; }
     public ICollection<Song> Songs { get; set; } = new List<Song>();
 }

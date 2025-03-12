@@ -16,18 +16,18 @@ public static class LoggingConfiguration
     private static ILogger CreateLogger()
     {
         var timestamp = DateTime.Now.ToString("yyyy-MM-dd_HH-mm-ss");
-        
+
         var configuration = new LoggerConfiguration()
             .MinimumLevel.Debug()
-            .MinimumLevel.Override("Microsoft.EntityFrameworkCore", LogEventLevel.Error)
+            .MinimumLevel.Override("Microsoft.EntityFrameworkCore", LogEventLevel.Warning)
             .WriteTo.Console(
                 outputTemplate: "[{Timestamp:HH:mm:ss} {Level:u3}] {Message:lj}{NewLine}",
-                restrictedToMinimumLevel: LogEventLevel.Error,
+                restrictedToMinimumLevel: LogEventLevel.Information,
                 theme: AnsiConsoleTheme.Literate)
             .WriteTo.File(
-                $"logs/{timestamp}_all_logs.log", // Log everything to this file
+                $"logs/{timestamp}.log",
                 outputTemplate: "[{Timestamp:yyyy-MM-dd HH:mm:ss}] {Level:u3} {Message:lj}{NewLine}{Exception}",
-                restrictedToMinimumLevel: LogEventLevel.Error,
+                restrictedToMinimumLevel: LogEventLevel.Information,
                 shared: false);
 
 

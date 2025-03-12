@@ -19,7 +19,7 @@ public class UpdateSyncMenuCommand : BaseMenuCommand
     }
 
     [CommandOption("playlist", 'p', IsRequired = true, Description = "The playlist name")]
-    public string PlaylistName { get; init; } = String.Empty;
+    public string PlaylistName { get; init; } = string.Empty;
 
     public void Validate()
     {

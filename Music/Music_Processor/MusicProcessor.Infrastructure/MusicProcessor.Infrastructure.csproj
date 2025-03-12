@@ -7,23 +7,20 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <ProjectReference Include="..\MusicProcessor.Application\MusicProcessor.Application.csproj"/>
-    </ItemGroup>
-
-    <ItemGroup>
         <None Update="spotdl.exe">
             <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
         </None>
     </ItemGroup>
 
     <ItemGroup>
-        <Folder Include="Persistence\Migrations\"/>
-    </ItemGroup>
-
-    <ItemGroup>
         <PackageReference Include="EFCore.NamingConventions" Version="9.0.0"/>
         <PackageReference Include="Microsoft.EntityFrameworkCore" Version="9.0.1"/>
         <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="9.0.1"/>
+        <PackageReference Include="Microsoft.Extensions.Options.ConfigurationExtensions" Version="9.0.3" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\MusicProcessor.Application\MusicProcessor.Application.csproj" />
     </ItemGroup>
 
 </Project>

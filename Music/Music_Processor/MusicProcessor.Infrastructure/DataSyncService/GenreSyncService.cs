@@ -1,7 +1,6 @@
 ﻿using System.Text.Json;
 using Microsoft.Extensions.Logging;
 using MusicProcessor.Application.Interfaces.Infrastructure;
-using MusicProcessor.Domain.Entities;
 using MusicProcessor.Domain.Entities.GenreCategories;
 using MusicProcessor.Domain.Entities.Genres;
 using MusicProcessor.Domain.Models.Config;
@@ -10,6 +9,9 @@ namespace MusicProcessor.Infrastructure.DataSyncService;
 
 public class GenreSyncService : IGenreSyncService
 {
+    private readonly IFileService _fileService;
+    private readonly IGenreRepository _genreRepository;
+
     private readonly JsonSerializerOptions _jsonOptions = new()
     {
         PropertyNameCaseInsensitive = true,
@@ -17,8 +19,6 @@ public class GenreSyncService : IGenreSyncService
         WriteIndented = true
     };
 
-    private readonly IFileService _fileService;
-    private readonly IGenreRepository _genreRepository;
     private readonly ILogger<GenreSyncService> _logger;
 
     public GenreSyncService(IFileService fileService,
@@ -37,11 +37,11 @@ public class GenreSyncService : IGenreSyncService
         if (File.Exists(jsonPath))
         {
             File.Delete(jsonPath);
-            _logger.LogInformation("{Message}", $"Deleted existing mapping file at {jsonPath}");
+            _logger.LogInformation($"Deleted existing mapping file at {jsonPath}");
         }
 
         var genres = await _genreRepository.GetAllAsync();
-        _logger.LogInformation("{Message}", $"Loaded {genres.Count} genres");
+        _logger.LogInformation($"Loaded {genres.Count} genres");
 
         var styleMappings = genres.Select(genre => new GenreMappingDTO(
             genre.Name,
@@ -51,7 +51,7 @@ public class GenreSyncService : IGenreSyncService
 
         var jsonString = JsonSerializer.Serialize(styleMappings, _jsonOptions);
         await File.WriteAllTextAsync(jsonPath, jsonString);
-        _logger.LogInformation("{Message}", $"Written the mapping file to {jsonPath}");
+        _logger.LogInformation($"Written the mapping file to {jsonPath}");
     }
 
     public async Task<IEnumerable<Genre>> ReadStyleMappingAsync()
@@ -72,12 +72,12 @@ public class GenreSyncService : IGenreSyncService
                 });
             }
 
-            _logger.LogWarning("{Message}", "Genre mapping file not found");
+            _logger.LogWarning("Genre mapping file not found");
             throw new FileNotFoundException("Genre mapping file not found");
         }
         catch (Exception ex)
         {
-            _logger.LogInformation("{Message}", "Error reading genre mapping file");
+            _logger.LogError($"Error reading genre mapping file: {ex.Message}");
             throw;
         }
     }

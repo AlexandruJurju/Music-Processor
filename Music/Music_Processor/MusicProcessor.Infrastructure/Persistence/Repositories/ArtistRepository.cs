@@ -1,6 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using MusicProcessor.Application.Interfaces.Infrastructure;
-using MusicProcessor.Domain.Entities;
 using MusicProcessor.Domain.Entities.Artits;
 
 namespace MusicProcessor.Infrastructure.Persistence.Repositories;
@@ -24,5 +23,10 @@ public class ArtistRepository : IArtistRepository
         _context.Artists.Add(newArtist);
         await _context.SaveChangesAsync();
         return newArtist.Id;
+    }
+
+    public async Task<Artist?> GetByIdAsync(int artistId)
+    {
+        return await _context.Artists.FirstOrDefaultAsync(a => a.Id == artistId);
     }
 }
