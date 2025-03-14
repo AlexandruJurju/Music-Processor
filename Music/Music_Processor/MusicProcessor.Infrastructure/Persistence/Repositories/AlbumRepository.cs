@@ -4,26 +4,39 @@ using MusicProcessor.Domain.Entities.Albums;
 
 namespace MusicProcessor.Infrastructure.Persistence.Repositories;
 
-public class AlbumRepository(ApplicationDbContext db) : IAlbumRepository
+public class AlbumRepository : IAlbumRepository
 {
+    private readonly ApplicationDbContext _db;
+
+    public AlbumRepository(ApplicationDbContext db)
+    {
+        _db = db;
+    }
+
     public async Task<List<Album>> GetAllAsync()
     {
-        return await db.Albums.ToListAsync();
+        return await _db.Albums.ToListAsync();
     }
 
     public async Task<Album?> GetByNameAsync(string albumName)
     {
-        return await db.Albums.FirstOrDefaultAsync(a => a.Name == albumName);
+        return await _db.Albums.FirstOrDefaultAsync(a => a.Name == albumName);
     }
 
     public async Task AddAsync(Album album)
     {
-        db.Albums.Add(album);
-        await db.SaveChangesAsync();
+        _db.Albums.Add(album);
+        await _db.SaveChangesAsync();
     }
 
     public async Task<Album?> GetByIdAsync(int albumId)
     {
-        return await db.Albums.FirstOrDefaultAsync(a => a.Id == albumId);
+        return await _db.Albums.FirstOrDefaultAsync(a => a.Id == albumId);
+    }
+
+    public async Task AddRangeAsync(List<Album> newAlbums)
+    {
+        await _db.AddRangeAsync(newAlbums);
+        await _db.SaveChangesAsync();
     }
 }

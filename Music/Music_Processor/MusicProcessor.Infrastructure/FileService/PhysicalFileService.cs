@@ -13,48 +13,22 @@ public class PhysicalFileService : IFileService
         _pathsOptions = pathsOptions.Value;
     }
 
-    public string GetPlaylistsPath()
+    public IEnumerable<string> GetAllMainMusicFiles()
     {
-        return DirectoryPaths.PlaylistsDirectory;
+        return GetAllAudioFilesInFolder(_pathsOptions.MusicFolderPath);
     }
 
-    public string[] GetAllPlaylistsNames()
+    public IEnumerable<string> GetAllSpotDlMusicFiles()
     {
-        var directoriesPaths = Directory.GetDirectories(DirectoryPaths.PlaylistsDirectory);
-        return directoriesPaths.Select(Path.GetFileName).ToArray()!;
+        return GetAllAudioFilesInFolder(_pathsOptions.SpotDLPlaylistsPath);
     }
 
-    public string GetDataAccessFolderPath()
+    public IEnumerable<string> GetAllAudioFilesInFolder(string path)
     {
-        return DirectoryPaths.BaseDirectory;
-    }
+        if (string.IsNullOrWhiteSpace(path))
+            throw new ArgumentException("The playlist cannot be null or empty.", nameof(path));
 
-    public string[] GetAllFoldersInPath(string path)
-    {
-        if (string.IsNullOrWhiteSpace(path)) throw new ArgumentException("The path cannot be null or empty.", nameof(path));
-
-        return Directory.GetDirectories(path);
-    }
-
-    public string[] GetAllAudioFilesInPlaylist(string playlist)
-    {
-        if (string.IsNullOrWhiteSpace(playlist))
-            throw new ArgumentException("The playlist cannot be null or empty.", nameof(playlist));
-
-        var files = Directory.EnumerateFiles(
-            Path.Combine(DirectoryPaths.PlaylistsDirectory, playlist),
-            "*.*",
-            SearchOption.AllDirectories);
-
-        return files.Where(file => Constants.AudioFileFormats.Contains(Path.GetExtension(file).ToLower())).ToArray();
-    }
-
-    public IEnumerable<string> GetAllAudioFilesInPath(string playlist)
-    {
-        if (string.IsNullOrWhiteSpace(playlist))
-            throw new ArgumentException("The playlist cannot be null or empty.", nameof(playlist));
-
-        string playlistPath = Path.Combine(DirectoryPaths.PlaylistsDirectory, playlist);
+        string playlistPath = Path.Combine(_pathsOptions.SpotDLPlaylistsPath, path);
 
         if (!Directory.Exists(playlistPath))
             throw new DirectoryNotFoundException($"The playlist directory '{playlistPath}' does not exist.");
@@ -62,7 +36,7 @@ public class PhysicalFileService : IFileService
         return GetAudioFiles(playlistPath);
     }
 
-    private static IEnumerable<string> GetAudioFiles(string path)
+    private IEnumerable<string> GetAudioFiles(string path)
     {
         try
         {
@@ -75,27 +49,27 @@ public class PhysicalFileService : IFileService
         }
     }
 
-
-    public string[] GetAllAudioFilesInFolder(string path)
+    public IEnumerable<string> GetAllSpotDLPlaylistsNames()
     {
-        if (string.IsNullOrWhiteSpace(path))
-            throw new ArgumentException("The path cannot be null or empty.", nameof(path));
-
-        var files = Directory.EnumerateFiles(path, "*.*", SearchOption.AllDirectories);
-
-        return files.Where(file => Constants.AudioFileFormats.Contains(Path.GetExtension(file).ToLower())).ToArray();
+        var directoriesPaths = Directory.GetDirectories(_pathsOptions.SpotDLPlaylistsPath);
+        return directoriesPaths.Select(Path.GetFileName)!;
     }
 
-    public string? GetSpotDLFile(string playlistPath)
+    public string GetMainMusicFolderPath()
     {
-        var playlistName = Path.GetFileNameWithoutExtension(playlistPath);
+        return _pathsOptions.MusicFolderPath;
+    }
 
-        if (string.IsNullOrWhiteSpace(playlistPath))
-            throw new ArgumentException("The path cannot be null or empty.", nameof(playlistName));
+    public string GetSpotDlPlaylistsPath()
+    {
+        return _pathsOptions.SpotDLPlaylistsPath;
+    }
 
-        var spotdlFile = Directory.GetFiles(DirectoryPaths.PlaylistsDirectory, "*.spotdl", SearchOption.TopDirectoryOnly)
-            .FirstOrDefault(f => Path.GetFileNameWithoutExtension(f).Equals(playlistName, StringComparison.OrdinalIgnoreCase));
+    public string? GetSpotDLFileInPlaylistFolder(string playlistName)
+    {
+        // Construct the full path to the .spotdl file
+        var spotdlFilePath = Path.Combine(_pathsOptions.SpotDLPlaylistsPath, playlistName, $"{playlistName}.spotdl");
 
-        return spotdlFile;
+        return File.Exists(spotdlFilePath) ? spotdlFilePath : null;
     }
 }

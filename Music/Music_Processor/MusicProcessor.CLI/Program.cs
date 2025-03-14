@@ -7,7 +7,8 @@ using MusicProcessor.Infrastructure;
 
 var builder = Host.CreateApplicationBuilder(args);
 
-builder.ConfigureLogging();
+builder.ConfigureLogging(builder.Configuration);
+
 builder.Services
     .RegisterApplication()
     .RegisterInfrastructure(builder.Configuration)

@@ -22,8 +22,7 @@ public sealed class Song : BaseEntity
         int discCount,
         Album? album,
         int duration,
-        int year,
-        DateOnly? date,
+        int date,
         int trackNumber,
         int tracksCount,
         SpotifyInfo? spotifyInfo = null
@@ -38,7 +37,6 @@ public sealed class Song : BaseEntity
         DiscCount = discCount;
         Album = album;
         Duration = duration;
-        Year = year;
         Date = date;
         TrackNumber = trackNumber;
         TracksCount = tracksCount;
@@ -47,8 +45,7 @@ public sealed class Song : BaseEntity
 
     public string Name { get; set; }
     public string ISRC { get; set; }
-    public int? Year { get; set; }
-    public DateOnly? Date { get; set; }
+    public int? Date { get; set; }
     public int TrackNumber { get; set; }
     public int TracksCount { get; set; }
     public int DiscNumber { get; set; }
@@ -63,12 +60,5 @@ public sealed class Song : BaseEntity
     public SpotifyInfo? SpotifyInfo { get; init; }
     public string FileType { get; set; } = string.Empty;
     public string FilePath { get; set; } = string.Empty;
-
-    private string ValidateFileType(string fileType)
-    {
-        var allowedFileTypes = new[] { FileTypes.MP3, FileTypes.FLAC };
-        if (!allowedFileTypes.Contains(fileType)) throw new ArgumentException($"Invalid file type. Allowed values are: {string.Join(", ", allowedFileTypes)}");
-
-        return fileType;
-    }
+    public string Key => $"{MainArtist.Name.ToLower().Trim()} - {Name.ToLower().Trim()}";
 }

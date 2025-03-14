@@ -55,7 +55,7 @@ public class MetadataService : IMetadataService
         _logger.LogDebug("Updating metadata for file: {FilePath}", song.FilePath);
         track.Title = song.Name;
         track.Album = song.Album?.Name;
-        track.Year = song.Year;
+        track.Year = song.Date;
         UpdateAdditionalMetadata(track, song);
     }
 
@@ -107,19 +107,18 @@ public class MetadataService : IMetadataService
         _logger.LogDebug("Extracted {Count} genres from file: {FilePath}", genres.Count, songPath);
 
         var metadata = new Song(
-            track.Title,
-            track.ISRC,
-            ExtractArtists(track),
-            new Artist(track.Artist),
-            genres,
-            track.DiscNumber ?? 0,
-            track.DiscTotal ?? 0,
-            track.Album != null ? new Album(track.Album, new Artist(track.AlbumArtist)) : null,
-            track.Duration,
-            track.Year ?? 0,
-            track.OriginalReleaseDate != null ? DateOnly.FromDateTime(track.OriginalReleaseDate.Value) : null,
-            track.TrackNumber ?? 0,
-            track.TrackTotal ?? 0
+            name: track.Title,
+            isrc: track.ISRC,
+            artists: ExtractArtists(track),
+            mainArtist: new Artist(track.Artist),
+            genres: genres,
+            discNumber: track.DiscNumber ?? 0,
+            discCount: track.DiscTotal ?? 0,
+            album: track.Album != null ? new Album(track.Album, new Artist(track.AlbumArtist)) : null,
+            duration: track.Duration,
+            date: track.Year ?? 0,
+            trackNumber: track.TrackNumber ?? 0,
+            tracksCount: track.TrackTotal ?? 0
         )
         {
             FilePath = songPath,

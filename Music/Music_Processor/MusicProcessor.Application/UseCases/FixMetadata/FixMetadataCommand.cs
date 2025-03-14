@@ -2,4 +2,4 @@
 
 namespace MusicProcessor.Application.UseCases.FixMetadata;
 
-public record FixMetadataCommand(string playlistPath) : IRequest;
+public record FixMetadataCommand : IRequest;

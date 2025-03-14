@@ -2,7 +2,6 @@
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using MusicProcessor.Application.Interfaces.Infrastructure;
-using MusicProcessor.Infrastructure.DataSyncService;
 using MusicProcessor.Infrastructure.FileService;
 using MusicProcessor.Infrastructure.Persistence;
 using MusicProcessor.Infrastructure.Persistence.Repositories;
@@ -17,7 +16,7 @@ public static class DependencyInjection
         services.Configure<PathsOptions>(configuration.GetSection("PathsSettings"));
 
         AddExternalFileServices(services);
-        AddDb(services);
+        AddDb(services, configuration);
         AddRepositories(services);
 
         return services;
@@ -27,13 +26,12 @@ public static class DependencyInjection
     {
         services.AddTransient<ISpotDLService, SpotDLService>();
         services.AddTransient<IFileService, PhysicalFileService>();
-        services.AddTransient<ISpotDLMetadataLoader, SpotDLMetadataLoader>();
-        services.AddTransient<IGenreSyncService, GenreSyncService>();
+        services.AddTransient<ISpotDLMetadataReader, SpotDLMetadataReader>();
     }
 
-    private static void AddDb(IServiceCollection services)
+    private static void AddDb(IServiceCollection services, IConfiguration configuration)
     {
-        var dbPath = Path.Combine(Environment.CurrentDirectory, "music.sqlite");
+        var dbPath = configuration.GetValue<string>("PathsSettings:SQLLiteConnection");
 
         services.AddDbContext<ApplicationDbContext>(options =>
         {

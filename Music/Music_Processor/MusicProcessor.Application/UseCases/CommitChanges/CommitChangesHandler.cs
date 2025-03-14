@@ -3,24 +3,24 @@ using Microsoft.Extensions.Logging;
 using MusicProcessor.Application.Interfaces.Application;
 using MusicProcessor.Application.Interfaces.Infrastructure;
 
-namespace MusicProcessor.Application.UseCases.CommitChangesToLibrary;
+namespace MusicProcessor.Application.UseCases.CommitChanges;
 
-public sealed class CommitChangesToLibraryHandler : IRequestHandler<CommitChangesToLibraryCommand>
+public sealed class CommitChangesHandler : IRequestHandler<CommitChangesCommand>
 {
-    private readonly ILogger<CommitChangesToLibraryHandler> _logger;
+    private readonly ILogger<CommitChangesHandler> _logger;
     private readonly IMetadataService _metadataService;
     private readonly ISongRepository _songRepository;
 
-    public CommitChangesToLibraryHandler(ISongRepository songRepository,
+    public CommitChangesHandler(ISongRepository songRepository,
         IMetadataService metadataService,
-        ILogger<CommitChangesToLibraryHandler> logger)
+        ILogger<CommitChangesHandler> logger)
     {
         _songRepository = songRepository;
         _metadataService = metadataService;
         _logger = logger;
     }
 
-    public async Task Handle(CommitChangesToLibraryCommand request, CancellationToken cancellationToken)
+    public async Task Handle(CommitChangesCommand request, CancellationToken cancellationToken)
     {
         var startTime = DateTime.UtcNow;
         _logger.LogInformation("CommitChanges started at {StartTime}", startTime);

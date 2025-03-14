@@ -65,7 +65,6 @@ public sealed class SpotDLSongMetadata
             new Album(AlbumName, new Artist(AlbumArtist)),
             Duration,
             int.Parse(Year),
-            date,
             TrackNumber,
             TracksCount,
             spotifyInfo

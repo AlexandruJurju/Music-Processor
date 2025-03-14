@@ -30,32 +30,32 @@ public class SongProcessor : ISongProcessor
         _logger = logger;
     }
 
-    public async Task AddRawSongsToDbAsync(IEnumerable<Song> songs)
+    public async Task AddMetadataToDbAsync(IEnumerable<Song> songs)
     {
         var songsList = songs.ToList();
-        _logger.LogInformation("Processing {Count} songs", songsList.Count);
+        _logger.LogInformation($"Processing {songsList.Count} songs");
 
         // Load existing entities from the database
         var existingArtists = await _artistRepository.GetAllAsync();
         var existingGenres = await _genreRepository.GetAllAsync();
         var existingAlbums = await _albumRepository.GetAllAsync();
 
-        _logger.LogInformation(
-            "Loaded entities: {ArtistsCount} artists, {GenresCount} genres, {AlbumsCount} albums",
-            existingArtists.Count, existingGenres.Count, existingAlbums.Count);
+        _logger.LogDebug($"Loaded entities: {existingArtists.Count} artists, {existingGenres.Count} genres, {existingAlbums.Count} albums");
 
-        // Process each song
+        // Declare lists to collect new entities
+        var newArtists = new List<Artist>();
+        var newGenres = new List<Genre>();
+        var newAlbums = new List<Album>();
+
         foreach (var song in songsList)
         {
             try
             {
-                _logger.LogInformation("Processing song: {SongName} by {Artists}", song.Name, string.Join(", ", song.Artists.Select(a => a.Name)));
+                _logger.LogInformation($"Processing song: {song.Name} by {song.MainArtist.Name}");
 
-                await ProcessArtistsAsync(song, existingArtists);
-                await ProcessAlbumsAsync(song, existingAlbums, existingArtists);
-                await ProcessGenresAsync(song, existingGenres);
-
-                await _songRepository.AddAsync(song);
+                ProcessArtists(song, existingArtists, newArtists);
+                ProcessAlbums(song, existingAlbums, existingArtists, newAlbums, newArtists);
+                ProcessGenres(song, existingGenres, newGenres);
             }
             catch (Exception ex)
             {
@@ -63,17 +63,30 @@ public class SongProcessor : ISongProcessor
             }
         }
 
-        _logger.LogInformation("Successfully processed {Count} songs", songsList.Count);
+        // Batch insert new entities
+        if (newArtists.Any())
+            await _artistRepository.AddRangeAsync(newArtists);
+        if (newGenres.Any())
+            await _genreRepository.AddRangeAsync(newGenres);
+        if (newAlbums.Any())
+            await _albumRepository.AddRangeAsync(newAlbums);
+
+        // Batch insert songs
+        await _songRepository.AddRangeAsync(songsList);
+
+        _logger.LogDebug("Successfully processed {Count} songs", songsList.Count);
     }
 
-    private async Task ProcessArtistsAsync(Song song, List<Artist> existingArtists)
+    private void ProcessArtists(Song song, List<Artist> existingArtists, List<Artist> newArtists)
     {
         var artists = song.Artists.ToList();
         song.Artists.Clear();
 
         foreach (var artist in artists)
         {
-            var existingArtist = existingArtists.FirstOrDefault(a => a.Name.Equals(artist.Name, StringComparison.OrdinalIgnoreCase));
+            var existingArtist = existingArtists
+                .FirstOrDefault(a => a.Name.Equals(artist.Name, StringComparison.OrdinalIgnoreCase));
+
             if (existingArtist != null)
             {
                 song.Artists.Add(existingArtist);
@@ -81,7 +94,7 @@ public class SongProcessor : ISongProcessor
             }
             else
             {
-                await _artistRepository.AddAsync(artist);
+                newArtists.Add(artist);
                 existingArtists.Add(artist);
                 song.Artists.Add(artist);
                 _logger.LogDebug("Added new artist: {ArtistName}", artist.Name);
@@ -96,18 +109,20 @@ public class SongProcessor : ISongProcessor
         }
         else
         {
-            await _artistRepository.AddAsync(song.MainArtist);
+            newArtists.Add(song.MainArtist);
             existingArtists.Add(song.MainArtist);
             song.MainArtist = song.MainArtist;
             _logger.LogDebug("Added new artist: {ArtistName}", song.MainArtist.Name);
         }
     }
 
-    private async Task ProcessAlbumsAsync(Song song, List<Album> existingAlbums, List<Artist> existingArtists)
+    private void ProcessAlbums(Song song, List<Album> existingAlbums, List<Artist> existingArtists, List<Album> newAlbums, List<Artist> newArtists)
     {
         if (song.Album == null) return;
 
-        var existingAlbum = existingAlbums.FirstOrDefault(a => a.Name.Equals(song.Album.Name, StringComparison.OrdinalIgnoreCase));
+        var existingAlbum = existingAlbums
+            .FirstOrDefault(a => a.Name.Equals(song.Album.Name, StringComparison.OrdinalIgnoreCase));
+
         if (existingAlbum != null)
         {
             song.Album = existingAlbum;
@@ -115,7 +130,6 @@ public class SongProcessor : ISongProcessor
         }
         else
         {
-            // Ensure the album's artist is processed
             var albumArtist = song.Album.Artist;
             var existingAlbumArtist = existingArtists.FirstOrDefault(a => a.Name.Equals(albumArtist.Name, StringComparison.OrdinalIgnoreCase));
             if (existingAlbumArtist != null)
@@ -124,18 +138,17 @@ public class SongProcessor : ISongProcessor
             }
             else
             {
-                // Add the new artist to the database
-                await _artistRepository.AddAsync(albumArtist);
+                newArtists.Add(albumArtist);
                 existingArtists.Add(albumArtist);
             }
 
-            await _albumRepository.AddAsync(song.Album);
+            newAlbums.Add(song.Album);
             existingAlbums.Add(song.Album);
             _logger.LogDebug("Added new album: {AlbumName}", song.Album.Name);
         }
     }
 
-    private async Task ProcessGenresAsync(Song song, List<Genre> existingGenres)
+    private void ProcessGenres(Song song, List<Genre> existingGenres, List<Genre> newGenres)
     {
         var genres = song.Genres.ToList();
         song.Genres.Clear();
@@ -150,7 +163,7 @@ public class SongProcessor : ISongProcessor
             }
             else
             {
-                await _genreRepository.AddAsync(genre);
+                newGenres.Add(genre);
                 existingGenres.Add(genre);
                 song.Genres.Add(genre);
                 _logger.LogDebug("Added new genre: {GenreName}", genre.Name);

@@ -70,4 +70,21 @@ public class SongRepository : ISongRepository
         _context.Songs.UpdateRange(modifiedSongs);
         await _context.SaveChangesAsync();
     }
+
+    public async Task<Song?> GetByKeyAsync(string key)
+    {
+        return await _context.Songs
+            .Include(s => s.MainArtist)
+            .FirstOrDefaultAsync(s => (s.Name.ToLower().Trim() + " - " + s.MainArtist.Name.ToLower().Trim()) == key);
+    }
+
+    public async Task<Dictionary<string, Song>> GetSongsWithKeyAsync()
+    {
+        return await _context.Songs
+            .Include(s => s.MainArtist)
+            .ToDictionaryAsync(
+                s => (s.Name.ToLower().Trim() + " - " + s.MainArtist.Name.ToLower().Trim()),
+                s => s
+            );
+    }
 }

@@ -8,4 +8,5 @@ public interface IAlbumRepository
     Task<Album?> GetByNameAsync(string albumName);
     Task AddAsync(Album album);
     Task<Album?> GetByIdAsync(int albumId);
+    Task AddRangeAsync(List<Album> newAlbums);
 }

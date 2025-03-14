@@ -27,10 +27,8 @@ public class SongConfiguration : IEntityTypeConfiguration<Song>
         builder.Property(s => s.ISRC)
             .HasMaxLength(12);
 
-        builder.Property(s => s.Year);
-
         builder.Property(s => s.Date);
-
+        
         builder.Property(s => s.TrackNumber);
 
         builder.Property(s => s.TracksCount);

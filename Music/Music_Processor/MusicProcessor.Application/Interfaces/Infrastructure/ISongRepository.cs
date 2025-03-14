@@ -4,6 +4,7 @@ namespace MusicProcessor.Application.Interfaces.Infrastructure;
 
 public interface ISongRepository
 {
+    Task<Song?> GetByKeyAsync(string key);
     Task<ICollection<Song>> GetAllAsync();
     Task<IEnumerable<string>> GetSongTitlesAsync();
     IQueryable<Song> GetAll();
@@ -13,4 +14,5 @@ public interface ISongRepository
     Task AddRangeAsync(List<Song> songsList);
     Task AddAsync(Song song);
     Task UpdateRangeAsync(List<Song> modifiedSongs);
+    Task<Dictionary<string, Song>> GetSongsWithKeyAsync();
 }

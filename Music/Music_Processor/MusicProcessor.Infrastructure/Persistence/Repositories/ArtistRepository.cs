@@ -6,27 +6,33 @@ namespace MusicProcessor.Infrastructure.Persistence.Repositories;
 
 public class ArtistRepository : IArtistRepository
 {
-    private readonly ApplicationDbContext _context;
+    private readonly ApplicationDbContext _db;
 
-    public ArtistRepository(ApplicationDbContext context)
+    public ArtistRepository(ApplicationDbContext db)
     {
-        _context = context;
+        _db = db;
     }
 
     public async Task<List<Artist>> GetAllAsync()
     {
-        return await _context.Artists.ToListAsync();
+        return await _db.Artists.ToListAsync();
     }
 
     public async Task<int> AddAsync(Artist newArtist)
     {
-        _context.Artists.Add(newArtist);
-        await _context.SaveChangesAsync();
+        _db.Artists.Add(newArtist);
+        await _db.SaveChangesAsync();
         return newArtist.Id;
     }
 
     public async Task<Artist?> GetByIdAsync(int artistId)
     {
-        return await _context.Artists.FirstOrDefaultAsync(a => a.Id == artistId);
+        return await _db.Artists.FirstOrDefaultAsync(a => a.Id == artistId);
+    }
+
+    public async Task AddRangeAsync(List<Artist> newArtists)
+    {
+        await _db.Artists.AddRangeAsync(newArtists);
+        await _db.SaveChangesAsync();
     }
 }

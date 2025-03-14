@@ -2,12 +2,11 @@
 
 public interface IFileService
 {
-    string GetPlaylistsPath();
-    string[] GetAllPlaylistsNames();
-    string GetDataAccessFolderPath();
-    string[] GetAllFoldersInPath(string path);
-    string[] GetAllAudioFilesInFolder(string path);
-    string? GetSpotDLFile(string playlistPath);
-    string[] GetAllAudioFilesInPlaylist(string playlist);
-    IEnumerable<string> GetAllAudioFilesInPath(string playlist);
+    IEnumerable<string> GetAllMainMusicFiles();
+    IEnumerable<string> GetAllSpotDlMusicFiles();
+    IEnumerable<string> GetAllAudioFilesInFolder(string path);
+    IEnumerable<string> GetAllSpotDLPlaylistsNames();
+    string GetMainMusicFolderPath();
+    string GetSpotDlPlaylistsPath();
+    string? GetSpotDLFileInPlaylistFolder(string playlistName);
 }
