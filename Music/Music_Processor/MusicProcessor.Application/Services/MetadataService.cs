@@ -1,11 +1,12 @@
-using ATL;
 using Microsoft.Extensions.Logging;
 using MusicProcessor.Application.Interfaces.Application;
 using MusicProcessor.Domain.Entities.Albums;
 using MusicProcessor.Domain.Entities.Artits;
 using MusicProcessor.Domain.Entities.Genres;
-using MusicProcessor.Domain.Entities.Songs;
-using Constants = MusicProcessor.Domain.Constants.Constants;
+using MusicProcessor.Domain.Entities.SongsMetadata;
+using TagLib;
+using TagLib.Ogg;
+using File = TagLib.File;
 
 namespace MusicProcessor.Application.Services;
 
@@ -13,140 +14,154 @@ public class MetadataService : IMetadataService
 {
     private readonly ILogger<MetadataService> _logger;
 
+    private const string GENRE_CATEGORY = "GENRE-CATEGORY";
+    private const string ARTISTS = "ARTISTS";
+
     public MetadataService(ILogger<MetadataService> logger)
     {
         _logger = logger;
     }
 
-    public void WriteMetadata(Song song)
+    public SongMetadata ReadMetadata(string songPath)
     {
-        try
-        {
-            var track = new Track(song.FilePath);
-            UpdateMetadata(track, song);
-            track.Save();
-            _logger.LogDebug("Successfully updated metadata for file: {FilePath}", song.FilePath);
-        }
-        catch (Exception ex)
-        {
-            _logger.LogError(ex, "Error updating metadata for file: {FilePath}", song.FilePath);
-            throw new Exception($"Error updating metadata for file {song.FilePath}: {ex.Message}", ex);
-        }
+        using var file = File.Create(songPath);
+        var metadata = ExtractMetadata(file, songPath);
+        _logger.LogDebug($"Successfully read metadata from file: {songPath}");
+        return metadata;
     }
 
-    public Song ReadMetadata(string songPath)
+    private SongMetadata ExtractMetadata(File file, string songPath)
     {
-        try
+        var tag = file.Tag;
+
+        var metadata = new SongMetadata(
+            name: tag.Title ?? Path.GetFileNameWithoutExtension(songPath),
+            isrc: tag.ISRC,
+            artists: ReadCustomTagArtists(file),
+            mainArtist: new Artist(tag.FirstPerformer ?? string.Empty),
+            genres: ReadGenres(file),
+            discNumber: (int)tag.Disc,
+            discCount: (int)tag.DiscCount,
+            album: tag.Album != null ? new Album(tag.Album, new Artist(tag.FirstAlbumArtist ?? string.Empty)) : null,
+            duration: file.Properties.Duration.Seconds,
+            date: (int)tag.Year,
+            trackNumber: (int)tag.Track,
+            tracksCount: (int)tag.TrackCount
+        );
+
+        return metadata;
+    }
+
+    private List<Genre> ReadGenres(File file)
+    {
+        _logger.LogDebug("Extracting genres from file");
+        var genres = new List<string>();
+
+        if (file.TagTypes.HasFlag(TagTypes.Xiph))
         {
-            var track = new Track(songPath);
-            var metadata = ExtractMetadata(track, songPath);
-            _logger.LogDebug("Successfully read metadata from file: {FilePath}", songPath);
-            return metadata;
+            var xiphTag = file.GetTag(TagTypes.Xiph) as XiphComment;
+            if (xiphTag != null)
+            {
+                var genreFields = xiphTag.GetField("GENRE");
+                genres.AddRange(genreFields);
+                _logger.LogDebug($"Extracted {genreFields.Length} genres from file");
+            }
+            else
+            {
+                _logger.LogDebug("No Xiph comment tag found in file");
+            }
         }
-        catch (Exception ex)
+        else
         {
-            _logger.LogError(ex, "Error reading metadata from file: {FilePath}", songPath);
-            throw new Exception($"Error reading metadata from file {songPath}: {ex.Message}", ex);
+            _logger.LogDebug("No Xiph tags found in file");
         }
+
+        return genres.Distinct()
+            .Select(genreName => new Genre { Name = genreName })
+            .ToList();
     }
 
-    private void UpdateMetadata(Track track, Song song)
+    private List<Artist> ReadCustomTagArtists(File file)
     {
-        _logger.LogDebug("Updating metadata for file: {FilePath}", song.FilePath);
-        track.Title = song.Name;
-        track.Album = song.Album?.Name;
-        track.Year = song.Date;
-        UpdateAdditionalMetadata(track, song);
+        if (!(file.GetTag(TagTypes.Xiph) is XiphComment xiphTag))
+        {
+            return new List<Artist>();
+        }
+
+        var artists = xiphTag.GetField(ARTISTS);
+        if (artists == null || artists.Length == 0)
+        {
+            return new List<Artist>();
+        }
+
+        return artists
+            .Select(a => new Artist(a))
+            .ToList();
     }
 
-    private void UpdateAdditionalMetadata(Track track, Song song)
+    public void WriteMetadata(SongMetadata songMetadata, string songPath)
     {
-        WriteGenreCategories(track, song);
-
-        WriteGenres(track, song);
+        using var file = File.Create(songPath);
+        UpdateMetadata(file, songMetadata);
+        file.Save();
+        _logger.LogDebug($"Successfully updated metadata for file: {songPath}");
     }
 
-    private void WriteGenres(Track track, Song song)
+    private void UpdateMetadata(File file, SongMetadata songMetadata)
     {
-        var genres = song.Genres
+        var tag = file.Tag;
+        tag.Title = songMetadata.Name;
+        tag.Album = songMetadata.Album?.Name;
+        tag.Year = (uint)songMetadata.Date;
+        tag.AlbumArtists = new[] { songMetadata.MainArtist.Name };
+        UpdateAdditionalMetadata(file, songMetadata);
+    }
+
+    private void UpdateAdditionalMetadata(File file, SongMetadata songMetadata)
+    {
+        WriteCustomTagGenreCategories(file, songMetadata);
+        WriteCustomTagArtists(file, songMetadata);
+        WriteGenres(file, songMetadata);
+    }
+
+    private void WriteGenres(File file, SongMetadata songMetadata)
+    {
+        var genres = songMetadata.Genres
             .Where(g => !g.RemoveFromSongs)
             .Select(g => g.Name)
             .ToArray();
 
         if (genres.Any())
         {
-            _logger.LogDebug("Setting {Count} genres: {Genres}", genres.Length, string.Join(", ", genres));
-            track.Genre = string.Join(";", genres);
-        }
-        else
-        {
-            _logger.LogDebug("No genres to set for file: {FilePath}", song.FilePath);
+            _logger.LogDebug($"Setting {genres.Length} genres: {string.Join(", ", genres)}");
+            file.Tag.Genres = genres;
         }
     }
 
-    private void WriteGenreCategories(Track track, Song song)
+    private void WriteCustomTagGenreCategories(File file, SongMetadata songMetadata)
     {
-        _logger.LogDebug("Updating additional metadata for file: {FilePath}", song.FilePath);
-        var genreCategories = song.Genres
+        var genreCategories = songMetadata.Genres
             .SelectMany(g => g.GenreCategories.Select(c => c.Name))
             .Distinct()
             .ToArray();
 
-        if (genreCategories.Any())
+        if (file.GetTag(TagTypes.Xiph) is XiphComment xiphTag)
         {
-            _logger.LogDebug("Setting {Count} genre categories: {GenreCategories}", genreCategories.Length, string.Join(", ", genreCategories));
-            track.AdditionalFields[Constants.GENRE_CATEGORY] = string.Join(";", genreCategories);
+            _logger.LogDebug($"Setting {genreCategories.Length} genre categories: {string.Join(", ", genreCategories)}");
+            xiphTag.SetField(GENRE_CATEGORY, genreCategories);
         }
     }
 
-    private Song ExtractMetadata(Track track, string songPath)
+    private void WriteCustomTagArtists(File file, SongMetadata songMetadata)
     {
-        var genres = ExtractGenres(track).Select(genreName => new Genre { Name = genreName }).ToList();
+        var artists = songMetadata.Artists
+            .Select(a => a.Name)
+            .ToArray();
 
-        // Log genres extracted
-        _logger.LogDebug("Extracted {Count} genres from file: {FilePath}", genres.Count, songPath);
-
-        var metadata = new Song(
-            name: track.Title,
-            isrc: track.ISRC,
-            artists: ExtractArtists(track),
-            mainArtist: new Artist(track.Artist),
-            genres: genres,
-            discNumber: track.DiscNumber ?? 0,
-            discCount: track.DiscTotal ?? 0,
-            album: track.Album != null ? new Album(track.Album, new Artist(track.AlbumArtist)) : null,
-            duration: track.Duration,
-            date: track.Year ?? 0,
-            trackNumber: track.TrackNumber ?? 0,
-            tracksCount: track.TrackTotal ?? 0
-        )
+        if (file.GetTag(TagTypes.Xiph) is XiphComment xiphTag)
         {
-            FilePath = songPath,
-            FileType = Path.GetExtension(songPath).ToLowerInvariant()
-        };
-
-        return metadata;
-    }
-
-    private List<string> ExtractGenres(Track track)
-    {
-        _logger.LogDebug("Extracting genres from track");
-        var genres = new List<string>();
-
-        genres.AddRange(track.Genre
-            .Split(';', StringSplitOptions.RemoveEmptyEntries)
-            .Select(g => g.Trim())
-            .Where(g => !string.IsNullOrWhiteSpace(g)));
-
-        return genres.Distinct().ToList();
-    }
-
-    private ICollection<Artist> ExtractArtists(Track track)
-    {
-        _logger.LogDebug("Extracting artists from track");
-
-        var artists = new List<Artist>();
-
-        return artists;
+            _logger.LogDebug($"Setting {artists.Length} artists: {string.Join(", ", artists)}");
+            xiphTag.SetField(ARTISTS, artists);
+        }
     }
 }

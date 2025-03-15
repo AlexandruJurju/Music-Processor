@@ -155,7 +155,7 @@ namespace MusicProcessor.Infrastructure.Persistence.Migrations
                     b.ToTable("genres", (string)null);
                 });
 
-            modelBuilder.Entity("MusicProcessor.Domain.Entities.Songs.Song", b =>
+            modelBuilder.Entity("MusicProcessor.Domain.Entities.SongsMetadata.SongMetadata", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -166,8 +166,8 @@ namespace MusicProcessor.Infrastructure.Persistence.Migrations
                         .HasColumnType("INTEGER")
                         .HasColumnName("album_id");
 
-                    b.Property<DateOnly?>("Date")
-                        .HasColumnType("TEXT")
+                    b.Property<int?>("Date")
+                        .HasColumnType("INTEGER")
                         .HasColumnName("date");
 
                     b.Property<DateTime>("DateCreated")
@@ -189,18 +189,6 @@ namespace MusicProcessor.Infrastructure.Persistence.Migrations
                     b.Property<int>("Duration")
                         .HasColumnType("INTEGER")
                         .HasColumnName("duration");
-
-                    b.Property<string>("FilePath")
-                        .IsRequired()
-                        .HasMaxLength(500)
-                        .HasColumnType("TEXT")
-                        .HasColumnName("file_path");
-
-                    b.Property<string>("FileType")
-                        .IsRequired()
-                        .HasMaxLength(10)
-                        .HasColumnType("TEXT")
-                        .HasColumnName("file_type");
 
                     b.Property<int?>("GenreCategoryId")
                         .HasColumnType("INTEGER")
@@ -229,10 +217,6 @@ namespace MusicProcessor.Infrastructure.Persistence.Migrations
                     b.Property<int>("TracksCount")
                         .HasColumnType("INTEGER")
                         .HasColumnName("tracks_count");
-
-                    b.Property<int?>("Year")
-                        .HasColumnType("INTEGER")
-                        .HasColumnName("year");
 
                     b.HasKey("Id")
                         .HasName("pk_songs");
@@ -321,7 +305,7 @@ namespace MusicProcessor.Infrastructure.Persistence.Migrations
                     b.Navigation("Artist");
                 });
 
-            modelBuilder.Entity("MusicProcessor.Domain.Entities.Songs.Song", b =>
+            modelBuilder.Entity("MusicProcessor.Domain.Entities.SongsMetadata.SongMetadata", b =>
                 {
                     b.HasOne("MusicProcessor.Domain.Entities.Albums.Album", "Album")
                         .WithMany("Songs")
@@ -341,9 +325,9 @@ namespace MusicProcessor.Infrastructure.Persistence.Migrations
                         .IsRequired()
                         .HasConstraintName("fk_songs_artists_main_artist_id");
 
-                    b.OwnsOne("MusicProcessor.Domain.Entities.Songs.SpotifyInfo", "SpotifyInfo", b1 =>
+                    b.OwnsOne("MusicProcessor.Domain.Entities.SongsMetadata.SpotifyInfo", "SpotifyInfo", b1 =>
                         {
-                            b1.Property<int>("SongId")
+                            b1.Property<int>("SongMetadataId")
                                 .HasColumnType("INTEGER")
                                 .HasColumnName("id");
 
@@ -377,12 +361,12 @@ namespace MusicProcessor.Infrastructure.Persistence.Migrations
                                 .HasColumnType("TEXT")
                                 .HasColumnName("spotify_info_spotify_song_url");
 
-                            b1.HasKey("SongId");
+                            b1.HasKey("SongMetadataId");
 
                             b1.ToTable("songs");
 
                             b1.WithOwner()
-                                .HasForeignKey("SongId")
+                                .HasForeignKey("SongMetadataId")
                                 .HasConstraintName("fk_songs_songs_id");
                         });
 
@@ -419,7 +403,7 @@ namespace MusicProcessor.Infrastructure.Persistence.Migrations
                         .IsRequired()
                         .HasConstraintName("fk_song_artists_artists_artists_id");
 
-                    b.HasOne("MusicProcessor.Domain.Entities.Songs.Song", null)
+                    b.HasOne("MusicProcessor.Domain.Entities.SongsMetadata.SongMetadata", null)
                         .WithMany()
                         .HasForeignKey("SongsId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -436,7 +420,7 @@ namespace MusicProcessor.Infrastructure.Persistence.Migrations
                         .IsRequired()
                         .HasConstraintName("fk_song_genres_genres_genres_id");
 
-                    b.HasOne("MusicProcessor.Domain.Entities.Songs.Song", null)
+                    b.HasOne("MusicProcessor.Domain.Entities.SongsMetadata.SongMetadata", null)
                         .WithMany()
                         .HasForeignKey("SongsId")
                         .OnDelete(DeleteBehavior.Cascade)

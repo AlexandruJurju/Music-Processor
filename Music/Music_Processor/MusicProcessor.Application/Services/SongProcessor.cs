@@ -4,7 +4,7 @@ using MusicProcessor.Application.Interfaces.Infrastructure;
 using MusicProcessor.Domain.Entities.Albums;
 using MusicProcessor.Domain.Entities.Artits;
 using MusicProcessor.Domain.Entities.Genres;
-using MusicProcessor.Domain.Entities.Songs;
+using MusicProcessor.Domain.Entities.SongsMetadata;
 
 namespace MusicProcessor.Application.Services;
 
@@ -12,25 +12,25 @@ public class SongProcessor : ISongProcessor
 {
     private readonly IArtistRepository _artistRepository;
     private readonly IGenreRepository _genreRepository;
-    private readonly ISongRepository _songRepository;
+    private readonly ISongMetadataRepository _songMetadataRepository;
     private readonly IAlbumRepository _albumRepository;
     private readonly ILogger<SongProcessor> _logger;
 
     public SongProcessor(
         IArtistRepository artistRepository,
         IGenreRepository genreRepository,
-        ISongRepository songRepository,
+        ISongMetadataRepository songMetadataRepository,
         IAlbumRepository albumRepository,
         ILogger<SongProcessor> logger)
     {
         _artistRepository = artistRepository;
         _genreRepository = genreRepository;
-        _songRepository = songRepository;
+        _songMetadataRepository = songMetadataRepository;
         _albumRepository = albumRepository;
         _logger = logger;
     }
 
-    public async Task AddMetadataToDbAsync(IEnumerable<Song> songs)
+    public async Task AddMetadataToDbAsync(IEnumerable<SongMetadata> songs)
     {
         var songsList = songs.ToList();
         _logger.LogInformation($"Processing {songsList.Count} songs");
@@ -72,15 +72,15 @@ public class SongProcessor : ISongProcessor
             await _albumRepository.AddRangeAsync(newAlbums);
 
         // Batch insert songs
-        await _songRepository.AddRangeAsync(songsList);
+        await _songMetadataRepository.AddRangeAsync(songsList);
 
         _logger.LogDebug("Successfully processed {Count} songs", songsList.Count);
     }
 
-    private void ProcessArtists(Song song, List<Artist> existingArtists, List<Artist> newArtists)
+    private void ProcessArtists(SongMetadata songMetadata, List<Artist> existingArtists, List<Artist> newArtists)
     {
-        var artists = song.Artists.ToList();
-        song.Artists.Clear();
+        var artists = songMetadata.Artists.ToList();
+        songMetadata.Artists.Clear();
 
         foreach (var artist in artists)
         {
@@ -89,52 +89,52 @@ public class SongProcessor : ISongProcessor
 
             if (existingArtist != null)
             {
-                song.Artists.Add(existingArtist);
+                songMetadata.Artists.Add(existingArtist);
                 _logger.LogDebug("Using existing artist: {ArtistName}", artist.Name);
             }
             else
             {
                 newArtists.Add(artist);
                 existingArtists.Add(artist);
-                song.Artists.Add(artist);
+                songMetadata.Artists.Add(artist);
                 _logger.LogDebug("Added new artist: {ArtistName}", artist.Name);
             }
         }
 
-        var existingMainArtist = existingArtists.FirstOrDefault(a => a.Name.Equals(song.MainArtist.Name, StringComparison.OrdinalIgnoreCase));
+        var existingMainArtist = existingArtists.FirstOrDefault(a => a.Name.Equals(songMetadata.MainArtist.Name, StringComparison.OrdinalIgnoreCase));
         if (existingMainArtist != null)
         {
-            song.MainArtist = existingMainArtist;
+            songMetadata.MainArtist = existingMainArtist;
             _logger.LogDebug("Using existing artist: {ArtistName}", existingMainArtist.Name);
         }
         else
         {
-            newArtists.Add(song.MainArtist);
-            existingArtists.Add(song.MainArtist);
-            song.MainArtist = song.MainArtist;
-            _logger.LogDebug("Added new artist: {ArtistName}", song.MainArtist.Name);
+            newArtists.Add(songMetadata.MainArtist);
+            existingArtists.Add(songMetadata.MainArtist);
+            songMetadata.MainArtist = songMetadata.MainArtist;
+            _logger.LogDebug("Added new artist: {ArtistName}", songMetadata.MainArtist.Name);
         }
     }
 
-    private void ProcessAlbums(Song song, List<Album> existingAlbums, List<Artist> existingArtists, List<Album> newAlbums, List<Artist> newArtists)
+    private void ProcessAlbums(SongMetadata songMetadata, List<Album> existingAlbums, List<Artist> existingArtists, List<Album> newAlbums, List<Artist> newArtists)
     {
-        if (song.Album == null) return;
+        if (songMetadata.Album == null) return;
 
         var existingAlbum = existingAlbums
-            .FirstOrDefault(a => a.Name.Equals(song.Album.Name, StringComparison.OrdinalIgnoreCase));
+            .FirstOrDefault(a => a.Name.Equals(songMetadata.Album.Name, StringComparison.OrdinalIgnoreCase));
 
         if (existingAlbum != null)
         {
-            song.Album = existingAlbum;
+            songMetadata.Album = existingAlbum;
             _logger.LogDebug("Using existing album: {AlbumName}", existingAlbum.Name);
         }
         else
         {
-            var albumArtist = song.Album.Artist;
+            var albumArtist = songMetadata.Album.Artist;
             var existingAlbumArtist = existingArtists.FirstOrDefault(a => a.Name.Equals(albumArtist.Name, StringComparison.OrdinalIgnoreCase));
             if (existingAlbumArtist != null)
             {
-                song.Album.Artist = existingAlbumArtist;
+                songMetadata.Album.Artist = existingAlbumArtist;
             }
             else
             {
@@ -142,30 +142,30 @@ public class SongProcessor : ISongProcessor
                 existingArtists.Add(albumArtist);
             }
 
-            newAlbums.Add(song.Album);
-            existingAlbums.Add(song.Album);
-            _logger.LogDebug("Added new album: {AlbumName}", song.Album.Name);
+            newAlbums.Add(songMetadata.Album);
+            existingAlbums.Add(songMetadata.Album);
+            _logger.LogDebug("Added new album: {AlbumName}", songMetadata.Album.Name);
         }
     }
 
-    private void ProcessGenres(Song song, List<Genre> existingGenres, List<Genre> newGenres)
+    private void ProcessGenres(SongMetadata songMetadata, List<Genre> existingGenres, List<Genre> newGenres)
     {
-        var genres = song.Genres.ToList();
-        song.Genres.Clear();
+        var genres = songMetadata.Genres.ToList();
+        songMetadata.Genres.Clear();
 
         foreach (var genre in genres)
         {
             var existingGenre = existingGenres.FirstOrDefault(g => g.Name.Equals(genre.Name, StringComparison.OrdinalIgnoreCase));
             if (existingGenre != null)
             {
-                song.Genres.Add(existingGenre);
+                songMetadata.Genres.Add(existingGenre);
                 _logger.LogDebug("Using existing genre: {GenreName}", genre.Name);
             }
             else
             {
                 newGenres.Add(genre);
                 existingGenres.Add(genre);
-                song.Genres.Add(genre);
+                songMetadata.Genres.Add(genre);
                 _logger.LogDebug("Added new genre: {GenreName}", genre.Name);
             }
         }

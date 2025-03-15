@@ -30,7 +30,7 @@ public static class LoggingConfiguration
             .WriteTo.File(
                 $"{logPath}/{timestamp}.log",
                 outputTemplate: "[{Timestamp:yyyy-MM-dd HH:mm:ss}] {Level:u3} {Message:lj}{NewLine}{Exception}",
-                restrictedToMinimumLevel: LogEventLevel.Debug,
+                restrictedToMinimumLevel: LogEventLevel.Information,
                 shared: false);
 
 

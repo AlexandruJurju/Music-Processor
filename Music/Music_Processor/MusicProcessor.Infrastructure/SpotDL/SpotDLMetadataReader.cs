@@ -2,7 +2,7 @@ using System.Text.Json;
 using Microsoft.Extensions.Logging;
 using MusicProcessor.Application.Interfaces.Infrastructure;
 using MusicProcessor.Domain.Entities.Artits;
-using MusicProcessor.Domain.Entities.Songs;
+using MusicProcessor.Domain.Entities.SongsMetadata;
 using MusicProcessor.Domain.Models.SpotDL.Parse;
 
 namespace MusicProcessor.Infrastructure.SpotDL;
@@ -28,13 +28,13 @@ public class SpotDLMetadataReader : ISpotDLMetadataReader
         _logger = logger;
     }
 
-    public async Task<IEnumerable<Song>> LoadSpotDLMetadataAsync(string playlistName)
+    public async Task<Dictionary<string, SongMetadata>> LoadSpotDLMetadataAsync(string playlistName)
     {
         var spotdlFile = _fileService.GetSpotDLFileInPlaylistFolder(playlistName);
         if (spotdlFile is null)
         {
-            _logger.LogWarning("No spotdl file found in directory");
-            return new List<Song>();
+            _logger.LogError("No spotdl file found in directory");
+            throw new FileNotFoundException("No spotdl file found in directory");
         }
 
         var playlistData = await JsonSerializer.DeserializeAsync<SpotDLPlaylist>(File.OpenRead(spotdlFile), _jsonOptions);
@@ -42,20 +42,16 @@ public class SpotDLMetadataReader : ISpotDLMetadataReader
         if (playlistData?.Songs is not { Count: > 0 })
         {
             _logger.LogWarning("No songs found in spotdl file");
-            return new List<Song>();
+            throw new FileNotFoundException("No spotdl file found in directory");
         }
 
-        var spotDlMetadata = new List<Song>();
+        var spotDlMetadata = new Dictionary<string, SongMetadata>();
         foreach (var spotDlSong in playlistData.Songs)
         {
-            try
+            var song = spotDlSong.ToSong();
+            if (!spotDlMetadata.TryAdd(song.Key, song))
             {
-                var song = spotDlSong.ToSong();
-                spotDlMetadata.Add(song);
-            }
-            catch (Exception ex)
-            {
-                _logger.LogError($"Error loading song {spotDlSong.Name}: {ex.Message}");
+                _logger.LogWarning($"Duplicate song: {song.Key}");
             }
         }
 

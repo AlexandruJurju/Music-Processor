@@ -1,6 +1,6 @@
 ﻿using MusicProcessor.Domain.Common;
 using MusicProcessor.Domain.Entities.GenreCategories;
-using MusicProcessor.Domain.Entities.Songs;
+using MusicProcessor.Domain.Entities.SongsMetadata;
 
 namespace MusicProcessor.Domain.Entities.Genres;
 
@@ -23,7 +23,7 @@ public sealed class Genre : BaseEntity
 
 
     public string Name { get; set; } = string.Empty;
-    public ICollection<Song> Songs { get; set; } = new List<Song>();
+    public ICollection<SongMetadata> Songs { get; set; } = new List<SongMetadata>();
     public ICollection<GenreCategory> GenreCategories { get; set; } = new List<GenreCategory>();
     public bool RemoveFromSongs { get; set; }
 }

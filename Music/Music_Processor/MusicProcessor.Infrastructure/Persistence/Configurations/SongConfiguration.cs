@@ -1,19 +1,19 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using MusicProcessor.Domain.Entities.Songs;
+using MusicProcessor.Domain.Entities.SongsMetadata;
 
 namespace MusicProcessor.Infrastructure.Persistence.Configurations;
 
-public class SongConfiguration : IEntityTypeConfiguration<Song>
+public class SongConfiguration : IEntityTypeConfiguration<SongMetadata>
 {
-    public void Configure(EntityTypeBuilder<Song> builder)
+    public void Configure(EntityTypeBuilder<SongMetadata> builder)
     {
         ConfigureProperties(builder);
         ConfigureRelationships(builder);
         ConfigureSpotifyInfo(builder);
     }
 
-    private void ConfigureProperties(EntityTypeBuilder<Song> builder)
+    private void ConfigureProperties(EntityTypeBuilder<SongMetadata> builder)
     {
         builder.HasKey(s => s.Id);
 
@@ -37,18 +37,10 @@ public class SongConfiguration : IEntityTypeConfiguration<Song>
 
         builder.Property(s => s.DiscCount);
 
-        builder.Property(s => s.FileType)
-            .IsRequired()
-            .HasMaxLength(10);
-
         builder.Property(s => s.Duration);
-
-        builder.Property(s => s.FilePath)
-            .IsRequired()
-            .HasMaxLength(500);
     }
 
-    private void ConfigureRelationships(EntityTypeBuilder<Song> builder)
+    private void ConfigureRelationships(EntityTypeBuilder<SongMetadata> builder)
     {
         // MainArtist relationship (one-to-many)
         builder.HasOne(s => s.MainArtist)
@@ -73,7 +65,7 @@ public class SongConfiguration : IEntityTypeConfiguration<Song>
             .UsingEntity("song_genres");
     }
 
-    private void ConfigureSpotifyInfo(EntityTypeBuilder<Song> builder)
+    private void ConfigureSpotifyInfo(EntityTypeBuilder<SongMetadata> builder)
     {
         // Configure SpotifyInfo as an owned entity
         builder.OwnsOne(s => s.SpotifyInfo, spotifyInfo =>

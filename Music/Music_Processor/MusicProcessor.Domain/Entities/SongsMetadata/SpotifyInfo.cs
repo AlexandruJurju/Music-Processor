@@ -1,4 +1,4 @@
-namespace MusicProcessor.Domain.Entities.Songs;
+namespace MusicProcessor.Domain.Entities.SongsMetadata;
 
 public record SpotifyInfo(
     string SpotifySongId,

@@ -1,18 +1,17 @@
 using MusicProcessor.Domain.Common;
-using MusicProcessor.Domain.Constants;
 using MusicProcessor.Domain.Entities.Albums;
 using MusicProcessor.Domain.Entities.Artits;
 using MusicProcessor.Domain.Entities.Genres;
 
-namespace MusicProcessor.Domain.Entities.Songs;
+namespace MusicProcessor.Domain.Entities.SongsMetadata;
 
-public sealed class Song : BaseEntity
+public sealed class SongMetadata : BaseEntity
 {
-    private Song()
+    private SongMetadata()
     {
     }
 
-    public Song(
+    public SongMetadata(
         string name,
         string isrc,
         ICollection<Artist> artists,
@@ -58,7 +57,5 @@ public sealed class Song : BaseEntity
     public ICollection<Artist> Artists { get; init; } = new List<Artist>();
     public ICollection<Genre> Genres { get; init; } = new List<Genre>();
     public SpotifyInfo? SpotifyInfo { get; init; }
-    public string FileType { get; set; } = string.Empty;
-    public string FilePath { get; set; } = string.Empty;
     public string Key => $"{MainArtist.Name.ToLower().Trim()} - {Name.ToLower().Trim()}";
 }

@@ -26,7 +26,7 @@ public class GenreConfiguration : IEntityTypeConfiguration<Genre>
             .WithMany(e => e.Genres)
             .UsingEntity("genre_genre_category");
 
-        // Many-to-many relationship with Song
+        // Many-to-many relationship with SongMetadata
         builder.HasMany(e => e.Songs)
             .WithMany(e => e.Genres)
             .UsingEntity("song_genres");

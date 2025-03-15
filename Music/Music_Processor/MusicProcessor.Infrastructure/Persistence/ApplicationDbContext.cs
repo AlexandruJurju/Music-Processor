@@ -4,13 +4,13 @@ using MusicProcessor.Domain.Entities.Albums;
 using MusicProcessor.Domain.Entities.Artits;
 using MusicProcessor.Domain.Entities.GenreCategories;
 using MusicProcessor.Domain.Entities.Genres;
-using MusicProcessor.Domain.Entities.Songs;
+using MusicProcessor.Domain.Entities.SongsMetadata;
 
 namespace MusicProcessor.Infrastructure.Persistence;
 
 public class ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : DbContext(options)
 {
-    public DbSet<Song> Songs { get; set; }
+    public DbSet<SongMetadata> Songs { get; set; }
     public DbSet<GenreCategory> GenreCategories { get; set; }
     public DbSet<Genre> Genres { get; set; }
     public DbSet<Artist> Artists { get; set; }

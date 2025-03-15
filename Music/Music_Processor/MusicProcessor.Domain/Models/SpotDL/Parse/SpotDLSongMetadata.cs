@@ -1,7 +1,7 @@
 using MusicProcessor.Domain.Entities.Albums;
 using MusicProcessor.Domain.Entities.Artits;
 using MusicProcessor.Domain.Entities.Genres;
-using MusicProcessor.Domain.Entities.Songs;
+using MusicProcessor.Domain.Entities.SongsMetadata;
 
 namespace MusicProcessor.Domain.Models.SpotDL.Parse;
 
@@ -33,16 +33,18 @@ public sealed class SpotDLSongMetadata
     public string AlbumId { get; set; } = string.Empty;
     public string ListName { get; set; } = string.Empty;
     public string ListUrl { get; set; } = string.Empty;
-    public int ListPosition { get; set; }
-    public int ListLength { get; set; }
+    public int? ListPosition { get; set; }
+    public int? ListLength { get; set; }
     public string ArtistId { get; set; } = string.Empty;
     public string AlbumType { get; set; } = string.Empty;
 
-    public Song ToSong()
+    public SongMetadata ToSong()
     {
         var artists = Artists.Select(x => new Artist(x)).ToList();
 
-        var genres = Genres.Select(x => new Genre(x)).ToList();
+        var genres = Genres
+            .Select(x => new Genre(char.ToUpper(x[0]) + x.Substring(1)))
+            .ToList();
 
         DateOnly.TryParse(Date, out var date);
 
@@ -54,7 +56,7 @@ public sealed class SpotDLSongMetadata
             ArtistId
         );
 
-        return new Song(
+        return new SongMetadata(
             Name,
             ISRC,
             artists,

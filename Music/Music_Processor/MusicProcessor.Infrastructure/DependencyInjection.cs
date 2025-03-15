@@ -42,7 +42,7 @@ public static class DependencyInjection
 
     private static void AddRepositories(IServiceCollection services)
     {
-        services.AddTransient<ISongRepository, SongRepository>();
+        services.AddTransient<ISongMetadataRepository, SongMetadataRepository>();
         services.AddTransient<IGenreRepository, GenreRepository>();
         services.AddTransient<IGenreCategoryRepository, GenreCategoryRepository>();
         services.AddTransient<IArtistRepository, ArtistRepository>();

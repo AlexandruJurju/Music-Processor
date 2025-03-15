@@ -1,5 +1,5 @@
 ﻿using MusicProcessor.Domain.Common;
-using MusicProcessor.Domain.Entities.Songs;
+using MusicProcessor.Domain.Entities.SongsMetadata;
 
 namespace MusicProcessor.Domain.Entities.Artits;
 
@@ -15,5 +15,5 @@ public sealed class Artist : BaseEntity
     }
 
     public string Name { get; set; } = string.Empty;
-    public ICollection<Song> Songs { get; set; } = new List<Song>();
+    public ICollection<SongMetadata> Songs { get; set; } = new List<SongMetadata>();
 }

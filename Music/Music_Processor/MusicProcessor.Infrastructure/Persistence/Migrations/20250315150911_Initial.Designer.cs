@@ -11,7 +11,7 @@ using MusicProcessor.Infrastructure.Persistence;
 namespace MusicProcessor.Infrastructure.Persistence.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20250312185257_Initial")]
+    [Migration("20250315150911_Initial")]
     partial class Initial
     {
         /// <inheritdoc />
@@ -169,8 +169,8 @@ namespace MusicProcessor.Infrastructure.Persistence.Migrations
                         .HasColumnType("INTEGER")
                         .HasColumnName("album_id");
 
-                    b.Property<DateOnly?>("Date")
-                        .HasColumnType("TEXT")
+                    b.Property<int?>("Date")
+                        .HasColumnType("INTEGER")
                         .HasColumnName("date");
 
                     b.Property<DateTime>("DateCreated")
@@ -199,12 +199,6 @@ namespace MusicProcessor.Infrastructure.Persistence.Migrations
                         .HasColumnType("TEXT")
                         .HasColumnName("file_path");
 
-                    b.Property<string>("FileType")
-                        .IsRequired()
-                        .HasMaxLength(10)
-                        .HasColumnType("TEXT")
-                        .HasColumnName("file_type");
-
                     b.Property<int?>("GenreCategoryId")
                         .HasColumnType("INTEGER")
                         .HasColumnName("genre_category_id");
@@ -232,10 +226,6 @@ namespace MusicProcessor.Infrastructure.Persistence.Migrations
                     b.Property<int>("TracksCount")
                         .HasColumnType("INTEGER")
                         .HasColumnName("tracks_count");
-
-                    b.Property<int?>("Year")
-                        .HasColumnType("INTEGER")
-                        .HasColumnName("year");
 
                     b.HasKey("Id")
                         .HasName("pk_songs");
@@ -346,46 +336,46 @@ namespace MusicProcessor.Infrastructure.Persistence.Migrations
 
                     b.OwnsOne("MusicProcessor.Domain.Entities.Songs.SpotifyInfo", "SpotifyInfo", b1 =>
                         {
-                            b1.Property<int>("SongId1")
+                            b1.Property<int>("SongId")
                                 .HasColumnType("INTEGER")
                                 .HasColumnName("id");
 
-                            b1.Property<string>("AlbumId")
+                            b1.Property<string>("SpotifyAlbumId")
                                 .IsRequired()
                                 .HasMaxLength(50)
                                 .HasColumnType("TEXT")
-                                .HasColumnName("spotify_info_album_id");
+                                .HasColumnName("spotify_info_spotify_album_id");
 
-                            b1.Property<string>("ArtistId")
+                            b1.Property<string>("SpotifyArtistId")
                                 .IsRequired()
                                 .HasMaxLength(50)
                                 .HasColumnType("TEXT")
-                                .HasColumnName("spotify_info_artist_id");
+                                .HasColumnName("spotify_info_spotify_artist_id");
 
-                            b1.Property<string>("CoverUrl")
+                            b1.Property<string>("SpotifyCoverUrl")
                                 .IsRequired()
                                 .HasMaxLength(500)
                                 .HasColumnType("TEXT")
-                                .HasColumnName("spotify_info_cover_url");
+                                .HasColumnName("spotify_info_spotify_cover_url");
 
-                            b1.Property<string>("SongId")
+                            b1.Property<string>("SpotifySongId")
                                 .IsRequired()
                                 .HasMaxLength(50)
                                 .HasColumnType("TEXT")
-                                .HasColumnName("spotify_info_song_id");
+                                .HasColumnName("spotify_info_spotify_song_id");
 
-                            b1.Property<string>("SongUrl")
+                            b1.Property<string>("SpotifySongUrl")
                                 .IsRequired()
                                 .HasMaxLength(500)
                                 .HasColumnType("TEXT")
-                                .HasColumnName("spotify_info_song_url");
+                                .HasColumnName("spotify_info_spotify_song_url");
 
-                            b1.HasKey("SongId1");
+                            b1.HasKey("SongId");
 
                             b1.ToTable("songs");
 
                             b1.WithOwner()
-                                .HasForeignKey("SongId1")
+                                .HasForeignKey("SongId")
                                 .HasConstraintName("fk_songs_songs_id");
                         });
 
