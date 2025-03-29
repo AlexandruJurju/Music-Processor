@@ -1,4 +1,4 @@
-﻿using MusicProcessor.Domain.Entities.SongsMetadata;
+﻿using MusicProcessor.Domain.SongsMetadata;
 
 namespace MusicProcessor.Application.Interfaces.Infrastructure;
 

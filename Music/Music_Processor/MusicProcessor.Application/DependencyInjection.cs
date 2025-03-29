@@ -18,7 +18,7 @@ public static class DependencyInjection
 
     private static void RegisterServices(IServiceCollection services)
     {
-        services.AddTransient<ISongProcessor, SongProcessor>();
+        services.AddTransient<IMetadatImportService, MetadataImportService>();
         services.AddTransient<IMetadataService, MetadataService>();
     }
 

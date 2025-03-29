@@ -28,25 +28,11 @@ public static class LoggingConfiguration
                 restrictedToMinimumLevel: LogEventLevel.Information,
                 theme: AnsiConsoleTheme.Literate)
             .WriteTo.File(
-                $"{logPath}/{timestamp}.log",
+                path: Path.Combine("X:\\Storage\\Music\\# Logs\\serilog.log"),
                 outputTemplate: "[{Timestamp:yyyy-MM-dd HH:mm:ss}] {Level:u3} {Message:lj}{NewLine}{Exception}",
                 restrictedToMinimumLevel: LogEventLevel.Information,
-                shared: false);
-
-
+                rollOnFileSizeLimit: false);
+        
         return loggingConfig.CreateLogger();
     }
-
-    // private static void AddCQRSHandlerLogger(LoggerConfiguration configuration, string handlerName, LogEventLevel logLevel, string timestamp)
-    // {
-    //     configuration.WriteTo.Logger(lc => lc
-    //         .Filter.ByIncludingOnly(evt =>
-    //             evt.Level == logLevel &&
-    //             evt.Properties.ContainsKey("SourceContext") &&
-    //             evt.Properties["SourceContext"].ToString().Contains(handlerName))
-    //         .WriteTo.File(
-    //             $"logs/{timestamp}_{handlerName}.log",
-    //             outputTemplate: "[{Timestamp:yyyy-MM-dd HH:mm:ss}] {Message:lj}{NewLine}",
-    //             shared: false));
-    // }
 }

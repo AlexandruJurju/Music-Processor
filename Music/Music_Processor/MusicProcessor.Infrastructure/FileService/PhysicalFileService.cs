@@ -1,12 +1,13 @@
 ﻿using Microsoft.Extensions.Options;
 using MusicProcessor.Application.Interfaces.Infrastructure;
-using MusicProcessor.Domain.Constants;
 
 namespace MusicProcessor.Infrastructure.FileService;
 
 public class PhysicalFileService : IFileService
 {
     private readonly PathsOptions _pathsOptions;
+
+    private readonly string[] AudioFileFormats = { ".mp3", ".wav", ".flac", ".aac", ".ogg", ".wma", ".m4a", ".alac", ".aiff", ".opus" };
 
     public PhysicalFileService(IOptions<PathsOptions> pathsOptions)
     {
@@ -65,7 +66,7 @@ public class PhysicalFileService : IFileService
         try
         {
             return Directory.EnumerateFiles(path, "*.*", SearchOption.AllDirectories)
-                .Where(file => Constants.AudioFileFormats.Contains(Path.GetExtension(file).ToLowerInvariant()));
+                .Where(file => AudioFileFormats.Contains(Path.GetExtension(file).ToLowerInvariant()));
         }
         catch (Exception ex)
         {

@@ -1,4 +1,4 @@
-﻿using MusicProcessor.Domain.Entities.Genres;
+﻿using MusicProcessor.Domain.Genres;
 
 namespace MusicProcessor.Application.Interfaces.Infrastructure;
 

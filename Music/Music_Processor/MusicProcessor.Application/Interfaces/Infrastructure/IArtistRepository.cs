@@ -1,4 +1,4 @@
-﻿using MusicProcessor.Domain.Entities.Artits;
+﻿using MusicProcessor.Domain.Artists;
 
 namespace MusicProcessor.Application.Interfaces.Infrastructure;
 

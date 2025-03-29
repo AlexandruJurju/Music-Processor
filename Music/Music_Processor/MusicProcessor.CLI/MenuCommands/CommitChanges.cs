@@ -10,9 +10,8 @@ namespace MusicProcessor.CLI.MenuCommands;
 public class CommitChanges : BaseMenuCommand
 {
     public CommitChanges(
-        IFileService fileService,
         IMediator mediator
-    ) : base(fileService, mediator)
+    ) : base(mediator)
     {
     }
 

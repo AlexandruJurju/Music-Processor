@@ -1,9 +1,9 @@
 using Microsoft.Extensions.Logging;
 using MusicProcessor.Application.Interfaces.Application;
-using MusicProcessor.Domain.Entities.Albums;
-using MusicProcessor.Domain.Entities.Artits;
-using MusicProcessor.Domain.Entities.Genres;
-using MusicProcessor.Domain.Entities.SongsMetadata;
+using MusicProcessor.Domain.Albums;
+using MusicProcessor.Domain.Artists;
+using MusicProcessor.Domain.Genres;
+using MusicProcessor.Domain.SongsMetadata;
 using TagLib;
 using TagLib.Ogg;
 using File = TagLib.File;
@@ -25,7 +25,7 @@ public class MetadataService : IMetadataService
     {
         using var file = File.Create(songPath);
         var metadata = ExtractMetadata(file, songPath);
-        _logger.LogDebug($"Successfully read metadata from file: {songPath}");
+        _logger.LogDebug("Successfully read metadata from file: {SongPath}", songPath);
         return metadata;
     }
 
@@ -84,7 +84,7 @@ public class MetadataService : IMetadataService
         }
 
         return genres.Distinct()
-            .Select(genreName => new Genre { Name = genreName })
+            .Select(genreName => new Genre(name: genreName))
             .ToList();
     }
 

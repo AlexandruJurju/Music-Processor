@@ -10,9 +10,8 @@ namespace MusicProcessor.CLI.MenuCommands;
 public class ReadSpotDLMeta : BaseMenuCommand
 {
     public ReadSpotDLMeta(
-        IFileService fileService,
         IMediator mediator
-    ) : base(fileService, mediator)
+    ) : base(mediator)
     {
     }
 

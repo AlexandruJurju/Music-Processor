@@ -2,10 +2,10 @@ using MediatR;
 using Microsoft.Extensions.Logging;
 using MusicProcessor.Application.Interfaces.Application;
 using MusicProcessor.Application.Interfaces.Infrastructure;
-using MusicProcessor.Domain.Entities.Albums;
-using MusicProcessor.Domain.Entities.Artits;
-using MusicProcessor.Domain.Entities.Genres;
-using MusicProcessor.Domain.Entities.SongsMetadata;
+using MusicProcessor.Domain.Albums;
+using MusicProcessor.Domain.Artists;
+using MusicProcessor.Domain.Genres;
+using MusicProcessor.Domain.SongsMetadata;
 using MusicProcessor.SpotDL.Interfaces;
 using MusicProcessor.SpotDL.Models;
 
@@ -16,20 +16,20 @@ public class ReadSpotdlMetadataHandler : IRequestHandler<ReadSpotdlMetadataComma
     private readonly IFileService _fileService;
     private readonly ILogger<ReadSpotdlMetadataHandler> _logger;
     private readonly ISongMetadataRepository _songMetadataRepository;
-    private readonly ISongProcessor _songProcessor;
+    private readonly IMetadatImportService _metadatImportService;
     private readonly ISpotDLMetadataReader _spotDlMetadataReader;
 
     public ReadSpotdlMetadataHandler(
         ISpotDLMetadataReader spotDlMetadataReader,
         IFileService fileService,
         ISongMetadataRepository songMetadataRepository,
-        ILogger<ReadSpotdlMetadataHandler> logger, IMetadataService metadataService, ISongProcessor songProcessor)
+        ILogger<ReadSpotdlMetadataHandler> logger, IMetadataService metadataService, IMetadatImportService metadatImportService)
     {
         _spotDlMetadataReader = spotDlMetadataReader;
         _fileService = fileService;
         _songMetadataRepository = songMetadataRepository;
         _logger = logger;
-        _songProcessor = songProcessor;
+        _metadatImportService = metadatImportService;
     }
 
     public async Task Handle(ReadSpotdlMetadataCommand request, CancellationToken cancellationToken)
@@ -43,7 +43,7 @@ public class ReadSpotdlMetadataHandler : IRequestHandler<ReadSpotdlMetadataComma
             songsToAdd.Add(ToSongMetadata(spotdlSong.Value));
         }
 
-        await _songProcessor.ImportSongMetadataAsync(songsToAdd);
+        await _metadatImportService.ImportSongMetadataAsync(songsToAdd);
     }
 
     private SongMetadata ToSongMetadata(SpotDLSongMetadata spotdlSongMetadata)

@@ -2,9 +2,12 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using MusicProcessor.Application.Interfaces.Infrastructure;
-using MusicProcessor.Infrastructure.Persistence;
-using MusicProcessor.Persistence.Persistence;
-using MusicProcessor.Persistence.Persistence.Repositories;
+using MusicProcessor.Persistence.Albums;
+using MusicProcessor.Persistence.Artists;
+using MusicProcessor.Persistence.Common;
+using MusicProcessor.Persistence.GenreCategories;
+using MusicProcessor.Persistence.Genres;
+using MusicProcessor.Persistence.SongsMetadata;
 
 namespace MusicProcessor.Persistence;
 

@@ -6,10 +6,10 @@ using MusicProcessor.CLI.Configurations;
 using MusicProcessor.Infrastructure;
 using MusicProcessor.Persistence;
 using MusicProcessor.SpotDL;
+using Serilog;
+using Serilog.Events;
 
 var builder = Host.CreateApplicationBuilder(args);
-
-builder.ConfigureLogging(builder.Configuration);
 
 builder.Services
     .RegisterApplication()
