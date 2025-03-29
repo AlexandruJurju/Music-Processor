@@ -82,6 +82,7 @@ public class SongMetadataRepository : ISongMetadataRepository
     {
         return await _context.Songs
             .Include(s => s.MainArtist)
+            .AsNoTracking()
             .ToDictionaryAsync(
                 s => s.MainArtist.Name.ToLower().Trim() + " - " + s.Name.ToLower().Trim(),
                 s => s

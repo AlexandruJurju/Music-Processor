@@ -36,15 +36,11 @@ public class ReadSpotdlMetadataHandler : IRequestHandler<ReadSpotdlMetadataComma
     {
         var spotdlFile = _fileService.GetSpotDLFileInPlaylistFolder(request.PlaylistName);
         var spotdlMetadata = await _spotDlMetadataReader.LoadSpotDLMetadataAsync(spotdlFile!);
-        var existingSongs = await _songMetadataRepository.GetAllSongsWithKeyAsync();
 
         var songsToAdd = new List<SongMetadata>();
         foreach (var spotdlSong in spotdlMetadata)
         {
-            if (!existingSongs.ContainsKey(spotdlSong.Key))
-                songsToAdd.Add(ToSongMetadata(spotdlSong.Value));
-            else
-                _logger.LogWarning($"Found song with key {spotdlSong.Key}");
+            songsToAdd.Add(ToSongMetadata(spotdlSong.Value));
         }
 
         await _songProcessor.ImportSongMetadataAsync(songsToAdd);

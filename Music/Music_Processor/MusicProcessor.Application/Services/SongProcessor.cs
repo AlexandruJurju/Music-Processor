@@ -78,6 +78,38 @@ public class SongProcessor : ISongProcessor
         List<Genre> newGenres,
         List<Album> newAlbums)
     {
+        await ProcessArtistsAsync(song, newArtists);
+
+        await ProcessAlbumAsync(song, newArtists, newAlbums);
+
+        await ProcessGenresAsync(song, newGenres);
+    }
+
+    private async Task ProcessGenresAsync(SongMetadata song, List<Genre> newGenres)
+    {
+        // Process genres
+        var genres = new List<Genre>();
+        foreach (var genreMeta in song.Genres)
+        {
+            var genre = await GetOrCreateGenreBatchStyleAsync(genreMeta, newGenres);
+            genres.Add(genre);
+        }
+
+        song.Genres = genres;
+    }
+
+    private async Task ProcessAlbumAsync(SongMetadata song, List<Artist> newArtists, List<Album> newAlbums)
+    {
+        // Process album
+        if (song.Album != null)
+        {
+            song.Album.Artist = await GetOrCreateArtistBatchStyleAsync(song.Album.Artist, newArtists);
+            song.Album = await GetOrCreateAlbumBatchStyleAsync(song.Album, newAlbums);
+        }
+    }
+
+    private async Task ProcessArtistsAsync(SongMetadata song, List<Artist> newArtists)
+    {
         // Process artists
         var artists = new List<Artist>();
         foreach (var artistMetadata in song.Artists)
@@ -90,23 +122,6 @@ public class SongProcessor : ISongProcessor
 
         // Process main artist
         song.MainArtist = await GetOrCreateArtistBatchStyleAsync(song.MainArtist, newArtists);
-
-        // Process album
-        if (song.Album != null)
-        {
-            song.Album.Artist = await GetOrCreateArtistBatchStyleAsync(song.Album.Artist, newArtists);
-            song.Album = await GetOrCreateAlbumBatchStyleAsync(song.Album, newAlbums);
-        }
-
-        // Process genres
-        var genres = new List<Genre>();
-        foreach (var genreMeta in song.Genres)
-        {
-            var genre = await GetOrCreateGenreBatchStyleAsync(genreMeta, newGenres);
-            genres.Add(genre);
-        }
-
-        song.Genres = genres;
     }
 
     private async Task<Artist> GetOrCreateArtistBatchStyleAsync(Artist artist, List<Artist> newArtists)
