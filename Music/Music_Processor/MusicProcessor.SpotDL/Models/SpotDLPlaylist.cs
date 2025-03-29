@@ -1,4 +1,4 @@
-namespace MusicProcessor.Domain.Models.SpotDL.Parse;
+namespace MusicProcessor.SpotDL.Models;
 
 public sealed class SpotDLPlaylist
 {
