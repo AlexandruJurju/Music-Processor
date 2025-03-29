@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using MusicProcessor.Domain.Entities.SongsMetadata;
 
-namespace MusicProcessor.Infrastructure.Persistence.Configurations;
+namespace MusicProcessor.Persistence.Persistence.Configurations;
 
 public class SongConfiguration : IEntityTypeConfiguration<SongMetadata>
 {
@@ -28,7 +28,7 @@ public class SongConfiguration : IEntityTypeConfiguration<SongMetadata>
             .HasMaxLength(12);
 
         builder.Property(s => s.Date);
-        
+
         builder.Property(s => s.TrackNumber);
 
         builder.Property(s => s.TracksCount);

@@ -54,8 +54,8 @@ public sealed class SongMetadata : BaseEntity
     public Album? Album { get; set; }
     public Artist MainArtist { get; set; }
     public int MainArtistId { get; set; }
-    public ICollection<Artist> Artists { get; init; } = new List<Artist>();
-    public ICollection<Genre> Genres { get; init; } = new List<Genre>();
-    public SpotifyInfo? SpotifyInfo { get; init; }
+    public ICollection<Artist> Artists { get; set; } = new List<Artist>();
+    public ICollection<Genre> Genres { get; set; } = new List<Genre>();
+    public SpotifyInfo? SpotifyInfo { get; set; }
     public string Key => $"{MainArtist.Name.ToLower().Trim()} - {Name.ToLower().Trim()}";
 }

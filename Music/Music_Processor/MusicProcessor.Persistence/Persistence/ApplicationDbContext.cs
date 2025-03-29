@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using MusicProcessor.Application.Interfaces.Infrastructure;
 using MusicProcessor.Domain.Common;
 using MusicProcessor.Domain.Entities.Albums;
 using MusicProcessor.Domain.Entities.Artits;
@@ -6,10 +7,14 @@ using MusicProcessor.Domain.Entities.GenreCategories;
 using MusicProcessor.Domain.Entities.Genres;
 using MusicProcessor.Domain.Entities.SongsMetadata;
 
-namespace MusicProcessor.Infrastructure.Persistence;
+namespace MusicProcessor.Persistence.Persistence;
 
-public class ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : DbContext(options)
+public class ApplicationDbContext : DbContext, IUnitOfWork
 {
+    public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)
+    {
+    }
+
     public DbSet<SongMetadata> Songs { get; set; }
     public DbSet<GenreCategory> GenreCategories { get; set; }
     public DbSet<Genre> Genres { get; set; }
@@ -37,5 +42,10 @@ public class ApplicationDbContext(DbContextOptions<ApplicationDbContext> options
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.ApplyConfigurationsFromAssembly(typeof(ApplicationDbContext).Assembly);
+    }
+
+    public async Task CommitChangesAsync()
+    {
+        await SaveChangesAsync();
     }
 }

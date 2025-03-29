@@ -15,7 +15,7 @@
             <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
         </PackageReference>
         <PackageReference Include="Microsoft.Extensions.Hosting" Version="9.0.0"/>
-        <PackageReference Include="Microsoft.Extensions.Options" Version="9.0.3" />
+        <PackageReference Include="Microsoft.Extensions.Options" Version="9.0.3"/>
         <PackageReference Include="Serilog.Sinks.File" Version="6.0.0"/>
     </ItemGroup>
 
@@ -27,15 +27,15 @@
             <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
         </None>
         <None Update="appsettings.json">
-          <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
         </None>
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\MusicProcessor.Application\MusicProcessor.Application.csproj" />
-      <ProjectReference Include="..\MusicProcessor.Domain\MusicProcessor.Domain.csproj" />
-      <ProjectReference Include="..\MusicProcessor.Infrastructure\MusicProcessor.Infrastructure.csproj" />
-      <ProjectReference Include="..\MusicProcessor.Persistence\MusicProcessor.Persistence.csproj" />
+        <ProjectReference Include="..\MusicProcessor.Application\MusicProcessor.Application.csproj"/>
+        <ProjectReference Include="..\MusicProcessor.Domain\MusicProcessor.Domain.csproj"/>
+        <ProjectReference Include="..\MusicProcessor.Infrastructure\MusicProcessor.Infrastructure.csproj"/>
+        <ProjectReference Include="..\MusicProcessor.Persistence\MusicProcessor.Persistence.csproj"/>
     </ItemGroup>
 
 </Project>

@@ -19,7 +19,7 @@ public static class LoggingConfiguration
         var timestamp = DateTime.Now.ToString("yyyy-MM-dd_HH-mm-ss");
 
         var logPath = configuration.GetValue<string>("PathsSettings:LogsPath");
-        
+
         var loggingConfig = new LoggerConfiguration()
             .MinimumLevel.Debug()
             .MinimumLevel.Override("Microsoft.EntityFrameworkCore", LogEventLevel.Warning)

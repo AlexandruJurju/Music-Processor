@@ -3,7 +3,8 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using MusicProcessor.Application.Interfaces.Infrastructure;
 using MusicProcessor.Infrastructure.Persistence;
-using MusicProcessor.Infrastructure.Persistence.Repositories;
+using MusicProcessor.Persistence.Persistence;
+using MusicProcessor.Persistence.Persistence.Repositories;
 
 namespace MusicProcessor.Persistence;
 
@@ -16,7 +17,7 @@ public static class DependencyInjection
 
         return services;
     }
-    
+
     private static void AddDb(IServiceCollection services, IConfiguration configuration)
     {
         var dbPath = configuration.GetValue<string>("PathsSettings:SQLLiteConnection");

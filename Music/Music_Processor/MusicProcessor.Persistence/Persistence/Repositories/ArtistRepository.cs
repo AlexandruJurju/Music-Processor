@@ -2,7 +2,7 @@
 using MusicProcessor.Application.Interfaces.Infrastructure;
 using MusicProcessor.Domain.Entities.Artits;
 
-namespace MusicProcessor.Infrastructure.Persistence.Repositories;
+namespace MusicProcessor.Persistence.Persistence.Repositories;
 
 public class ArtistRepository : IArtistRepository
 {
@@ -18,16 +18,21 @@ public class ArtistRepository : IArtistRepository
         return await _db.Artists.ToListAsync();
     }
 
-    public async Task<int> AddAsync(Artist newArtist)
+    public async Task<Artist> AddAsync(Artist newArtist)
     {
-        _db.Artists.Add(newArtist);
+        await _db.Artists.AddAsync(newArtist);
         await _db.SaveChangesAsync();
-        return newArtist.Id;
+        return newArtist;
     }
 
     public async Task<Artist?> GetByIdAsync(int artistId)
     {
         return await _db.Artists.FirstOrDefaultAsync(a => a.Id == artistId);
+    }
+
+    public async Task<Artist?> GetByNameAsync(string artistName)
+    {
+        return await _db.Artists.FirstOrDefaultAsync(a => a.Name == artistName);
     }
 
     public async Task AddRangeAsync(List<Artist> newArtists)

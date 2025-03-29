@@ -2,7 +2,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using MusicProcessor.Domain.Entities.Albums;
 
-namespace MusicProcessor.Infrastructure.Persistence.Configurations;
+namespace MusicProcessor.Persistence.Persistence.Configurations;
 
 public class AlbumConfiguration : IEntityTypeConfiguration<Album>
 {

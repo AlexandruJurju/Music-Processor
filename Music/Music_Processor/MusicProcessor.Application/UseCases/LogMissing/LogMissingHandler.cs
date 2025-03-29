@@ -7,10 +7,10 @@ namespace MusicProcessor.Application.UseCases.LogMissing;
 
 public class LogMissingHandler : IRequestHandler<LogMissingQuery>
 {
-    private readonly ISongMetadataRepository _songMetadataRepository;
     private readonly IFileService _fileService;
-    private readonly IMetadataService _metadataService;
     private readonly ILogger<LogMissingHandler> _logger;
+    private readonly IMetadataService _metadataService;
+    private readonly ISongMetadataRepository _songMetadataRepository;
 
     public LogMissingHandler(ISongMetadataRepository songMetadataRepository, IFileService fileService, IMetadataService metadataService, ILogger<LogMissingHandler> logger)
     {

@@ -1,10 +1,8 @@
 ﻿using CliFx.Attributes;
 using CliFx.Infrastructure;
 using MediatR;
-using Microsoft.Extensions.Options;
 using MusicProcessor.Application.Interfaces.Infrastructure;
 using MusicProcessor.Application.UseCases.CommitChanges;
-using MusicProcessor.Infrastructure.FileService;
 
 namespace MusicProcessor.CLI.MenuCommands;
 

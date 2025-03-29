@@ -10,11 +10,15 @@ namespace MusicProcessor.Application.Services;
 
 public class SongProcessor : ISongProcessor
 {
+    private readonly IAlbumRepository _albumRepository;
     private readonly IArtistRepository _artistRepository;
     private readonly IGenreRepository _genreRepository;
     private readonly ISongMetadataRepository _songMetadataRepository;
-    private readonly IAlbumRepository _albumRepository;
     private readonly ILogger<SongProcessor> _logger;
+
+    private readonly Dictionary<string, Artist> _artistCache = new(StringComparer.OrdinalIgnoreCase);
+    private readonly Dictionary<string, Album> _albumCache = new(StringComparer.OrdinalIgnoreCase);
+    private readonly Dictionary<string, Genre> _genreCache = new(StringComparer.OrdinalIgnoreCase);
 
     public SongProcessor(
         IArtistRepository artistRepository,
@@ -30,32 +34,22 @@ public class SongProcessor : ISongProcessor
         _logger = logger;
     }
 
-    public async Task AddMetadataToDbAsync(IEnumerable<SongMetadata> songs)
+    public async Task ImportSongMetadataAsync(IEnumerable<SongMetadata> songs)
     {
-        var songsList = songs.ToList();
-        _logger.LogInformation($"Processing {songsList.Count} songs");
+        await PreloadCachesAsync();
 
-        // Load existing entities from the database
-        var existingArtists = await _artistRepository.GetAllAsync();
-        var existingGenres = await _genreRepository.GetAllAsync();
-        var existingAlbums = await _albumRepository.GetAllAsync();
-
-        _logger.LogDebug($"Loaded entities: {existingArtists.Count} artists, {existingGenres.Count} genres, {existingAlbums.Count} albums");
-
-        // Declare lists to collect new entities
+        var songsToAdd = new List<SongMetadata>();
         var newArtists = new List<Artist>();
         var newGenres = new List<Genre>();
         var newAlbums = new List<Album>();
 
-        foreach (var song in songsList)
+        foreach (var song in songs)
         {
             try
             {
-                _logger.LogInformation($"Processing song: {song.Name} by {song.MainArtist.Name}");
-
-                ProcessArtists(song, existingArtists, newArtists);
-                ProcessAlbums(song, existingAlbums, existingArtists, newAlbums, newArtists);
-                ProcessGenres(song, existingGenres, newGenres);
+                await ProcessSongAsync(song, newArtists, newGenres, newAlbums);
+                songsToAdd.Add(song);
+                _logger.LogDebug($"Processed song: {song.Name}");
             }
             catch (Exception ex)
             {
@@ -72,102 +66,113 @@ public class SongProcessor : ISongProcessor
             await _albumRepository.AddRangeAsync(newAlbums);
 
         // Batch insert songs
-        await _songMetadataRepository.AddRangeAsync(songsList);
+        if (songsToAdd.Any())
+            await _songMetadataRepository.AddRangeAsync(songsToAdd);
 
-        _logger.LogDebug("Successfully processed {Count} songs", songsList.Count);
+        _logger.LogInformation($"Completed processing {songsToAdd.Count} songs");
     }
 
-    private void ProcessArtists(SongMetadata songMetadata, List<Artist> existingArtists, List<Artist> newArtists)
+    private async Task ProcessSongAsync(
+        SongMetadata song,
+        List<Artist> newArtists,
+        List<Genre> newGenres,
+        List<Album> newAlbums)
     {
-        var artists = songMetadata.Artists.ToList();
-        songMetadata.Artists.Clear();
-
-        foreach (var artist in artists)
+        // Process artists
+        var artists = new List<Artist>();
+        foreach (var artistMetadata in song.Artists)
         {
-            var existingArtist = existingArtists
-                .FirstOrDefault(a => a.Name.Equals(artist.Name, StringComparison.OrdinalIgnoreCase));
-
-            if (existingArtist != null)
-            {
-                songMetadata.Artists.Add(existingArtist);
-                _logger.LogDebug("Using existing artist: {ArtistName}", artist.Name);
-            }
-            else
-            {
-                newArtists.Add(artist);
-                existingArtists.Add(artist);
-                songMetadata.Artists.Add(artist);
-                _logger.LogDebug("Added new artist: {ArtistName}", artist.Name);
-            }
+            var artist = await GetOrCreateArtistBatchStyleAsync(artistMetadata, newArtists);
+            artists.Add(artist);
         }
 
-        var existingMainArtist = existingArtists.FirstOrDefault(a => a.Name.Equals(songMetadata.MainArtist.Name, StringComparison.OrdinalIgnoreCase));
-        if (existingMainArtist != null)
+        song.Artists = artists;
+
+        // Process main artist
+        song.MainArtist = await GetOrCreateArtistBatchStyleAsync(song.MainArtist, newArtists);
+
+        // Process album
+        if (song.Album != null)
         {
-            songMetadata.MainArtist = existingMainArtist;
-            _logger.LogDebug("Using existing artist: {ArtistName}", existingMainArtist.Name);
+            song.Album.Artist = await GetOrCreateArtistBatchStyleAsync(song.Album.Artist, newArtists);
+            song.Album = await GetOrCreateAlbumBatchStyleAsync(song.Album, newAlbums);
         }
-        else
+
+        // Process genres
+        var genres = new List<Genre>();
+        foreach (var genreMeta in song.Genres)
         {
-            newArtists.Add(songMetadata.MainArtist);
-            existingArtists.Add(songMetadata.MainArtist);
-            songMetadata.MainArtist = songMetadata.MainArtist;
-            _logger.LogDebug("Added new artist: {ArtistName}", songMetadata.MainArtist.Name);
+            var genre = await GetOrCreateGenreBatchStyleAsync(genreMeta, newGenres);
+            genres.Add(genre);
         }
+
+        song.Genres = genres;
     }
 
-    private void ProcessAlbums(SongMetadata songMetadata, List<Album> existingAlbums, List<Artist> existingArtists, List<Album> newAlbums, List<Artist> newArtists)
+    private async Task<Artist> GetOrCreateArtistBatchStyleAsync(Artist artist, List<Artist> newArtists)
     {
-        if (songMetadata.Album == null) return;
+        if (_artistCache.TryGetValue(artist.Name, out var cachedArtist))
+            return cachedArtist;
 
-        var existingAlbum = existingAlbums
-            .FirstOrDefault(a => a.Name.Equals(songMetadata.Album.Name, StringComparison.OrdinalIgnoreCase));
+        var existingArtist = await _artistRepository.GetByNameAsync(artist.Name);
+        if (existingArtist != null)
+        {
+            _artistCache[artist.Name] = existingArtist;
+            return existingArtist;
+        }
 
+        // Instead of immediate insert, add to batch
+        newArtists.Add(artist);
+        _artistCache[artist.Name] = artist;
+        return artist;
+    }
+
+    private async Task<Album> GetOrCreateAlbumBatchStyleAsync(Album album, List<Album> newAlbums)
+    {
+        if (_albumCache.TryGetValue(album.Name, out var cachedAlbum))
+            return cachedAlbum;
+
+        var existingAlbum = await _albumRepository.GetByNameAsync(album.Name);
         if (existingAlbum != null)
         {
-            songMetadata.Album = existingAlbum;
-            _logger.LogDebug("Using existing album: {AlbumName}", existingAlbum.Name);
+            _albumCache[album.Name] = existingAlbum;
+            return existingAlbum;
         }
-        else
-        {
-            var albumArtist = songMetadata.Album.Artist;
-            var existingAlbumArtist = existingArtists.FirstOrDefault(a => a.Name.Equals(albumArtist.Name, StringComparison.OrdinalIgnoreCase));
-            if (existingAlbumArtist != null)
-            {
-                songMetadata.Album.Artist = existingAlbumArtist;
-            }
-            else
-            {
-                newArtists.Add(albumArtist);
-                existingArtists.Add(albumArtist);
-            }
 
-            newAlbums.Add(songMetadata.Album);
-            existingAlbums.Add(songMetadata.Album);
-            _logger.LogDebug("Added new album: {AlbumName}", songMetadata.Album.Name);
-        }
+        newAlbums.Add(album);
+        _albumCache[album.Name] = album;
+        return album;
     }
 
-    private void ProcessGenres(SongMetadata songMetadata, List<Genre> existingGenres, List<Genre> newGenres)
+    private async Task<Genre> GetOrCreateGenreBatchStyleAsync(Genre genre, List<Genre> newGenres)
     {
-        var genres = songMetadata.Genres.ToList();
-        songMetadata.Genres.Clear();
+        if (_genreCache.TryGetValue(genre.Name, out var cachedGenre))
+            return cachedGenre;
 
-        foreach (var genre in genres)
+        var existingGenre = await _genreRepository.GetByNameAsync(genre.Name);
+        if (existingGenre != null)
         {
-            var existingGenre = existingGenres.FirstOrDefault(g => g.Name.Equals(genre.Name, StringComparison.OrdinalIgnoreCase));
-            if (existingGenre != null)
-            {
-                songMetadata.Genres.Add(existingGenre);
-                _logger.LogDebug("Using existing genre: {GenreName}", genre.Name);
-            }
-            else
-            {
-                newGenres.Add(genre);
-                existingGenres.Add(genre);
-                songMetadata.Genres.Add(genre);
-                _logger.LogDebug("Added new genre: {GenreName}", genre.Name);
-            }
+            _genreCache[genre.Name] = existingGenre;
+            return existingGenre;
         }
+
+        newGenres.Add(genre);
+        _genreCache[genre.Name] = genre;
+        return genre;
+    }
+
+    private async Task PreloadCachesAsync()
+    {
+        var allAlbums = await _albumRepository.GetAllAsync();
+        foreach (var album in allAlbums)
+            _albumCache[album.Name] = album;
+
+        var allArtists = await _artistRepository.GetAllAsync();
+        foreach (var artist in allArtists)
+            _artistCache[artist.Name] = artist;
+
+        var allGenres = await _genreRepository.GetAllAsync();
+        foreach (var genre in allGenres)
+            _genreCache[genre.Name] = genre;
     }
 }

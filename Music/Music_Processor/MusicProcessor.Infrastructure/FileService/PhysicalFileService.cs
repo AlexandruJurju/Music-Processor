@@ -28,25 +28,12 @@ public class PhysicalFileService : IFileService
         if (string.IsNullOrWhiteSpace(path))
             throw new ArgumentException("The playlist cannot be null or empty.", nameof(path));
 
-        string playlistPath = Path.Combine(_pathsOptions.SpotDLPlaylistsPath, path);
+        var playlistPath = Path.Combine(_pathsOptions.SpotDLPlaylistsPath, path);
 
         if (!Directory.Exists(playlistPath))
             throw new DirectoryNotFoundException($"The playlist directory '{playlistPath}' does not exist.");
 
         return GetAudioFiles(playlistPath);
-    }
-
-    private IEnumerable<string> GetAudioFiles(string path)
-    {
-        try
-        {
-            return Directory.EnumerateFiles(path, "*.*", SearchOption.AllDirectories)
-                .Where(file => Constants.AudioFileFormats.Contains(Path.GetExtension(file).ToLowerInvariant()));
-        }
-        catch (Exception ex)
-        {
-            throw new IOException($"Failed to retrieve audio files from '{path}'.", ex);
-        }
     }
 
     public IEnumerable<string> GetAllSpotDLPlaylistsNames()
@@ -71,5 +58,18 @@ public class PhysicalFileService : IFileService
         var spotdlFilePath = Path.Combine(_pathsOptions.SpotDLPlaylistsPath, playlistName, $"{playlistName}.spotdl");
 
         return File.Exists(spotdlFilePath) ? spotdlFilePath : null;
+    }
+
+    private IEnumerable<string> GetAudioFiles(string path)
+    {
+        try
+        {
+            return Directory.EnumerateFiles(path, "*.*", SearchOption.AllDirectories)
+                .Where(file => Constants.AudioFileFormats.Contains(Path.GetExtension(file).ToLowerInvariant()));
+        }
+        catch (Exception ex)
+        {
+            throw new IOException($"Failed to retrieve audio files from '{path}'.", ex);
+        }
     }
 }

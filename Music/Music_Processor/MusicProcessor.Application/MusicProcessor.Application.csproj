@@ -12,13 +12,13 @@
         <PackageReference Include="Serilog" Version="4.2.0"/>
         <PackageReference Include="Serilog.Extensions.Hosting" Version="9.0.0"/>
         <PackageReference Include="Serilog.Sinks.Console" Version="6.0.0"/>
-        <PackageReference Include="TagLibSharp" Version="2.3.0" />
+        <PackageReference Include="TagLibSharp" Version="2.3.0"/>
         <PackageReference Include="z440.atl.core" Version="6.17.0"/>
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\MusicProcessor.Domain\MusicProcessor.Domain.csproj" />
-      <ProjectReference Include="..\MusicProcessor.SpotDL\MusicProcessor.SpotDL.csproj" />
+        <ProjectReference Include="..\MusicProcessor.Domain\MusicProcessor.Domain.csproj"/>
+        <ProjectReference Include="..\MusicProcessor.SpotDL\MusicProcessor.SpotDL.csproj"/>
     </ItemGroup>
 
 </Project>

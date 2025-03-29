@@ -12,10 +12,9 @@ namespace MusicProcessor.Application.Services;
 
 public class MetadataService : IMetadataService
 {
-    private readonly ILogger<MetadataService> _logger;
-
     private const string GENRE_CATEGORY = "GENRE-CATEGORY";
     private const string ARTISTS = "ARTISTS";
+    private readonly ILogger<MetadataService> _logger;
 
     public MetadataService(ILogger<MetadataService> logger)
     {
@@ -30,23 +29,31 @@ public class MetadataService : IMetadataService
         return metadata;
     }
 
+    public void WriteMetadata(SongMetadata songMetadata, string songPath)
+    {
+        using var file = File.Create(songPath);
+        UpdateMetadata(file, songMetadata);
+        file.Save();
+        _logger.LogDebug($"Successfully updated metadata for file: {songPath}");
+    }
+
     private SongMetadata ExtractMetadata(File file, string songPath)
     {
         var tag = file.Tag;
 
         var metadata = new SongMetadata(
-            name: tag.Title ?? Path.GetFileNameWithoutExtension(songPath),
-            isrc: tag.ISRC,
-            artists: ReadCustomTagArtists(file),
-            mainArtist: new Artist(tag.FirstPerformer ?? string.Empty),
-            genres: ReadGenres(file),
-            discNumber: (int)tag.Disc,
-            discCount: (int)tag.DiscCount,
-            album: tag.Album != null ? new Album(tag.Album, new Artist(tag.FirstAlbumArtist ?? string.Empty)) : null,
-            duration: file.Properties.Duration.Seconds,
-            date: (int)tag.Year,
-            trackNumber: (int)tag.Track,
-            tracksCount: (int)tag.TrackCount
+            tag.Title ?? Path.GetFileNameWithoutExtension(songPath),
+            tag.ISRC,
+            ReadCustomTagArtists(file),
+            new Artist(tag.FirstPerformer ?? string.Empty),
+            ReadGenres(file),
+            (int)tag.Disc,
+            (int)tag.DiscCount,
+            tag.Album != null ? new Album(tag.Album, new Artist(tag.FirstAlbumArtist ?? string.Empty)) : null,
+            file.Properties.Duration.Seconds,
+            (int)tag.Year,
+            (int)tag.Track,
+            (int)tag.TrackCount
         );
 
         return metadata;
@@ -97,14 +104,6 @@ public class MetadataService : IMetadataService
         return artists
             .Select(a => new Artist(a))
             .ToList();
-    }
-
-    public void WriteMetadata(SongMetadata songMetadata, string songPath)
-    {
-        using var file = File.Create(songPath);
-        UpdateMetadata(file, songMetadata);
-        file.Save();
-        _logger.LogDebug($"Successfully updated metadata for file: {songPath}");
     }
 
     private void UpdateMetadata(File file, SongMetadata songMetadata)

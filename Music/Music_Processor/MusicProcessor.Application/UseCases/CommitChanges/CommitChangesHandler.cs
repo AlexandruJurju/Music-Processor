@@ -7,10 +7,10 @@ namespace MusicProcessor.Application.UseCases.CommitChanges;
 
 public sealed class CommitChangesHandler : IRequestHandler<CommitChangesCommand>
 {
-    private readonly IMetadataService _metadataService;
-    private readonly ISongMetadataRepository _songMetadataRepository;
     private readonly IFileService _fileService;
     private readonly ILogger<CommitChangesHandler> _logger;
+    private readonly IMetadataService _metadataService;
+    private readonly ISongMetadataRepository _songMetadataRepository;
 
     public CommitChangesHandler(
         ISongMetadataRepository songMetadataRepository,
@@ -28,7 +28,7 @@ public sealed class CommitChangesHandler : IRequestHandler<CommitChangesCommand>
         var songsMetadata = await _songMetadataRepository.GetAllSongsWithKeyAsync();
         var songs = _fileService.GetAllMainMusicFiles().ToList();
 
-        int count = 1;
+        var count = 1;
         foreach (var song in songs)
         {
             try

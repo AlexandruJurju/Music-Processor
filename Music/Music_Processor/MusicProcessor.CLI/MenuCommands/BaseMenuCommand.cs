@@ -1,8 +1,6 @@
 ﻿using CliFx.Infrastructure;
 using MediatR;
-using Microsoft.Extensions.Options;
 using MusicProcessor.Application.Interfaces.Infrastructure;
-using MusicProcessor.Infrastructure.FileService;
 using ICommand = CliFx.ICommand;
 
 namespace MusicProcessor.CLI.MenuCommands;

@@ -2,7 +2,7 @@
 using MusicProcessor.Application.Interfaces.Infrastructure;
 using MusicProcessor.Domain.Entities.Genres;
 
-namespace MusicProcessor.Infrastructure.Persistence.Repositories;
+namespace MusicProcessor.Persistence.Persistence.Repositories;
 
 public class GenreRepository : IGenreRepository
 {
@@ -20,11 +20,11 @@ public class GenreRepository : IGenreRepository
             .ToListAsync();
     }
 
-    public async Task<int> AddAsync(Genre newGenre)
+    public async Task<Genre> AddAsync(Genre newGenre)
     {
-        _context.Genres.Add(newGenre);
+        await _context.Genres.AddAsync(newGenre);
         await _context.SaveChangesAsync();
-        return newGenre.Id;
+        return newGenre;
     }
 
     public Task<Genre?> GetByNameAsync(string styleName)

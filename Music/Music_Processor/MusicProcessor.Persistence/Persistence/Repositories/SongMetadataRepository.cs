@@ -2,7 +2,7 @@
 using MusicProcessor.Application.Interfaces.Infrastructure;
 using MusicProcessor.Domain.Entities.SongsMetadata;
 
-namespace MusicProcessor.Infrastructure.Persistence.Repositories;
+namespace MusicProcessor.Persistence.Persistence.Repositories;
 
 public class SongMetadataRepository : ISongMetadataRepository
 {
@@ -75,7 +75,7 @@ public class SongMetadataRepository : ISongMetadataRepository
     {
         return await _context.Songs
             .Include(s => s.MainArtist)
-            .FirstOrDefaultAsync(s => (s.Name.ToLower().Trim() + " - " + s.MainArtist.Name.ToLower().Trim()) == key);
+            .FirstOrDefaultAsync(s => s.Name.ToLower().Trim() + " - " + s.MainArtist.Name.ToLower().Trim() == key);
     }
 
     public async Task<Dictionary<string, SongMetadata>> GetAllSongsWithKeyAsync()
