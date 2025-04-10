@@ -1,4 +1,3 @@
-using MediatR;
 using Microsoft.Extensions.Logging;
 using MusicProcessor.Application.Interfaces.Application;
 using MusicProcessor.Application.Interfaces.Infrastructure;
@@ -6,7 +5,7 @@ using Serilog;
 
 namespace MusicProcessor.Application.UseCases.LogMissing;
 
-public class LogMissingHandler : IRequestHandler<LogMissingQuery>
+public class LogMissingHandler
 {
     private readonly IFileService _fileService;
     private readonly ILogger<LogMissingHandler> _logger;
@@ -21,7 +20,7 @@ public class LogMissingHandler : IRequestHandler<LogMissingQuery>
         _logger = logger;
     }
 
-    public async Task Handle(LogMissingQuery request, CancellationToken cancellationToken)
+    public async Task Handle(LogMissingQuery query, CancellationToken cancellationToken)
     {
         var playlistMetadata = await _songMetadataRepository.GetAllSongsWithKeyAsync();
         var songFiles = _fileService.GetAllMainMusicFiles();

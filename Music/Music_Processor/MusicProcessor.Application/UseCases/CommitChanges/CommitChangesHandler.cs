@@ -1,11 +1,10 @@
-﻿using MediatR;
-using Microsoft.Extensions.Logging;
+﻿using Microsoft.Extensions.Logging;
 using MusicProcessor.Application.Interfaces.Application;
 using MusicProcessor.Application.Interfaces.Infrastructure;
 
 namespace MusicProcessor.Application.UseCases.CommitChanges;
 
-public sealed class CommitChangesHandler : IRequestHandler<CommitChangesCommand>
+public sealed class CommitChangesHandler
 {
     private readonly IFileService _fileService;
     private readonly ILogger<CommitChangesHandler> _logger;
@@ -23,7 +22,7 @@ public sealed class CommitChangesHandler : IRequestHandler<CommitChangesCommand>
         _logger = logger;
     }
 
-    public async Task Handle(CommitChangesCommand request, CancellationToken cancellationToken)
+    public async Task Handle(CommitChangesCommand command, CancellationToken cancellationToken)
     {
         var songsMetadata = await _songMetadataRepository.GetAllSongsWithKeyAsync();
         var songs = _fileService.GetAllMainMusicFiles().ToList();

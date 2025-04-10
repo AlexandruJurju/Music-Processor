@@ -1,17 +1,14 @@
 ﻿using CliFx.Attributes;
 using CliFx.Infrastructure;
-using MediatR;
-using MusicProcessor.Application.Interfaces.Infrastructure;
 using MusicProcessor.Application.UseCases.ReadSpotdlMetadata;
+using Wolverine;
 
 namespace MusicProcessor.CLI.MenuCommands;
 
 [Command("spotdl-read-metadata", Description = "Read the infos of the songs and insert them to the db")]
-public class ReadSpotDLMeta : BaseMenuCommand
+public class ReadSpotDLMetaMenuCommand : BaseMenuCommand
 {
-    public ReadSpotDLMeta(
-        IMediator mediator
-    ) : base(mediator)
+    public ReadSpotDLMetaMenuCommand(IMessageBus messageBus) : base(messageBus)
     {
     }
 
@@ -20,6 +17,6 @@ public class ReadSpotDLMeta : BaseMenuCommand
 
     public override async ValueTask ExecuteAsync(IConsole console)
     {
-        await _mediator.Send(new ReadSpotdlMetadataCommand(PlaylistName));
+        await _messageBus.InvokeAsync(new ReadSpotdlMetadataCommand(PlaylistName));
     }
 }

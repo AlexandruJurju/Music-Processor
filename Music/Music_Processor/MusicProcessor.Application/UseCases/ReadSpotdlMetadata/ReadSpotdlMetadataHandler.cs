@@ -1,4 +1,3 @@
-using MediatR;
 using Microsoft.Extensions.Logging;
 using MusicProcessor.Application.Interfaces.Application;
 using MusicProcessor.Application.Interfaces.Infrastructure;
@@ -11,30 +10,29 @@ using MusicProcessor.SpotDL.Models;
 
 namespace MusicProcessor.Application.UseCases.ReadSpotdlMetadata;
 
-public class ReadSpotdlMetadataHandler : IRequestHandler<ReadSpotdlMetadataCommand>
+public class ReadSpotdlMetadataHandler
 {
     private readonly IFileService _fileService;
+    private readonly IMetadatImportService _metadataImportService;
+    private readonly ISpotDLMetadataReader _spotDlMetadataReader;    
     private readonly ILogger<ReadSpotdlMetadataHandler> _logger;
-    private readonly ISongMetadataRepository _songMetadataRepository;
-    private readonly IMetadatImportService _metadatImportService;
-    private readonly ISpotDLMetadataReader _spotDlMetadataReader;
-
+    
     public ReadSpotdlMetadataHandler(
         ISpotDLMetadataReader spotDlMetadataReader,
         IFileService fileService,
-        ISongMetadataRepository songMetadataRepository,
-        ILogger<ReadSpotdlMetadataHandler> logger, IMetadataService metadataService, IMetadatImportService metadatImportService)
+        ILogger<ReadSpotdlMetadataHandler> logger,
+        IMetadataService metadataService,
+        IMetadatImportService metadataImportService)
     {
         _spotDlMetadataReader = spotDlMetadataReader;
         _fileService = fileService;
-        _songMetadataRepository = songMetadataRepository;
         _logger = logger;
-        _metadatImportService = metadatImportService;
+        _metadataImportService = metadataImportService;
     }
 
-    public async Task Handle(ReadSpotdlMetadataCommand request, CancellationToken cancellationToken)
+    public async Task Handle(ReadSpotdlMetadataCommand command, CancellationToken cancellationToken)
     {
-        var spotdlFile = _fileService.GetSpotDLFileInPlaylistFolder(request.PlaylistName);
+        var spotdlFile = _fileService.GetSpotDLFileInPlaylistFolder(command.PlaylistName);
         var spotdlMetadata = await _spotDlMetadataReader.LoadSpotDLMetadataAsync(spotdlFile!);
 
         var songsToAdd = new List<SongMetadata>();
@@ -43,7 +41,7 @@ public class ReadSpotdlMetadataHandler : IRequestHandler<ReadSpotdlMetadataComma
             songsToAdd.Add(ToSongMetadata(spotdlSong.Value));
         }
 
-        await _metadatImportService.ImportSongMetadataAsync(songsToAdd);
+        await _metadataImportService.ImportSongMetadataAsync(songsToAdd);
     }
 
     private SongMetadata ToSongMetadata(SpotDLSongMetadata spotdlSongMetadata)

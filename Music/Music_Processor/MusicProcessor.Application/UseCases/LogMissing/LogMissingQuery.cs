@@ -1,5 +1,4 @@
-using MediatR;
 
 namespace MusicProcessor.Application.UseCases.LogMissing;
 
-public record LogMissingQuery : IRequest;
+public record LogMissingQuery;

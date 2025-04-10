@@ -1,20 +1,19 @@
 using CliFx.Attributes;
 using CliFx.Infrastructure;
-using MediatR;
-using MusicProcessor.Application.Interfaces.Infrastructure;
 using MusicProcessor.Application.UseCases.LogMissing;
+using Wolverine;
 
 namespace MusicProcessor.CLI.MenuCommands;
 
 [Command("log-missing", Description = "Log missing songs that don't have metadata")]
-public class LogMissingCommand : BaseMenuCommand
+public class LogMissingMenuCommand : BaseMenuCommand
 {
-    public LogMissingCommand( IMediator mediator) : base( mediator)
+    public LogMissingMenuCommand(IMessageBus messageBus) : base(messageBus)
     {
     }
 
     public override async ValueTask ExecuteAsync(IConsole console)
     {
-        await _mediator.Send(new LogMissingQuery());
+        await _messageBus.SendAsync(new LogMissingQuery());
     }
 }

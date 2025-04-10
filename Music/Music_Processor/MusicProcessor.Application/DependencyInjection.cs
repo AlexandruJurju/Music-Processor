@@ -2,6 +2,7 @@
 using Microsoft.Extensions.DependencyInjection;
 using MusicProcessor.Application.Interfaces.Application;
 using MusicProcessor.Application.Services;
+using Wolverine;
 
 namespace MusicProcessor.Application;
 
@@ -9,7 +10,7 @@ public static class DependencyInjection
 {
     public static IServiceCollection RegisterApplication(this IServiceCollection services)
     {
-        RegisterMediatR(services);
+        RegisterWolverine(services);
 
         RegisterServices(services);
 
@@ -22,8 +23,12 @@ public static class DependencyInjection
         services.AddTransient<IMetadataService, MetadataService>();
     }
 
-    private static void RegisterMediatR(IServiceCollection services)
+    private static void RegisterWolverine(IServiceCollection services)
     {
-        services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(Assembly.GetExecutingAssembly()));
+        services.AddWolverine(opts =>
+        {
+            // Automatically find and register message handlers from the assembly
+            opts.Discovery.IncludeAssembly(Assembly.GetExecutingAssembly());
+        });
     }
 }

@@ -15,10 +15,10 @@ public class MetadataImportService : IMetadatImportService
 
     private readonly Dictionary<string, Artist> _artistCache = new();
     private readonly IArtistRepository _artistRepository;
-    
+
     private readonly Dictionary<string, Genre> _genreCache = new();
     private readonly IGenreRepository _genreRepository;
-    
+
     private readonly ILogger<MetadataImportService> _logger;
     private readonly ISongMetadataRepository _songMetadataRepository;
 
@@ -51,11 +51,11 @@ public class MetadataImportService : IMetadatImportService
             {
                 await ProcessSongAsync(song, newArtists, newGenres, newAlbums);
                 songsToAdd.Add(song);
-                _logger.LogDebug($"Processed song: {song.Name}");
+                _logger.LogInformation("Processed song: {SongName}", song.Name);
             }
             catch (Exception ex)
             {
-                _logger.LogError($"Error processing song {song.Name}: {ex.Message}");
+                _logger.LogError(ex, "Error processing song {SongName}", song.Name);
             }
         }
 
@@ -71,7 +71,7 @@ public class MetadataImportService : IMetadatImportService
         if (songsToAdd.Any())
             await _songMetadataRepository.AddRangeAsync(songsToAdd);
 
-        _logger.LogInformation($"Completed processing {songsToAdd.Count} songs");
+        _logger.LogInformation("Completed processing {SongCount} songs", songsToAdd.Count);
     }
 
     private async Task ProcessSongAsync(
