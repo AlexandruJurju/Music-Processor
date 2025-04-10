@@ -5,5 +5,6 @@ public record SpotifyInfo(
     string SpotifySongUrl,
     string SpotifyCoverUrl,
     string SpotifyAlbumId,
-    string SpotifyArtistId
+    string SpotifyArtistId,
+    string SpotifyPublisher
 );

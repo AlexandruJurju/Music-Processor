@@ -15,10 +15,10 @@ public class MetadataImportService : IMetadatImportService
 
     private readonly Dictionary<string, Artist> _artistCache = new();
     private readonly IArtistRepository _artistRepository;
-    
+
     private readonly Dictionary<string, Genre> _genreCache = new();
     private readonly IGenreRepository _genreRepository;
-    
+
     private readonly ILogger<MetadataImportService> _logger;
     private readonly ISongMetadataRepository _songMetadataRepository;
 
@@ -45,33 +45,43 @@ public class MetadataImportService : IMetadatImportService
         var newGenres = new List<Genre>();
         var newAlbums = new List<Album>();
 
-        foreach (var song in songs)
+        foreach (SongMetadata song in songs)
         {
             try
             {
                 await ProcessSongAsync(song, newArtists, newGenres, newAlbums);
                 songsToAdd.Add(song);
-                _logger.LogDebug($"Processed song: {song.Name}");
+                _logger.LogInformation("Processed song: {SongName}", song.Name);
             }
             catch (Exception ex)
             {
-                _logger.LogError($"Error processing song {song.Name}: {ex.Message}");
+                _logger.LogError(ex, "Error processing song {SongName}", song.Name);
             }
         }
 
         // Batch insert new entities
         if (newArtists.Any())
+        {
             await _artistRepository.AddRangeAsync(newArtists);
+        }
+
         if (newGenres.Any())
+        {
             await _genreRepository.AddRangeAsync(newGenres);
+        }
+
         if (newAlbums.Any())
+        {
             await _albumRepository.AddRangeAsync(newAlbums);
+        }
 
         // Batch insert songs
         if (songsToAdd.Any())
+        {
             await _songMetadataRepository.AddRangeAsync(songsToAdd);
+        }
 
-        _logger.LogInformation($"Completed processing {songsToAdd.Count} songs");
+        _logger.LogInformation("Completed processing {SongCount} songs", songsToAdd.Count);
     }
 
     private async Task ProcessSongAsync(
@@ -91,9 +101,9 @@ public class MetadataImportService : IMetadatImportService
     {
         // Process genres
         var genres = new List<Genre>();
-        foreach (var genreMeta in song.Genres)
+        foreach (Genre genreMeta in song.Genres)
         {
-            var genre = await GetOrCreateGenreBatchStyleAsync(genreMeta, newGenres);
+            Genre genre = await GetOrCreateGenreBatchStyleAsync(genreMeta, newGenres);
             genres.Add(genre);
         }
 
@@ -114,9 +124,9 @@ public class MetadataImportService : IMetadatImportService
     {
         // Process artists
         var artists = new List<Artist>();
-        foreach (var artistMetadata in song.Artists)
+        foreach (Artist artistMetadata in song.Artists)
         {
-            var artist = await GetOrCreateArtistBatchStyleAsync(artistMetadata, newArtists);
+            Artist artist = await GetOrCreateArtistBatchStyleAsync(artistMetadata, newArtists);
             artists.Add(artist);
         }
 
@@ -128,10 +138,12 @@ public class MetadataImportService : IMetadatImportService
 
     private async Task<Artist> GetOrCreateArtistBatchStyleAsync(Artist artist, List<Artist> newArtists)
     {
-        if (_artistCache.TryGetValue(artist.Name, out var cachedArtist))
+        if (_artistCache.TryGetValue(artist.Name, out Artist? cachedArtist))
+        {
             return cachedArtist;
+        }
 
-        var existingArtist = await _artistRepository.GetByNameAsync(artist.Name);
+        Artist? existingArtist = await _artistRepository.GetByNameAsync(artist.Name);
         if (existingArtist != null)
         {
             _artistCache[artist.Name] = existingArtist;
@@ -146,10 +158,12 @@ public class MetadataImportService : IMetadatImportService
 
     private async Task<Album> GetOrCreateAlbumBatchStyleAsync(Album album, List<Album> newAlbums)
     {
-        if (_albumCache.TryGetValue(album.Name, out var cachedAlbum))
+        if (_albumCache.TryGetValue(album.Name, out Album? cachedAlbum))
+        {
             return cachedAlbum;
+        }
 
-        var existingAlbum = await _albumRepository.GetByNameAsync(album.Name);
+        Album? existingAlbum = await _albumRepository.GetByNameAsync(album.Name);
         if (existingAlbum != null)
         {
             _albumCache[album.Name] = existingAlbum;
@@ -163,10 +177,12 @@ public class MetadataImportService : IMetadatImportService
 
     private async Task<Genre> GetOrCreateGenreBatchStyleAsync(Genre genre, List<Genre> newGenres)
     {
-        if (_genreCache.TryGetValue(genre.Name, out var cachedGenre))
+        if (_genreCache.TryGetValue(genre.Name, out Genre? cachedGenre))
+        {
             return cachedGenre;
+        }
 
-        var existingGenre = await _genreRepository.GetByNameAsync(genre.Name);
+        Genre? existingGenre = await _genreRepository.GetByNameAsync(genre.Name);
         if (existingGenre != null)
         {
             _genreCache[genre.Name] = existingGenre;
@@ -180,16 +196,22 @@ public class MetadataImportService : IMetadatImportService
 
     private async Task PreloadCachesAsync()
     {
-        var allAlbums = await _albumRepository.GetAllAsync();
-        foreach (var album in allAlbums)
+        List<Album> allAlbums = await _albumRepository.GetAllAsync();
+        foreach (Album album in allAlbums)
+        {
             _albumCache[album.Name] = album;
+        }
 
-        var allArtists = await _artistRepository.GetAllAsync();
-        foreach (var artist in allArtists)
+        List<Artist> allArtists = await _artistRepository.GetAllAsync();
+        foreach (Artist artist in allArtists)
+        {
             _artistCache[artist.Name] = artist;
+        }
 
-        var allGenres = await _genreRepository.GetAllAsync();
-        foreach (var genre in allGenres)
+        List<Genre> allGenres = await _genreRepository.GetAllAsync();
+        foreach (Genre genre in allGenres)
+        {
             _genreCache[genre.Name] = genre;
+        }
     }
 }

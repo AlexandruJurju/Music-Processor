@@ -16,23 +16,24 @@ public static class LoggingConfiguration
 
     private static ILogger CreateLogger(IConfiguration configuration)
     {
-        var timestamp = DateTime.Now.ToString("yyyy-MM-dd_HH-mm-ss");
+        string timestamp = DateTime.Now.ToString("yyyy-MM-dd_HH-mm-ss");
 
-        var logPath = configuration.GetValue<string>("PathsSettings:LogsPath");
+        string? logPath = configuration.GetValue<string>("PathsSettings:LogsPath");
 
-        var loggingConfig = new LoggerConfiguration()
+        LoggerConfiguration loggingConfig = new LoggerConfiguration()
             .MinimumLevel.Debug()
+            .MinimumLevel.Override("Microsoft", LogEventLevel.Warning)
             .MinimumLevel.Override("Microsoft.EntityFrameworkCore", LogEventLevel.Warning)
             .WriteTo.Console(
                 outputTemplate: "[{Timestamp:HH:mm:ss} {Level:u3}] {Message:lj}{NewLine}",
-                restrictedToMinimumLevel: LogEventLevel.Information,
+                restrictedToMinimumLevel: LogEventLevel.Warning,
                 theme: AnsiConsoleTheme.Literate)
             .WriteTo.File(
-                path: Path.Combine("X:\\Storage\\Music\\# Logs\\serilog.log"),
+                Path.Combine($"{logPath}\\{timestamp}.log"),
                 outputTemplate: "[{Timestamp:yyyy-MM-dd HH:mm:ss}] {Level:u3} {Message:lj}{NewLine}{Exception}",
                 restrictedToMinimumLevel: LogEventLevel.Information,
                 rollOnFileSizeLimit: false);
-        
+
         return loggingConfig.CreateLogger();
     }
 }

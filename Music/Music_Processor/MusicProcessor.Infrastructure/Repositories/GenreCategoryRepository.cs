@@ -3,7 +3,7 @@ using MusicProcessor.Application.Interfaces.Infrastructure;
 using MusicProcessor.Domain.GenreCategories;
 using MusicProcessor.Persistence.Common;
 
-namespace MusicProcessor.Persistence.GenreCategories;
+namespace MusicProcessor.Persistence.Repositories;
 
 public class GenreCategoryRepository(ApplicationDbContext context) : IGenreCategoryRepository
 {

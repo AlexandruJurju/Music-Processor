@@ -1,5 +1,4 @@
-﻿using System.Reflection;
-using Microsoft.Extensions.DependencyInjection;
+﻿using Microsoft.Extensions.DependencyInjection;
 using MusicProcessor.Application.Interfaces.Application;
 using MusicProcessor.Application.Services;
 
@@ -9,7 +8,7 @@ public static class DependencyInjection
 {
     public static IServiceCollection RegisterApplication(this IServiceCollection services)
     {
-        RegisterMediatR(services);
+        RegisterMediatr(services);
 
         RegisterServices(services);
 
@@ -22,8 +21,8 @@ public static class DependencyInjection
         services.AddTransient<IMetadataService, MetadataService>();
     }
 
-    private static void RegisterMediatR(IServiceCollection services)
+    private static void RegisterMediatr(IServiceCollection services)
     {
-        services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(Assembly.GetExecutingAssembly()));
+        services.AddMediatR(config => { config.RegisterServicesFromAssembly(typeof(DependencyInjection).Assembly); });
     }
 }

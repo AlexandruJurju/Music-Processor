@@ -1,20 +1,12 @@
 ﻿using CliFx.Infrastructure;
 using MediatR;
-using MusicProcessor.Application.Interfaces.Infrastructure;
 using ICommand = CliFx.ICommand;
 
 namespace MusicProcessor.CLI.MenuCommands;
 
-public abstract class BaseMenuCommand : ICommand
+public abstract class BaseMenuCommand(ISender sender) : ICommand
 {
-    protected readonly IMediator _mediator;
-
-    protected BaseMenuCommand(
-        IMediator mediator
-    )
-    {
-        _mediator = mediator;
-    }
+    protected readonly ISender _sender = sender;
 
     public abstract ValueTask ExecuteAsync(IConsole console);
 }

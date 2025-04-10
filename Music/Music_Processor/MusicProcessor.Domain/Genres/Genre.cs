@@ -22,7 +22,7 @@ public sealed class Genre : BaseEntity
     public ICollection<SongMetadata> Songs { get; set; } = new List<SongMetadata>();
     public ICollection<GenreCategory> GenreCategories { get; set; } = new List<GenreCategory>();
     public bool RemoveFromSongs { get; set; }
-    
+
     private Genre()
     {
     }

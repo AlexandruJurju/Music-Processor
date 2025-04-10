@@ -8,7 +8,7 @@ using MusicProcessor.Domain.SongsMetadata;
 
 namespace MusicProcessor.Persistence.Common;
 
-public class ApplicationDbContext : DbContext, IUnitOfWork
+public class ApplicationDbContext : DbContext
 {
     public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)
     {

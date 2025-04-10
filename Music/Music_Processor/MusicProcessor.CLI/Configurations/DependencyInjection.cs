@@ -30,7 +30,7 @@ public static class DependencyInjection
 
     private static void RegisterAppSettings(this IServiceCollection services)
     {
-        var configuration = new ConfigurationBuilder()
+        IConfigurationRoot configuration = new ConfigurationBuilder()
             .SetBasePath(Directory.GetCurrentDirectory())
             .AddJsonFile("appsettings.json", false, true)
             .Build();

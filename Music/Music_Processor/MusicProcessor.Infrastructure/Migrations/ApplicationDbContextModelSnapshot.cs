@@ -296,6 +296,12 @@ namespace MusicProcessor.Persistence.Migrations
                                 .HasColumnType("TEXT")
                                 .HasColumnName("spotify_info_spotify_cover_url");
 
+                            b1.Property<string>("SpotifyPublisher")
+                                .IsRequired()
+                                .HasMaxLength(50)
+                                .HasColumnType("TEXT")
+                                .HasColumnName("spotify_info_spotify_publisher");
+
                             b1.Property<string>("SpotifySongId")
                                 .IsRequired()
                                 .HasMaxLength(50)

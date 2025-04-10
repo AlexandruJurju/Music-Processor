@@ -3,7 +3,7 @@ using MusicProcessor.Application.Interfaces.Infrastructure;
 using MusicProcessor.Domain.SongsMetadata;
 using MusicProcessor.Persistence.Common;
 
-namespace MusicProcessor.Persistence.SongsMetadata;
+namespace MusicProcessor.Persistence.Repositories;
 
 public class SongMetadataRepository : ISongMetadataRepository
 {
@@ -46,7 +46,7 @@ public class SongMetadataRepository : ISongMetadataRepository
 
     public async Task DeleteAsync(int id)
     {
-        var song = await _context.Songs.FindAsync(id);
+        SongMetadata? song = await _context.Songs.FindAsync(id);
         if (song != null)
         {
             _context.Songs.Remove(song);

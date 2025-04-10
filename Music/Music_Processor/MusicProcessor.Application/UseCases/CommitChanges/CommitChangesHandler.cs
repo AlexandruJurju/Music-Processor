@@ -1,54 +1,26 @@
 ﻿using MediatR;
-using Microsoft.Extensions.Logging;
 using MusicProcessor.Application.Interfaces.Application;
 using MusicProcessor.Application.Interfaces.Infrastructure;
+using MusicProcessor.Domain.SongsMetadata;
 
 namespace MusicProcessor.Application.UseCases.CommitChanges;
 
-public sealed class CommitChangesHandler : IRequestHandler<CommitChangesCommand>
+internal sealed class CommitChangesHandler(
+    ISongMetadataRepository songMetadataRepository,
+    IMetadataService metadataService,
+    IFileService fileService) : IRequestHandler<CommitChangesCommand>
 {
-    private readonly IFileService _fileService;
-    private readonly ILogger<CommitChangesHandler> _logger;
-    private readonly IMetadataService _metadataService;
-    private readonly ISongMetadataRepository _songMetadataRepository;
-
-    public CommitChangesHandler(
-        ISongMetadataRepository songMetadataRepository,
-        IMetadataService metadataService,
-        IFileService fileService, ILogger<CommitChangesHandler> logger)
-    {
-        _songMetadataRepository = songMetadataRepository;
-        _metadataService = metadataService;
-        _fileService = fileService;
-        _logger = logger;
-    }
-
     public async Task Handle(CommitChangesCommand request, CancellationToken cancellationToken)
     {
-        var songsMetadata = await _songMetadataRepository.GetAllSongsWithKeyAsync();
-        var songs = _fileService.GetAllMainMusicFiles().ToList();
+        Dictionary<string, SongMetadata> songsMetadata = await songMetadataRepository.GetAllSongsWithKeyAsync();
+        var songs = fileService.GetAllMainMusicFiles().ToList();
 
-        var count = 1;
-        foreach (var song in songs)
+        foreach (string song in songs)
         {
-            try
+            SongMetadata songMetadata = metadataService.ReadMetadata(song);
+            if (songsMetadata.TryGetValue(songMetadata.Key, out SongMetadata? metadata))
             {
-                var songMetadata = _metadataService.ReadMetadata(song);
-                if (songsMetadata.TryGetValue(songMetadata.Key, out var metadata))
-                {
-                    _metadataService.WriteMetadata(metadata, song);
-                    _logger.LogInformation($"Written song {count++}/{songs.Count}: {songMetadata.Key}");
-                }
-                else
-                {
-                    count++;
-                    _logger.LogError($"Song with key {songMetadata.Key}\n{song}");
-                }
-            }
-            catch (Exception ex)
-            {
-                _logger.LogError(ex.ToString());
-                _logger.LogError($"Song\n{song}");
+                metadataService.WriteMetadata(metadata, song);
             }
         }
     }

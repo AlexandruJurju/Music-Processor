@@ -11,39 +11,24 @@ using MusicProcessor.SpotDL.Models;
 
 namespace MusicProcessor.Application.UseCases.ReadSpotdlMetadata;
 
-public class ReadSpotdlMetadataHandler : IRequestHandler<ReadSpotdlMetadataCommand>
+internal sealed class ReadSpotdlMetadataHandler(
+    ISpotDLMetadataReader spotDlMetadataReader,
+    IFileService fileService,
+    IMetadatImportService metadataImportService,
+    ILogger<ReadSpotdlMetadataHandler> logger) : IRequestHandler<ReadSpotdlMetadataCommand>
 {
-    private readonly IFileService _fileService;
-    private readonly ILogger<ReadSpotdlMetadataHandler> _logger;
-    private readonly ISongMetadataRepository _songMetadataRepository;
-    private readonly IMetadatImportService _metadatImportService;
-    private readonly ISpotDLMetadataReader _spotDlMetadataReader;
-
-    public ReadSpotdlMetadataHandler(
-        ISpotDLMetadataReader spotDlMetadataReader,
-        IFileService fileService,
-        ISongMetadataRepository songMetadataRepository,
-        ILogger<ReadSpotdlMetadataHandler> logger, IMetadataService metadataService, IMetadatImportService metadatImportService)
-    {
-        _spotDlMetadataReader = spotDlMetadataReader;
-        _fileService = fileService;
-        _songMetadataRepository = songMetadataRepository;
-        _logger = logger;
-        _metadatImportService = metadatImportService;
-    }
-
     public async Task Handle(ReadSpotdlMetadataCommand request, CancellationToken cancellationToken)
     {
-        var spotdlFile = _fileService.GetSpotDLFileInPlaylistFolder(request.PlaylistName);
-        var spotdlMetadata = await _spotDlMetadataReader.LoadSpotDLMetadataAsync(spotdlFile!);
+        string? spotdlFile = fileService.GetSpotDLFileInPlaylistFolder(request.PlaylistName);
+        Dictionary<string, SpotDLSongMetadata> spotdlMetadata = await spotDlMetadataReader.LoadSpotDLMetadataAsync(spotdlFile!);
 
         var songsToAdd = new List<SongMetadata>();
-        foreach (var spotdlSong in spotdlMetadata)
+        foreach (KeyValuePair<string, SpotDLSongMetadata> spotdlSong in spotdlMetadata)
         {
             songsToAdd.Add(ToSongMetadata(spotdlSong.Value));
         }
 
-        await _metadatImportService.ImportSongMetadataAsync(songsToAdd);
+        await metadataImportService.ImportSongMetadataAsync(songsToAdd);
     }
 
     private SongMetadata ToSongMetadata(SpotDLSongMetadata spotdlSongMetadata)
@@ -54,14 +39,15 @@ public class ReadSpotdlMetadataHandler : IRequestHandler<ReadSpotdlMetadataComma
             .Select(x => new Genre(char.ToUpper(x[0]) + x.Substring(1)))
             .ToList();
 
-        DateOnly.TryParse(spotdlSongMetadata.Date, out var date);
+        DateOnly.TryParse(spotdlSongMetadata.Date, out DateOnly date);
 
         var spotifyInfo = new SpotifyInfo(
             spotdlSongMetadata.SongId,
             spotdlSongMetadata.Url,
             spotdlSongMetadata.CoverUrl,
             spotdlSongMetadata.AlbumId,
-            spotdlSongMetadata.ArtistId
+            spotdlSongMetadata.ArtistId,
+            spotdlSongMetadata.Publisher
         );
 
         return new SongMetadata(

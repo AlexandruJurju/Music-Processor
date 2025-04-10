@@ -21,16 +21,23 @@ public class InteractiveCli
         Console.WriteLine("Welcome to Music Processor CLI!");
         Console.WriteLine("Type 'help' for available commands or 'exit' to quit");
 
-        
+
         while (true)
         {
             Console.Write("> ");
-            var input = Console.ReadLine();
-        
-            if (string.IsNullOrWhiteSpace(input)) continue;
-            if (input.ToLower() == "exit") break;
-        
-            var args = input.Split(' ', StringSplitOptions.RemoveEmptyEntries);
+            string? input = Console.ReadLine();
+
+            if (string.IsNullOrWhiteSpace(input))
+            {
+                continue;
+            }
+
+            if (input.ToLower() == "exit")
+            {
+                break;
+            }
+
+            string[] args = input.Split(' ', StringSplitOptions.RemoveEmptyEntries);
             await ExecuteCommandAsync(args);
         }
     }

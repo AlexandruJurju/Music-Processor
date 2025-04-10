@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using MusicProcessor.Domain.Artists;
 
-namespace MusicProcessor.Persistence.Artists;
+namespace MusicProcessor.Persistence.Configurations;
 
 public class ArtistConfiguration : IEntityTypeConfiguration<Artist>
 {

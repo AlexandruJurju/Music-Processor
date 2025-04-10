@@ -23,7 +23,7 @@ public class SpotDLMetadataReader : ISpotDLMetadataReader
     public async Task<Dictionary<string, SpotDLSongMetadata>> LoadSpotDLMetadataAsync(string spotDLFile)
     {
         // Read and deserialize the playlist file
-        var playlistData = await JsonSerializer.DeserializeAsync<SpotDLPlaylist>(File.OpenRead(spotDLFile), _jsonOptions);
+        SpotDLPlaylist? playlistData = await JsonSerializer.DeserializeAsync<SpotDLPlaylist>(File.OpenRead(spotDLFile), _jsonOptions);
 
         if (playlistData?.Songs is not { Count: > 0 })
         {
@@ -33,9 +33,9 @@ public class SpotDLMetadataReader : ISpotDLMetadataReader
 
         var spotDlMetadata = new Dictionary<string, SpotDLSongMetadata>();
 
-        foreach (var spotDlSong in playlistData.Songs)
+        foreach (SpotDLSongMetadata spotDlSong in playlistData.Songs)
         {
-            if (spotDlMetadata.TryGetValue(spotDlSong.Key, out var value))
+            if (spotDlMetadata.TryGetValue(spotDlSong.Key, out SpotDLSongMetadata? value))
             {
                 _logger.LogWarning($"Replacing duplicate song key: {spotDlSong.Key} (Old: {value.Name}, New: {spotDlSong.Name})");
             }

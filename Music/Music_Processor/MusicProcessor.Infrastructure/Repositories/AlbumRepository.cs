@@ -3,7 +3,7 @@ using MusicProcessor.Application.Interfaces.Infrastructure;
 using MusicProcessor.Domain.Albums;
 using MusicProcessor.Persistence.Common;
 
-namespace MusicProcessor.Persistence.Albums;
+namespace MusicProcessor.Persistence.Repositories;
 
 public class AlbumRepository : IAlbumRepository
 {

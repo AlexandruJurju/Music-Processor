@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using MusicProcessor.Domain.SongsMetadata;
 
-namespace MusicProcessor.Persistence.SongsMetadata;
+namespace MusicProcessor.Persistence.Configurations;
 
 public class SongMetadataConfiguration : IEntityTypeConfiguration<SongMetadata>
 {
@@ -75,6 +75,7 @@ public class SongMetadataConfiguration : IEntityTypeConfiguration<SongMetadata>
             spotifyInfo.Property(si => si.SpotifyCoverUrl).HasMaxLength(500); // Spotify cover URL
             spotifyInfo.Property(si => si.SpotifyAlbumId).HasMaxLength(50); // Spotify album ID
             spotifyInfo.Property(si => si.SpotifyArtistId).HasMaxLength(50); // Spotify artist ID
+            spotifyInfo.Property(si => si.SpotifyPublisher).HasMaxLength(50); // Spotify publisher name
         });
     }
 }

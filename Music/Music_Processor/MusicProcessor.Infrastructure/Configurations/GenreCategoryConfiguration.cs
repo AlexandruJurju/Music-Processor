@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using MusicProcessor.Domain.GenreCategories;
 
-namespace MusicProcessor.Persistence.GenreCategories;
+namespace MusicProcessor.Persistence.Configurations;
 
 public class GenreCategoryConfiguration : IEntityTypeConfiguration<GenreCategory>
 {

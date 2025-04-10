@@ -3,7 +3,7 @@ using MusicProcessor.Application.Interfaces.Infrastructure;
 using MusicProcessor.Domain.Genres;
 using MusicProcessor.Persistence.Common;
 
-namespace MusicProcessor.Persistence.Genres;
+namespace MusicProcessor.Persistence.Repositories;
 
 public class GenreRepository : IGenreRepository
 {
@@ -71,7 +71,7 @@ public class GenreRepository : IGenreRepository
 
     public async Task<Genre?> GetByIdAsync(int genreId)
     {
-        var genre = await _context.Genres.FirstOrDefaultAsync(g => g.Id == genreId);
+        Genre? genre = await _context.Genres.FirstOrDefaultAsync(g => g.Id == genreId);
         return genre;
     }
 }

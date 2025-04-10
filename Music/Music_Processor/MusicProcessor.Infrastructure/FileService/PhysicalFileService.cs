@@ -27,19 +27,23 @@ public class PhysicalFileService : IFileService
     public IEnumerable<string> GetAllAudioFilesInFolder(string path)
     {
         if (string.IsNullOrWhiteSpace(path))
+        {
             throw new ArgumentException("The playlist cannot be null or empty.", nameof(path));
+        }
 
-        var playlistPath = Path.Combine(_pathsOptions.SpotDLPlaylistsPath, path);
+        string playlistPath = Path.Combine(_pathsOptions.SpotDLPlaylistsPath, path);
 
         if (!Directory.Exists(playlistPath))
+        {
             throw new DirectoryNotFoundException($"The playlist directory '{playlistPath}' does not exist.");
+        }
 
         return GetAudioFiles(playlistPath);
     }
 
     public IEnumerable<string> GetAllSpotDLPlaylistsNames()
     {
-        var directoriesPaths = Directory.GetDirectories(_pathsOptions.SpotDLPlaylistsPath);
+        string[] directoriesPaths = Directory.GetDirectories(_pathsOptions.SpotDLPlaylistsPath);
         return directoriesPaths.Select(Path.GetFileName)!;
     }
 
@@ -56,7 +60,7 @@ public class PhysicalFileService : IFileService
     public string? GetSpotDLFileInPlaylistFolder(string playlistName)
     {
         // Construct the full path to the .spotdl file
-        var spotdlFilePath = Path.Combine(_pathsOptions.SpotDLPlaylistsPath, playlistName, $"{playlistName}.spotdl");
+        string spotdlFilePath = Path.Combine(_pathsOptions.SpotDLPlaylistsPath, playlistName, $"{playlistName}.spotdl");
 
         return File.Exists(spotdlFilePath) ? spotdlFilePath : null;
     }
