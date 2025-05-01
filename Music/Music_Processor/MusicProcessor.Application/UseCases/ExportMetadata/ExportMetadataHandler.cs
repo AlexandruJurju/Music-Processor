@@ -11,9 +11,8 @@ internal sealed class ExportMetadataHandler(
 {
     public async Task Handle(ExportMetadataCommand request, CancellationToken cancellationToken)
     {
-        List<SongMetadata> songs = await songMetadataRepository.GetAll()
-            .ToListAsync(cancellationToken);
-
+        List<SongMetadata> songs = await songMetadataRepository.GetAllAsync();
+        
         await exportService.ExportMetadata(songs);
     }
 }

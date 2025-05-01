@@ -3,16 +3,11 @@ using MusicProcessor.Application.Interfaces.Infrastructure;
 
 namespace MusicProcessor.Infrastructure.FileService;
 
-public class PhysicalFileService : IFileService
+public class PhysicalFileService(IOptions<PathsOptions> pathsOptions) : IFileService
 {
-    private readonly PathsOptions _pathsOptions;
+    private readonly PathsOptions _pathsOptions = pathsOptions.Value;
 
     private readonly string[] AudioFileFormats = { ".mp3", ".wav", ".flac", ".aac", ".ogg", ".wma", ".m4a", ".alac", ".aiff", ".opus" };
-
-    public PhysicalFileService(IOptions<PathsOptions> pathsOptions)
-    {
-        _pathsOptions = pathsOptions.Value;
-    }
 
     public IEnumerable<string> GetAllMainMusicFiles()
     {

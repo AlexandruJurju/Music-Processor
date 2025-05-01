@@ -1,5 +1,4 @@
 using MediatR;
-using Microsoft.Extensions.Logging;
 using MusicProcessor.Application.Interfaces.Application;
 using MusicProcessor.Application.Interfaces.Infrastructure;
 using MusicProcessor.Domain.Albums;
@@ -14,8 +13,7 @@ namespace MusicProcessor.Application.UseCases.ReadSpotdlMetadata;
 internal sealed class ReadSpotdlMetadataHandler(
     ISpotDLMetadataReader spotDlMetadataReader,
     IFileService fileService,
-    IMetadatImportService metadataImportService,
-    ILogger<ReadSpotdlMetadataHandler> logger) : IRequestHandler<ReadSpotdlMetadataCommand>
+    IMetadatImportService metadataImportService) : IRequestHandler<ReadSpotdlMetadataCommand>
 {
     public async Task Handle(ReadSpotdlMetadataCommand request, CancellationToken cancellationToken)
     {

@@ -31,7 +31,7 @@ internal sealed class LogMissingQueryHandler(
             }
             catch (Exception ex)
             {
-                logger.LogError($"Unable to read song metadata for \n{songFile}\n{ex.Message}");
+                logger.LogError(ex, "Unable to read song metadata for {SongFile}", songFile);
             }
         }
     }

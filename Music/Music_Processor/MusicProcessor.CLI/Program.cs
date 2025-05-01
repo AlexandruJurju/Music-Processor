@@ -13,7 +13,7 @@ builder.ConfigureLogging(builder.Configuration);
 builder.Services
     .RegisterApplication()
     .RegisterInfrastructure(builder.Configuration)
-    .RegisterCLI();
+    .RegisterCli();
 
 builder.Services.RegisterSpotDL();
 

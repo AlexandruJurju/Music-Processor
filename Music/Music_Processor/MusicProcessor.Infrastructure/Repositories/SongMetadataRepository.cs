@@ -3,85 +3,77 @@ using MusicProcessor.Application.Interfaces.Infrastructure;
 using MusicProcessor.Domain.SongsMetadata;
 using MusicProcessor.Persistence.Common;
 
-namespace MusicProcessor.Persistence.Repositories;
+namespace MusicProcessor.Infrastructure.Repositories;
 
-public class SongMetadataRepository : ISongMetadataRepository
+public class SongMetadataRepository(ApplicationDbContext dbContext) : ISongMetadataRepository
 {
-    private readonly ApplicationDbContext _context;
-
-    public SongMetadataRepository(ApplicationDbContext context)
-    {
-        _context = context;
-    }
-
-    public async Task<ICollection<SongMetadata>> GetAllAsync()
-    {
-        return await GetAll().ToListAsync();
-    }
-
     public async Task<IEnumerable<string>> GetSongTitlesAsync()
     {
-        return await _context.Songs.Select(s => s.Name).ToListAsync();
+        return await dbContext.Songs.Select(s => s.Name).ToListAsync();
     }
 
-    public IQueryable<SongMetadata> GetAll()
+    public async Task<List<SongMetadata>> GetAllAsync()
     {
-        return _context.Songs
+        return await dbContext.Songs
             .Include(s => s.Genres)
             .ThenInclude(s => s.GenreCategories)
             .Include(s => s.Artists)
-            .AsSplitQuery();
+            .ToListAsync();
     }
 
     public async Task<SongMetadata?> GetByIdAsync(int id)
     {
-        return await GetAll().FirstOrDefaultAsync(s => s.Id == id);
+        return await dbContext.Songs
+            .Include(s => s.Genres)
+            .ThenInclude(s => s.GenreCategories)
+            .Include(s => s.Artists)
+            .SingleOrDefaultAsync(x => x.Id == id);
     }
 
     public async Task UpdateAsync(SongMetadata songMetadata)
     {
-        _context.Songs.Update(songMetadata);
-        await _context.SaveChangesAsync();
+        dbContext.Songs.Update(songMetadata);
+        await dbContext.SaveChangesAsync();
     }
 
     public async Task DeleteAsync(int id)
     {
-        SongMetadata? song = await _context.Songs.FindAsync(id);
+        SongMetadata? song = await dbContext.Songs.FindAsync(id);
         if (song != null)
         {
-            _context.Songs.Remove(song);
-            await _context.SaveChangesAsync();
+            dbContext.Songs.Remove(song);
+            await dbContext.SaveChangesAsync();
         }
     }
 
     public async Task AddRangeAsync(List<SongMetadata> songsList)
     {
-        await _context.Songs.AddRangeAsync(songsList);
-        await _context.SaveChangesAsync();
+        await dbContext.Songs.AddRangeAsync(songsList);
+        await dbContext.SaveChangesAsync();
     }
 
     public async Task AddAsync(SongMetadata songMetadata)
     {
-        await _context.Songs.AddAsync(songMetadata);
-        await _context.SaveChangesAsync();
+        await dbContext.Songs.AddAsync(songMetadata);
+        await dbContext.SaveChangesAsync();
     }
 
     public async Task UpdateRangeAsync(List<SongMetadata> modifiedSongs)
     {
-        _context.Songs.UpdateRange(modifiedSongs);
-        await _context.SaveChangesAsync();
+        dbContext.Songs.UpdateRange(modifiedSongs);
+        await dbContext.SaveChangesAsync();
     }
 
     public async Task<SongMetadata?> GetByKeyAsync(string key)
     {
-        return await _context.Songs
+        return await dbContext.Songs
             .Include(s => s.MainArtist)
             .FirstOrDefaultAsync(s => s.Name.ToLower().Trim() + " - " + s.MainArtist.Name.ToLower().Trim() == key);
     }
 
     public async Task<Dictionary<string, SongMetadata>> GetAllSongsWithKeyAsync()
     {
-        return await _context.Songs
+        return await dbContext.Songs
             .Include(s => s.MainArtist)
             .AsNoTracking()
             .ToDictionaryAsync(

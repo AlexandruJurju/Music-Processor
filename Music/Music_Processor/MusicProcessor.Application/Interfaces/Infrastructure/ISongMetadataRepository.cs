@@ -5,9 +5,8 @@ namespace MusicProcessor.Application.Interfaces.Infrastructure;
 public interface ISongMetadataRepository
 {
     Task<SongMetadata?> GetByKeyAsync(string key);
-    Task<ICollection<SongMetadata>> GetAllAsync();
+    Task<List<SongMetadata>> GetAllAsync();
     Task<IEnumerable<string>> GetSongTitlesAsync();
-    IQueryable<SongMetadata> GetAll();
     Task<SongMetadata?> GetByIdAsync(int id);
     Task UpdateAsync(SongMetadata songMetadata);
     Task DeleteAsync(int id);

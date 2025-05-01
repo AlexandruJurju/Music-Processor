@@ -3,6 +3,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using MusicProcessor.Application.Interfaces.Infrastructure;
 using MusicProcessor.Infrastructure.FileService;
+using MusicProcessor.Infrastructure.Repositories;
 using MusicProcessor.Persistence.Common;
 using MusicProcessor.Persistence.Repositories;
 

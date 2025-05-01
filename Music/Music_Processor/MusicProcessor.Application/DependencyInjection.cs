@@ -23,6 +23,6 @@ public static class DependencyInjection
 
     private static void RegisterMediatr(IServiceCollection services)
     {
-        services.AddMediatR(config => { config.RegisterServicesFromAssembly(typeof(DependencyInjection).Assembly); });
+        services.AddMediatR(config => config.RegisterServicesFromAssembly(typeof(DependencyInjection).Assembly));
     }
 }

@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.Configuration;
+﻿using System.Globalization;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
 using Serilog;
 using Serilog.Events;
@@ -16,7 +17,7 @@ public static class LoggingConfiguration
 
     private static ILogger CreateLogger(IConfiguration configuration)
     {
-        string timestamp = DateTime.Now.ToString("yyyy-MM-dd_HH-mm-ss");
+        string timestamp = DateTime.Now.ToString("yyyy-MM-dd_HH-mm-ss", CultureInfo.InvariantCulture);
 
         string? logPath = configuration.GetValue<string>("PathsSettings:LogsPath");
 

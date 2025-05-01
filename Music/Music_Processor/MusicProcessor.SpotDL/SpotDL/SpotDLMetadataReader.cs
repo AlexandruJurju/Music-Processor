@@ -5,20 +5,13 @@ using MusicProcessor.SpotDL.Models;
 
 namespace MusicProcessor.SpotDL.SpotDL;
 
-public class SpotDLMetadataReader : ISpotDLMetadataReader
+public class SpotDLMetadataReader(ILogger<SpotDLMetadataReader> logger) : ISpotDLMetadataReader
 {
     private readonly JsonSerializerOptions _jsonOptions = new()
     {
         PropertyNameCaseInsensitive = true,
         PropertyNamingPolicy = JsonNamingPolicy.SnakeCaseLower
     };
-
-    private readonly ILogger<SpotDLMetadataReader> _logger;
-
-    public SpotDLMetadataReader(ILogger<SpotDLMetadataReader> logger)
-    {
-        _logger = logger;
-    }
 
     public async Task<Dictionary<string, SpotDLSongMetadata>> LoadSpotDLMetadataAsync(string spotDLFile)
     {
@@ -27,7 +20,7 @@ public class SpotDLMetadataReader : ISpotDLMetadataReader
 
         if (playlistData?.Songs is not { Count: > 0 })
         {
-            _logger.LogWarning("No songs found in spotdl file");
+            logger.LogWarning("No songs found in spotdl file");
             throw new FileNotFoundException("No spotdl file found in directory");
         }
 
@@ -37,14 +30,14 @@ public class SpotDLMetadataReader : ISpotDLMetadataReader
         {
             if (spotDlMetadata.TryGetValue(spotDlSong.Key, out SpotDLSongMetadata? value))
             {
-                _logger.LogWarning($"Replacing duplicate song key: {spotDlSong.Key} (Old: {value.Name}, New: {spotDlSong.Name})");
+                logger.LogWarning("Replacing duplicate song key: {Key} (Old: {ValueName}, New: {Name})", spotDlSong.Key, value.Name, spotDlSong.Name);
             }
 
             // This will add new or replace existing entry
             spotDlMetadata[spotDlSong.Key] = spotDlSong;
         }
 
-        _logger.LogInformation($"Loaded metadata for {spotDlMetadata.Count} songs from spotdl file");
+        logger.LogInformation("Loaded metadata for {Count} songs from spotdl file", spotDlMetadata.Count);
         return spotDlMetadata;
     }
 }

@@ -10,22 +10,16 @@ using File = TagLib.File;
 
 namespace MusicProcessor.Application.Services;
 
-public class MetadataService : IMetadataService
+public class MetadataService(ILogger<MetadataService> logger) : IMetadataService
 {
     private const string GENRE_CATEGORY = "GENRE-CATEGORY";
     private const string ARTISTS = "ARTISTS";
-    private readonly ILogger<MetadataService> _logger;
-
-    public MetadataService(ILogger<MetadataService> logger)
-    {
-        _logger = logger;
-    }
 
     public SongMetadata ReadMetadata(string songPath)
     {
         using var file = File.Create(songPath);
         SongMetadata metadata = ExtractMetadata(file, songPath);
-        _logger.LogInformation("Successfully read metadata from file: {SongPath}", songPath);
+        logger.LogInformation("Successfully read metadata from file: {SongPath}", songPath);
         return metadata;
     }
 
@@ -34,7 +28,7 @@ public class MetadataService : IMetadataService
         using var file = File.Create(songPath);
         UpdateMetadata(file, songMetadata);
         file.Save();
-        _logger.LogInformation("Successfully updated metadata for file: {SongPath}", songPath);
+        logger.LogInformation("Successfully updated metadata for file: {SongPath}", songPath);
     }
 
     private SongMetadata ExtractMetadata(File file, string songPath)
@@ -63,25 +57,24 @@ public class MetadataService : IMetadataService
 
     private List<Genre> ReadGenres(File file)
     {
-        _logger.LogInformation("Extracting genres from file {FileName}", file.Name);
+        logger.LogInformation("Extracting genres from file {FileName}", file.Name);
         var genres = new List<string>();
 
         if (file.TagTypes.HasFlag(TagTypes.Xiph))
         {
-            var xiphTag = file.GetTag(TagTypes.Xiph) as XiphComment;
-            if (xiphTag != null)
+            if (file.GetTag(TagTypes.Xiph) is XiphComment xiphTag)
             {
                 string[]? genreFields = xiphTag.GetField("GENRE");
                 genres.AddRange(genreFields);
             }
             else
             {
-                _logger.LogWarning("No Xiph comment tag found in file");
+                logger.LogWarning("No Xiph comment tag found in file");
             }
         }
         else
         {
-            _logger.LogWarning("No Xiph tags found in file");
+            logger.LogWarning("No Xiph tags found in file");
         }
 
         return genres.Distinct()
@@ -93,7 +86,7 @@ public class MetadataService : IMetadataService
     {
         if (!(file.GetTag(TagTypes.Xiph) is XiphComment xiphTag))
         {
-            _logger.LogWarning("No Xiph comment tag found in file {FileName}", file.Name);
+            logger.LogWarning("No Xiph comment tag found in file {FileName}", file.Name);
             return new List<Artist>();
         }
 
@@ -134,7 +127,7 @@ public class MetadataService : IMetadataService
 
         if (genres.Any())
         {
-            _logger.LogInformation("Setting genres: {Genres}", string.Join(", ", genres));
+            logger.LogInformation("Setting genres: {Genres}", string.Join(", ", genres));
             file.Tag.Genres = genres;
         }
     }
@@ -148,7 +141,7 @@ public class MetadataService : IMetadataService
 
         if (file.GetTag(TagTypes.Xiph) is XiphComment xiphTag)
         {
-            _logger.LogInformation("Setting genre categories: {GenreCategories}", string.Join(", ", genreCategories));
+            logger.LogInformation("Setting genre categories: {GenreCategories}", string.Join(", ", genreCategories));
             xiphTag.SetField(GENRE_CATEGORY, genreCategories);
         }
     }
@@ -161,7 +154,7 @@ public class MetadataService : IMetadataService
 
         if (file.GetTag(TagTypes.Xiph) is XiphComment xiphTag)
         {
-            _logger.LogInformation("Setting artists: {Artists}", string.Join(", ", artists));
+            logger.LogInformation("Setting artists: {Artists}", string.Join(", ", artists));
             xiphTag.SetField(ARTISTS, artists);
         }
     }

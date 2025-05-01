@@ -6,33 +6,21 @@ namespace MusicProcessor.CLI.Configurations;
 
 public static class DependencyInjection
 {
-    public static IServiceCollection RegisterCLI(this IServiceCollection services)
+    public static IServiceCollection RegisterCli(this IServiceCollection services)
     {
         RegisterCliConfiguration(services);
-        RegisterAppSettings(services);
 
         return services;
     }
 
     private static void RegisterCliConfiguration(this IServiceCollection services)
     {
-        services.AddSingleton(serviceProvider =>
-        {
-            return new CliApplicationBuilder()
+        services.AddSingleton(serviceProvider => new CliApplicationBuilder()
                 .SetTitle("Music Processor CLI application")
                 .AddCommandsFromThisAssembly()
                 .UseTypeActivator(type => ActivatorUtilities.CreateInstance(serviceProvider, type))
-                .Build();
-        });
+                .Build());
 
         services.AddScoped<InteractiveCli>();
-    }
-
-    private static void RegisterAppSettings(this IServiceCollection services)
-    {
-        IConfigurationRoot configuration = new ConfigurationBuilder()
-            .SetBasePath(Directory.GetCurrentDirectory())
-            .AddJsonFile("appsettings.json", false, true)
-            .Build();
     }
 }
