@@ -2,5 +2,5 @@
 
 public interface IFileService
 {
-    
+    IEnumerable<string> GetAllSongPaths();
 }

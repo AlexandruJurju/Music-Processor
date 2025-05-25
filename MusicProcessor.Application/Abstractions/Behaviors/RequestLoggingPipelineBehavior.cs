@@ -1,6 +1,6 @@
-﻿using MusicProcessor.Domain.Abstractions.Result;
-using Mediator;
+﻿using Mediator;
 using Microsoft.Extensions.Logging;
+using MusicProcessor.Domain.Abstractions.Result;
 using Serilog.Context;
 
 namespace MusicProcessor.Application.Abstractions.Behaviors;

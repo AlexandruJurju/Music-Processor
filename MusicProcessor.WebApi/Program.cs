@@ -1,8 +1,8 @@
 using System.Reflection;
-using MusicProcessor.Application;
 using HealthChecks.UI.Client;
-using MusicProcessor.Infrastructure;
 using Microsoft.AspNetCore.Diagnostics.HealthChecks;
+using MusicProcessor.Application;
+using MusicProcessor.Infrastructure;
 using MusicProcessor.WebApi;
 using MusicProcessor.WebApi.Extensions;
 using Scalar.AspNetCore;
@@ -13,8 +13,8 @@ WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 builder.Host.UseSerilog((context, loggerConfig) => loggerConfig.ReadFrom.Configuration(context.Configuration));
 
 builder.Services
-    .AddPresentation(builder.Configuration)
     .AddApplication(builder.Configuration)
+    .AddPresentation(builder.Configuration)
     .AddInfrastructure(builder.Configuration);
 
 builder.Services.AddEndpoints(Assembly.GetExecutingAssembly());

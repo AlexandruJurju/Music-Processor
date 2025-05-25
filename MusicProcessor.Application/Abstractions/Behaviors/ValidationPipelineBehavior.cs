@@ -1,8 +1,8 @@
 ﻿using System.Reflection;
-using MusicProcessor.Domain.Abstractions.Result;
 using FluentValidation;
 using FluentValidation.Results;
 using Mediator;
+using MusicProcessor.Domain.Abstractions.Result;
 
 namespace MusicProcessor.Application.Abstractions.Behaviors;
 

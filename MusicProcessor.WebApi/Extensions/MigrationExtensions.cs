@@ -1,5 +1,5 @@
-﻿using MusicProcessor.Infrastructure.Database;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
+using MusicProcessor.Infrastructure.Database;
 
 namespace MusicProcessor.WebApi.Extensions;
 

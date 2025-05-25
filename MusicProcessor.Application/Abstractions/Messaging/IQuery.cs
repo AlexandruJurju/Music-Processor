@@ -1,5 +1,5 @@
-﻿using MusicProcessor.Domain.Abstractions.Result;
-using Mediator;
+﻿using Mediator;
+using MusicProcessor.Domain.Abstractions.Result;
 
 namespace MusicProcessor.Application.Abstractions.Messaging;
 

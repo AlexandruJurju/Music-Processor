@@ -1,9 +1,9 @@
-﻿using MusicProcessor.Domain.Abstractions;
-using FluentValidation;
+﻿using FluentValidation;
 using Mediator;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using MusicProcessor.Application.Abstractions.Behaviors;
+using MusicProcessor.Domain.Abstractions;
 
 namespace MusicProcessor.Application;
 
