@@ -2,11 +2,8 @@
 
 namespace MusicProcessor.Domain.Songs;
 
-public class Song : Entity
+public class Genre : Entity
 {
     public string Name { get; set; }
-    public int DurationInMinutes { get; set; }
-    public int Year { get; set; }
-    public Artist MainArtist { get; set; }
     public List<Style> Styles { get; set; }
 }

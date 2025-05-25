@@ -12,24 +12,6 @@ WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 
 builder.Host.UseSerilog((context, loggerConfig) => loggerConfig.ReadFrom.Configuration(context.Configuration));
 
-// builder.Services.AddOpenTelemetry()
-//     .ConfigureResource(resource => resource.AddService(builder.Environment.ApplicationName))
-//     .WithTracing(tracing => tracing
-//         .AddHttpClientInstrumentation()
-//         .AddAspNetCoreInstrumentation()
-//     )
-//     .WithMetrics(metrics => metrics
-//         .AddHttpClientInstrumentation()
-//         .AddAspNetCoreInstrumentation()
-//         .AddRuntimeInstrumentation())
-//     .UseOtlpExporter();
-
-// builder.Logging.AddOpenTelemetry(options =>
-// {
-//     options.IncludeScopes = true;
-//     options.IncludeFormattedMessage = true;
-// });
-
 builder.Services
     .AddPresentation(builder.Configuration)
     .AddApplication(builder.Configuration)
@@ -68,11 +50,5 @@ app.UseRequestContextLogging();
 app.UseSerilogRequestLogging();
 
 app.UseExceptionHandler();
-
-// app.UseCors(CorsOptions.PolicyName);
-
-// app.UseAuthentication();
-//
-// app.UseAuthorization();
 
 await app.RunAsync();

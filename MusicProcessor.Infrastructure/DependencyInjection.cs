@@ -2,9 +2,11 @@
 using Microsoft.Extensions.Caching.Hybrid;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using MusicProcessor.Application.Abstractions.Infrastructure;
 using MusicProcessor.Domain.Abstractions.Persistence;
 using MusicProcessor.Infrastructure.Database;
 using MusicProcessor.Infrastructure.Database.Repositories;
+using MusicProcessor.Infrastructure.MetadataReaders;
 
 namespace MusicProcessor.Infrastructure;
 
@@ -14,7 +16,12 @@ public static class DependencyInjection
     {
         AddDatabase(services, configuration);
 
+        AddRepositories(services);
+
         AddHealthChecks(services);
+
+        services.AddScoped<ISpotDLMetadataReader, SpotDLMetadataReader>();
+        services.AddScoped<IFileService, FileService.FileService>();
 
         return services;
     }
@@ -36,8 +43,6 @@ public static class DependencyInjection
         });
 
         services.AddScoped<IUnitOfWork>(sp => sp.GetRequiredService<ApplicationDbContext>());
-
-        AddRepositories(services);
     }
 
     private static void AddRepositories(IServiceCollection services)
