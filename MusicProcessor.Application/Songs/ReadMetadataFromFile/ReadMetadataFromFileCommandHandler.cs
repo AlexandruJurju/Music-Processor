@@ -2,32 +2,49 @@
 using MusicProcessor.Application.Abstractions.Messaging;
 using MusicProcessor.Domain.Abstractions.Persistence;
 using MusicProcessor.Domain.Abstractions.Result;
+using MusicProcessor.Domain.Albums;
+using MusicProcessor.Domain.Artists;
 using MusicProcessor.Domain.Songs;
+using MusicProcessor.Domain.Styles;
 
 namespace MusicProcessor.Application.Songs.ReadMetadataFromFile;
 
 public class ReadMetadataFromFileCommandHandler(
     ISongRepository songRepository,
+    IArtistRepository artistRepository,
+    IStyleRepository styleRepository,
+    IAlbumRepository albumRepository,
     ISpotDLMetadataReader spotDlMetadataReader
 ) : ICommandHandler<ReadMetadataFromFileCommand>
 {
-#pragma warning disable S1075
-    private readonly string _path = "X:\\Storage\\Music\\# SpotDL\\All.spotdl";
-#pragma warning restore S1075
-
     public async ValueTask<Result> Handle(ReadMetadataFromFileCommand request, CancellationToken cancellationToken)
     {
-        Dictionary<string, Song> songs = songRepository.GetAllWithKey();
+        List<Song> spotDlSongs = await spotDlMetadataReader.LoadSpotDLMetadataAsync();
 
-        Dictionary<string, Song> spotDlSongs = await spotDlMetadataReader.LoadSpotDLMetadataAsync(_path);
+        var allArtists = spotDlSongs
+            .Select(s => s.MainArtist)
+            .Concat(spotDlSongs.SelectMany(s => s.Artists))
+            .Concat(spotDlSongs.Select(s => s.Album.MainArtist))
+            .DistinctBy(a => a.Name.ToUpperInvariant())
+            .ToList();
+        await artistRepository.BulkInsertAsync(allArtists);
 
-        foreach (KeyValuePair<string, Song> kvp in spotDlSongs)
-        {
-            if (!songs.ContainsKey(kvp.Key))
-            {
-                songRepository.Add(kvp.Value);
-            }
-        }
+        var allStyles = spotDlSongs
+            .SelectMany(s => s.Styles)
+            .DistinctBy(s => s.Name.ToUpperInvariant())
+            .ToList();
+        await styleRepository.BulkInsertAsync(allStyles);
+
+        var allAlbums = spotDlSongs
+            .Select(s => s.Album)
+            .DistinctBy(a => a.Name.ToUpperInvariant())
+            .ToList();
+        await albumRepository.BulkInsertAsync(allAlbums);
+
+        IEnumerable<Song> badSongs = spotDlSongs.Where(e => e.Album.Id == 0);
+        Console.WriteLine(badSongs);
+        
+        await songRepository.BulkInsertAsync(spotDlSongs.Where(e => e.Album.Id != 0));
 
         return Result.Success();
     }

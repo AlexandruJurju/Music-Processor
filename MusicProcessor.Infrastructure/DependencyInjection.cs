@@ -1,5 +1,4 @@
-﻿using LiteDB;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using MusicProcessor.Application.Abstractions.Infrastructure;
@@ -14,7 +13,6 @@ public static class DependencyInjection
     public static IServiceCollection AddInfrastructure(this IServiceCollection services, IConfiguration configuration)
     {
         AddSqlite(services, configuration);
-        AddLiteDb(services, configuration);
 
         AddRepositories(services);
 
@@ -25,12 +23,6 @@ public static class DependencyInjection
         return services;
     }
 
-    private static void AddLiteDb(IServiceCollection services, IConfiguration configuration)
-    {
-        string liteDbConnectionString = configuration.GetConnectionString("LiteDb")!;
-
-        services.AddSingleton<ILiteDatabase>(provider => new LiteDatabase(liteDbConnectionString));
-    }
 
     private static void AddHealthChecks(IServiceCollection services)
     {
@@ -53,8 +45,11 @@ public static class DependencyInjection
 
     private static void AddRepositories(IServiceCollection services)
     {
+        services.AddScoped<IAlbumRepository, AlbumRepository>();
+        services.AddScoped<IArtistRepository, ArtistRepository>();
+        services.AddScoped<IGenreRepository, GenreRepository>();
         services.AddScoped<ISongRepository, SongRepository>();
-        services.AddScoped<IStyleMappingRepository, GenreMappingRepository>();
+        services.AddScoped<IStyleRepository, StyleRepository>();
     }
 
     private static void AddServices(IServiceCollection services)

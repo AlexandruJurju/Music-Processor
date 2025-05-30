@@ -1,5 +1,9 @@
 ﻿using System.Globalization;
+using MusicProcessor.Domain.Albums;
+using MusicProcessor.Domain.Artists;
+using MusicProcessor.Domain.Genres;
 using MusicProcessor.Domain.Songs;
+using MusicProcessor.Domain.Styles;
 
 namespace MusicProcessor.Infrastructure.SpotDLMetadataReader;
 
@@ -37,29 +41,29 @@ public sealed class SpotDLSongMetadata
     public string AlbumType { get; set; } = string.Empty;
     public string Key => $"{Artist.ToUpperInvariant().Trim()} - {Name.ToUpperInvariant().Trim()}";
 
-    public Song ToSong()
+    public Song ToSong(Artist mainArtist, List<Artist> artists, Album album, List<Style> styles)
     {
-        return new Song
-        {
-            Title = Name,
-            Artist = Artist,
-            Artists = Artists.ToList(),
-            DiscCount = DiscCount,
-            DiscNumber = DiscNumber,
-            AlbumName = AlbumName,
-            AlbumType = AlbumType,
-            AlbumArtist = AlbumArtist,
-            Duration = Duration,
-            TrackNumber = TrackNumber,
-            TracksCount = TracksCount,
-            Year = uint.Parse(Year, CultureInfo.InvariantCulture),
-            SpotifySongId = SongId,
-            SpotifyUrl = Url,
-            SpotifyCoverUrl = CoverUrl,
-            SpotifyArtistId = ArtistId,
-            SpotifyAlbumId = AlbumId,
-            Styles = Genres.ToList(),
-            Genres = []
-        };
+        return Song.Create(
+            title: Name,
+            mainArtist: mainArtist,
+            artists: artists,
+            styles: styles,
+            album: album,
+            discNumber: DiscNumber,
+            discCount: DiscCount,
+            duration: Duration,
+            year: uint.Parse(Year, CultureInfo.InvariantCulture),
+            trackNumber: TrackNumber,
+            tracksCount: TracksCount,
+            isrc: ISRC,
+            spotifyMetadata: new SpotifyMetadata
+            {
+                SpotifySongId = SongId,
+                SpotifyUrl = Url,
+                SpotifyCoverUrl = CoverUrl,
+                SpotifyArtistId = ArtistId,
+                SpotifyAlbumId = AlbumId
+            }
+        );
     }
 }

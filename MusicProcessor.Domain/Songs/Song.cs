@@ -1,28 +1,62 @@
-﻿namespace MusicProcessor.Domain.Songs;
+﻿using MusicProcessor.Domain.Albums;
+using MusicProcessor.Domain.Artists;
+using MusicProcessor.Domain.Styles;
+
+namespace MusicProcessor.Domain.Songs;
 
 public class Song
 {
-    public Guid Id { get; set; }
-    public string Title { get; set; }
-    public List<string> Artists { get; set; }
-    public string Artist { get; set; }
-    public List<string> Genres { get; set; }
-    public List<string> Styles { get; set; }
-    public int DiscNumber { get; set; }
-    public int DiscCount { get; set; }
-    public string AlbumName { get; set; }
-    public string AlbumArtist { get; set; }
-    public int Duration { get; set; }
-    public uint Year { get; set; }
-    public int TrackNumber { get; set; }
-    public int TracksCount { get; set; }
-    public string SpotifySongId { get; set; }
-    public string SpotifyUrl { get; set; }
-    public string Isrc { get; set; }
-    public string SpotifyCoverUrl { get; set; }
-    public string SpotifyAlbumId { get; set; }
-    public string SpotifyArtistId { get; set; }
-    public string AlbumType { get; set; }
+    public int Id { get; set; }
+    public string Key { get; private set; }
+    public string Title { get; private set; }
+    public Artist MainArtist { get; private set; }
+    public List<Artist> Artists { get; private set; }
+    public List<Style> Styles { get; private set; }
+    public Album Album { get; private set; }
+    public int DiscNumber { get; private set; }
+    public int DiscCount { get; private set; }
+    public int Duration { get; private set; }
+    public uint Year { get; private set; }
+    public int TrackNumber { get; private set; }
+    public int TracksCount { get; private set; }
+    public string Isrc { get; private set; }
+    public SpotifyMetadata? SpotifyMetadata { get; private set; }
 
-    public string Key => $"{Artist.ToUpperInvariant().Trim()} - {Title.ToUpperInvariant().Trim()}";
+
+    public static Song Create(
+        string title,
+        Artist mainArtist,
+        List<Artist> artists,
+        List<Style> styles,
+        Album album,
+        int discNumber,
+        int discCount,
+        int duration,
+        uint year,
+        int trackNumber,
+        int tracksCount,
+        string isrc,
+        SpotifyMetadata? spotifyMetadata = null
+    )
+    {
+        return new Song
+        {
+            Key = $"{mainArtist.Name.ToUpperInvariant().Trim()} - {album.Name.ToUpperInvariant().Trim()} - {title.ToUpperInvariant().Trim()}",
+            Title = title,
+            MainArtist = mainArtist,
+            Artists = artists,
+            Styles = styles,
+            Album = album,
+            DiscNumber = discNumber,
+            DiscCount = discCount,
+            Duration = duration,
+            Year = year,
+            TrackNumber = trackNumber,
+            TracksCount = tracksCount,
+            Isrc = isrc,
+            SpotifyMetadata = spotifyMetadata
+        };
+    }
+
+    protected Song() { }
 }

@@ -4,8 +4,6 @@ namespace MusicProcessor.Domain.Abstractions.Persistence;
 
 public interface ISongRepository
 {
-    IEnumerable<Song> GetAll();
-    Guid Add(Song song);
-    bool Update(Song song);
-    Dictionary<string, Song> GetAllWithKey();
+    Task<IEnumerable<Song>> GetAllAsync();
+    Task BulkInsertAsync(IEnumerable<Song> songs);
 }

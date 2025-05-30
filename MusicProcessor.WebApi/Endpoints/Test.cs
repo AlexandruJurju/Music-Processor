@@ -12,15 +12,13 @@ public class Test : IEndpoint
         app.MapPost("test", async (ISender sender) =>
             {
                 var readMetadataCommand = new ReadMetadataFromFileCommand();
-                
                 await sender.Send(readMetadataCommand);
                 
                 var command2 = new FixSongMetadataCommand();
-                
                 await sender.Send(command2);
 
-                var command3 = new TestCommand();
-                await sender.Send(command3);
+                // var command3 = new TestCommand();
+                // await sender.Send(command3);
             })
             .WithTags("test");
     }

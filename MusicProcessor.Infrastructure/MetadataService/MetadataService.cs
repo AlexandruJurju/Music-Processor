@@ -1,5 +1,8 @@
 ﻿using MusicProcessor.Application.Abstractions.Infrastructure;
+using MusicProcessor.Domain.Albums;
+using MusicProcessor.Domain.Artists;
 using MusicProcessor.Domain.Songs;
+using MusicProcessor.Domain.Styles;
 using TagLib;
 using TagLib.Ogg;
 using File = TagLib.File;
@@ -14,26 +17,28 @@ public class MetadataService : IMetadataService
     public Song ReadMetadata(string filePath)
     {
         using var file = File.Create(filePath);
+
         Tag tag = file.Tag;
 
-        var song = new Song
-        {
-            Title = tag.Title ?? Path.GetFileNameWithoutExtension(filePath),
-            Isrc = tag.ISRC,
-            Artists = ReadArtists(file),
-            Artist = tag.FirstPerformer,
-            Styles = ReadStyles(file),
-            Genres = ReadGenres(file),
-            DiscNumber = (int)tag.Disc,
-            DiscCount = (int)tag.DiscCount,
-            AlbumName = tag.Album,
-            Duration = file.Properties.Duration.Seconds,
-            Year = tag.Year,
-            TrackNumber = (int)tag.Track,
-            TracksCount = (int)tag.TrackCount
-        };
+        var mainArtist = Artist.Create(tag.FirstAlbumArtist);
+        var artists = ReadArtists(file).Select(Artist.Create).ToList();
+        var styles = ReadStyles(file).Select(style => Style.Create(style, false)).ToList();
+        var album = Album.Create(tag.Album, mainArtist);
 
-        return song;
+        return Song.Create(
+            title: tag.Title ?? Path.GetFileNameWithoutExtension(filePath),
+            mainArtist: mainArtist,
+            artists: artists,
+            styles: styles,
+            album: album,
+            discNumber: (int)tag.Disc,
+            discCount: (int)tag.DiscCount,
+            duration: file.Properties.Duration.Seconds,
+            year: tag.Year,
+            trackNumber: (int)tag.Track,
+            tracksCount: (int)tag.TrackCount,
+            isrc: tag.ISRC
+        );
     }
 
     private List<string> ReadArtists(File file)
@@ -68,20 +73,20 @@ public class MetadataService : IMetadataService
         return artists.ToList();
     }
 
-    private List<string> ReadGenres(File file)
-    {
-        string[] genres = file.Tag.Genres;
-        return genres.ToList();
-    }
+    // private List<string> ReadGenres(File file)
+    // {
+    //     string[] genres = file.Tag.Genres;
+    //     return genres.ToList();
+    // }
 
     public void UpdateSongMetadata(Song song, string songPath)
     {
         using var file = File.Create(songPath);
 
         file.Tag.Title = song.Title;
-        file.Tag.Album = song.AlbumName;
+        file.Tag.Album = song.Album.Name;
         file.Tag.Year = song.Year;
-        file.Tag.AlbumArtists = [song.Artist];
+        file.Tag.AlbumArtists = [song.MainArtist.Name];
 
         WriteGenres(song, file);
         WriteStyles(song, file);
@@ -92,7 +97,7 @@ public class MetadataService : IMetadataService
 
     private void WriteArtists(Song song, File file)
     {
-        List<string> artists = song.Artists;
+        var artists = song.Artists.Select(artist => artist.Name).ToList();
 
         if (file.GetTag(TagTypes.Xiph) is XiphComment xiphTag)
         {
@@ -102,7 +107,7 @@ public class MetadataService : IMetadataService
 
     private void WriteStyles(Song song, File file)
     {
-        List<string> styles = song.Styles;
+        var styles = song.Styles.Select(style => style.Name).ToList();
 
         if (file.GetTag(TagTypes.Xiph) is XiphComment xiphTag)
         {
@@ -112,7 +117,7 @@ public class MetadataService : IMetadataService
 
     private void WriteGenres(Song song, File file)
     {
-        List<string> genres = song.Genres;
+        var genres = song.Styles.SelectMany(style => style.Genres.Select(genre => genre.Name)).ToList();
 
         if (genres.Any())
         {
