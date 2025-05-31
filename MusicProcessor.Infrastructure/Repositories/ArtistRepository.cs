@@ -1,4 +1,5 @@
-﻿using MusicProcessor.Domain.Abstractions.Persistence;
+﻿using Microsoft.EntityFrameworkCore;
+using MusicProcessor.Domain.Abstractions.Persistence;
 using MusicProcessor.Domain.Artists;
 using MusicProcessor.Infrastructure.Database;
 
@@ -16,5 +17,10 @@ public class ArtistRepository(
                 options.InsertIfNotExists = true;
                 options.ColumnPrimaryKeyExpression = x => new { x.Name };
             });
+    }
+
+    public async Task<IEnumerable<Artist>> GetAllAsync()
+    {
+        return await dbContext.Artists.ToListAsync();
     }
 }

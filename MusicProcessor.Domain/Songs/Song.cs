@@ -9,10 +9,10 @@ public class Song
     public int Id { get; set; }
     public string Key { get; private set; }
     public string Title { get; private set; }
-    public Artist MainArtist { get; private set; }
-    public List<Artist> Artists { get; private set; }
-    public List<Style> Styles { get; private set; }
-    public Album Album { get; private set; }
+    public Artist MainArtist { get; set; }
+    public List<Artist> Artists { get; set; }
+    public List<Style> Styles { get; set; }
+    public Album Album { get; set; }
     public int DiscNumber { get; private set; }
     public int DiscCount { get; private set; }
     public int Duration { get; private set; }

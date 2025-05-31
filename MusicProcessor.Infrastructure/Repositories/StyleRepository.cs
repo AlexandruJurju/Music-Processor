@@ -1,4 +1,5 @@
-﻿using MusicProcessor.Domain.Abstractions.Persistence;
+﻿using Microsoft.EntityFrameworkCore;
+using MusicProcessor.Domain.Abstractions.Persistence;
 using MusicProcessor.Domain.Styles;
 using MusicProcessor.Infrastructure.Database;
 
@@ -15,5 +16,10 @@ public class StyleRepository(
             options.InsertIfNotExists = true;
             options.ColumnPrimaryKeyExpression = x => new { x.Name };
         });
+    }
+
+    public async Task<IEnumerable<Style>> GetAllAsync()
+    {
+        return await dbContext.Styles.ToListAsync();
     }
 }
