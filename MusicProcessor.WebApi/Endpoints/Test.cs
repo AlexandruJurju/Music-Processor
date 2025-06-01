@@ -1,8 +1,6 @@
-﻿using Mediator;
-using MusicProcessor.Application.Songs.FixSongMetadata;
-using MusicProcessor.Application.Songs.LogMissing;
+﻿using System.Diagnostics;
+using Mediator;
 using MusicProcessor.Application.Songs.ReadMetadataFromFile;
-using MusicProcessor.Application.Songs.Test;
 
 namespace MusicProcessor.WebApi.Endpoints;
 
@@ -15,9 +13,15 @@ public class Test : IEndpoint
                 // var logMissing = new LogMissingCommand();
                 // await sender.Send(logMissing);
 
+                var stopwatch = Stopwatch.StartNew();
+
                 var readMetadataCommand = new ReadMetadataFromFileCommand();
                 await sender.Send(readMetadataCommand);
-                
+
+                stopwatch.Stop();
+
+                Console.WriteLine(stopwatch.Elapsed.TotalMilliseconds);
+
                 // var command2 = new FixSongMetadataCommand();
                 // await sender.Send(command2);
 

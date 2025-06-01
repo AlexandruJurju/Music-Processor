@@ -17,7 +17,6 @@ public class ReadMetadataFromFileCommandHandler(
     IStyleRepository styleRepository,
     IAlbumRepository albumRepository,
     ISpotDLMetadataReader spotDlMetadataReader,
-    IUnitOfWork unitOfWork,
     ILogger<ReadMetadataFromFileCommandHandler> logger
 ) : ICommandHandler<ReadMetadataFromFileCommand>
 {
@@ -31,14 +30,32 @@ public class ReadMetadataFromFileCommandHandler(
 
         List<SpotDLSongMetadata> songs = await spotDlMetadataReader.LoadSpotDLMetadataAsync();
 
-        List<Song> newSongs = ProcessSongDependencies(songs);
+        (List<Artist> newArtists, List<Style> newStyles, List<Album> newAlbums, List<Song> newSongs) = ProcessSongDependencies(songs);
+
+        if (newArtists.Count > 0)
+        {
+            await artistRepository.BulkInsertAsync(newArtists);
+            logger.LogInformation("Inserted {Count} new artists", newArtists.Count);
+        }
+
+        if (newStyles.Count > 0)
+        {
+            await styleRepository.BulkInsertAsync(newStyles);
+            logger.LogInformation("Inserted {Count} new styles", newStyles.Count);
+        }
+
+        if (newAlbums.Count > 0)
+        {
+            await albumRepository.BulkInsertAsync(newAlbums);
+            logger.LogInformation("Inserted {Count} new albums", newAlbums.Count);
+        }
 
         if (newSongs.Count > 0)
         {
-            songRepository.AddRange(newSongs);
-            await unitOfWork.SaveChangesAsync(cancellationToken);
+            await songRepository.BulkInsertAsync(newSongs);
             logger.LogInformation("Successfully processed {Count} songs", newSongs.Count);
         }
+
 
         return Result.Success();
     }
@@ -70,7 +87,7 @@ public class ReadMetadataFromFileCommandHandler(
         logger.LogDebug("Preloaded {Count} albums into cache", _albumCache.Count);
     }
 
-    private List<Song> ProcessSongDependencies(IEnumerable<SpotDLSongMetadata> songs)
+    private (List<Artist>, List<Style>, List<Album>, List<Song>) ProcessSongDependencies(IEnumerable<SpotDLSongMetadata> songs)
     {
         var newArtists = new List<Artist>();
         var newStyles = new List<Style>();
@@ -104,7 +121,7 @@ public class ReadMetadataFromFileCommandHandler(
             ));
         }
 
-        return newSongs;
+        return (newArtists, newStyles, newAlbums, newSongs);
     }
 
     private Artist GetOrCreateArtistAsync(string artistName, List<Artist> newArtists)

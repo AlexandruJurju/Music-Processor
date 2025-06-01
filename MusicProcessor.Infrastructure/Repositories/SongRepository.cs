@@ -23,6 +23,6 @@ public class SongRepository(
     public async Task BulkInsertAsync(IEnumerable<Song> songs)
     {
         await dbContext.Songs
-            .BulkInsertAsync(songs, options => options.InsertIfNotExists = true);
+            .BulkInsertOptimizedAsync(songs, options => options.InsertIfNotExists = true);
     }
 }
