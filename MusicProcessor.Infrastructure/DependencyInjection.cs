@@ -5,7 +5,7 @@ using MusicProcessor.Application.Abstractions.Infrastructure;
 using MusicProcessor.Domain.Abstractions.Persistence;
 using MusicProcessor.Infrastructure.Database;
 using MusicProcessor.Infrastructure.MetadataService;
-using MusicProcessor.Infrastructure.MetadataService.MetadataReader;
+using MusicProcessor.Infrastructure.MetadataService.SpotDLMetadataReader;
 using MusicProcessor.Infrastructure.Repositories;
 
 namespace MusicProcessor.Infrastructure;

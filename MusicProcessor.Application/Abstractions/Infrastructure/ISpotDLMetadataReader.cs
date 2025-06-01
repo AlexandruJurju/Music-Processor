@@ -1,8 +1,9 @@
-﻿using MusicProcessor.Domain.Songs;
+﻿using MusicProcessor.Application.Songs.ReadMetadataFromFile;
+using MusicProcessor.Domain.Songs;
 
 namespace MusicProcessor.Application.Abstractions.Infrastructure;
 
 public interface ISpotDLMetadataReader
 {
-    Task<List<Song>> LoadSpotDLMetadataAsync();
+    Task<List<SpotDLSongMetadata>> LoadSpotDLMetadataAsync();
 }

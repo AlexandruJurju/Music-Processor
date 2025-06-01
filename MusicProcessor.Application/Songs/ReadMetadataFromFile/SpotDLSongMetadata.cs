@@ -4,7 +4,7 @@ using MusicProcessor.Domain.Artists;
 using MusicProcessor.Domain.Songs;
 using MusicProcessor.Domain.Styles;
 
-namespace MusicProcessor.Infrastructure.MetadataService.MetadataReader;
+namespace MusicProcessor.Application.Songs.ReadMetadataFromFile;
 
 public sealed class SpotDLSongMetadata
 {
@@ -39,22 +39,4 @@ public sealed class SpotDLSongMetadata
     public string ArtistId { get; set; } = string.Empty;
     public string AlbumType { get; set; } = string.Empty;
     public string Key => $"{Artist.ToUpperInvariant().Trim()} - {Name.ToUpperInvariant().Trim()}";
-
-    public Song ToSong(Artist mainArtist, List<Artist> artists, Album album, List<Style> styles)
-    {
-        return Song.Create(
-            title: Name,
-            mainArtist: mainArtist,
-            artists: artists,
-            styles: styles,
-            album: album,
-            discNumber: DiscNumber,
-            discCount: DiscCount,
-            duration: Duration,
-            year: uint.Parse(Year, CultureInfo.InvariantCulture),
-            trackNumber: TrackNumber,
-            tracksCount: TracksCount,
-            isrc: ISRC
-        );
-    }
 }

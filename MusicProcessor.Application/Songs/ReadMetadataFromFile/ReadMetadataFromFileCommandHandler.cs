@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.Logging;
+﻿using System.Globalization;
+using Microsoft.Extensions.Logging;
 using MusicProcessor.Application.Abstractions.Infrastructure;
 using MusicProcessor.Application.Abstractions.Messaging;
 using MusicProcessor.Domain.Abstractions.Persistence;
@@ -28,9 +29,9 @@ public class ReadMetadataFromFileCommandHandler(
     {
         await PreloadCachesAsync();
 
-        List<Song> songs = await spotDlMetadataReader.LoadSpotDLMetadataAsync();
+        List<SpotDLSongMetadata> songs = await spotDlMetadataReader.LoadSpotDLMetadataAsync();
 
-        (List<Artist> newArtists, List<Style> newStyles, List<Album> newAlbums) = ProcessSongDependencies(songs);
+        (List<Artist> newArtists, List<Style> newStyles, List<Album> newAlbums, List<Song> newSongs) = ProcessSongDependencies(songs);
 
         if (newArtists.Count > 0)
         {
@@ -53,10 +54,13 @@ public class ReadMetadataFromFileCommandHandler(
             logger.LogInformation("Inserted {Count} new albums", newAlbums.Count);
         }
 
-        var songsList = songs.ToList();
-        songRepository.AddRange(songsList);
-        await unitOfWork.SaveChangesAsync(cancellationToken);
-        logger.LogInformation("Successfully processed {Count} songs", songsList.Count);
+        if (newSongs.Count > 0)
+        {
+            songRepository.AddRange(newSongs);
+            await unitOfWork.SaveChangesAsync(cancellationToken);
+            logger.LogInformation("Successfully processed {Count} songs", newSongs.Count);
+        }
+
 
         return Result.Success();
     }
@@ -66,10 +70,7 @@ public class ReadMetadataFromFileCommandHandler(
         IEnumerable<Artist> existingArtists = await artistRepository.GetAllAsync();
         foreach (Artist artist in existingArtists)
         {
-            if (!string.IsNullOrEmpty(artist.Name))
-            {
-                _artistCache[artist.Name] = artist;
-            }
+            _artistCache[artist.Name] = artist;
         }
 
         logger.LogDebug("Preloaded {Count} artists into cache", _artistCache.Count);
@@ -77,10 +78,7 @@ public class ReadMetadataFromFileCommandHandler(
         IEnumerable<Style> existingStyles = await styleRepository.GetAllAsync();
         foreach (Style style in existingStyles)
         {
-            if (!string.IsNullOrEmpty(style.Name))
-            {
-                _styleCache[style.Name] = style;
-            }
+            _styleCache[style.Name] = style;
         }
 
         logger.LogDebug("Preloaded {Count} styles into cache", _styleCache.Count);
@@ -88,118 +86,88 @@ public class ReadMetadataFromFileCommandHandler(
         IEnumerable<Album> existingAlbums = await albumRepository.GetAllAsync();
         foreach (Album album in existingAlbums)
         {
-            if (!string.IsNullOrEmpty(album.Name))
-            {
-                _albumCache[album.Name] = album;
-            }
+            _albumCache[album.Name] = album;
         }
 
         logger.LogDebug("Preloaded {Count} albums into cache", _albumCache.Count);
     }
 
-    private (List<Artist>, List<Style>, List<Album>) ProcessSongDependencies(IEnumerable<Song> songs)
+    private (List<Artist>, List<Style>, List<Album>, List<Song>) ProcessSongDependencies(IEnumerable<SpotDLSongMetadata> songs)
     {
         var newArtists = new List<Artist>();
         var newStyles = new List<Style>();
         var newAlbums = new List<Album>();
+        var newSongs = new List<Song>();
 
-        foreach (Song song in songs)
+        foreach (SpotDLSongMetadata song in songs)
         {
-            if (!string.IsNullOrEmpty(song.MainArtist.Name))
-            {
-                song.MainArtist = GetOrCreateArtistAsync(song.MainArtist, newArtists);
-            }
+            Artist mainArtist = GetOrCreateArtistAsync(song.Artist, newArtists);
 
-            for (int i = 0; i < song.Artists.Count; i++)
-            {
-                if (!string.IsNullOrEmpty(song.Artists[i].Name))
-                {
-                    song.Artists[i] = GetOrCreateArtistAsync(song.Artists[i], newArtists);
-                }
-            }
+            var otherArtists = song.Artists.Select(e => GetOrCreateArtistAsync(e, newArtists)).ToList();
 
-            if (!string.IsNullOrEmpty(song.Album.MainArtist.Name))
-            {
-                song.Album.MainArtist = GetOrCreateArtistAsync(song.Album.MainArtist, newArtists);
-            }
+            Artist albumArtist = GetOrCreateArtistAsync(song.AlbumArtist, newArtists);
+            Album album = GetOrCreateAlbumAsync(song.AlbumName, albumArtist, newAlbums);
 
-            if (!string.IsNullOrEmpty(song.Album.Name))
-            {
-                song.Album = GetOrCreateAlbumAsync(song.Album, newAlbums);
-            }
+            var styles = song.Genres.Select(e => GetOrCreateStyleAsync(e, newStyles)).ToList();
 
-            for (int i = 0; i < song.Styles.Count; i++)
-            {
-                if (!string.IsNullOrEmpty(song.Styles[i].Name))
-                {
-                    song.Styles[i] = GetOrCreateStyleAsync(song.Styles[i], newStyles);
-                }
-            }
+            newSongs.Add(Song.Create(
+                song.Name,
+                mainArtist,
+                otherArtists,
+                styles,
+                album,
+                song.DiscNumber,
+                song.DiscCount,
+                song.Duration,
+                uint.Parse(song.Year, CultureInfo.InvariantCulture),
+                song.TrackNumber,
+                song.TracksCount,
+                song.ISRC
+            ));
         }
 
-        return (newArtists, newStyles, newAlbums);
+        return (newArtists, newStyles, newAlbums, newSongs);
     }
 
-    private Artist GetOrCreateArtistAsync(Artist artist, List<Artist> newArtists)
+    private Artist GetOrCreateArtistAsync(string artistName, List<Artist> newArtists)
     {
-        if (_artistCache.TryGetValue(artist.Name, out Artist existingArtist))
+        if (_artistCache.TryGetValue(artistName, out Artist existingArtist))
         {
             return existingArtist;
         }
 
-        Artist newArtist = newArtists.FirstOrDefault(a =>
-            string.Equals(a.Name, artist.Name, StringComparison.OrdinalIgnoreCase));
+        var newArtist = Artist.Create(artistName);
 
-        if (newArtist != null)
-        {
-            _artistCache[artist.Name] = newArtist;
-            return newArtist;
-        }
-
-        _artistCache[artist.Name] = artist;
-        newArtists.Add(artist);
-        return artist;
+        _artistCache[artistName] = newArtist;
+        newArtists.Add(newArtist);
+        return newArtist;
     }
 
-    private Album GetOrCreateAlbumAsync(Album album, List<Album> newAlbums)
+    private Album GetOrCreateAlbumAsync(string albumName, Artist artist, List<Album> newAlbums)
     {
-        if (_albumCache.TryGetValue(album.Name, out Album existingAlbum))
+        if (_albumCache.TryGetValue(albumName, out Album existingAlbum))
         {
             return existingAlbum;
         }
 
-        Album newAlbum = newAlbums.FirstOrDefault(a =>
-            string.Equals(a.Name, album.Name, StringComparison.OrdinalIgnoreCase));
+        var newAlbum = Album.Create(albumName, artist);
 
-        if (newAlbum != null)
-        {
-            _albumCache[album.Name] = newAlbum;
-            return newAlbum;
-        }
-
-        _albumCache[album.Name] = album;
-        newAlbums.Add(album);
-        return album;
+        _albumCache[albumName] = newAlbum;
+        newAlbums.Add(newAlbum);
+        return newAlbum;
     }
 
-    private Style GetOrCreateStyleAsync(Style style, List<Style> newStyles)
+    private Style GetOrCreateStyleAsync(string styleName, List<Style> newStyles)
     {
-        if (_styleCache.TryGetValue(style.Name, out Style existingStyle))
+        if (_styleCache.TryGetValue(styleName, out Style existingStyle))
         {
             return existingStyle;
         }
 
-        Style newStyle = newStyles.FirstOrDefault(s =>
-            string.Equals(s.Name, style.Name, StringComparison.OrdinalIgnoreCase));
+        var newStyle = Style.Create(styleName, false);
 
-        if (newStyle != null)
-        {
-            _styleCache[style.Name] = newStyle;
-            return newStyle;
-        }
-
-        _styleCache[style.Name] = style;
-        newStyles.Add(style);
-        return style;
+        _styleCache[styleName] = newStyle;
+        newStyles.Add(newStyle);
+        return newStyle;
     }
 }
