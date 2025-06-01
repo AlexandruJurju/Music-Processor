@@ -3,7 +3,8 @@ using MusicProcessor.Domain.Songs;
 
 namespace MusicProcessor.Application.Abstractions.Infrastructure;
 
-public interface ISpotDLMetadataReader
+public interface IMetadataService
 {
     Task<List<SpotDLSongMetadata>> LoadSpotDLMetadataAsync();
+    Task ExportMetadataAsync();
 }

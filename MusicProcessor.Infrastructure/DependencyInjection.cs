@@ -56,8 +56,8 @@ public static class DependencyInjection
 
     private static void AddServices(IServiceCollection services)
     {
-        services.AddScoped<ISpotDLMetadataReader, SpotDLMetadataReader>();
+        services.AddScoped<IMetadataService, MetadataService.SpotDLMetadataReader.MetadataService>();
         services.AddScoped<IFileService, FileService.FileService>();
-        services.AddScoped<ISongMetadataService, SongMetadataService>();
+        services.AddScoped<IAudioService, AudioService>();
     }
 }

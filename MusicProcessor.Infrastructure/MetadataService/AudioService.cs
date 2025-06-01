@@ -9,7 +9,7 @@ using File = TagLib.File;
 
 namespace MusicProcessor.Infrastructure.MetadataService;
 
-public class SongMetadataService : ISongMetadataService
+public class AudioService : IAudioService
 {
     private const string Styles = "STYLES";
     private const string Artists = "ARTISTS";
@@ -72,13 +72,7 @@ public class SongMetadataService : ISongMetadataService
 
         return artists.ToList();
     }
-
-    // private List<string> ReadGenres(File file)
-    // {
-    //     string[] genres = file.Tag.Genres;
-    //     return genres.ToList();
-    // }
-
+    
     public void UpdateSongMetadata(Song song, string songPath)
     {
         using var file = File.Create(songPath);

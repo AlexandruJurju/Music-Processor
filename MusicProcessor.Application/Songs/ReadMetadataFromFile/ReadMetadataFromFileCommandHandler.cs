@@ -16,7 +16,7 @@ public class ReadMetadataFromFileCommandHandler(
     IArtistRepository artistRepository,
     IStyleRepository styleRepository,
     IAlbumRepository albumRepository,
-    ISpotDLMetadataReader spotDlMetadataReader,
+    IMetadataService metadataService,
     ILogger<ReadMetadataFromFileCommandHandler> logger
 ) : ICommandHandler<ReadMetadataFromFileCommand>
 {
@@ -28,7 +28,7 @@ public class ReadMetadataFromFileCommandHandler(
     {
         await PreloadCachesAsync();
 
-        List<SpotDLSongMetadata> songs = await spotDlMetadataReader.LoadSpotDLMetadataAsync();
+        List<SpotDLSongMetadata> songs = await metadataService.LoadSpotDLMetadataAsync();
 
         (List<Artist> newArtists, List<Style> newStyles, List<Album> newAlbums, List<Song> newSongs) = ProcessSongDependencies(songs);
 

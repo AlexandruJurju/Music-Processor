@@ -2,7 +2,7 @@
 
 namespace MusicProcessor.Application.Abstractions.Infrastructure;
 
-public interface ISongMetadataService
+public interface IAudioService
 {
     void UpdateSongMetadata(Song song, string songPath);
     Song ReadMetadata(string filePath);

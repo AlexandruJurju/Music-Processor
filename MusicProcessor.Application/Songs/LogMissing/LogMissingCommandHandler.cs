@@ -10,8 +10,8 @@ namespace MusicProcessor.Application.Songs.LogMissing;
 
 public class LogMissingCommandHandler(
     IFileService fileService,
-    ISongMetadataService songMetadataService,
-    ISpotDLMetadataReader spotDlMetadataReader,
+    IAudioService audioService,
+    IMetadataService metadataService,
     ILogger<LogMissingCommandHandler> logger
 ) : ICommandHandler<LogMissingCommand>
 {
@@ -25,7 +25,7 @@ public class LogMissingCommandHandler(
         {
             try
             {
-                readSongs.Add(songMetadataService.ReadMetadata(songPath));
+                readSongs.Add(audioService.ReadMetadata(songPath));
             }
             catch (Exception ex)
             {
@@ -33,7 +33,7 @@ public class LogMissingCommandHandler(
             }
         }
 
-        List<SpotDLSongMetadata> metadata = await spotDlMetadataReader.LoadSpotDLMetadataAsync();
+        List<SpotDLSongMetadata> metadata = await metadataService.LoadSpotDLMetadataAsync();
 
         foreach (Song song in readSongs)
         {
