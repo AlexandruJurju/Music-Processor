@@ -1,6 +1,7 @@
 ﻿using Microsoft.Extensions.Logging;
 using MusicProcessor.Application.Abstractions.Infrastructure;
 using MusicProcessor.Application.Abstractions.Messaging;
+using MusicProcessor.Application.Songs.ReadMetadataFromFile;
 using MusicProcessor.Domain.Abstractions.Persistence;
 using MusicProcessor.Domain.Abstractions.Result;
 using MusicProcessor.Domain.Songs;
@@ -32,7 +33,7 @@ public class LogMissingCommandHandler(
             }
         }
 
-        List<Song> metadata = await spotDlMetadataReader.LoadSpotDLMetadataAsync();
+        List<SpotDLSongMetadata> metadata = await spotDlMetadataReader.LoadSpotDLMetadataAsync();
 
         foreach (Song song in readSongs)
         {

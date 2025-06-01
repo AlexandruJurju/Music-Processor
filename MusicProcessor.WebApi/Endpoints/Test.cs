@@ -12,11 +12,11 @@ public class Test : IEndpoint
     {
         app.MapPost("test", async (ISender sender) =>
             {
-                var logMissing = new LogMissingCommand();
-                await sender.Send(logMissing);
+                // var logMissing = new LogMissingCommand();
+                // await sender.Send(logMissing);
 
-                // var readMetadataCommand = new ReadMetadataFromFileCommand();
-                // await sender.Send(readMetadataCommand);
+                var readMetadataCommand = new ReadMetadataFromFileCommand();
+                await sender.Send(readMetadataCommand);
                 
                 // var command2 = new FixSongMetadataCommand();
                 // await sender.Send(command2);

@@ -31,28 +31,7 @@ public class ReadMetadataFromFileCommandHandler(
 
         List<SpotDLSongMetadata> songs = await spotDlMetadataReader.LoadSpotDLMetadataAsync();
 
-        (List<Artist> newArtists, List<Style> newStyles, List<Album> newAlbums, List<Song> newSongs) = ProcessSongDependencies(songs);
-
-        if (newArtists.Count > 0)
-        {
-            artistRepository.AddRange(newArtists);
-            await unitOfWork.SaveChangesAsync(cancellationToken);
-            logger.LogInformation("Inserted {Count} new artists", newArtists.Count);
-        }
-
-        if (newStyles.Count > 0)
-        {
-            styleRepository.AddRange(newStyles);
-            await unitOfWork.SaveChangesAsync(cancellationToken);
-            logger.LogInformation("Inserted {Count} new styles", newStyles.Count);
-        }
-
-        if (newAlbums.Count > 0)
-        {
-            albumRepository.AddRange(newAlbums);
-            await unitOfWork.SaveChangesAsync(cancellationToken);
-            logger.LogInformation("Inserted {Count} new albums", newAlbums.Count);
-        }
+        List<Song> newSongs = ProcessSongDependencies(songs);
 
         if (newSongs.Count > 0)
         {
@@ -60,7 +39,6 @@ public class ReadMetadataFromFileCommandHandler(
             await unitOfWork.SaveChangesAsync(cancellationToken);
             logger.LogInformation("Successfully processed {Count} songs", newSongs.Count);
         }
-
 
         return Result.Success();
     }
@@ -92,7 +70,7 @@ public class ReadMetadataFromFileCommandHandler(
         logger.LogDebug("Preloaded {Count} albums into cache", _albumCache.Count);
     }
 
-    private (List<Artist>, List<Style>, List<Album>, List<Song>) ProcessSongDependencies(IEnumerable<SpotDLSongMetadata> songs)
+    private List<Song> ProcessSongDependencies(IEnumerable<SpotDLSongMetadata> songs)
     {
         var newArtists = new List<Artist>();
         var newStyles = new List<Style>();
@@ -126,7 +104,7 @@ public class ReadMetadataFromFileCommandHandler(
             ));
         }
 
-        return (newArtists, newStyles, newAlbums, newSongs);
+        return newSongs;
     }
 
     private Artist GetOrCreateArtistAsync(string artistName, List<Artist> newArtists)
