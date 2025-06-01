@@ -9,7 +9,7 @@ using File = TagLib.File;
 
 namespace MusicProcessor.Infrastructure.MetadataService;
 
-public class MetadataService : IMetadataService
+public class SongMetadataService : ISongMetadataService
 {
     private const string Styles = "STYLES";
     private const string Artists = "ARTISTS";
@@ -20,7 +20,7 @@ public class MetadataService : IMetadataService
 
         Tag tag = file.Tag;
 
-        var mainArtist = Artist.Create(tag.FirstAlbumArtist);
+        var mainArtist = Artist.Create(tag.FirstAlbumArtist ?? tag.FirstPerformer ?? tag.AlbumArtists[0]);
         var artists = ReadArtists(file).Select(Artist.Create).ToList();
         var styles = ReadStyles(file).Select(style => Style.Create(style, false)).ToList();
         var album = Album.Create(tag.Album, mainArtist);
@@ -33,7 +33,7 @@ public class MetadataService : IMetadataService
             album: album,
             discNumber: (int)tag.Disc,
             discCount: (int)tag.DiscCount,
-            duration: file.Properties.Duration.Seconds,
+            duration: (int)file.Properties.Duration.TotalSeconds,
             year: tag.Year,
             trackNumber: (int)tag.Track,
             tracksCount: (int)tag.TrackCount,

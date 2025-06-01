@@ -1,11 +1,10 @@
 ﻿using System.Globalization;
 using MusicProcessor.Domain.Albums;
 using MusicProcessor.Domain.Artists;
-using MusicProcessor.Domain.Genres;
 using MusicProcessor.Domain.Songs;
 using MusicProcessor.Domain.Styles;
 
-namespace MusicProcessor.Infrastructure.SpotDLMetadataReader;
+namespace MusicProcessor.Infrastructure.MetadataService.MetadataReader;
 
 public sealed class SpotDLSongMetadata
 {
@@ -55,15 +54,7 @@ public sealed class SpotDLSongMetadata
             year: uint.Parse(Year, CultureInfo.InvariantCulture),
             trackNumber: TrackNumber,
             tracksCount: TracksCount,
-            isrc: ISRC,
-            spotifyMetadata: new SpotifyMetadata
-            {
-                SpotifySongId = SongId,
-                SpotifyUrl = Url,
-                SpotifyCoverUrl = CoverUrl,
-                SpotifyArtistId = ArtistId,
-                SpotifyAlbumId = AlbumId
-            }
+            isrc: ISRC
         );
     }
 }

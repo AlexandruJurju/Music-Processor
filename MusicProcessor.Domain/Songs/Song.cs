@@ -20,9 +20,7 @@ public class Song
     public int TrackNumber { get; private set; }
     public int TracksCount { get; private set; }
     public string Isrc { get; private set; }
-    public SpotifyMetadata? SpotifyMetadata { get; private set; }
-
-
+    
     public static Song Create(
         string title,
         Artist mainArtist,
@@ -35,8 +33,7 @@ public class Song
         uint year,
         int trackNumber,
         int tracksCount,
-        string isrc,
-        SpotifyMetadata? spotifyMetadata = null
+        string isrc
     )
     {
         return new Song
@@ -53,8 +50,7 @@ public class Song
             Year = year,
             TrackNumber = trackNumber,
             TracksCount = tracksCount,
-            Isrc = isrc,
-            SpotifyMetadata = spotifyMetadata
+            Isrc = isrc
         };
     }
 

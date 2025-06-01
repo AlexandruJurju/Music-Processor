@@ -19,6 +19,11 @@ public class ArtistRepository(
             });
     }
 
+    public void AddRange(IEnumerable<Artist> artists)
+    {
+        dbContext.Artists.AddRange(artists);
+    }
+
     public async Task<IEnumerable<Artist>> GetAllAsync()
     {
         return await dbContext.Artists.ToListAsync();

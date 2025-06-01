@@ -16,6 +16,7 @@ public class ReadMetadataFromFileCommandHandler(
     IStyleRepository styleRepository,
     IAlbumRepository albumRepository,
     ISpotDLMetadataReader spotDlMetadataReader,
+    IUnitOfWork unitOfWork,
     ILogger<ReadMetadataFromFileCommandHandler> logger
 ) : ICommandHandler<ReadMetadataFromFileCommand>
 {
@@ -33,24 +34,28 @@ public class ReadMetadataFromFileCommandHandler(
 
         if (newArtists.Count > 0)
         {
-            await artistRepository.BulkInsertAsync(newArtists);
+            artistRepository.AddRange(newArtists);
+            await unitOfWork.SaveChangesAsync(cancellationToken);
             logger.LogInformation("Inserted {Count} new artists", newArtists.Count);
         }
 
         if (newStyles.Count > 0)
         {
-            await styleRepository.BulkInsertAsync(newStyles);
+            styleRepository.AddRange(newStyles);
+            await unitOfWork.SaveChangesAsync(cancellationToken);
             logger.LogInformation("Inserted {Count} new styles", newStyles.Count);
         }
 
         if (newAlbums.Count > 0)
         {
-            await albumRepository.BulkInsertAsync(newAlbums);
+            albumRepository.AddRange(newAlbums);
+            await unitOfWork.SaveChangesAsync(cancellationToken);
             logger.LogInformation("Inserted {Count} new albums", newAlbums.Count);
         }
 
         var songsList = songs.ToList();
-        await songRepository.BulkInsertAsync(songsList);
+        songRepository.AddRange(songsList);
+        await unitOfWork.SaveChangesAsync(cancellationToken);
         logger.LogInformation("Successfully processed {Count} songs", songsList.Count);
 
         return Result.Success();
@@ -66,6 +71,7 @@ public class ReadMetadataFromFileCommandHandler(
                 _artistCache[artist.Name] = artist;
             }
         }
+
         logger.LogDebug("Preloaded {Count} artists into cache", _artistCache.Count);
 
         IEnumerable<Style> existingStyles = await styleRepository.GetAllAsync();
@@ -76,6 +82,7 @@ public class ReadMetadataFromFileCommandHandler(
                 _styleCache[style.Name] = style;
             }
         }
+
         logger.LogDebug("Preloaded {Count} styles into cache", _styleCache.Count);
 
         IEnumerable<Album> existingAlbums = await albumRepository.GetAllAsync();
@@ -86,6 +93,7 @@ public class ReadMetadataFromFileCommandHandler(
                 _albumCache[album.Name] = album;
             }
         }
+
         logger.LogDebug("Preloaded {Count} albums into cache", _albumCache.Count);
     }
 
@@ -109,7 +117,7 @@ public class ReadMetadataFromFileCommandHandler(
                     song.Artists[i] = GetOrCreateArtistAsync(song.Artists[i], newArtists);
                 }
             }
-            
+
             if (!string.IsNullOrEmpty(song.Album.MainArtist.Name))
             {
                 song.Album.MainArtist = GetOrCreateArtistAsync(song.Album.MainArtist, newArtists);

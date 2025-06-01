@@ -1,4 +1,4 @@
-﻿namespace MusicProcessor.Infrastructure.SpotDLMetadataReader;
+﻿namespace MusicProcessor.Infrastructure.MetadataService.MetadataReader;
 
 public sealed class SpotDLPlaylist
 {

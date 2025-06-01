@@ -15,6 +15,11 @@ public class SongRepository(
             .ToListAsync();
     }
 
+    public void AddRange(IEnumerable<Song> songs)
+    {
+        dbContext.Songs.AddRange(songs);
+    }
+
     public async Task BulkInsertAsync(IEnumerable<Song> songs)
     {
         await dbContext.Songs

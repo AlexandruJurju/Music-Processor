@@ -6,7 +6,7 @@ using MusicProcessor.Domain.Songs;
 namespace MusicProcessor.Application.Songs.Test;
 
 public class TestCommandHandler(
-    IMetadataService metadataService,
+    ISongMetadataService songMetadataService,
     IFileService fileService
 ) : ICommandHandler<TestCommand>
 {
@@ -16,7 +16,7 @@ public class TestCommandHandler(
 
         foreach (string songPath in allSongPaths)
         {
-            Song song = metadataService.ReadMetadata(songPath);
+            Song song = songMetadataService.ReadMetadata(songPath);
             Console.WriteLine(song.Title);
         }
 

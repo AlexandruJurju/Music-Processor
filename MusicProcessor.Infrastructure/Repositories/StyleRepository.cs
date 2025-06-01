@@ -18,6 +18,11 @@ public class StyleRepository(
         });
     }
 
+    public void AddRange(IEnumerable<Style> styles)
+    {
+        dbContext.Styles.AddRange(styles);
+    }
+
     public async Task<IEnumerable<Style>> GetAllAsync()
     {
         return await dbContext.Styles.ToListAsync();

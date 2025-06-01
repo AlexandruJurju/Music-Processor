@@ -11,7 +11,7 @@ public class SongConfiguration : IEntityTypeConfiguration<Song>
         builder.HasKey(x => x.Id);
 
         builder.Property(x => x.Isrc)
-            .HasMaxLength(12); // Standard ISRC length
+            .HasMaxLength(12);
 
         builder.HasOne(s => s.MainArtist)
             .WithMany()
@@ -26,16 +26,7 @@ public class SongConfiguration : IEntityTypeConfiguration<Song>
 
         builder.HasMany(s => s.Styles)
             .WithMany();
-
-        builder.OwnsOne(x => x.SpotifyMetadata, sm =>
-        {
-            sm.Property(x => x.SpotifySongId).HasMaxLength(50);
-            sm.Property(x => x.SpotifyUrl).HasMaxLength(500);
-            sm.Property(x => x.SpotifyCoverUrl).HasMaxLength(500);
-            sm.Property(x => x.SpotifyArtistId).HasMaxLength(50);
-            sm.Property(x => x.SpotifyAlbumId).HasMaxLength(50);
-        });
-
+        
         builder.HasIndex(x => x.Title);
         builder.HasIndex(x => x.Key);
         builder.HasIndex(x => x.Isrc);

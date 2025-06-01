@@ -309,56 +309,9 @@ namespace MusicProcessor.Infrastructure.Database.Migrations
                         .IsRequired()
                         .HasConstraintName("fk_songs_artists_main_artist_id");
 
-                    b.OwnsOne("MusicProcessor.Domain.Songs.SpotifyMetadata", "SpotifyMetadata", b1 =>
-                        {
-                            b1.Property<int>("SongId")
-                                .HasColumnType("INTEGER")
-                                .HasColumnName("id");
-
-                            b1.Property<string>("SpotifyAlbumId")
-                                .IsRequired()
-                                .HasMaxLength(50)
-                                .HasColumnType("TEXT")
-                                .HasColumnName("spotify_metadata_spotify_album_id");
-
-                            b1.Property<string>("SpotifyArtistId")
-                                .IsRequired()
-                                .HasMaxLength(50)
-                                .HasColumnType("TEXT")
-                                .HasColumnName("spotify_metadata_spotify_artist_id");
-
-                            b1.Property<string>("SpotifyCoverUrl")
-                                .IsRequired()
-                                .HasMaxLength(500)
-                                .HasColumnType("TEXT")
-                                .HasColumnName("spotify_metadata_spotify_cover_url");
-
-                            b1.Property<string>("SpotifySongId")
-                                .IsRequired()
-                                .HasMaxLength(50)
-                                .HasColumnType("TEXT")
-                                .HasColumnName("spotify_metadata_spotify_song_id");
-
-                            b1.Property<string>("SpotifyUrl")
-                                .IsRequired()
-                                .HasMaxLength(500)
-                                .HasColumnType("TEXT")
-                                .HasColumnName("spotify_metadata_spotify_url");
-
-                            b1.HasKey("SongId");
-
-                            b1.ToTable("songs");
-
-                            b1.WithOwner()
-                                .HasForeignKey("SongId")
-                                .HasConstraintName("fk_songs_songs_id");
-                        });
-
                     b.Navigation("Album");
 
                     b.Navigation("MainArtist");
-
-                    b.Navigation("SpotifyMetadata");
                 });
 
             modelBuilder.Entity("SongStyle", b =>

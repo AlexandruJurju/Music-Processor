@@ -1,5 +1,4 @@
-﻿using System;
-using Microsoft.EntityFrameworkCore.Migrations;
+﻿using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
@@ -15,7 +14,8 @@ namespace MusicProcessor.Infrastructure.Database.Migrations
                 name: "artists",
                 columns: table => new
                 {
-                    id = table.Column<Guid>(type: "TEXT", nullable: false),
+                    id = table.Column<int>(type: "INTEGER", nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
                     name = table.Column<string>(type: "TEXT", nullable: false)
                 },
                 constraints: table =>
@@ -27,7 +27,8 @@ namespace MusicProcessor.Infrastructure.Database.Migrations
                 name: "genres",
                 columns: table => new
                 {
-                    id = table.Column<Guid>(type: "TEXT", nullable: false),
+                    id = table.Column<int>(type: "INTEGER", nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
                     name = table.Column<string>(type: "TEXT", nullable: false)
                 },
                 constraints: table =>
@@ -39,7 +40,8 @@ namespace MusicProcessor.Infrastructure.Database.Migrations
                 name: "styles",
                 columns: table => new
                 {
-                    id = table.Column<Guid>(type: "TEXT", nullable: false),
+                    id = table.Column<int>(type: "INTEGER", nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
                     name = table.Column<string>(type: "TEXT", nullable: false),
                     soft_deleted = table.Column<bool>(type: "INTEGER", nullable: false)
                 },
@@ -52,9 +54,10 @@ namespace MusicProcessor.Infrastructure.Database.Migrations
                 name: "albums",
                 columns: table => new
                 {
-                    id = table.Column<Guid>(type: "TEXT", nullable: false),
+                    id = table.Column<int>(type: "INTEGER", nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
                     name = table.Column<string>(type: "TEXT", nullable: false),
-                    main_artist_id = table.Column<Guid>(type: "TEXT", nullable: false)
+                    main_artist_id = table.Column<int>(type: "INTEGER", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -71,8 +74,8 @@ namespace MusicProcessor.Infrastructure.Database.Migrations
                 name: "genre_style",
                 columns: table => new
                 {
-                    genres_id = table.Column<Guid>(type: "TEXT", nullable: false),
-                    style_id = table.Column<Guid>(type: "TEXT", nullable: false)
+                    genres_id = table.Column<int>(type: "INTEGER", nullable: false),
+                    style_id = table.Column<int>(type: "INTEGER", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -95,23 +98,19 @@ namespace MusicProcessor.Infrastructure.Database.Migrations
                 name: "songs",
                 columns: table => new
                 {
-                    id = table.Column<Guid>(type: "TEXT", nullable: false),
+                    id = table.Column<int>(type: "INTEGER", nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
                     key = table.Column<string>(type: "TEXT", nullable: false),
                     title = table.Column<string>(type: "TEXT", nullable: false),
-                    main_artist_id = table.Column<Guid>(type: "TEXT", nullable: false),
-                    album_id = table.Column<Guid>(type: "TEXT", nullable: false),
+                    main_artist_id = table.Column<int>(type: "INTEGER", nullable: false),
+                    album_id = table.Column<int>(type: "INTEGER", nullable: false),
                     disc_number = table.Column<int>(type: "INTEGER", nullable: false),
                     disc_count = table.Column<int>(type: "INTEGER", nullable: false),
                     duration = table.Column<int>(type: "INTEGER", nullable: false),
                     year = table.Column<uint>(type: "INTEGER", nullable: false),
                     track_number = table.Column<int>(type: "INTEGER", nullable: false),
                     tracks_count = table.Column<int>(type: "INTEGER", nullable: false),
-                    isrc = table.Column<string>(type: "TEXT", maxLength: 12, nullable: false),
-                    spotify_metadata_spotify_song_id = table.Column<string>(type: "TEXT", maxLength: 50, nullable: true),
-                    spotify_metadata_spotify_url = table.Column<string>(type: "TEXT", maxLength: 500, nullable: true),
-                    spotify_metadata_spotify_cover_url = table.Column<string>(type: "TEXT", maxLength: 500, nullable: true),
-                    spotify_metadata_spotify_album_id = table.Column<string>(type: "TEXT", maxLength: 50, nullable: true),
-                    spotify_metadata_spotify_artist_id = table.Column<string>(type: "TEXT", maxLength: 50, nullable: true)
+                    isrc = table.Column<string>(type: "TEXT", maxLength: 12, nullable: false)
                 },
                 constraints: table =>
                 {
@@ -134,8 +133,8 @@ namespace MusicProcessor.Infrastructure.Database.Migrations
                 name: "artist_song",
                 columns: table => new
                 {
-                    artists_id = table.Column<Guid>(type: "TEXT", nullable: false),
-                    song_id = table.Column<Guid>(type: "TEXT", nullable: false)
+                    artists_id = table.Column<int>(type: "INTEGER", nullable: false),
+                    song_id = table.Column<int>(type: "INTEGER", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -158,8 +157,8 @@ namespace MusicProcessor.Infrastructure.Database.Migrations
                 name: "song_style",
                 columns: table => new
                 {
-                    song_id = table.Column<Guid>(type: "TEXT", nullable: false),
-                    styles_id = table.Column<Guid>(type: "TEXT", nullable: false)
+                    song_id = table.Column<int>(type: "INTEGER", nullable: false),
+                    styles_id = table.Column<int>(type: "INTEGER", nullable: false)
                 },
                 constraints: table =>
                 {

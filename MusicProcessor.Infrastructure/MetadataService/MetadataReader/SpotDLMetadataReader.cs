@@ -7,7 +7,7 @@ using MusicProcessor.Domain.Artists;
 using MusicProcessor.Domain.Songs;
 using MusicProcessor.Domain.Styles;
 
-namespace MusicProcessor.Infrastructure.SpotDLMetadataReader;
+namespace MusicProcessor.Infrastructure.MetadataService.MetadataReader;
 
 public class SpotDLMetadataReader(
     IConfiguration config,

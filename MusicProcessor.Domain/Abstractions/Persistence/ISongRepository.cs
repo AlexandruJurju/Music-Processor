@@ -6,4 +6,5 @@ public interface ISongRepository
 {
     Task<IEnumerable<Song>> GetAllAsync();
     Task BulkInsertAsync(IEnumerable<Song> songs);
+    void AddRange(IEnumerable<Song> songs);
 }

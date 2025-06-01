@@ -6,4 +6,5 @@ public interface IArtistRepository
 {
     Task BulkInsertAsync(IEnumerable<Artist> artists);
     Task<IEnumerable<Artist>> GetAllAsync();
+    void AddRange(IEnumerable<Artist> artists);
 }

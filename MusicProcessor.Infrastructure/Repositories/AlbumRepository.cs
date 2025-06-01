@@ -18,6 +18,11 @@ public class AlbumRepository(
         });
     }
 
+    public void AddRange(IEnumerable<Album> albums)
+    {
+        dbContext.Albums.AddRange(albums);
+    }
+
     public async Task<IEnumerable<Album>> GetAllAsync()
     {
         return await dbContext.Albums.ToListAsync();
