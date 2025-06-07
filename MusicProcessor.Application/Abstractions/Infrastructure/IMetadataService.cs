@@ -5,6 +5,6 @@ namespace MusicProcessor.Application.Abstractions.Infrastructure;
 
 public interface IMetadataService
 {
-    Task<List<SpotDLSongMetadata>> LoadSpotDLMetadataAsync();
-    Task ExportMetadataAsync();
+    Task<List<SpotDLSongMetadata>> LoadSpotDlMetadataAsync();
+    Task ExportMetadataAsync(IEnumerable<Song> songs, string path);
 }

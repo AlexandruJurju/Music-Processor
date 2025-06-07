@@ -5,7 +5,6 @@ using MusicProcessor.Application.Abstractions.Infrastructure;
 using MusicProcessor.Domain.Abstractions.Persistence;
 using MusicProcessor.Infrastructure.Database;
 using MusicProcessor.Infrastructure.MetadataService;
-using MusicProcessor.Infrastructure.MetadataService.SpotDLMetadataReader;
 using MusicProcessor.Infrastructure.Repositories;
 
 namespace MusicProcessor.Infrastructure;
@@ -56,7 +55,7 @@ public static class DependencyInjection
 
     private static void AddServices(IServiceCollection services)
     {
-        services.AddScoped<IMetadataService, MetadataService.SpotDLMetadataReader.MetadataService>();
+        services.AddScoped<IMetadataService, MetadataService.MetadataService.MetadataService>();
         services.AddScoped<IFileService, FileService.FileService>();
         services.AddScoped<IAudioService, AudioService>();
     }

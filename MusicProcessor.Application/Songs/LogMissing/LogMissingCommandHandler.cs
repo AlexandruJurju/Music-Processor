@@ -33,7 +33,7 @@ public class LogMissingCommandHandler(
             }
         }
 
-        List<SpotDLSongMetadata> metadata = await metadataService.LoadSpotDLMetadataAsync();
+        List<SpotDLSongMetadata> metadata = await metadataService.LoadSpotDlMetadataAsync();
 
         foreach (Song song in readSongs)
         {

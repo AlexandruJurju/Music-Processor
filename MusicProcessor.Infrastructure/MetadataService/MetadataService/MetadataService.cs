@@ -1,18 +1,15 @@
 ﻿using System.Text.Encodings.Web;
 using System.Text.Json;
 using System.Text.Json.Serialization;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using MusicProcessor.Application.Abstractions.Infrastructure;
 using MusicProcessor.Application.Songs.ReadMetadataFromFile;
 using MusicProcessor.Domain.Songs;
-using MusicProcessor.Infrastructure.Database;
 
-namespace MusicProcessor.Infrastructure.MetadataService.SpotDLMetadataReader;
+namespace MusicProcessor.Infrastructure.MetadataService.MetadataService;
 
 public class MetadataService(
-    ApplicationDbContext dbContext,
     IConfiguration config,
     ILogger<MetadataService> logger
 ) : IMetadataService
@@ -30,7 +27,7 @@ public class MetadataService(
         Encoder = JavaScriptEncoder.UnsafeRelaxedJsonEscaping
     };
 
-    public async Task<List<SpotDLSongMetadata>> LoadSpotDLMetadataAsync()
+    public async Task<List<SpotDLSongMetadata>> LoadSpotDlMetadataAsync()
     {
         await using FileStream fileStream = File.OpenRead(config["Paths:MetadataFile"]!);
         SpotDLPlaylist? playlistData = await JsonSerializer.DeserializeAsync<SpotDLPlaylist>(fileStream, _jsonOptions);
@@ -44,20 +41,9 @@ public class MetadataService(
         return playlistData.Songs;
     }
 
-    public async Task ExportMetadataAsync()
+    public async Task ExportMetadataAsync(IEnumerable<Song> songs, string path)
     {
-        List<Song> songs = await dbContext.Songs
-            .Include(e => e.Artists)
-            .Include(e => e.Album)
-            .ThenInclude(e => e.MainArtist)
-            .Include(e => e.MainArtist)
-            .Include(e => e.Styles)
-            .ThenInclude(e => e.Genres)
-            .AsSplitQuery()
-            .AsNoTracking()
-            .ToListAsync();
-
         string json = JsonSerializer.Serialize(songs, _exportOptions);
-        await File.WriteAllTextAsync(config["Paths:ExportedMetadata"]!, json);
+        await File.WriteAllTextAsync(path, json);
     }
 }

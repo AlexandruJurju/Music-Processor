@@ -28,7 +28,7 @@ public class ReadMetadataFromFileCommandHandler(
     {
         await PreloadCachesAsync();
 
-        List<SpotDLSongMetadata> songs = await metadataService.LoadSpotDLMetadataAsync();
+        List<SpotDLSongMetadata> songs = await metadataService.LoadSpotDlMetadataAsync();
 
         (List<Artist> newArtists, List<Style> newStyles, List<Album> newAlbums, List<Song> newSongs) = ProcessSongDependencies(songs);
 

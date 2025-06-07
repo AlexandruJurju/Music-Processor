@@ -1,19 +1,20 @@
-﻿using CliFx.Attributes;
+using CliFx.Attributes;
 using CliFx.Infrastructure;
 using Mediator;
-using MusicProcessor.Application.Songs.ExportMetadata;
+using MusicProcessor.Application.Songs.LogMissing;
 using ICommand = CliFx.ICommand;
+
 
 namespace MusicProcessor.Console.MenuCommands;
 
-[Command("export")]
-public class ExportMetadataCliCommand(
+[Command("log-missing")]
+public class LogMissingSongsCliCommand(
     ISender sender
 ) : ICommand
 {
     public async ValueTask ExecuteAsync(IConsole console)
     {
-        var command = new ExportMetadataCommand();
+        var command = new LogMissingCommand();
         await sender.Send(command);
     }
 }
