@@ -1,7 +1,7 @@
 using CliFx.Attributes;
 using CliFx.Infrastructure;
 using Mediator;
-using MusicProcessor.Application.PhysicalSongs.ExportMetadata;
+using MusicProcessor.Application.Songs.ExportPhysicalMetadata;
 using ICommand = CliFx.ICommand;
 
 namespace MusicProcessor.Console.MenuCommands;
@@ -13,7 +13,7 @@ public class ExportSongsMetadataCliCommand (
 {
     public async ValueTask ExecuteAsync(IConsole console)
     {
-        var command = new ExportMetadataCommand();
+        var command = new ExportPhysicalMetadataCommand();
         
         await sender.Send(command);
     }

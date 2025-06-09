@@ -29,7 +29,7 @@ public class MetadataService(
 
     public async Task<List<SpotDLSongMetadata>> LoadSpotDlMetadataAsync()
     {
-        await using FileStream fileStream = File.OpenRead(config["Paths:MetadataFile"]!);
+        await using FileStream fileStream = File.OpenRead(config["Paths:SpotdlMetadataFile"]!);
         SpotDLPlaylist? playlistData = await JsonSerializer.DeserializeAsync<SpotDLPlaylist>(fileStream, _jsonOptions);
 
         if (playlistData?.Songs is not { Count: > 0 })
