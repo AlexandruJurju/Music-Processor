@@ -1,13 +1,10 @@
 ﻿using MusicProcessor.Application.Abstractions.Infrastructure;
-using MusicProcessor.Domain.Albums;
-using MusicProcessor.Domain.Artists;
-using MusicProcessor.Domain.Songs;
-using MusicProcessor.Domain.Styles;
+using MusicProcessor.Domain;
 using TagLib;
 using TagLib.Ogg;
 using File = TagLib.File;
 
-namespace MusicProcessor.Infrastructure.MetadataService;
+namespace MusicProcessor.Infrastructure.AudioService;
 
 public class AudioService : IAudioService
 {
@@ -20,17 +17,17 @@ public class AudioService : IAudioService
 
         Tag tag = file.Tag;
 
-        var mainArtist = Artist.Create(tag.FirstAlbumArtist ?? tag.FirstPerformer ?? tag.AlbumArtists[0]);
-        var artists = ReadArtists(file).Select(Artist.Create).ToList();
-        var styles = ReadStyles(file).Select(style => Style.Create(style, false)).ToList();
-        var album = Album.Create(tag.Album, mainArtist);
+        string? mainArtist = tag.FirstAlbumArtist ?? tag.FirstPerformer ?? tag.AlbumArtists[0];
+        string[] artists = ReadArtists(file);
+        string[] styles = ReadStyles(file);
+        string? album = tag.Album;
 
         return Song.Create(
             title: tag.Title ?? Path.GetFileNameWithoutExtension(filePath),
-            mainArtist: mainArtist,
-            artists: artists,
-            styles: styles,
-            album: album,
+            mainArtistName: mainArtist,
+            artists: artists.ToList(),
+            styles: styles.ToList(),
+            albumName: album,
             discNumber: (int)tag.Disc,
             discCount: (int)tag.DiscCount,
             duration: (int)file.Properties.Duration.TotalSeconds,
@@ -41,48 +38,49 @@ public class AudioService : IAudioService
         );
     }
 
-    private List<string> ReadArtists(File file)
+    private string[] ReadArtists(File file)
     {
         if (!(file.GetTag(TagTypes.Xiph) is XiphComment xiphTag))
         {
-            return new();
+            return [];
         }
 
         string[]? artists = xiphTag.GetField(Artists);
         if (artists == null || artists.Length == 0)
         {
-            return new();
+            return [];
         }
 
-        return artists.ToList();
+        return artists;
     }
 
-    private List<string> ReadStyles(File file)
+    private string[] ReadStyles(File file)
     {
         if (!(file.GetTag(TagTypes.Xiph) is XiphComment xiphTag))
         {
-            return new();
+            return [];
         }
 
         string[]? artists = xiphTag.GetField(Styles);
         if (artists == null || artists.Length == 0)
         {
-            return new();
+            return [];
         }
 
-        return artists.ToList();
+        return artists;
     }
-    
+
+    // todo: write genres
     public void UpdateSongMetadata(Song song, string songPath)
     {
         using var file = File.Create(songPath);
 
         file.Tag.Title = song.Title;
-        file.Tag.Album = song.Album.Name;
+        file.Tag.Album = song.AlbumName;
         file.Tag.Year = song.Year;
-        file.Tag.AlbumArtists = [song.MainArtist.Name];
+        file.Tag.AlbumArtists = [song.MainArtist];
 
-        WriteGenres(song, file);
+        // WriteGenres(song, file);
         WriteStyles(song, file);
         WriteArtists(song, file);
 
@@ -91,31 +89,27 @@ public class AudioService : IAudioService
 
     private void WriteArtists(Song song, File file)
     {
-        var artists = song.Artists.Select(artist => artist.Name).ToList();
-
         if (file.GetTag(TagTypes.Xiph) is XiphComment xiphTag)
         {
-            xiphTag.SetField(Artists, artists.ToArray());
+            xiphTag.SetField(Artists, song.Artists.ToArray());
         }
     }
 
     private void WriteStyles(Song song, File file)
     {
-        var styles = song.Styles.Select(style => style.Name).ToList();
-
         if (file.GetTag(TagTypes.Xiph) is XiphComment xiphTag)
         {
-            xiphTag.SetField(Styles, styles.ToArray());
+            xiphTag.SetField(Styles, song.Styles.ToArray());
         }
     }
 
-    private void WriteGenres(Song song, File file)
-    {
-        var genres = song.Styles.SelectMany(style => style.Genres.Select(genre => genre.Name)).ToList();
-
-        if (genres.Any())
-        {
-            file.Tag.Genres = genres.ToArray();
-        }
-    }
+    // private void WriteGenres(Song song, File file)
+    // {
+    //     var genres = song.Styles.SelectMany(style => style.Genres.Select(genre => genre.Name)).ToList();
+    //
+    //     if (genres.Any())
+    //     {
+    //         file.Tag.Genres = genres.ToArray();
+    //     }
+    // }
 }

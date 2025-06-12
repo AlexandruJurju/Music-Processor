@@ -1,4 +1,4 @@
-﻿using MusicProcessor.Domain.Songs;
+﻿using MusicProcessor.Domain;
 
 namespace MusicProcessor.Application.Abstractions.Infrastructure;
 

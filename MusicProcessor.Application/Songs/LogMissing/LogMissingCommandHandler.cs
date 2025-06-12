@@ -1,17 +1,17 @@
-﻿using Microsoft.Extensions.Logging;
+﻿
+using Microsoft.Extensions.Logging;
 using MusicProcessor.Application.Abstractions.Infrastructure;
 using MusicProcessor.Application.Abstractions.Messaging;
-using MusicProcessor.Application.Songs.ReadMetadataFromFile;
+using MusicProcessor.Domain;
 using MusicProcessor.Domain.Abstractions.Persistence;
 using MusicProcessor.Domain.Abstractions.Result;
-using MusicProcessor.Domain.Songs;
 
 namespace MusicProcessor.Application.Songs.LogMissing;
 
 public class LogMissingCommandHandler(
     IFileService fileService,
     IAudioService audioService,
-    IMetadataService metadataService,
+    ISongRepository songRepository,
     ILogger<LogMissingCommandHandler> logger
 ) : ICommandHandler<LogMissingCommand>
 {
@@ -33,11 +33,12 @@ public class LogMissingCommandHandler(
             }
         }
 
-        List<SpotDLSongMetadata> metadata = await metadataService.LoadSpotDlMetadataAsync();
+        IEnumerable<Song> metadata = await songRepository.GetAllAsync();
 
         foreach (Song song in readSongs)
         {
-            if (metadata.All(e => e.Key != song.Key))
+            IEnumerable<Song> enumerable = metadata as Song[] ?? metadata.ToArray();
+            if (enumerable.All(e => e.Key != song.Key))
             {
                 logger.LogWarning("Missing Key {SongKey}", song.Key);
             }

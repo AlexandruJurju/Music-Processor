@@ -1,7 +1,5 @@
 ﻿using MusicProcessor.Application.Abstractions.Messaging;
-using MusicProcessor.Domain.Abstractions.Persistence;
 using MusicProcessor.Domain.Abstractions.Result;
-using MusicProcessor.Domain.Songs;
 
 namespace MusicProcessor.Application.Songs.FixSongMetadata;
 

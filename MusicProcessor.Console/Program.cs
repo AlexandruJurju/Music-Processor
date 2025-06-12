@@ -19,7 +19,7 @@ Log.Logger = new LoggerConfiguration()
 
 builder.Services
     .AddPresentation()
-    .AddApplication(builder.Configuration)
+    .AddApplication()
     .AddInfrastructure(builder.Configuration);
 
 IHost host = builder.Build();

@@ -1,42 +1,35 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using MusicProcessor.Domain;
 using MusicProcessor.Domain.Abstractions.Persistence;
-using MusicProcessor.Domain.Songs;
-using MusicProcessor.Infrastructure.Database;
+using Raven.Client.Documents;
+using Raven.Client.Documents.BulkInsert;
+using Raven.Client.Documents.Session;
 
 namespace MusicProcessor.Infrastructure.Repositories;
 
-public class SongRepository(
-    ApplicationDbContext dbContext
-) : ISongRepository
+public class SongRepository(IDocumentStore documentStore) : ISongRepository
 {
     public async Task<IEnumerable<Song>> GetAllAsync()
     {
-        return await dbContext.Songs
+        using IAsyncDocumentSession? session = documentStore.OpenAsyncSession();
+        return await session.Query<Song>()
             .ToListAsync();
     }
 
-    public async Task<IEnumerable<Song>> GetAllWithReferencesAsync()
+    public async Task<string> AddAsync(Song song)
     {
-        return await dbContext.Songs
-            .Include(e => e.Artists)
-            .Include(e => e.Album)
-            .ThenInclude(e => e.MainArtist)
-            .Include(e => e.MainArtist)
-            .Include(e => e.Styles)
-            .ThenInclude(e => e.Genres)
-            .AsSplitQuery()
-            .AsNoTracking()
-            .ToListAsync();
-    }
-    
-    public void AddRange(IEnumerable<Song> songs)
-    {
-        dbContext.Songs.AddRange(songs);
+        using IAsyncDocumentSession? session = documentStore.OpenAsyncSession();
+        await session.StoreAsync(song);
+        await session.SaveChangesAsync();
+        return song.Id;
     }
 
-    public async Task BulkInsertAsync(IEnumerable<Song> songs)
+    public async Task AddRangeAsync(IEnumerable<Song> songs)
     {
-        await dbContext.Songs
-            .BulkInsertOptimizedAsync(songs, options => options.InsertIfNotExists = true);
+        await using BulkInsertOperation? bulkInsert = documentStore.BulkInsert();
+
+        foreach (Song song in songs)
+        {
+            await bulkInsert.StoreAsync(song);
+        }
     }
 }

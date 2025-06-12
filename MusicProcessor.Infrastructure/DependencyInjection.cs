@@ -1,11 +1,10 @@
-﻿using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
+﻿using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using MusicProcessor.Application.Abstractions.Infrastructure;
 using MusicProcessor.Domain.Abstractions.Persistence;
-using MusicProcessor.Infrastructure.Database;
-using MusicProcessor.Infrastructure.MetadataService;
 using MusicProcessor.Infrastructure.Repositories;
+using Raven.Client.Documents;
+using Raven.Embedded;
 
 namespace MusicProcessor.Infrastructure;
 
@@ -13,7 +12,7 @@ public static class DependencyInjection
 {
     public static IServiceCollection AddInfrastructure(this IServiceCollection services, IConfiguration configuration)
     {
-        AddSqlite(services, configuration);
+        AddRavenDb(services, configuration);
 
         AddRepositories(services);
 
@@ -31,32 +30,31 @@ public static class DependencyInjection
             .AddHealthChecks();
     }
 
-    private static void AddSqlite(IServiceCollection services, IConfiguration configuration)
-    {
-        string connectionString = configuration.GetConnectionString("SQLite")!;
-
-        services.AddDbContext<ApplicationDbContext>(options =>
-        {
-            options.UseSqlite($"Data Source={connectionString}");
-            options.UseSnakeCaseNamingConvention();
-        });
-
-        services.AddScoped<IUnitOfWork>(sp => sp.GetRequiredService<ApplicationDbContext>());
-    }
 
     private static void AddRepositories(IServiceCollection services)
     {
-        services.AddScoped<IAlbumRepository, AlbumRepository>();
-        services.AddScoped<IArtistRepository, ArtistRepository>();
-        services.AddScoped<IGenreRepository, GenreRepository>();
         services.AddScoped<ISongRepository, SongRepository>();
-        services.AddScoped<IStyleRepository, StyleRepository>();
     }
 
     private static void AddServices(IServiceCollection services)
     {
-        services.AddScoped<IMetadataService, MetadataService.MetadataService.MetadataService>();
+        services.AddScoped<IMetadataService, MetadataService.MetadataService>();
         services.AddScoped<IFileService, FileService.FileService>();
-        services.AddScoped<IAudioService, AudioService>();
+        services.AddScoped<IAudioService, AudioService.AudioService>();
+    }
+
+    private static void AddRavenDb(IServiceCollection services, IConfiguration configuration)
+    {
+        EmbeddedServer.Instance.StartServer(new ServerOptions
+        {
+            DataDirectory = configuration["RavenDB:DataDirectory"]!,
+            ServerUrl = configuration["RavenDB:ServerUrl"]!
+        });
+
+        services.AddSingleton<IDocumentStore>(_ =>
+        {
+            IDocumentStore store = EmbeddedServer.Instance.GetDocumentStore(configuration["RavenDB:DatabaseName"]!);
+            return store;
+        });
     }
 }

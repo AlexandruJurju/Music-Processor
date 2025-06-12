@@ -1,20 +1,21 @@
 ﻿using MusicProcessor.Application.Abstractions.Infrastructure;
 using MusicProcessor.Application.Abstractions.Messaging;
+using MusicProcessor.Application.Songs.ReadMetadataFromFile;
 using MusicProcessor.Domain;
 using MusicProcessor.Domain.Abstractions.Persistence;
 using MusicProcessor.Domain.Abstractions.Result;
 
-namespace MusicProcessor.Application.Songs.ReadMetadataFromFile;
+namespace MusicProcessor.Application.Songs.ReadSongsFromJson;
 
-public class ReadMetadataFromFileCommandHandler(
-    ISongRepository songRepository,
-    IMetadataService metadataService
-) : ICommandHandler<ReadMetadataFromFileCommand>
+public class ReadSongsFromJsonCommandHandler(
+    IMetadataService metadataService,
+    ISongRepository songRepository
+) : ICommandHandler<ReadSongsFromJsonCommand>
 {
-    public async ValueTask<Result> Handle(ReadMetadataFromFileCommand request, CancellationToken cancellationToken)
+    public async ValueTask<Result> Handle(ReadSongsFromJsonCommand request, CancellationToken cancellationToken)
     {
-        List<SongMetadata> songsMetadata = await metadataService.ReadSpotDlMetadataAsync();
-        
+        List<SongMetadata> songsMetadata = await metadataService.ReadFromJsonAsync();
+
         var songs = songsMetadata.Select(metadata =>
             Song.Create(
                 title: metadata.Name,
@@ -31,7 +32,7 @@ public class ReadMetadataFromFileCommandHandler(
                 isrc: metadata.ISRC
             )
         ).ToList();
-        
+
         await songRepository.AddRangeAsync(songs);
         
         return Result.Success();
