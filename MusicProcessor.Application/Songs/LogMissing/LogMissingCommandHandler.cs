@@ -1,5 +1,4 @@
-﻿
-using Microsoft.Extensions.Logging;
+﻿using Microsoft.Extensions.Logging;
 using MusicProcessor.Application.Abstractions.Infrastructure;
 using MusicProcessor.Application.Abstractions.Messaging;
 using MusicProcessor.Domain;
@@ -12,36 +11,44 @@ public class LogMissingCommandHandler(
     IFileService fileService,
     IAudioService audioService,
     ISongRepository songRepository,
-    ILogger<LogMissingCommandHandler> logger
-) : ICommandHandler<LogMissingCommand>
+    ILogger<LogMissingCommandHandler> logger)
+    : ICommandHandler<LogMissingCommand>
 {
-    public async ValueTask<Result> Handle(LogMissingCommand request, CancellationToken cancellationToken)
+    public async ValueTask<Result> Handle(LogMissingCommand request, CancellationToken ct)
     {
-        IEnumerable<string> allSongs = fileService.GetAllSongPaths();
+        /* ---------- 1.  read metadata from every physical file ---------- */
+        var readSongs = new List<Song>();
 
-        List<Song> readSongs = new();
-
-        foreach (string songPath in allSongs)
+        foreach (string path in fileService.GetAllSongPaths())
         {
             try
             {
-                readSongs.Add(audioService.ReadMetadata(songPath));
+                readSongs.Add(audioService.ReadMetadata(path));
             }
             catch (Exception ex)
             {
-                logger.LogError(ex, "Error reading metadata for {SongPath}", songPath);
+                logger.LogError(ex, "Cannot read metadata for '{SongPath}'", path);
             }
         }
 
-        IEnumerable<Song> metadata = await songRepository.GetAllAsync();
+        /* ---------- 2.  pull the authoritative list from storage ---------- */
+        var dbSongs = (await songRepository.GetAllAsync()).ToList();
 
-        foreach (Song song in readSongs)
+        /* ---------- 3.  build key sets for O(1) look-ups ---------- */
+        // Key comparisons are usually case-insensitive; tweak if you need ordinal.
+        var dbKeys = dbSongs.Select(s => s.Key).ToHashSet(StringComparer.OrdinalIgnoreCase);
+        var fileKeys = readSongs.Select(s => s.Key).ToHashSet(StringComparer.OrdinalIgnoreCase);
+
+        /* ---------- 4.  physical file exists but no DB row ---------- */
+        foreach (Song s in readSongs.Where(s => !dbKeys.Contains(s.Key)))
         {
-            IEnumerable<Song> enumerable = metadata as Song[] ?? metadata.ToArray();
-            if (enumerable.All(e => e.Key != song.Key))
-            {
-                logger.LogWarning("Missing Key {SongKey}", song.Key);
-            }
+            logger.LogWarning("Song NOT in repository  ▶  Key='{SongKey}', Title='{Title}'", s.Key, s.Title);
+        }
+
+        /* ---------- 5.  (optional)  DB row exists but file is gone ---------- */
+        foreach (Song s in dbSongs.Where(s => !fileKeys.Contains(s.Key)))
+        {
+            logger.LogWarning("Song missing on disk    ▶  Key='{SongKey}', Title='{Title}'", s.Key, s.Title);
         }
 
         return Result.Success();

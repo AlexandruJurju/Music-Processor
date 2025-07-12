@@ -10,12 +10,10 @@ HostApplicationBuilder builder = Host.CreateApplicationBuilder(args);
 
 builder.Configuration
     .SetBasePath(Directory.GetCurrentDirectory())
-    .AddJsonFile($"appsettings.Development.json", optional: true, reloadOnChange: true)
+    .AddJsonFile("appsettings.Development.json", optional: true, reloadOnChange: true)
     .AddEnvironmentVariables();
 
-Log.Logger = new LoggerConfiguration()
-    .ReadFrom.Configuration(builder.Configuration)
-    .CreateLogger();
+builder.ConfigureLogging(builder.Configuration);
 
 builder.Services
     .AddPresentation()
