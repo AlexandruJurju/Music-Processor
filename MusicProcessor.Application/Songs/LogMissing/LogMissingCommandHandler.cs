@@ -23,7 +23,9 @@ public class LogMissingCommandHandler(
         {
             try
             {
-                readSongs.Add(audioService.ReadMetadata(path));
+                var readMetadata = audioService.ReadMetadata(path);
+                readSongs.Add(readMetadata);
+                logger.LogInformation(readMetadata.Key);
             }
             catch (Exception ex)
             {
@@ -36,9 +38,9 @@ public class LogMissingCommandHandler(
 
         /* ---------- 3.  build key sets for O(1) look-ups ---------- */
         // Key comparisons are usually case-insensitive; tweak if you need ordinal.
-        var dbKeys = dbSongs.Select(s => s.Key).ToHashSet(StringComparer.OrdinalIgnoreCase);
-        var fileKeys = readSongs.Select(s => s.Key).ToHashSet(StringComparer.OrdinalIgnoreCase);
-
+        var dbKeys = dbSongs.OrderBy(s=>s.Key).Select(s => s.Key).ToHashSet(StringComparer.OrdinalIgnoreCase);
+        var fileKeys = readSongs.OrderBy(s=>s.Key).Select(s => s.Key).ToHashSet(StringComparer.OrdinalIgnoreCase);
+        
         /* ---------- 4.  physical file exists but no DB row ---------- */
         foreach (Song s in readSongs.Where(s => !dbKeys.Contains(s.Key)))
         {

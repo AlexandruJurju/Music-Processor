@@ -30,7 +30,7 @@ public static class LoggingConfiguration
                 restrictedToMinimumLevel: LogEventLevel.Warning,
                 theme: AnsiConsoleTheme.Literate)
             .WriteTo.File(
-                Path.Combine($"X:\\Storage\\Music\\# Persistence\\log.log"),
+                $"X:\\Storage\\Music\\# Persistence\\{timestamp}.log",
                 outputTemplate: "[{Timestamp:yyyy-MM-dd HH:mm:ss}] {Level:u3} {Message:lj}{NewLine}{Exception}",
                 restrictedToMinimumLevel: LogEventLevel.Information,
                 rollOnFileSizeLimit: false);

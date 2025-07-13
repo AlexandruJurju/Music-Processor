@@ -16,18 +16,17 @@ public class AudioService : IAudioService
         using var file = File.Create(filePath);
 
         Tag tag = file.Tag;
-
-        string? mainArtist = tag.FirstAlbumArtist ?? tag.FirstPerformer ?? tag.AlbumArtists[0];
+        
+        string mainArtist = tag.FirstPerformer ?? throw new ArgumentNullException("Main Artist");
         string[] artists = ReadArtists(file);
         string[] styles = ReadStyles(file);
-        string? album = tag.Album;
 
         return Song.Create(
-            title: tag.Title ?? Path.GetFileNameWithoutExtension(filePath),
+            title: tag.Title ?? throw new ArgumentNullException("Title"),
             mainArtistName: mainArtist,
             artists: artists.ToList(),
             styles: styles.ToList(),
-            albumName: album,
+            albumName: tag.Album ?? throw new ArgumentNullException("Album"),
             discNumber: (int)tag.Disc,
             discCount: (int)tag.DiscCount,
             duration: (int)file.Properties.Duration.TotalSeconds,
