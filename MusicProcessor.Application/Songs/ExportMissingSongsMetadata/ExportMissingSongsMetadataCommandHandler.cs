@@ -20,7 +20,7 @@ public sealed class ExportMissingSongsMetadataCommandHandler(
         CancellationToken cancellationToken)
     {
         IEnumerable<Song> allSongs = await songRepository.GetAllAsync();
-        var allSongKeys = new HashSet<string>(allSongs.Select(s => s.Key));
+        var allSongKeys = new HashSet<string>(allSongs.Select(s => s.GetSongKey()));
 
         IEnumerable<string> songPaths = fileService.GetAllSongPaths();
         var physicalSongsMetadata = new List<Song>();
@@ -29,7 +29,7 @@ public sealed class ExportMissingSongsMetadataCommandHandler(
         {
             Song physicalSongMetadata = audioService.ReadMetadata(songPath);
 
-            if (!allSongKeys.Contains(physicalSongMetadata.Key))
+            if (!allSongKeys.Contains(physicalSongMetadata.GetSongKey()))
             {
                 physicalSongsMetadata.Add(physicalSongMetadata);
             }

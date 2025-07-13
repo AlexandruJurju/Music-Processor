@@ -3,12 +3,11 @@
 public class Song
 {
     public string Id { get; set; }
-    public string Key { get; private set; }
     public string Title { get; private set; }
     public string MainArtist { get; private set; }
+    public string AlbumName { get; private set; }
     public List<string> Artists { get; private set; }
     public List<string> Styles { get; private set; }
-    public string AlbumName { get; private set; }
     public int DiscNumber { get; private set; }
     public int DiscCount { get; private set; }
     public int Duration { get; private set; }
@@ -35,7 +34,6 @@ public class Song
     {
         return new Song
         {
-            Key = $"{mainArtistName.ToUpperInvariant().Trim()} - {albumName.ToUpperInvariant().Trim()} - {title.ToUpperInvariant().Trim()}",
             Title = title,
             MainArtist = mainArtistName,
             Artists = artists ?? new List<string>(),
@@ -51,4 +49,7 @@ public class Song
             CreatedAt = DateTime.UtcNow
         };
     }
+
+    public string GetSongKey() =>
+        $"{MainArtist.ToUpperInvariant().Trim()} - {AlbumName.ToUpperInvariant().Trim()} - {Title.ToUpperInvariant().Trim()}";
 }

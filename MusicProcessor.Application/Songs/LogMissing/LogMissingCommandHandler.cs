@@ -25,7 +25,7 @@ public class LogMissingCommandHandler(
             {
                 var readMetadata = audioService.ReadMetadata(path);
                 readSongs.Add(readMetadata);
-                logger.LogInformation(readMetadata.Key);
+                logger.LogInformation(readMetadata.GetSongKey());
             }
             catch (Exception ex)
             {
@@ -38,19 +38,19 @@ public class LogMissingCommandHandler(
 
         /* ---------- 3.  build key sets for O(1) look-ups ---------- */
         // Key comparisons are usually case-insensitive; tweak if you need ordinal.
-        var dbKeys = dbSongs.OrderBy(s=>s.Key).Select(s => s.Key).ToHashSet(StringComparer.OrdinalIgnoreCase);
-        var fileKeys = readSongs.OrderBy(s=>s.Key).Select(s => s.Key).ToHashSet(StringComparer.OrdinalIgnoreCase);
-        
+        var dbKeys = dbSongs.OrderBy(s => s.GetSongKey()).Select(s => s.GetSongKey()).ToHashSet(StringComparer.OrdinalIgnoreCase);
+        var fileKeys = readSongs.OrderBy(s => s.GetSongKey()).Select(s => s.GetSongKey()).ToHashSet(StringComparer.OrdinalIgnoreCase);
+
         /* ---------- 4.  physical file exists but no DB row ---------- */
-        foreach (Song s in readSongs.Where(s => !dbKeys.Contains(s.Key)))
+        foreach (Song s in readSongs.Where(s => !dbKeys.Contains(s.GetSongKey())))
         {
-            logger.LogWarning("Song NOT in repository  ▶  Key='{SongKey}', Title='{Title}'", s.Key, s.Title);
+            logger.LogWarning("Song NOT in repository  ▶  Key='{SongKey}', Title='{Title}'", s.GetSongKey(), s.Title);
         }
 
         /* ---------- 5.  (optional)  DB row exists but file is gone ---------- */
-        foreach (Song s in dbSongs.Where(s => !fileKeys.Contains(s.Key)))
+        foreach (Song s in dbSongs.Where(s => !fileKeys.Contains(s.GetSongKey())))
         {
-            logger.LogWarning("Song missing on disk    ▶  Key='{SongKey}', Title='{Title}'", s.Key, s.Title);
+            logger.LogWarning("Song missing on disk    ▶  Key='{SongKey}', Title='{Title}'", s.GetSongKey(), s.Title);
         }
 
         return Result.Success();
