@@ -23,9 +23,7 @@ public class LogMissingCommandHandler(
         {
             try
             {
-                var readMetadata = audioService.ReadMetadata(path);
-                readSongs.Add(readMetadata);
-                logger.LogInformation(readMetadata.GetSongKey());
+                readSongs.Add(audioService.ReadMetadata(path));
             }
             catch (Exception ex)
             {
@@ -44,13 +42,13 @@ public class LogMissingCommandHandler(
         /* ---------- 4.  physical file exists but no DB row ---------- */
         foreach (Song s in readSongs.Where(s => !dbKeys.Contains(s.GetSongKey())))
         {
-            logger.LogWarning("Song NOT in repository  ▶  Key='{SongKey}', Title='{Title}'", s.GetSongKey(), s.Title);
+            logger.LogWarning("Song NOT in repository  ▶  Key='{SongKey}', ISRC='{ISRC}'", s.GetSongKey(), s.Isrc);
         }
 
         /* ---------- 5.  (optional)  DB row exists but file is gone ---------- */
         foreach (Song s in dbSongs.Where(s => !fileKeys.Contains(s.GetSongKey())))
         {
-            logger.LogWarning("Song missing on disk    ▶  Key='{SongKey}', Title='{Title}'", s.GetSongKey(), s.Title);
+            logger.LogWarning("Song missing on disk    ▶  Key='{SongKey}', Title='{ISRC}'", s.GetSongKey(), s.Isrc);
         }
 
         return Result.Success();
