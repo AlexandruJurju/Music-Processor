@@ -10,9 +10,6 @@ public class InteractiveCli(
 {
     public async Task RunInteractiveAsync()
     {
-        System.Console.WriteLine("Welcome to Music Processor CLI!");
-        System.Console.WriteLine("Type 'help' for available commands or 'exit' to quit");
-
         while (true)
         {
             System.Console.Write("> ");
