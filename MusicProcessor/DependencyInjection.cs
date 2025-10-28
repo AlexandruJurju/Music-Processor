@@ -9,16 +9,23 @@ public static class DependencyInjection
 {
     public static void AddRavenDb(this IServiceCollection services, IConfiguration configuration)
     {
-        EmbeddedServer.Instance.StartServer(new ServerOptions
+        try
         {
-            DataDirectory = configuration["RavenDB:DataDirectory"]!,
-            ServerUrl = configuration["RavenDB:ServerUrl"]!
-        });
+            EmbeddedServer.Instance.StartServer(new ServerOptions
+            {
+                DataDirectory = configuration["RavenDB:DataDirectory"]!,
+                ServerUrl = configuration["RavenDB:ServerUrl"]!
+            });
 
-        services.AddSingleton<IDocumentStore>(_ =>
+            services.AddSingleton<IDocumentStore>(_ =>
+            {
+                IDocumentStore store = EmbeddedServer.Instance.GetDocumentStore(configuration["RavenDB:DatabaseName"]!);
+                return store;
+            });
+        }
+        catch (Exception ex)
         {
-            IDocumentStore store = EmbeddedServer.Instance.GetDocumentStore(configuration["RavenDB:DatabaseName"]!);
-            return store;
-        });
+            Console.WriteLine(ex.Message);
+        }
     }
 }

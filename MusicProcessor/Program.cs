@@ -17,8 +17,8 @@ var configuration = new ConfigurationBuilder()
 registrations.AddSingleton<IConfiguration>(configuration);
 registrations.AddScoped<IFileService, FileService>();
 registrations.AddScoped<IAudioService, AudioService>();
-registrations.AddScoped<ISongRepository, SongRepository>();
 registrations.AddRavenDb(configuration);
+registrations.AddScoped<ISongRepository, SongRepository>();
 
 var registrar = new MyTypeRegistrar(registrations);
 

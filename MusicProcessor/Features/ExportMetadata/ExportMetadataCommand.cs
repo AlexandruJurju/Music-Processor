@@ -25,14 +25,14 @@ public sealed class ExportMetadataCommand(
             physicalSongs.Add(song);
         }
 
-        var songs = await songRepository.GetAllAsync();
-        var enumerable = songs as Song[] ?? songs.ToArray();
+        var dbSongs = await songRepository.GetAllAsync();
 
-        foreach (var physicalSong in physicalSongs)
+        int counter = 1;
+        foreach (var dbSong in dbSongs)
         {
-            if (enumerable.All(s => s.GetSongKey() != physicalSong.GetSongKey()))
+            if (physicalSongs.All(p => p.GetSongKey() != dbSong.GetSongKey()))
             {
-                Console.WriteLine(physicalSong.GetSongKey());
+                Console.WriteLine($" {counter++}: {dbSong.GetSongKey()}");
             }
         }
 
