@@ -17,9 +17,10 @@ public sealed class MyTypeRegistrar : ITypeRegistrar
         return new MyTypeResolver(_builder.BuildServiceProvider());
     }
 
+    // 👇 Change to Transient (commands and handlers should not be singletons)
     public void Register(Type service, Type implementation)
     {
-        _builder.AddSingleton(service, implementation);
+        _builder.AddTransient(service, implementation);
     }
 
     public void RegisterInstance(Type service, object implementation)
@@ -34,6 +35,6 @@ public sealed class MyTypeRegistrar : ITypeRegistrar
             throw new ArgumentNullException(nameof(func));
         }
 
-        _builder.AddSingleton(service, (provider) => func());
+        _builder.AddTransient(service, _ => func());
     }
 }

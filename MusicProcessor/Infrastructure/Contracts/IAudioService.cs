@@ -1,6 +1,8 @@
-﻿namespace MusicProcessor.Infrastructure.Contracts;
+﻿using MusicProcessor.Domain;
+
+namespace MusicProcessor.Infrastructure.Contracts;
 
 public interface IAudioService
 {
-    
+    Task<Song> ReadMetadataAsync(string songFilePath);
 }

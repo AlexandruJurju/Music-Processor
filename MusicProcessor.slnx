@@ -1,0 +1,12 @@
+﻿<Solution>
+  <Folder Name="/OLD/">
+    <Project Path="MusicProcessor.Application\MusicProcessor.Application.csproj" Type="Classic C#" />
+    <Project Path="MusicProcessor.Console\MusicProcessor.Console.csproj" Type="Classic C#" />
+    <Project Path="MusicProcessor.Domain\MusicProcessor.Domain.csproj" Type="Classic C#" />
+    <Project Path="MusicProcessor.Infrastructure\MusicProcessor.Infrastructure.csproj" Type="Classic C#" />
+  </Folder>
+  <Folder Name="/Solution Items/">
+    <File Path="Directory.Build.props" />
+  </Folder>
+  <Project Path="MusicProcessor\MusicProcessor.csproj" Type="Classic C#" />
+</Solution>

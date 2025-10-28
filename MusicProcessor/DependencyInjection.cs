@@ -7,7 +7,6 @@ namespace MusicProcessor;
 
 public static class DependencyInjection
 {
-
     public static void AddRavenDb(this IServiceCollection services, IConfiguration configuration)
     {
         EmbeddedServer.Instance.StartServer(new ServerOptions
